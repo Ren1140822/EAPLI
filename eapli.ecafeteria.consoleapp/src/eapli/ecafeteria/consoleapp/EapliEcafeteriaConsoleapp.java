@@ -5,17 +5,19 @@
  */
 package eapli.ecafeteria.consoleapp;
 
+import eapli.ecafeteria.presentation.MainMenu;
+
 /**
  *
  * @author pgsou_000
  */
-public class EapliEcafeteriaConsoleapp {
+public final class EapliEcafeteriaConsoleapp {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        final MainMenu menu = new MainMenu();
+        menu.mainLoop();
     }
-    
 }
