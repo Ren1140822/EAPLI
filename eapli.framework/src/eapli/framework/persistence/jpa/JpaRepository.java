@@ -247,7 +247,7 @@ public abstract class JpaRepository<T, ID extends Serializable> {
                 "SELECT e FROM " + entityClass.getSimpleName() + " e");
         q.setMaxResults(n);
 
-        return q.getResultList();
+        return (List<T>)q.getResultList();
     }
 
     public T first() {
@@ -265,7 +265,7 @@ public abstract class JpaRepository<T, ID extends Serializable> {
         q.setMaxResults(pageSize);
         q.setFirstResult((pageNumber - 1) * pageSize);
 
-        return q.getResultList();
+        return (List<T>)q.getResultList();
     }
 
     private class JpaPagedIterator implements Iterator<T> {
