@@ -268,7 +268,7 @@ public abstract class JpaRepository<T, ID extends Serializable> {
         return q.getResultList();
     }
 
-    private class JpaPagedIterator<T> implements Iterator<T> {
+    private class JpaPagedIterator implements Iterator<T> {
 
         private final JpaRepository<T, ID> repository;
         private final int pageSize;
@@ -318,11 +318,11 @@ public abstract class JpaRepository<T, ID extends Serializable> {
      * @return
      */
     public Iterator<T> iterator(int pagesize) {
-        return new JpaPagedIterator<T>(this, pagesize);
+        return new JpaPagedIterator(this, pagesize);
     }
 
     public Iterator<T> iterator() {
-        return new JpaPagedIterator<T>(this, DEFAULT_PAGESIZE);
+        return new JpaPagedIterator(this, DEFAULT_PAGESIZE);
     }
 
     public List<T> all() {

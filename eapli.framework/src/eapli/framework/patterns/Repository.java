@@ -18,7 +18,7 @@ import java.util.List;
  * @param <T> the type of the entity
  * @param <ID> the type of the entity's ID
  */
-public interface Repository<T extends AggregateRoot, ID extends Serializable>
+public interface Repository<T extends AggregateRoot<?>, ID extends Serializable>
         extends List<T> {
 
     /**
