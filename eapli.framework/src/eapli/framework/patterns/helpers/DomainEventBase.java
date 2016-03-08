@@ -5,7 +5,7 @@
  */
 package eapli.framework.patterns.helpers;
 
-import eapli.framework.patterns.DomainEvent;
+import eapli.framework.patterns.domain.DomainEvent;
 import eapli.util.DateTime;
 import java.util.Calendar;
 
@@ -15,21 +15,21 @@ import java.util.Calendar;
  */
 public abstract class DomainEventBase implements DomainEvent {
 
-	private final Calendar occuredAt;
-	private final Calendar registeredAt;
+    private final Calendar occuredAt;
+    private final Calendar registeredAt;
 
-	public DomainEventBase(Calendar occuredAt) {
-		this.occuredAt = occuredAt;
-		this.registeredAt = DateTime.now();
-	}
+    public DomainEventBase(Calendar occuredAt) {
+        this.occuredAt = occuredAt;
+        this.registeredAt = DateTime.now();
+    }
 
-	@Override
-	public Calendar occurredAt() {
-		return occuredAt;
-	}
+    @Override
+    public Calendar occurredAt() {
+        return occuredAt;
+    }
 
-	@Override
-	public Calendar registeredAt() {
-		return registeredAt;
-	}
+    @Override
+    public Calendar registeredAt() {
+        return registeredAt;
+    }
 }

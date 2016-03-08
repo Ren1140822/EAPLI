@@ -2,18 +2,18 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package eapli.framework.persistence.activerecord;
+package eapli.framework.patterns.persistence.activerecord;
 
 /**
  *
  * @author Paulo Gandra Sousa
  */
 public interface DeleteableActiveRecord extends ActiveRecord {
+
     /*
      * deletes the current object from the persistence store. the object in memory
      * no longer becomes managed by the repository
      */
-
     void delete();
 
     /**

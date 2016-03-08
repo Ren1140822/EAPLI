@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package eapli.framework.presentation;
+package eapli.framework.presentation.console;
 
-import eapli.framework.visitor.Visitor;
+import eapli.framework.patterns.visitor.Visitor;
 import eapli.util.Console;
 import java.util.List;
 

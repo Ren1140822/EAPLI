@@ -5,7 +5,7 @@
 package eapli.framework;
 
 /**
- * the interface for all controllers
+ * A marker interface for all controllers
  *
  * @author Paulo Gandra Sousa
  */

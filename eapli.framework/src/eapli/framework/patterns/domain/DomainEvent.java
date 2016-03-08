@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eapli.framework.patterns;
+package eapli.framework.patterns.domain;
 
 import java.util.Calendar;
 
 /**
- * a Domain event is a domain/driven design pattern to signal significant events
+ * A Domain event is a domain/driven design pattern to signal significant events
  * that happened in the domain.
  *
  * these are not technical issues/events but meaningful domain concepts

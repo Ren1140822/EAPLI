@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package eapli.framework.persistence.activerecord;
+package eapli.framework.patterns.persistence.activerecord;
 
 /**
  * An interface to mark a class as an Active Record.
@@ -13,10 +13,10 @@ package eapli.framework.persistence.activerecord;
  * @author Paulo Gandra Sousa
  */
 public interface ActiveRecord {
+
     /*
      * save the current object to the persistence store either by creating it or
      * updating it
      */
-
     void save();
 }

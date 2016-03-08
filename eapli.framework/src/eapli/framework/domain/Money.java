@@ -1,6 +1,6 @@
 package eapli.framework.domain;
 
-import eapli.framework.patterns.ValueObject;
+import eapli.framework.patterns.domain.ValueObject;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Currency;

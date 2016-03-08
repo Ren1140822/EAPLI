@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eapli.framework.patterns;
+package eapli.framework.patterns.domain;
 
 /**
  * An aggregate root is a Domain-Driven Design pattern for defining scopes of

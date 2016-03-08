@@ -32,9 +32,9 @@ import javax.persistence.Query;
  * implementation patterns</a>
  *
  * @param <T>  the entity type that we want to build a repository for
- * @param <ID> the key type of the entity
+ * @param <K> the key type of the entity
  */
-public abstract class JpaRepository<T, ID extends Serializable> {
+public abstract class JpaRepository<T, K extends Serializable> {
 
     @PersistenceUnit
     private static EntityManagerFactory emFactory;
@@ -78,22 +78,22 @@ public abstract class JpaRepository<T, ID extends Serializable> {
     }
 
     /**
-     * reads an entity given its ID
+     * reads an entity given its K
      *
      * @param id
      * @return
      */
-    public T read(ID id) {
+    public T read(K id) {
         return this.entityManager().find(entityClass, id);
     }
 
     /**
-     * reads an entity given its ID
+     * reads an entity given its K
      *
      * @param id
      * @return
      */
-    public T findById(ID id) {
+    public T findById(K id) {
         return read(id);
     }
 
@@ -124,12 +124,12 @@ public abstract class JpaRepository<T, ID extends Serializable> {
     }
 
     /**
-     * checks for the existence of an entity with the provided ID.
+     * checks for the existence of an entity with the provided K.
      *
      * @param key
      * @return
      */
-    boolean containsEntity(ID key) {
+    boolean containsEntity(K key) {
         return findById(key) != null;
     }
 
@@ -270,12 +270,12 @@ public abstract class JpaRepository<T, ID extends Serializable> {
 
     private class JpaPagedIterator implements Iterator<T> {
 
-        private final JpaRepository<T, ID> repository;
+        private final JpaRepository<T, K> repository;
         private final int pageSize;
         private int currentPageNumber;
         private Iterator<T> currentPage;
 
-        private JpaPagedIterator(JpaRepository<T, ID> repository, int pagesize) {
+        private JpaPagedIterator(JpaRepository<T, K> repository, int pagesize) {
             this.repository = repository;
             this.pageSize = pagesize;
         }

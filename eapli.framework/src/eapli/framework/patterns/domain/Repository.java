@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eapli.framework.patterns;
+package eapli.framework.patterns.domain;
 
 import java.io.Serializable;
 import java.util.List;
 
 /**
- * a repository is a domain-driven design pattern to abstract the details of
+ * A repository is a domain-driven design pattern to abstract the details of
  * persisting domain objects. it exposes a pure domain based interface without
  * leaking details of the implementation of the actual persistence mechanism.
  * there should be one repository per aggregate root only
@@ -80,7 +80,7 @@ public interface Repository<T extends AggregateRoot<?>, ID extends Serializable>
      * merge()
      *
      * @param entity
-     * @return the persisted entity - migth be a diferent object than the
+     * @return the persisted entity - might be a different object than the
      * parameter
      */
     T save(T entity);

@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eapli.framework.patterns;
+package eapli.framework.patterns.domain;
 
 /**
- * an entity is a Domain-Driven Design pattern for concepts in the domain which
+ * An entity is a Domain-Driven Design pattern for concepts in the domain which
  * have a thread of continuity which needs to be tracked. these concepts matter
  * by their identity and we need to track them continuously. instance equality
  * must be done thru the identity of the objects and we cannot loose track or
@@ -30,4 +30,10 @@ public interface DomainEntity<ID> {
      * @return the primary <b>business</b> id of the entity
      */
     ID id();
+
+    @Override
+    public boolean equals(Object other);
+
+    @Override
+    public int hashCode();
 }
