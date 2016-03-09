@@ -14,5 +14,4 @@ public class ExitAction implements Action {
     public boolean execute() {
         return true;
     }
-    
 }

@@ -7,7 +7,7 @@ package eapli.framework.patterns.persistence.repositories;
 import java.util.Iterator;
 
 /**
- * a Repository which can be efficiently iterated.
+ * A Repository which can be efficiently iterated.
  *
  * the implementation class must provide for an efficient iterator over all
  * entities in the repository. this is particular the case for database-backed

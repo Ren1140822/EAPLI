@@ -2,11 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package eapli.framework.persistence.jpa;
+package eapli.framework.persistence.impl.jpa;
 
+import eapli.framework.patterns.persistence.repositories.DeleteableRepository;
+import eapli.framework.patterns.persistence.repositories.IterableRepository;
+import eapli.framework.patterns.persistence.repositories.Repository;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -31,10 +33,11 @@ import javax.persistence.Query;
  * href="http://blog.xebia.com/tag/jpa-implementation-patterns/">JPA
  * implementation patterns</a>
  *
- * @param <T>  the entity type that we want to build a repository for
+ * @param <T> the entity type that we want to build a repository for
  * @param <K> the key type of the entity
  */
-public abstract class JpaRepository<T, K extends Serializable> {
+public abstract class JpaRepository<T, K extends Serializable>
+        implements Repository<T, K>, IterableRepository<T, K>, DeleteableRepository<T, K> {
 
     @PersistenceUnit
     private static EntityManagerFactory emFactory;
@@ -113,6 +116,19 @@ public abstract class JpaRepository<T, K extends Serializable> {
     }
 
     /**
+     * Removes the entity with the specified ID from the repository.
+     *
+     * @param entityId
+     * @throws UnsuportedOperationException if the delete operation makes no
+     * sense for this repository
+     */
+    public void deleteById(K entityId) {
+        // TODO this is not efficient...
+        T entity = findById(entityId);
+        delete(entity);
+    }
+
+    /**
      * returns the number of entities in the persistence store
      *
      * @return the number of entities in the persistence store
@@ -131,15 +147,6 @@ public abstract class JpaRepository<T, K extends Serializable> {
      */
     boolean containsEntity(K key) {
         return findById(key) != null;
-    }
-
-    // TODO since repositories should mimic lists this method should not exist
-    // and the class should implement iterator()
-    @SuppressWarnings("unchecked")
-    public Collection<T> findAll() {
-        return entityManager().createQuery(
-                "SELECT e FROM " + entityClass.getSimpleName() + " e")
-                .getResultList();
     }
 
     /**
@@ -172,15 +179,14 @@ public abstract class JpaRepository<T, K extends Serializable> {
             tx.begin();
             em.persist(entity);
             tx.commit();
-        }
-        finally {
+        } finally {
             em.close();
         }
         return true;
     }
 
     /**
-     * inserts or updates an entity <b>and commits</b>.
+     * Inserts or updates an entity <b>and commits</b>.
      *
      * note that you should reference the return value to use the persisted
      * entity, as the original object passed as argument might be copied to a
@@ -194,7 +200,7 @@ public abstract class JpaRepository<T, K extends Serializable> {
      *
      * @param entity
      * @return the persisted entity - might be a different object than the
-     *         parameter
+     * parameter
      */
     public T save(T entity) {
         if (entity == null) {
@@ -215,8 +221,7 @@ public abstract class JpaRepository<T, K extends Serializable> {
                 tx.begin();
                 em.persist(entity);
                 tx.commit();
-            }
-            catch (PersistenceException ex) {
+            } catch (PersistenceException ex) {
                 // we need to set up a new transaction if persist() raises an
                 // exception
                 tx = em.getTransaction();
@@ -224,8 +229,7 @@ public abstract class JpaRepository<T, K extends Serializable> {
                 entity = em.merge(entity);
                 tx.commit();
             }
-        }
-        finally {
+        } finally {
             // we are closing the entity manager here because this code is runing in
             // a non-container managed way. if it was the case to be runing under an
             // application server with a JPA container and managed transactions/sessions,
@@ -247,7 +251,7 @@ public abstract class JpaRepository<T, K extends Serializable> {
                 "SELECT e FROM " + entityClass.getSimpleName() + " e");
         q.setMaxResults(n);
 
-        return (List<T>)q.getResultList();
+        return (List<T>) q.getResultList();
     }
 
     public T first() {
@@ -265,7 +269,7 @@ public abstract class JpaRepository<T, K extends Serializable> {
         q.setMaxResults(pageSize);
         q.setFirstResult((pageNumber - 1) * pageSize);
 
-        return (List<T>)q.getResultList();
+        return (List<T>) q.getResultList();
     }
 
     private class JpaPagedIterator implements Iterator<T> {
@@ -328,15 +332,6 @@ public abstract class JpaRepository<T, K extends Serializable> {
     public List<T> all() {
         // TODO check performance impact of this 'where' clause
         return match("1=1");
-
-        // EntityManager em = entityManager();
-        // assert em != null;
-        //
-        // String tableName = entityClass.getName();
-        // //entityClass.getAnnotation(Table.class).name();
-        // Query q = em.createQuery("SELECT it FROM " + tableName + " it");
-        // List<T> all = q.getResultList();
-        // return all;
     }
 
     /**
@@ -356,7 +351,7 @@ public abstract class JpaRepository<T, K extends Serializable> {
     }
 
     /**
-     * derived classes should implement this method to return the name of the
+     * Derived classes should implement this method to return the name of the
      * persistence unit
      *
      * @return the name of the persistence unit

@@ -7,9 +7,9 @@ package eapli.framework.patterns.persistence.repositories;
 import java.util.List;
 
 /**
- * a generic interface for repositories.
+ * A generic interface for repositories.
  *
- * @param T  the class we want to manage in the repository
+ * @param T the class we want to manage in the repository
  * @param PK the class denoting the primary key of the entity
  * @author Paulo Gandra Sousa
  */

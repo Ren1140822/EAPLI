@@ -70,14 +70,8 @@ public interface Repository<T extends AggregateRoot<?>, ID extends Serializable>
      */
     T read(ID id);
 
-    //T findById(PK id);
     /**
      * inserts or updates an entity
-     *
-     * check
-     * http://blog.xebia.com/2009/03/23/jpa-implementation-patterns-saving-
-     * detached-entities/ for a discussion on saveOrUpdate() behaviour and
-     * merge()
      *
      * @param entity
      * @return the persisted entity - might be a different object than the

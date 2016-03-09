@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package eapli.framework.domain;
+package eapli.framework.patterns.domain;
 
 /**
- * a generic interface for checking if an object is identified by a certain T
+ * A generic interface for checking if an object is identified by a certain T
  *
  * @author Paulo Gandra Sousa
  * @param <T>

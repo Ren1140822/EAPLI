@@ -14,5 +14,4 @@ public class ReturnAction implements Action {
     public boolean execute() {
         return true;
     }
-    
 }

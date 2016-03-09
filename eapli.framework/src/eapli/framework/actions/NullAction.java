@@ -11,16 +11,16 @@ package eapli.framework.actions;
 public class NullAction implements Action {
 
     private static final NullAction theInstance = new NullAction();
-    
+
     public static NullAction getInstance() {
-		return theInstance;
-	}
-    
-    private NullAction() {}
-    
+        return theInstance;
+    }
+
+    private NullAction() {
+    }
+
     @Override
     public boolean execute() {
         return false;
     }
-    
 }
