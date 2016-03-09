@@ -27,8 +27,8 @@ public final class Strings {
      * returns an XML formated output.
      * <p>
      * based in code from
-     * http://stackoverflow.com/questions/139076/how-to-pretty
-     * -print-xml-from-java
+     * <a href="http://stackoverflow.com/questions/139076/how-to-pretty-print-xml-from-java">stack
+     * overflow</a>
      *
      * @param input
      * @param indent

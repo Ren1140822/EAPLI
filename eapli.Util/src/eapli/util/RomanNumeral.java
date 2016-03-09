@@ -161,5 +161,4 @@ public class RomanNumeral {
     public int toInt() {
         return num;
     }
-
 }

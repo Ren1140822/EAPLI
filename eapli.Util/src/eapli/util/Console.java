@@ -15,7 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * utility class for reading different data types fro the Console.
+ * Utility class for reading different data types from the Console.
  *
  * based on code from Nuno Silva
  *
@@ -31,7 +31,9 @@ public final class Console {
             BufferedReader in = new BufferedReader(converter);
 
             return in.readLine();
-        } catch (IOException e) {
+        } catch (IOException ex) {
+            Logger.getLogger(Console.class.getName()).log(Level.WARNING,
+                    null, ex);
             return null;
         }
     }
@@ -44,7 +46,7 @@ public final class Console {
 
                 return valor;
             } catch (NumberFormatException ex) {
-                Logger.getLogger(Console.class.getName()).log(Level.SEVERE,
+                Logger.getLogger(Console.class.getName()).log(Level.WARNING,
                         null, ex);
             }
         } while (true);
@@ -60,7 +62,7 @@ public final class Console {
                     return false;
                 }
             } catch (NumberFormatException ex) {
-                Logger.getLogger(Console.class.getName()).log(Level.SEVERE,
+                Logger.getLogger(Console.class.getName()).log(Level.WARNING,
                         null, ex);
             }
         } while (true);
@@ -78,30 +80,38 @@ public final class Console {
     }
 
     public static Date readDate(String prompt) {
+        return readDate(prompt, "dd-MM-yyyy");
+    }
+
+    public static Date readDate(String prompt, String dateFormat) {
         do {
             try {
                 String strDate = readLine(prompt);
-                SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                SimpleDateFormat df = new SimpleDateFormat(dateFormat);
                 Date date = df.parse(strDate);
 
                 return date;
             } catch (ParseException ex) {
-                Logger.getLogger(Console.class.getName()).log(Level.SEVERE,
+                Logger.getLogger(Console.class.getName()).log(Level.WARNING,
                         null, ex);
             }
         } while (true);
     }
 
     public static Calendar readCalendar(String prompt) {
+        return readCalendar(prompt, "dd-MM-yyyy");
+    }
+
+    public static Calendar readCalendar(String prompt, String dateFormat) {
         do {
             try {
                 String strDate = readLine(prompt);
-                SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                SimpleDateFormat df = new SimpleDateFormat(dateFormat);
                 Calendar date = DateTime.dateToCalendar(df.parse(strDate));
 
                 return date;
             } catch (ParseException ex) {
-                Logger.getLogger(Console.class.getName()).log(Level.SEVERE,
+                Logger.getLogger(Console.class.getName()).log(Level.WARNING,
                         null, ex);
             }
         } while (true);
@@ -115,7 +125,7 @@ public final class Console {
 
                 return valor;
             } catch (NumberFormatException ex) {
-                Logger.getLogger(Console.class.getName()).log(Level.SEVERE,
+                Logger.getLogger(Console.class.getName()).log(Level.WARNING,
                         null, ex);
             }
         } while (true);
@@ -126,12 +136,12 @@ public final class Console {
         try {
             System.in.read();
         } catch (IOException ex) {
-            Logger.getLogger(Console.class.getName()).log(Level.SEVERE, null,
+            Logger.getLogger(Console.class.getName()).log(Level.WARNING, null,
                     ex);
         }
     }
 
     private Console() {
-        // to make sure thi is an utility class
+        // to make sure this is an utility class
     }
 }

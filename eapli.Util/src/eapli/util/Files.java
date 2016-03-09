@@ -10,7 +10,7 @@ package eapli.util;
  */
 public final class Files {
 
-    public static String getCurrentDirectory() {
+    public static String currentDirectory() {
         return new java.io.File(".").getAbsolutePath();
     }
 

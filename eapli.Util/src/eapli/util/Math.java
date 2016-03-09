@@ -41,8 +41,7 @@ public final class Math {
      * @return
      */
     public static boolean isPrime(final int number) {
-        // check if n is a multiple of 2
-        if (number % 2 == 0) {
+        if (isEven(number)) {
             return false;
         }
         // if not, then just check the odds
@@ -72,7 +71,6 @@ public final class Math {
         float new_value = ((oldValue - oldMin) / (oldMax - oldMin))
                 * (newMax - newMin) + newMin;
         return new_value;
-
     }
 
     /**

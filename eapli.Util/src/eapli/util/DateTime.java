@@ -168,7 +168,11 @@ public final class DateTime {
 //		return dateOcurred.toLocaleString();
 //	}
     public static String format(final Calendar ocurrs) {
-        final SimpleDateFormat formater = new SimpleDateFormat("YYYY/MM/DD");
+        return format(ocurrs, "YYYY/MM/DD");
+    }
+
+    public static String format(final Calendar ocurrs, String dateFormat) {
+        final SimpleDateFormat formater = new SimpleDateFormat(dateFormat);
         return formater.format(ocurrs.getTime());
     }
 
