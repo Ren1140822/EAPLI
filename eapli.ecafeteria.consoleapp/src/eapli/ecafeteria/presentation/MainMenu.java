@@ -5,13 +5,13 @@
  */
 package eapli.ecafeteria.presentation;
 
-import eapli.framework.Controller;
+import eapli.framework.patterns.application.Controller;
 import eapli.framework.actions.ReturnAction;
-import eapli.framework.presentation.AbstractUI;
-import eapli.framework.presentation.Menu;
-import eapli.framework.presentation.MenuItem;
-import eapli.framework.presentation.MenuSeparator;
-import eapli.framework.presentation.SubMenu;
+import eapli.framework.presentation.console.AbstractUI;
+import eapli.framework.presentation.console.Menu;
+import eapli.framework.presentation.console.MenuItem;
+import eapli.framework.presentation.console.MenuSeparator;
+import eapli.framework.presentation.console.SubMenu;
 
 /**
  *
