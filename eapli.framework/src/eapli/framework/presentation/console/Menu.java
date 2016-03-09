@@ -16,9 +16,9 @@ import java.util.Map;
  */
 public class Menu {
 
-    String title;
-    List<MenuItem> itens = new ArrayList<MenuItem>();
-    Map<Integer, MenuItem> itemByOption = new HashMap<Integer, MenuItem>();
+    private String title;
+    private List<MenuItem> itens = new ArrayList<MenuItem>();
+    private Map<Integer, MenuItem> itemByOption = new HashMap<Integer, MenuItem>();
 
     public Menu() {
     }
@@ -27,12 +27,12 @@ public class Menu {
         this.title = title;
     }
 
-    public void addMenuItem(MenuItem item) {
+    public void add(MenuItem item) {
         if (item == null) {
             throw new IllegalArgumentException();
         }
         itens.add(item);
-        itemByOption.put(item.option, item);
+        itemByOption.put(item.option(), item);
     }
 
     public boolean show() {
@@ -46,5 +46,9 @@ public class Menu {
             item = itemByOption.get(option);
         } while (item == null);
         return item.select();
+    }
+
+    public String title() {
+        return title;
     }
 }

@@ -12,16 +12,16 @@ import eapli.framework.actions.Action;
  */
 public class SubMenuAction implements Action {
 
-	Menu menu;
+    private Menu menu;
 
-	public SubMenuAction(Menu menu) {
-		this.menu = menu;
-	}
+    public SubMenuAction(Menu menu) {
+        this.menu = menu;
+    }
 
-	@Override
-	public boolean execute() {
-		System.out.println("\n>> " + menu.title);
-		menu.show();
-		return false;
-	}
+    @Override
+    public boolean execute() {
+        System.out.println("\n>> " + menu.title());
+        menu.show();
+        return false;
+    }
 }

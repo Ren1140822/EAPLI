@@ -11,13 +11,13 @@ import eapli.framework.actions.NullAction;
  * @author Paulo Gandra Sousa
  */
 public class MenuSeparator extends MenuItem {
-    
+
     public MenuSeparator() {
         super(-1, "------------------", NullAction.getInstance());
     }
-    
+
     @Override
     public void show() {
-        System.out.println(text);
+        System.out.println(text());
     }
 }

@@ -11,7 +11,6 @@ import java.util.List;
  *
  * @author Paulo Gandra Sousa
  */
-
 /**
  *
  * @author Paulo Gandra Sousa
@@ -19,25 +18,24 @@ import java.util.List;
  */
 public class ListWidget<T> {
 
-    List<T> source;
-    Visitor<T> visitor;
-    
-    int position = 0;
+    private List<T> source;
+    private Visitor<T> visitor;
 
     public ListWidget(List<T> source, Visitor<T> visitor) {
-		this.source = source;
-		this.visitor = visitor;
-	}
+        this.source = source;
+        this.visitor = visitor;
+    }
 
     public void show() {
-		for (T et : source) {
-			position++;
-			System.out.print(position + ". ");
-			visitor.visit(et);
-		}
-	}
+        int position = 0;
+        for (T et : source) {
+            position++;
+            System.out.print(position + ". ");
+            visitor.visit(et);
+        }
+    }
 
-    protected int numberOfPositions() {
-        return position;
+    protected int size() {
+        return source.size();
     }
 }

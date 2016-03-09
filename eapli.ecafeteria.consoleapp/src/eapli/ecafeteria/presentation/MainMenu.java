@@ -51,7 +51,7 @@ public class MainMenu extends AbstractUI {
         Menu menu = new Menu("Listings...");
 
         //TODO add menu options
-        menu.addMenuItem(new MenuItem(EXIT_OPTION, "Return", new ReturnAction()));
+        menu.add(new MenuItem(EXIT_OPTION, "Return", new ReturnAction()));
 
         return menu;
     }
@@ -60,7 +60,7 @@ public class MainMenu extends AbstractUI {
         Menu menu = new Menu("Master tables...");
 
         //TODO add menu options
-        menu.addMenuItem(new MenuItem(EXIT_OPTION, "Return ",
+        menu.add(new MenuItem(EXIT_OPTION, "Return ",
                 new ReturnAction()));
 
         return menu;
@@ -70,17 +70,17 @@ public class MainMenu extends AbstractUI {
         Menu menu = new Menu();
 
         //TODO add menu options
-        menu.addMenuItem(new MenuSeparator());
+        menu.add(new MenuSeparator());
 
         //TODO add menu options
-        menu.addMenuItem(new MenuSeparator());
+        menu.add(new MenuSeparator());
 
-        menu.addMenuItem(new SubMenu(LISTINGS_OPTION, buildListingsMenu()));
+        menu.add(new SubMenu(LISTINGS_OPTION, buildListingsMenu()));
 
-        menu.addMenuItem(new SubMenu(MASTER_TABLES_OPTION,
+        menu.add(new SubMenu(MASTER_TABLES_OPTION,
                 buildMasterTablesMenu()));
 
-        menu.addMenuItem(new MenuItem(EXIT_OPTION, "Exit",
+        menu.add(new MenuItem(EXIT_OPTION, "Exit",
                 new ExitWithMessageAction()));
 
         return menu;

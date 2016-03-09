@@ -12,25 +12,25 @@ import java.util.List;
  *
  * @author Paulo Gandra Sousa
  */
-
 /**
  *
  * @author Paulo Gandra Sousa
  * @param <T>
  */
 public class SelectWidget<T> extends ListWidget<T> {
-    int option = -1;
 
-        public SelectWidget(List<T> source, Visitor<T> visitor) {
-			super(source, visitor);
-		}
+    private int option = -1;
 
-		@Override
+    public SelectWidget(List<T> source, Visitor<T> visitor) {
+        super(source, visitor);
+    }
+
+    @Override
     public void show() {
-		super.show();
-		System.out.println("0. Exit");
-		option = Console.readOption(1, numberOfPositions(), 0);
-	}
+        super.show();
+        System.out.println("0. Exit");
+        option = Console.readOption(1, size(), 0);
+    }
 
     /**
      *

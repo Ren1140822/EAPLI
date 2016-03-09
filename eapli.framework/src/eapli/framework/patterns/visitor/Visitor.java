@@ -11,9 +11,9 @@ package eapli.framework.patterns.visitor;
  */
 public interface Visitor<T> {
 
-	void visit(T visited);
+    void visit(T visited);
 
-	public void beforeVisiting(T visited);
+    public void beforeVisiting(T visited);
 
-	public void afterVisiting(T visited);
+    public void afterVisiting(T visited);
 }

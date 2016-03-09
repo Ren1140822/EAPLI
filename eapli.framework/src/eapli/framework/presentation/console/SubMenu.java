@@ -6,11 +6,12 @@ package eapli.framework.presentation.console;
 
 /**
  * allows for the composition of menus (Composite pattern)
- * 
+ *
  * @author Paulo Gandra Sousa
  */
 public class SubMenu extends MenuItem {
+
     public SubMenu(int option, Menu menu) {
-        super(option, menu.title, new SubMenuAction(menu));
+        super(option, menu.title(), new SubMenuAction(menu));
     }
 }
