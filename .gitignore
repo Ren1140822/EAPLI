@@ -97,3 +97,7 @@ hs_err_pid*
 /db
 /eapli.ecafeteria.core/nbproject/private/
 /eapli.ecafeteria.consoleapp/nbproject/private/
+/framework/target/
+/util/target/
+/ecafeteria.core/target/
+/ecafeteria.consoleapp/target/
