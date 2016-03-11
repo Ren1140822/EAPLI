@@ -42,7 +42,7 @@ public class ClosedRangeTest extends AbstractRangeTest {
     @Test
     public void ensureStartIsInRange() {
         System.out.println("ensureStartIsInRange");
-        Comparable target = new Long(START_VALUE);
+        Long target = new Long(START_VALUE);
         boolean result = instance.includes(target);
         assertTrue("start must be part of a closed range", result);
     }
@@ -50,7 +50,7 @@ public class ClosedRangeTest extends AbstractRangeTest {
     @Test
     public void ensureEndIsInRange() {
         System.out.println("ensureEndIsInRange");
-        Comparable target = new Long(END_VALUE);
+        Long target = new Long(END_VALUE);
         boolean result = instance.includes(target);
         assertTrue("end must be part of a closed range", result);
     }

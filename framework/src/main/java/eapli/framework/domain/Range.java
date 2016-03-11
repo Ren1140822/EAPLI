@@ -11,27 +11,27 @@ import eapli.framework.patterns.domain.ValueObject;
  *
  * @author pgsou_000
  */
-public class Range implements ValueObject {
+public class Range<T extends Comparable<T>> implements ValueObject {
 
-    private final Comparable start;
-    private final Comparable end;
+    private final T start;
+    private final T end;
     private final boolean openStart;
     private final boolean openEnd;
 
-    public static Range openRange(Comparable start, Comparable end) {
-        return new Range(start, end, true, true);
+    public static<T extends Comparable<T>> Range<T> openRange(T start, T end) {
+        return new Range<T>(start, end, true, true);
     }
 
-    public static Range closedRange(Comparable start, Comparable end) {
-        return new Range(start, end, false, false);
+    public static<T extends Comparable<T>> Range<T> closedRange(T start, T end) {
+        return new Range<T>(start, end, false, false);
 
     }
 
-    public static Range openEnded(Comparable start, Comparable end) {
-        return new Range(start, end, false, true);
+    public static<T extends Comparable<T>> Range<T> openEnded(T start, T end) {
+        return new Range<T>(start, end, false, true);
     }
 
-    public Range(Comparable start, Comparable end, boolean openStart, boolean openEnd) {
+    public Range(T start, T end, boolean openStart, boolean openEnd) {
         if (end.compareTo(start) < 0) {
             throw new IllegalStateException("The end value of a range must be bigger than its start");
         }
@@ -45,7 +45,7 @@ public class Range implements ValueObject {
         this.openEnd = openEnd;
     }
 
-    boolean includes(Comparable target) {
+    boolean includes(T target) {
         if (target.compareTo(start) < 0 || target.compareTo(end) > 0) {
             return false;
         }

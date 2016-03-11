@@ -17,8 +17,7 @@ public class AbstractRangeTest {
     protected static final int START_VALUE = 5;
     protected static final int DELTA_VALUE = 5;
     protected static final int END_VALUE = START_VALUE + DELTA_VALUE;
-    protected static final Comparable START = new Long(START_VALUE);
-    protected static final Comparable END = new Long(END_VALUE);
-    protected static Range instance;
-
+    protected static final Long START = new Long(START_VALUE);
+    protected static final Long END = new Long(END_VALUE);
+    protected static Range<Long> instance;
 }

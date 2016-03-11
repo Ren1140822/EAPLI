@@ -43,13 +43,14 @@ public class RangeTest extends AbstractRangeTest {
     @Test(expected = IllegalStateException.class)
     public void ensureStartBiggerThanEndIsNotAllowed() {
         System.out.println("ensureStartBiggerThanEndIsNotAllowed");
-        Range iut = Range.openRange(END, START);
+        @SuppressWarnings("unused")
+		Range iut = Range.openRange(END, START);
     }
 
     @Test
     public void ensureLowerIsNotInRange() {
         System.out.println("ensureLowerIsNotInRange");
-        Comparable target = new Long(START_VALUE - DELTA_VALUE);
+        Long target = new Long(START_VALUE - DELTA_VALUE);
         boolean result = instance.includes(target);
         assertFalse("value lower than start cannot be part of an open range", result);
     }
@@ -57,7 +58,7 @@ public class RangeTest extends AbstractRangeTest {
     @Test
     public void ensureUpperIsNotInRange() {
         System.out.println("ensureUpperIsNotInRange");
-        Comparable target = new Long(END_VALUE + DELTA_VALUE);
+        Long target = new Long(END_VALUE + DELTA_VALUE);
         boolean result = instance.includes(target);
         assertFalse("value greater than end cannot be part of an open range", result);
     }
@@ -65,7 +66,7 @@ public class RangeTest extends AbstractRangeTest {
     @Test
     public void ensureMiddleIsInRange() {
         System.out.println("ensureMiddleIsInRange");
-        Comparable target = new Long(START_VALUE + DELTA_VALUE / 2);
+        Long target = new Long(START_VALUE + DELTA_VALUE / 2);
         boolean result = instance.includes(target);
         assertTrue("value in the middle is part of an open range", result);
     }
@@ -73,6 +74,7 @@ public class RangeTest extends AbstractRangeTest {
     @Test(expected = IllegalStateException.class)
     public void ensureEmptyRangeIsNotAllowed() {
         System.out.println("ensureEmptyRangeIsNotAllowed");
-        Range iut = Range.openRange(START, START);
+        @SuppressWarnings("unused")
+		Range iut = Range.openRange(START, START);
     }
 }

@@ -42,7 +42,7 @@ public class OpenRangeTest extends AbstractRangeTest {
     @Test
     public void ensureStartIsNotInRange() {
         System.out.println("ensureStartIsNotInRange");
-        Comparable target = new Long(START_VALUE);
+        Long target = new Long(START_VALUE);
         boolean result = instance.includes(target);
         assertFalse("start cannot be part of an open range", result);
     }
@@ -50,7 +50,7 @@ public class OpenRangeTest extends AbstractRangeTest {
     @Test
     public void ensureEndIsNotInRange() {
         System.out.println("ensureEndIsNotInRange");
-        Comparable target = new Long(END_VALUE);
+        Long target = new Long(END_VALUE);
         boolean result = instance.includes(target);
         assertFalse("end cannot be part of an open range", result);
     }
