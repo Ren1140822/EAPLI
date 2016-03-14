@@ -6,7 +6,7 @@ EAPLI
 
 =======================
 
-This application serves as "play ground" for the lab project of EAPLI.
+This application is part of the lab project for the course EAPLI.
 
 Please check notes.txt for a discussion on design decissions.
 
