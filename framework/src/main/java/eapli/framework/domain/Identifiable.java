@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package eapli.framework.patterns.domain;
+package eapli.framework.domain;
 
 /**
  * A generic interface for checking if an object is identified by a certain T

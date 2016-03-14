@@ -4,7 +4,7 @@
  */
 package eapli.framework.presentation.console;
 
-import eapli.framework.patterns.application.Controller;
+import eapli.framework.application.Controller;
 
 /**
  *

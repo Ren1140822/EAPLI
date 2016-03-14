@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package eapli.framework.patterns.persistence.activerecord;
+package eapli.framework.persistence.activerecord;
 
 import java.util.List;
 

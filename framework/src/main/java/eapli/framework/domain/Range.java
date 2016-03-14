@@ -5,8 +5,6 @@
  */
 package eapli.framework.domain;
 
-import eapli.framework.patterns.domain.ValueObject;
-
 /**
  *
  * @author pgsou_000

@@ -4,4 +4,4 @@
  * @author Paulo Gandra Sousa
  *
  */
-package eapli.framework.patterns.persistence.activerecord;
+package eapli.framework.persistence.activerecord;

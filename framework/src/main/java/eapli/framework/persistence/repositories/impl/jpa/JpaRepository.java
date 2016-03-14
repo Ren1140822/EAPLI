@@ -2,11 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package eapli.framework.persistence.impl.jpa;
+package eapli.framework.persistence.repositories.impl.jpa;
 
-import eapli.framework.patterns.persistence.repositories.DeleteableRepository;
-import eapli.framework.patterns.persistence.repositories.IterableRepository;
-import eapli.framework.patterns.persistence.repositories.Repository;
+import eapli.framework.persistence.repositories.DeleteableRepository;
+import eapli.framework.persistence.repositories.IterableRepository;
+import eapli.framework.persistence.repositories.Repository;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.Iterator;

@@ -6,4 +6,4 @@
  * @author Paulo Gandra Sousa
  *
  */
-package eapli.framework.persistence.impl.jpa;
+package eapli.framework.persistence.repositories.impl.jpa;

@@ -1,6 +1,5 @@
 package eapli.framework.domain;
 
-import eapli.framework.patterns.domain.ValueObject;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;

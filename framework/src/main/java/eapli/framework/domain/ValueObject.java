@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eapli.framework.patterns.domain;
+package eapli.framework.domain;
 
 /**
  * A value object is a Domain-Driven Design pattern for domain concepts which do

@@ -3,4 +3,4 @@
  * @author Paulo Gandra Sousa
  *
  */
-package eapli.framework.patterns.application;
+package eapli.framework.application;

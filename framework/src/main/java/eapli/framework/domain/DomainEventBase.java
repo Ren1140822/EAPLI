@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eapli.framework.patterns.helpers;
+package eapli.framework.domain;
 
-import eapli.framework.patterns.domain.DomainEvent;
+import eapli.framework.domain.DomainEvent;
 import eapli.util.DateTime;
 import java.util.Calendar;
 
