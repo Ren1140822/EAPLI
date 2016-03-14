@@ -5,7 +5,7 @@
  */
 package eapli.ecafeteria.presentation;
 
-import eapli.framework.patterns.application.Controller;
+import eapli.framework.application.Controller;
 import eapli.framework.actions.ReturnAction;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.Menu;
