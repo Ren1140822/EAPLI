@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package eapli.util.math;
 
@@ -15,9 +15,9 @@ public class Vector {
 	};
 
 	public Vector(double[] src, VectorType type) {
-		this.numElems = src.length;
+		numElems = src.length;
 		this.type = type;
-		this.data = Arrays.copyOf(src, numElems);
+		data = Arrays.copyOf(src, numElems);
 	}
 
 	// indexes are 1-based
@@ -27,70 +27,83 @@ public class Vector {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null)
+		if (obj == null) {
 			return false;
-		if (obj.getClass() != Vector.class)
+		}
+		if (obj.getClass() != Vector.class) {
 			return false;
+		}
 
-		Vector other = (Vector) obj;
-		if (this.numElems != other.numElems || this.type != other.type)
+		final Vector other = (Vector) obj;
+		if (numElems != other.numElems || type != other.type) {
 			return false;
-		for (int i = 0; i < numElems; i++)
-			if (this.getAt(i) != other.getAt(i))
+		}
+		for (int i = 0; i < numElems; i++) {
+			if (getAt(i) != other.getAt(i)) {
 				return false;
+			}
+		}
 		return true;
 	}
 
 	public Vector add(Vector b) {
-		if (this.numElems != b.numElems || this.type != b.type)
+		if (numElems != b.numElems || type != b.type) {
 			throw new IllegalStateException();
+		}
 
-		Vector c = new Vector(this.numElems, this.type);
-		for (int i = 0; i < this.numElems; i++)
-			c.putAt(i, this.getAt(i) + b.getAt(i));
+		final Vector c = new Vector(numElems, type);
+		for (int i = 0; i < numElems; i++) {
+			c.putAt(i, getAt(i) + b.getAt(i));
+		}
 		return c;
 	}
 
 	public Vector subtract(Vector b) {
-		if (this.numElems != b.numElems || this.type != b.type)
+		if (numElems != b.numElems || type != b.type) {
 			throw new IllegalStateException();
+		}
 
-		Vector c = new Vector(this.numElems, this.type);
-		for (int i = 0; i < this.numElems; i++)
-			c.putAt(i, this.getAt(i) - b.getAt(i));
+		final Vector c = new Vector(numElems, type);
+		for (int i = 0; i < numElems; i++) {
+			c.putAt(i, getAt(i) - b.getAt(i));
+		}
 		return c;
 	}
 
 	// return the dot product of two vectors
 	public double multiply(Vector B) {
-		if (this.numElems != B.numElems || this.type != B.type)
+		if (numElems != B.numElems || type != B.type) {
 			throw new IllegalStateException();
+		}
 
 		double accum = 0;
-		for (int i = 0; i < this.numElems; i++)
-			accum += (this.getAt(i) * B.getAt(i));
+		for (int i = 0; i < numElems; i++) {
+			accum += (getAt(i) * B.getAt(i));
+		}
 		return accum;
 	}
 
 	// return a new vector obtained by multiplying a vector by a scalar
 	public Vector scale(double k) {
-		Vector c = new Vector(this.numElems, this.type);
-		for (int i = 0; i < this.numElems; i++)
-			c.putAt(i, k * this.getAt(i));
+		final Vector c = new Vector(numElems, type);
+		for (int i = 0; i < numElems; i++) {
+			c.putAt(i, k * getAt(i));
+		}
 		return c;
 	}
 
 	public boolean isUnit() {
 		double accum = 0;
-		for (double x : data)
+		for (final double x : data) {
 			accum += (x * x);
+		}
 		return java.lang.Math.sqrt(accum) == 1.0;
 	}
 
 	Vector(int numElems, VectorType type) {
 		this.numElems = numElems;
 		this.type = type;
-		this.data = new double[numElems];
+		data = new double[numElems];
 	}
 
 	// indexes are 0-based internal
@@ -102,7 +115,7 @@ public class Vector {
 		data[i] = v;
 	}
 
-	private int		   numElems;
-	private double[]   data;
-	private VectorType type;
+	private final int		 numElems;
+	private final double[]	 data;
+	private final VectorType type;
 }

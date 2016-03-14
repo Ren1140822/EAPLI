@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package eapli.util.math;
 
@@ -10,16 +10,16 @@ package eapli.util.math;
 public class Matrix {
 
 	public Matrix(double[][] elems) {
-		this.rows = elems.length + 1;
-		this.cols = elems[0].length + 1;
-		this.data = new double[rows][cols];
+		rows = elems.length + 1;
+		cols = elems[0].length + 1;
+		data = new double[rows][cols];
 		copyData(elems, data);
 	}
 
 	public Matrix(Matrix other) {
-		this.rows = other.data.length + 1;
-		this.cols = other.data[0].length + 1;
-		this.data = new double[rows][cols];
+		rows = other.data.length + 1;
+		cols = other.data[0].length + 1;
+		data = new double[rows][cols];
 		copyData(other.data, data);
 	}
 
@@ -34,7 +34,7 @@ public class Matrix {
 
 	/* creates a square identity matrix */
 	public static Matrix identity(int n) {
-		Matrix id = zero(n, n);
+		final Matrix id = zero(n, n);
 		for (int i = 0; i < n; i++) {
 			// for (int j = 0; j < n; j++)
 			// id.putAt(i, j, 0.0);
@@ -49,99 +49,117 @@ public class Matrix {
 	}
 
 	public Vector row(int index) {
-		if (index < 0 || index >= rows)
+		if (index < 0 || index >= rows) {
 			throw new IllegalArgumentException("index");
-		Vector vec = new Vector(cols, Vector.VectorType.Row);
-		for (int i = 0; i < cols; i++)
-			vec.putAt(i, this.getAt(index, i));
+		}
+		final Vector vec = new Vector(cols, Vector.VectorType.Row);
+		for (int i = 0; i < cols; i++) {
+			vec.putAt(i, getAt(index, i));
+		}
 		return vec;
 	}
 
 	public Vector column(int index) {
-		if (index < 0 || index >= cols)
+		if (index < 0 || index >= cols) {
 			throw new IllegalArgumentException("index");
-		Vector vec = new Vector(rows, Vector.VectorType.Column);
-		for (int i = 0; i < rows; i++)
-			vec.putAt(i, this.getAt(i, index));
+		}
+		final Vector vec = new Vector(rows, Vector.VectorType.Column);
+		for (int i = 0; i < rows; i++) {
+			vec.putAt(i, getAt(i, index));
+		}
 		return vec;
 	}
 
 	/* creates a zero matrix */
 	public static Matrix zero(int r, int c) {
-		Matrix z = new Matrix(r, c);
+		final Matrix z = new Matrix(r, c);
 		return z;
 	}
 
 	/* creates a "zero" matrix with Ats with the same given value */
 	public static Matrix zero(int r, int c, double zero) {
-		Matrix z = new Matrix(r, c);
-		for (int i = 0; i < r; i++)
-			for (int j = 0; j < c; j++)
+		final Matrix z = new Matrix(r, c);
+		for (int i = 0; i < r; i++) {
+			for (int j = 0; j < c; j++) {
 				z.putAt(i, j, zero);
+			}
+		}
 		return z;
 	}
 
 	// return a new matrix obtained by multiplying a matrix by a scalar
 	public Matrix scale(double k) {
-		Matrix c = new Matrix(this.rows, this.cols);
-		for (int i = 0; i < this.rows; i++)
-			for (int j = 0; j < this.cols; j++)
-				c.putAt(i, j, k * this.getAt(i, j));
+		final Matrix c = new Matrix(rows, cols);
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				c.putAt(i, j, k * getAt(i, j));
+			}
+		}
 		return c;
 	}
 
 	/* add two matrices giving a third matrix */
 	public Matrix add(Matrix other) {
-		if (this.rows != other.rows || this.cols != other.cols)
+		if (rows != other.rows || cols != other.cols) {
 			throw new IllegalStateException("matrices must be same dimension");
+		}
 
-		Matrix dest = new Matrix(rows, cols);
+		final Matrix dest = new Matrix(rows, cols);
 
-		for (int i = 0; i < rows; i++)
-			for (int j = 0; j < cols; j++)
-				dest.putAt(i, j, this.getAt(i, j) + other.getAt(i, j));
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				dest.putAt(i, j, getAt(i, j) + other.getAt(i, j));
+			}
+		}
 		return dest;
 	}
 
 	/* subtract two matrices giving a third matrix */
 	public Matrix subtract(Matrix other) {
-		if (this.rows != other.rows || this.cols != other.cols)
+		if (rows != other.rows || cols != other.cols) {
 			throw new IllegalStateException("matrices must be same dimension");
+		}
 
-		Matrix dest = new Matrix(rows, cols);
+		final Matrix dest = new Matrix(rows, cols);
 
-		for (int i = 0; i < rows; i++)
-			for (int j = 0; j < cols; j++)
-				dest.putAt(i, j, this.getAt(i, j) - other.getAt(i, j));
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				dest.putAt(i, j, getAt(i, j) - other.getAt(i, j));
+			}
+		}
 		return dest;
 	}
 
 	/* multiply two matrices giving a third one */
 	public Matrix multiply(Matrix other) {
-		if (this.cols != other.rows)
+		if (cols != other.rows) {
 			throw new IllegalStateException("matrix 1 cols must = matrix 2 rows");
+		}
 
-		Matrix dest = new Matrix(this.rows, other.cols);
+		final Matrix dest = new Matrix(rows, other.cols);
 
-		for (int i = 0; i < this.rows; i++)
+		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < other.cols; j++) {
 				double cellval = 0.0;
-				for (int k = 0; k < this.cols; k++) {
-					cellval += this.getAt(i, k) * other.getAt(k, j);
+				for (int k = 0; k < cols; k++) {
+					cellval += getAt(i, k) * other.getAt(k, j);
 				}
 				dest.putAt(i, j, cellval);
 			}
+		}
 		return dest;
 	}
 
 	/* The trace of a square matrix is the sum of its diagonal elements */
 	public double trace() {
-		if (!isSquare())
+		if (!isSquare()) {
 			throw new IllegalStateException("matrix should be square");
+		}
 
 		double trace = 0;
-		for (int i = 0; i < rows; i++)
+		for (int i = 0; i < rows; i++) {
 			trace += getAt(i, i);
+		}
 		return trace;
 	}
 
@@ -157,23 +175,27 @@ public class Matrix {
 	}
 
 	public Matrix transpose() {
-		Matrix dest = new Matrix(cols, rows);
+		final Matrix dest = new Matrix(cols, rows);
 
-		for (int i = 0; i < rows; i++)
-			for (int j = 0; j < cols; j++)
-				dest.putAt(j, i, this.getAt(i, j));
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				dest.putAt(j, i, getAt(i, j));
+			}
+		}
 		return dest;
 	}
 
 	// returns a diagonal matrix with the same elements in this matrix's
 	// diagonal
 	public Matrix Diagonal() {
-		if (!isSquare())
+		if (!isSquare()) {
 			throw new IllegalStateException("matrix should be square");
+		}
 
-		Matrix diag = zero(rows, cols);
-		for (int i = 0; i < rows; i++)
-			diag.putAt(i, i, this.getAt(i, i));
+		final Matrix diag = zero(rows, cols);
+		for (int i = 0; i < rows; i++) {
+			diag.putAt(i, i, getAt(i, i));
+		}
 		return diag;
 	}
 
@@ -182,11 +204,12 @@ public class Matrix {
 	public Matrix DiagonalElements() {
 		// if (!IsSquare)
 		// throw new InvalidOperationException("matrix should be square");
-		int k = java.lang.Math.min(rows, cols);
+		final int k = java.lang.Math.min(rows, cols);
 
-		Matrix diag = Matrix.zero(1, k + 1);
-		for (int i = 0; i <= k; i++)
-			diag.putAt(0, i, this.getAt(i, i));
+		final Matrix diag = Matrix.zero(1, k + 1);
+		for (int i = 0; i <= k; i++) {
+			diag.putAt(0, i, getAt(i, i));
+		}
 		return diag;
 	}
 
@@ -206,21 +229,24 @@ public class Matrix {
 
 	// indexes are 1-based
 	public Matrix submatrix(int rowToRemove, int colToRemove) {
-		if (rowToRemove <= 0 || rowToRemove > rows)
+		if (rowToRemove <= 0 || rowToRemove > rows) {
 			throw new IllegalArgumentException("rowToRemove");
-		if (colToRemove <= 0 || colToRemove > cols)
+		}
+		if (colToRemove <= 0 || colToRemove > cols) {
 			throw new IllegalArgumentException("colToRemove");
-		if (rows - 1 <= 0 || cols - 1 <= 0)
+		}
+		if (rows - 1 <= 0 || cols - 1 <= 0) {
 			throw new IllegalStateException("cannot remove only row/column");
+		}
 
-		Matrix sub = new Matrix(rows - 1, cols - 1);
+		final Matrix sub = new Matrix(rows - 1, cols - 1);
 		int desti = 0;
 		for (int i = 0; i < rows; i++) {
 			if (i != rowToRemove - 1) {
 				int destj = 0;
 				for (int j = 0; j < cols; j++) {
 					if (j != colToRemove - 1) {
-						sub.putAt(desti, destj, this.getAt(i, j));
+						sub.putAt(desti, destj, getAt(i, j));
 						destj++;
 					}
 				}
@@ -232,95 +258,112 @@ public class Matrix {
 
 	// indexes are 1-based
 	public Matrix submatrix(int startRow, int endRow, int startCol, int endCol) {
-		if (startRow <= 0 || startRow > rows)
+		if (startRow <= 0 || startRow > rows) {
 			throw new IllegalArgumentException("startRow");
-		if (endRow <= startRow || endRow > rows)
+		}
+		if (endRow <= startRow || endRow > rows) {
 			throw new IllegalArgumentException("endRow");
-		if (startCol <= 0 || startCol > cols)
+		}
+		if (startCol <= 0 || startCol > cols) {
 			throw new IllegalArgumentException("startCol");
-		if (endCol <= startCol || endCol > cols)
+		}
+		if (endCol <= startCol || endCol > cols) {
 			throw new IllegalArgumentException("endCol");
+		}
 
-		Matrix sub = new Matrix(endRow - startRow, endCol - startCol);
-		for (int i = startRow - 1; i < endRow; i++)
-			for (int j = startCol - 1; j < endCol; j++)
-				sub.putAt(i - startRow + 1, j - startCol + 1, this.getAt(i, j));
+		final Matrix sub = new Matrix(endRow - startRow, endCol - startCol);
+		for (int i = startRow - 1; i < endRow; i++) {
+			for (int j = startCol - 1; j < endCol; j++) {
+				sub.putAt(i - startRow + 1, j - startCol + 1, getAt(i, j));
+			}
+		}
 		return sub;
 	}
 
 	/* The vector formed by concatenating all the columns of the matrix */
 	public Matrix vectorized() {
-		Matrix vec = new Matrix(rows * cols, 1);
+		final Matrix vec = new Matrix(rows * cols, 1);
 		int k = 0;
-		for (int j = 0; j < cols; j++)
+		for (int j = 0; j < cols; j++) {
 			for (int i = 0; i < rows; i++) {
-				vec.putAt(k, 0, this.getAt(i, j));
+				vec.putAt(k, 0, getAt(i, j));
 				k++;
 			}
+		}
 		return vec;
 	}
 
 	public boolean isUpperDiagonal() {
-		for (int i = 1; i < rows; i++)
-			for (int j = 0; j < i; j++)
-				if (getAt(i, j) != 0)
+		for (int i = 1; i < rows; i++) {
+			for (int j = 0; j < i; j++) {
+				if (getAt(i, j) != 0) {
 					return false;
+				}
+			}
+		}
 		return true;
 	}
 
 	public boolean isLowerDiagonal() {
-		for (int i = 0; i < rows - 1; i++)
-			for (int j = i + 1; j < cols; j++)
-				if (getAt(i, j) != 0)
+		for (int i = 0; i < rows - 1; i++) {
+			for (int j = i + 1; j < cols; j++) {
+				if (getAt(i, j) != 0) {
 					return false;
+				}
+			}
+		}
 		return true;
 	}
 
 	public boolean isInversible() {
 		// X*X' = X'*X = I
 
-		if (!isSquare())
+		if (!isSquare()) {
 			return false;
+		}
 
-		Matrix inv = this.inverse1();
-		Matrix t1 = this.multiply(inv);
+		final Matrix inv = inverse1();
+		final Matrix t1 = multiply(inv);
 		return t1.equals(inv.multiply(this)) && t1.isIdentity();
 	}
 
 	public Matrix inverse2() {
-		if (!isSquare())
+		if (!isSquare()) {
 			throw new IllegalStateException("matrix must be square");
+		}
 
 		// Formula used to Calculate Inverse:
 		// inv(A) = 1/det(A) * adj(A)
-		double det = determinant2();
-		if (det == 0)
+		final double det = determinant2();
+		if (det == 0) {
 			throw new IllegalStateException("Determinant Equals 0, Not Invertible.");
+		}
 
 		return adjoint().scale(1 / det);
 	}
 
 	public Matrix adjoint() {
-		if (!isSquare())
+		if (!isSquare()) {
 			throw new IllegalStateException("matrix must be square");
+		}
 
-		Matrix adj = new Matrix(rows, cols);
+		final Matrix adj = new Matrix(rows, cols);
 
 		int ii, jj, ia, ja;
 		double det;
-		int tms = rows;
+		final int tms = rows;
 
-		for (int i = 0; i < rows; i++)
+		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
 				ia = ja = 0;
 
-				Matrix ap = new Matrix(tms - 1, tms - 1);
+				final Matrix ap = new Matrix(tms - 1, tms - 1);
 
 				for (ii = 0; ii < tms; ii++) {
 					for (jj = 0; jj < tms; jj++) {
 
 						if ((ii != i) && (jj != j)) {
-							ap.putAt(ia, ja, this.getAt(ii, jj));
+							ap.putAt(ia, ja, getAt(ii, jj));
 							ja++;
 						}
 
@@ -334,22 +377,24 @@ public class Matrix {
 				det = ap.determinant2();
 				adj.putAt(i, j, java.lang.Math.pow(-1, i + j) * det);
 			}
+		}
 
 		return adj.transpose();
 	}
 
 	public Matrix upperTriangle() {
-		if (!isSquare())
+		if (!isSquare()) {
 			throw new IllegalStateException("matrix must be square");
+		}
 
 		double f1 = 0;
 		double temp = 0;
-		int tms = rows; // get This Matrix Size
+		final int tms = rows; // get This Matrix Size
 		int v = 1;
 
 		iDF = 1;
 
-		Matrix m = new Matrix(this);
+		final Matrix m = new Matrix(this);
 
 		for (int col = 0; col < tms - 1; col++) {
 			for (int row = col + 1; row < tms; row++) {
@@ -382,7 +427,7 @@ public class Matrix {
 						for (int i = col; i < tms; i++) {
 							m.putAt(row, i, f1 * m.getAt(col, i) + m.getAt(row, i));
 						}
-					} catch (Exception e) {
+					} catch (final Exception e) {
 						// System.out.println("Still Here!!!");
 					}
 				}
@@ -393,7 +438,7 @@ public class Matrix {
 	}
 
 	public double determinant2() {
-		Matrix triang = upperTriangle();
+		final Matrix triang = upperTriangle();
 
 		double det = 1;
 		for (int i = 0; i < rows; i++) {
@@ -424,29 +469,35 @@ public class Matrix {
 	}
 
 	public boolean isDiagonal() {
-		for (int i = 0; i < rows; i++)
+		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
-				if (getAt(i, j) != 0.0 && i != j)
+				if (getAt(i, j) != 0.0 && i != j) {
 					return false;
+				}
 			}
+		}
 		return true;
 	}
 
 	public boolean isDiagonallyDominant() {
-		if (!isSquare())
+		if (!isSquare()) {
 			throw new IllegalStateException();
+		}
 
 		boolean flagIneq = false;
 		for (int i = 0; i < rows; i++) {
 			double accum = 0.0;
 			for (int j = 0; j < cols; j++) {
-				if (i != j)
+				if (i != j) {
 					accum += java.lang.Math.abs(getAt(i, j));
+				}
 			}
-			if (java.lang.Math.abs(data[i][i]) < accum)
+			if (java.lang.Math.abs(data[i][i]) < accum) {
 				return false;
-			if (java.lang.Math.abs(data[i][i]) > accum)
+			}
+			if (java.lang.Math.abs(data[i][i]) > accum) {
 				flagIneq = true;
+			}
 		}
 		return flagIneq;
 	}
@@ -454,43 +505,57 @@ public class Matrix {
 	public boolean isSimetric() {
 		// return this.Equals(this.Transpose());
 
-		if (!isSquare())
+		if (!isSquare()) {
 			throw new IllegalStateException("must be square");
+		}
 
-		for (int i = 0; i < rows; i++)
-			for (int j = 0; j < cols; j++)
-				if (getAt(i, j) != getAt(j, i))
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				if (getAt(i, j) != getAt(j, i)) {
 					return false;
+				}
+			}
+		}
 		return true;
 	}
 
 	public boolean isSkewSimetric() {
 		// return this.Equals(this.Transpose().Scale(-1));
 
-		if (!isSquare())
+		if (!isSquare()) {
 			throw new IllegalStateException("must be square");
+		}
 
-		for (int i = 0; i < rows; i++)
-			for (int j = 0; j < cols; j++)
-				if (getAt(i, j) + getAt(j, i) != 0)
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				if (getAt(i, j) + getAt(j, i) != 0) {
 					return false;
+				}
+			}
+		}
 		return true;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null)
+		if (obj == null) {
 			return false;
-		if (obj.getClass() != Matrix.class)
+		}
+		if (obj.getClass() != Matrix.class) {
 			return false;
+		}
 
-		Matrix other = (Matrix) obj;
-		if (this.rows != other.rows || this.cols != other.cols)
+		final Matrix other = (Matrix) obj;
+		if (rows != other.rows || cols != other.cols) {
 			return false;
-		for (int i = 0; i < rows; i++)
-			for (int j = 0; j < cols; j++)
-				if (this.getAt(i, j) != other.getAt(i, j))
+		}
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				if (getAt(i, j) != other.getAt(i, j)) {
 					return false;
+				}
+			}
+		}
 		return true;
 	}
 
@@ -500,28 +565,34 @@ public class Matrix {
 	}
 
 	public boolean isIdentity() {
-		for (int i = 0; i < rows; i++)
+		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
-				if (getAt(i, j) != 0.0 && i != j)
+				if (getAt(i, j) != 0.0 && i != j) {
 					return false;
-				if (i == j && getAt(i, j) != 1.0)
+				}
+				if (i == j && getAt(i, j) != 1.0) {
 					return false;
+				}
 			}
+		}
 		return true;
 	}
 
 	public boolean isZero() {
-		for (int i = 0; i < rows; i++)
+		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
-				if (getAt(i, j) != 0.0)
+				if (getAt(i, j) != 0.0) {
 					return false;
+				}
 			}
+		}
 		return true;
 	}
 
 	public double determinant1() {
-		if (!isSquare())
+		if (!isSquare()) {
 			throw new IllegalStateException("matrix must be square");
+		}
 
 		double d = 0;
 		for (int i = 0; i < cols; i++) {
@@ -542,24 +613,26 @@ public class Matrix {
 
 	/* ??? */
 	public Matrix inverse1() {
-		if (isSingular())
+		if (isSingular()) {
 			throw new IllegalStateException("matrix is singular");
+		}
 
-		Matrix dest = new Matrix(rows, cols);
-		double[][] d = new double[rows][cols + 1];
+		final Matrix dest = new Matrix(rows, cols);
+		final double[][] d = new double[rows][cols + 1];
 
 		for (int i = 0; i < rows; i++) {
 			int nrow = i - 1;
 			int ncol = i - 1;
 			for (int j = 0; j < rows; j++) {
 				nrow = (nrow + 1) % rows;
-				if (j == 0)
+				if (j == 0) {
 					d[j * (cols + 1)][cols] = 1;
-				else
+				} else {
 					d[j * (cols + 1)][cols] = 0;
+				}
 				for (int k = 0; k < cols; k++) {
 					ncol = (ncol + 1) % cols;
-					d[j * (cols + 1)][k] = this.data[nrow * cols][ncol];
+					d[j * (cols + 1)][k] = data[nrow * cols][ncol];
 				}
 			}
 			NSolve(rows, d);
@@ -575,23 +648,25 @@ public class Matrix {
 	private Matrix(int rows, int cols) {
 		this.rows = rows;
 		this.cols = cols;
-		this.data = new double[rows][cols];
+		data = new double[rows][cols];
 	}
 
 	// removes a row or column from the matrix
 	// indexes are 1-based
 	public Matrix withoutRow(int index) {
-		if (index <= 0 || index > rows)
+		if (index <= 0 || index > rows) {
 			throw new IllegalArgumentException("index");
-		if (rows - 1 <= 0)
+		}
+		if (rows - 1 <= 0) {
 			throw new IllegalStateException("cannot remove single row");
+		}
 
-		Matrix sub = new Matrix(rows - 1, cols);
+		final Matrix sub = new Matrix(rows - 1, cols);
 		int desti = 0;
 		for (int i = 0; i < rows; i++) {
 			if (i != index - 1) {
 				for (int j = 0; j < cols; j++) {
-					sub.putAt(desti, j, this.getAt(i, j));
+					sub.putAt(desti, j, getAt(i, j));
 				}
 				desti++;
 			}
@@ -602,16 +677,18 @@ public class Matrix {
 	// removes a column from the matrix
 	// indexes are 1-based
 	public Matrix withoutColumn(int index) {
-		if (index <= 0 || index > cols)
+		if (index <= 0 || index > cols) {
 			throw new IllegalArgumentException("index");
-		if (cols - 1 <= 0)
+		}
+		if (cols - 1 <= 0) {
 			throw new IllegalStateException("cannot remove only column");
-		Matrix sub = new Matrix(rows, cols - 1);
+		}
+		final Matrix sub = new Matrix(rows, cols - 1);
 		for (int i = 0; i < rows; i++) {
 			int destj = 0;
 			for (int j = 0; j < cols; j++) {
 				if (j != index - 1) {
-					sub.putAt(i, destj, this.getAt(i, j));
+					sub.putAt(i, destj, getAt(i, j));
 					destj++;
 				}
 			}
@@ -623,15 +700,17 @@ public class Matrix {
 	private void NSolve(int rows, double[][] data) {
 		int i, j;
 
-		int cols = rows + 1;
+		final int cols = rows + 1;
 		for (i = 0; i < rows; i++) {
-			for (j = i; j < rows && data[j][j] == 0.0; j++)
+			for (j = i; j < rows && data[j][j] == 0.0; j++) {
 				;
-			if (data[j][j] == 0.0)
+			}
+			if (data[j][j] == 0.0) {
 				throw new IllegalStateException("singular matrix");
+			}
 			if (j != i) {
 				for (int k = 0; k < cols; k++) {
-					double dtemp = data[i][k];
+					final double dtemp = data[i][k];
 					data[i][k] = data[j][k];
 					data[j][k] = dtemp;
 				}
@@ -640,8 +719,9 @@ public class Matrix {
 				data[i][j] /= data[i][i];
 			}
 			for (j = i + 1; j < rows; j++) {
-				for (int k = cols - 1; k >= i; k--)
+				for (int k = cols - 1; k >= i; k--) {
 					data[j][k] -= data[j][i] * data[i][k];
+				}
 			}
 		}
 		for (i = rows - 2; i >= 0; i--) {
@@ -663,13 +743,15 @@ public class Matrix {
 	}
 
 	private void copyData(double[][] source, double[][] dest) {
-		for (int i = 0; i <= data.length; i++)
-			for (int j = 0; j <= data[0].length; j++)
+		for (int i = 0; i <= data.length; i++) {
+			for (int j = 0; j <= data[0].length; j++) {
 				dest[i][j] = source[i][j];
+			}
+		}
 	}
 
-	private int		   rows;
-	private int		   cols;
-	private double[][] data;
+	private final int		 rows;
+	private final int		 cols;
+	private final double[][] data;
 
 }
