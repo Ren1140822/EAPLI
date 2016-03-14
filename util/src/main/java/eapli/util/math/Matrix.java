@@ -4,6 +4,8 @@
 package eapli.util.math;
 
 /**
+ * An immutable matrix.
+ *
  * @author pgsou_000
  *
  */
@@ -76,7 +78,7 @@ public class Matrix {
 		return z;
 	}
 
-	/* creates a "zero" matrix with Ats with the same given value */
+	/* creates a "zero" matrix with the same given value */
 	public static Matrix zero(int r, int c, double zero) {
 		final Matrix z = new Matrix(r, c);
 		for (int i = 0; i < r; i++) {

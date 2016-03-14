@@ -6,6 +6,8 @@ package eapli.util.math;
 import java.util.Arrays;
 
 /**
+ * An immutable vector.
+ *
  * @author pgsou_000
  *
  */
@@ -20,9 +22,45 @@ public class Vector {
 		data = Arrays.copyOf(src, numElems);
 	}
 
+	Vector(int numElems, VectorType type) {
+		this.numElems = numElems;
+		this.type = type;
+		data = new double[numElems];
+	}
+
+	public Vector(Vector other) {
+		numElems = other.numElems;
+		type = other.type;
+		data = Arrays.copyOf(other.data, other.numElems);
+	}
+
 	// indexes are 1-based
 	public double elementAt(int i) {
 		return getAt(i - 1);
+	}
+
+	/* creates a "zero" vector with the same given value */
+	public static Vector zero(int n, VectorType type, double zero) {
+		final Vector z = new Vector(n, type);
+		for (int i = 0; i < n; i++) {
+			z.putAt(i, zero);
+		}
+		return z;
+	}
+
+	public Vector normalize() {
+		double sum = 0;
+		for (int i = 0; i < numElems; i++) {
+			sum += getAt(i);
+		}
+		final double denominator = java.lang.Math.sqrt(sum);
+
+		final double norm[] = new double[numElems];
+		for (int i = 0; i < numElems; i++) {
+			norm[i] = getAt(i) / denominator;
+		}
+
+		return new Vector(norm, type);
 	}
 
 	@Override
@@ -98,12 +136,6 @@ public class Vector {
 			accum += (x * x);
 		}
 		return java.lang.Math.sqrt(accum) == 1.0;
-	}
-
-	Vector(int numElems, VectorType type) {
-		this.numElems = numElems;
-		this.type = type;
-		data = new double[numElems];
 	}
 
 	// indexes are 0-based internal
