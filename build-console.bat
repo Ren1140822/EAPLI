@@ -1,3 +1,6 @@
 cd eapli.ecafeteria.consoleapp
-ant build
+
+REM call the necessary tools, e.g.,
+REM mvn build
+
 cd ..
