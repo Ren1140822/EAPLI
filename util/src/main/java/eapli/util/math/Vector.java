@@ -15,14 +15,14 @@ public class Vector {
 	};
 
 	public Vector(double[] src, VectorType type) {
-		this.NElems = src.length;
+		this.numElems = src.length;
 		this.type = type;
-		this.data = Arrays.copyOf(src, NElems);
+		this.data = Arrays.copyOf(src, numElems);
 	}
 
 	// indexes are 1-based
-	public double Element(int i) {
-		return At(i - 1);
+	public double elementAt(int i) {
+		return getAt(i - 1);
 	}
 
 	@Override
@@ -33,60 +33,50 @@ public class Vector {
 			return false;
 
 		Vector other = (Vector) obj;
-		if (this.NElems != other.NElems || this.type != other.type)
+		if (this.numElems != other.numElems || this.type != other.type)
 			return false;
-		for (int i = 0; i < NElems; i++)
-			if (this.At(i) != other.At(i))
+		for (int i = 0; i < numElems; i++)
+			if (this.getAt(i) != other.getAt(i))
 				return false;
 		return true;
 	}
 
-	public static Vector add(Vector a, Vector b) {
-		if (a.NElems != b.NElems || a.type != b.type)
+	public Vector add(Vector b) {
+		if (this.numElems != b.numElems || this.type != b.type)
 			throw new IllegalStateException();
 
-		Vector c = new Vector(a.NElems, a.type);
-		for (int i = 0; i < a.NElems; i++)
-			c.PutAt(i, a.At(i) + b.At(i));
+		Vector c = new Vector(this.numElems, this.type);
+		for (int i = 0; i < this.numElems; i++)
+			c.putAt(i, this.getAt(i) + b.getAt(i));
 		return c;
 	}
 
-	public static Vector subtract(Vector a, Vector b) {
-		if (a.NElems != b.NElems || a.type != b.type)
+	public Vector subtract(Vector b) {
+		if (this.numElems != b.numElems || this.type != b.type)
 			throw new IllegalStateException();
 
-		Vector c = new Vector(a.NElems, a.type);
-		for (int i = 0; i < a.NElems; i++)
-			c.PutAt(i, a.At(i) - b.At(i));
+		Vector c = new Vector(this.numElems, this.type);
+		for (int i = 0; i < this.numElems; i++)
+			c.putAt(i, this.getAt(i) - b.getAt(i));
 		return c;
 	}
 
 	// return the dot product of two vectors
-	public static double multiply(Vector A, Vector B) {
-		if (A.NElems != B.NElems || A.type != B.type)
+	public double multiply(Vector B) {
+		if (this.numElems != B.numElems || this.type != B.type)
 			throw new IllegalStateException();
 
 		double accum = 0;
-		for (int i = 0; i < A.NElems; i++)
-			accum += (A.Element(i) * B.Element(i));
+		for (int i = 0; i < this.numElems; i++)
+			accum += (this.getAt(i) * B.getAt(i));
 		return accum;
 	}
 
 	// return a new vector obtained by multiplying a vector by a scalar
-	public static Vector multiply(double k, Vector A) {
-		return MultByScalar(A, k);
-	}
-
-	// return a new vector obtained by multiplying a vector by a scalar
-	public static Vector multiply(Vector A, double k) {
-		return MultByScalar(A, k);
-	}
-
-	// return a new vector obtained by multiplying a vector by a scalar
-	private static Vector MultByScalar(Vector A, double k) {
-		Vector c = new Vector(A.NElems, A.type);
-		for (int i = 0; i < A.NElems; i++)
-			c.PutAt(i, k * A.At(i));
+	public Vector scale(double k) {
+		Vector c = new Vector(this.numElems, this.type);
+		for (int i = 0; i < this.numElems; i++)
+			c.putAt(i, k * this.getAt(i));
 		return c;
 	}
 
@@ -97,29 +87,22 @@ public class Vector {
 		return java.lang.Math.sqrt(accum) == 1.0;
 	}
 
-	/* multiply vector by scalar double. changes this object */
-	public Vector Scale(double scalar) {
-		for (int i = 0; i < NElems; i++)
-			data[i] *= scalar;
-		return this;
-	}
-
-	Vector(int n, VectorType type) {
-		this.NElems = n;
+	Vector(int numElems, VectorType type) {
+		this.numElems = numElems;
 		this.type = type;
-		this.data = new double[NElems];
+		this.data = new double[numElems];
 	}
 
 	// indexes are 0-based internal
-	double At(int i) {
+	double getAt(int i) {
 		return data[i];
 	}
 
-	void PutAt(int i, double v) {
+	void putAt(int i, double v) {
 		data[i] = v;
 	}
 
-	private int		   NElems;
+	private int		   numElems;
 	private double[]   data;
 	private VectorType type;
 }
