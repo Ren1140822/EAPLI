@@ -13,8 +13,12 @@ import eapli.util.DateTime;
  *
  */
 public class Role implements ValueObject {
-	private final RoleType type;
-	private final Calendar assignedOn;
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+	private final RoleType	  type;
+	private final Calendar	  assignedOn;
 
 	public Role(RoleType type) {
 		// FIXME validate invariants

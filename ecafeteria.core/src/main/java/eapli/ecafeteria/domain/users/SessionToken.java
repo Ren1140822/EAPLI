@@ -11,4 +11,9 @@ import eapli.framework.domain.ValueObject;
  */
 public class SessionToken implements ValueObject {
 
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
 }

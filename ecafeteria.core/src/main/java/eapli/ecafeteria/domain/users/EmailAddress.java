@@ -11,7 +11,11 @@ import eapli.framework.domain.ValueObject;
  */
 public class EmailAddress implements ValueObject {
 
-	private final String address;
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+	private final String	  address;
 
 	public EmailAddress(String address) {
 		// FIXME validate invariants

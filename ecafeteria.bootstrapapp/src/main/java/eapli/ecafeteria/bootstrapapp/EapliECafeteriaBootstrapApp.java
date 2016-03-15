@@ -8,16 +8,15 @@ import eapli.framework.actions.Action;
  */
 public class EapliECafeteriaBootstrapApp {
 
-    public static void main(String[] args) {
-        System.out.println("Bootstrapping eCafeteria 2016(c) data");
+	public static void main(String[] args) {
+		System.out.println("Bootstrapping eCafeteria 2016(c) data");
 
-        // declare bootstrap actions
-        final Action[] actions = {
-            new UsersBootstrap(),};
+		// declare bootstrap actions
+		final Action[] actions = { new UsersBootstrap(), };
 
-        // execute all bootstrapping
-        for (Action boot : actions) {
-            boot.execute();
-        }
-    }
+		// execute all bootstrapping
+		for (final Action boot : actions) {
+			boot.execute();
+		}
+	}
 }

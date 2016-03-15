@@ -11,6 +11,11 @@ import eapli.framework.domain.ValueObject;
  */
 public class Password implements ValueObject {
 
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public enum PasswordStrength {
 		Weak, Good, Excelent,
 	}

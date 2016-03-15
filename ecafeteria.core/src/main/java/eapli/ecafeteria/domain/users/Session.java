@@ -11,8 +11,12 @@ import eapli.framework.domain.ValueObject;
  */
 public class Session implements ValueObject {
 
-	private User		 user;
-	private SessionToken token;
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+	private User			  user;
+	private SessionToken	  token;
 
 	public User authenticatedUser() {
 		return user;

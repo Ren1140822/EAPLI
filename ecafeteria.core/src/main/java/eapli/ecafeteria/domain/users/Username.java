@@ -11,7 +11,11 @@ import eapli.framework.domain.ValueObject;
  */
 public class Username implements ValueObject {
 
-	private final String username;
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+	private final String	  username;
 
 	public Username(String username) {
 		// FIXME validate invariants
