@@ -1,4 +1,4 @@
-package eapli.ecafeteria.consoleapp;
+package eapli.ecafeteria;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

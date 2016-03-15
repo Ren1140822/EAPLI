@@ -1,9 +1,11 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template file, choose Tools | Templates and open the template
+ * in the editor.
  */
 package eapli.framework.domain;
+
+import java.io.Serializable;
 
 /**
  * A value object is a Domain-Driven Design pattern for domain concepts which do
@@ -16,17 +18,19 @@ package eapli.framework.domain;
  * <p>
  * - Address (in most scenarios)
  * <p>
- * - Color<p>
- * - CustomerNumber<p>
+ * - Color
+ * <p>
+ * - CustomerNumber
+ * <p>
  * - Money
  *
  * @author Paulo Gandra Sousa
  */
-public interface ValueObject {
+public interface ValueObject extends Serializable {
 
-    @Override
-    public boolean equals(Object other);
+	@Override
+	public boolean equals(Object other);
 
-    @Override
-    public int hashCode();
+	@Override
+	public int hashCode();
 }
