@@ -14,6 +14,7 @@ public class EmailAddress implements ValueObject {
 	private final String address;
 
 	public EmailAddress(String address) {
+		// FIXME validate invariants
 		this.address = address;
 	}
 }

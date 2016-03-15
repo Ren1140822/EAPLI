@@ -10,5 +10,4 @@ public class UserRepository extends JpaRepository<User, Username> {
 	protected String persistenceUnitName() {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
-
 }

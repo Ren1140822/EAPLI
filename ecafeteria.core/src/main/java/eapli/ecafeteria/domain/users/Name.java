@@ -7,6 +7,8 @@ public class Name implements ValueObject {
 	private final String lastName;
 
 	public Name(String firstName, String lastName) {
+		// FIXME validate invariants
+
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}

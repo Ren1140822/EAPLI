@@ -1,6 +1,7 @@
 package eapli.ecafeteria.domain.users;
 
 import java.util.Calendar;
+import java.util.List;
 
 import eapli.framework.domain.AggregateRoot;
 
@@ -10,7 +11,7 @@ public class User implements AggregateRoot<Username> {
 	private Password	 password;
 	private Name		 name;
 	private EmailAddress email;
-	private Role[]		 roles;
+	private List<Role>	 roles;
 	private Calendar	 createdOn;
 
 	public boolean isAuthorizedTo(ActionRight action) {

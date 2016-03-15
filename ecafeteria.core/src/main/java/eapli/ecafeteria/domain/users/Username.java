@@ -14,6 +14,8 @@ public class Username implements ValueObject {
 	private final String username;
 
 	public Username(String username) {
+		// FIXME validate invariants
+
 		this.username = username;
 	}
 }

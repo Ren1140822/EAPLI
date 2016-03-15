@@ -18,6 +18,7 @@ public class Password implements ValueObject {
 	private final String password;
 
 	public Password(String password) {
+		// FIXME validate invariants
 		this.password = password;
 	}
 
