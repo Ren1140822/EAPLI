@@ -1,7 +1,7 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template file, choose Tools | Templates and open the template
+ * in the editor.
  */
 package eapli.framework.domain;
 
@@ -20,20 +20,27 @@ package eapli.framework.domain;
  * </ol>
  *
  * @author Paulo Gandra Sousa
- * @param <ID> the type of the primary <b>business</b> id of the entity
+ * @param <ID>
+ *            the type of the primary <b>business</b> id of the entity
  */
 public interface DomainEntity<ID> {
 
-    /**
-     * returns the primary <b>business</b> id of the entity
-     *
-     * @return the primary <b>business</b> id of the entity
-     */
-    ID id();
+	/**
+	 * returns the primary <b>business</b> id of the entity
+	 *
+	 * @return the primary <b>business</b> id of the entity
+	 */
+	ID id();
 
-    @Override
-    public boolean equals(Object other);
+	/**
+	 * Entities are compared by identity only.
+	 * 
+	 * @param other
+	 * @return
+	 */
+	@Override
+	public boolean equals(Object other);
 
-    @Override
-    public int hashCode();
+	@Override
+	public int hashCode();
 }

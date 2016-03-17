@@ -28,6 +28,12 @@ import java.io.Serializable;
  */
 public interface ValueObject extends Serializable {
 
+	/**
+	 * Value objects are compared by the values of its properties
+	 *
+	 * @param other
+	 * @return
+	 */
 	@Override
 	public boolean equals(Object other);
 

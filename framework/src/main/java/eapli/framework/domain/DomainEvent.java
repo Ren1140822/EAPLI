@@ -1,7 +1,7 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template file, choose Tools | Templates and open the template
+ * in the editor.
  */
 package eapli.framework.domain;
 
@@ -15,19 +15,19 @@ import java.util.Calendar;
  *
  * @author Paulo Gandra Sousa
  */
-public interface DomainEvent {
+public interface DomainEvent extends ValueObject {
 
-    /**
-     * returns the date and time when the event occurred in the domain
-     *
-     * @return
-     */
-    Calendar occurredAt();
+	/**
+	 * returns the date and time when the event occurred in the domain
+	 *
+	 * @return
+	 */
+	Calendar occurredAt();
 
-    /**
-     * returns the date and time when the event was recorded in the system
-     *
-     * @return
-     */
-    Calendar registeredAt();
+	/**
+	 * returns the date and time when the event was recorded in the system
+	 *
+	 * @return
+	 */
+	Calendar registeredAt();
 }
