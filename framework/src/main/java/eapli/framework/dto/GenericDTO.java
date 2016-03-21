@@ -45,10 +45,10 @@ public class GenericDTO implements DTO, Map<String, Object> {
 					        || aField.getType().getComponentType() == String.class) {
 						buildDtoForArray(aField.getType().getComponentType(), aField.getName(), aField.get(o), out);
 					} else {
-						buildDtoForIterable(aField.getName(), (Iterable) (aField.get(o)), out);
+						buildDtoForIterable(aField.getName(), (Iterable<?>) (aField.get(o)), out);
 					}
 				} else if (Collection.class.isAssignableFrom(aField.getType())) {
-					buildDtoForIterable(aField.getName(), (Iterable) (aField.get(o)), out);
+					buildDtoForIterable(aField.getName(), (Iterable<?>) (aField.get(o)), out);
 				} else {
 					out.put(aField.getName(), buildDTO(aField.get(o)));
 				}
@@ -66,7 +66,7 @@ public class GenericDTO implements DTO, Map<String, Object> {
 	 * @param out
 	 * @throws IllegalAccessException
 	 */
-	private static void buildDtoForIterable(String name, Iterable col, final GenericDTO out)
+	private static void buildDtoForIterable(String name, Iterable<?> col, final GenericDTO out)
 	        throws IllegalAccessException {
 
 		final List<GenericDTO> data = new ArrayList<GenericDTO>();
@@ -82,7 +82,7 @@ public class GenericDTO implements DTO, Map<String, Object> {
 	 * @param out
 	 * @throws IllegalAccessException
 	 */
-	private static void buildDtoForArray(Class type, String name, Object array, final GenericDTO out)
+	private static void buildDtoForArray(Class<?> type, String name, Object array, final GenericDTO out)
 	        throws IllegalAccessException {
 		final int length = Array.getLength(array);
 		Object data = null;
