@@ -22,4 +22,9 @@ public class Username implements ValueObject {
 
 		this.username = username;
 	}
+
+	@Override
+	public String toString() {
+		return username;
+	}
 }

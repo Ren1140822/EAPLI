@@ -21,4 +21,9 @@ public class Session implements ValueObject {
 	public User authenticatedUser() {
 		return user;
 	}
+
+	@Override
+	public String toString() {
+		return user.id() + "@" + token;
+	}
 }

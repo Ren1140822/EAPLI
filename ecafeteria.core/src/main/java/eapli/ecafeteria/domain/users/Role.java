@@ -21,8 +21,17 @@ public class Role implements ValueObject {
 	private final Calendar	  assignedOn;
 
 	public Role(RoleType type) {
+		this(type, DateTime.now());
+	}
+
+	public Role(RoleType type, Calendar assignedOn) {
 		// FIXME validate invariants
 		this.type = type;
-		assignedOn = DateTime.now();
+		this.assignedOn = assignedOn;
+	}
+
+	@Override
+	public String toString() {
+		return type + "@" + assignedOn;
 	}
 }

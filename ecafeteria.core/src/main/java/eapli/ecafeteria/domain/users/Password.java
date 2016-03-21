@@ -30,4 +30,9 @@ public class Password implements ValueObject {
 	public PasswordStrength strength() {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
+
+	@Override
+	public String toString() {
+		return password;
+	}
 }

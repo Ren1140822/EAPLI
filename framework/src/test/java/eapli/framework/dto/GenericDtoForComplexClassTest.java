@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates and open the template
  * in the editor.
  */
-package eapli.framework.application;
+package eapli.framework.dto;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -15,6 +15,8 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import eapli.framework.dto.GenericDTO;
 
 /**
  *

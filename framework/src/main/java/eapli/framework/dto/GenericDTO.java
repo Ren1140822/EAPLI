@@ -1,8 +1,9 @@
 /**
  *
  */
-package eapli.framework.application;
+package eapli.framework.dto;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,6 +40,15 @@ public class GenericDTO implements DTO, Map<String, Object> {
 				aField.setAccessible(true);
 				if (aField.getType().isPrimitive() || aField.getType() == String.class) {
 					out.put(aField.getName(), aField.get(o));
+				} else if (aField.getType().isArray()) {
+					if (aField.getType().getComponentType().isPrimitive()
+					        || aField.getType().getComponentType() == String.class) {
+						buildDtoForArray(aField.getType().getComponentType(), aField.getName(), aField.get(o), out);
+					} else {
+						buildDtoForIterable(aField.getName(), (Iterable) (aField.get(o)), out);
+					}
+				} else if (Collection.class.isAssignableFrom(aField.getType())) {
+					buildDtoForIterable(aField.getName(), (Iterable) (aField.get(o)), out);
 				} else {
 					out.put(aField.getName(), buildDTO(aField.get(o)));
 				}
@@ -48,6 +58,55 @@ public class GenericDTO implements DTO, Map<String, Object> {
 			}
 		}
 		return out;
+	}
+
+	/**
+	 * @param o
+	 * @param aField
+	 * @param out
+	 * @throws IllegalAccessException
+	 */
+	private static void buildDtoForIterable(String name, Iterable col, final GenericDTO out)
+	        throws IllegalAccessException {
+
+		final List<GenericDTO> data = new ArrayList<GenericDTO>();
+		for (final Object member : col) {
+			data.add(buildDTO(member));
+		}
+		out.put(name, data);
+	}
+
+	/**
+	 * @param o
+	 * @param aField
+	 * @param out
+	 * @throws IllegalAccessException
+	 */
+	private static void buildDtoForArray(Class type, String name, Object array, final GenericDTO out)
+	        throws IllegalAccessException {
+		final int length = Array.getLength(array);
+		Object data = null;
+		if (type == int.class) {
+			data = Arrays.copyOf((int[]) array, length);
+		} else if (type == long.class) {
+			data = Arrays.copyOf((long[]) array, length);
+		} else if (type == boolean.class) {
+			data = Arrays.copyOf((boolean[]) array, length);
+		} else if (type == double.class) {
+			data = Arrays.copyOf((double[]) array, length);
+		} else if (type == float.class) {
+			data = Arrays.copyOf((float[]) array, length);
+		} else if (type == char.class) {
+			data = Arrays.copyOf((char[]) array, length);
+		} else if (type == String.class) {
+			data = Arrays.copyOf((String[]) array, length);
+		}
+
+		out.put(name, data);
+	}
+
+	public static Object valueOf(GenericDTO dto) {
+		throw new UnsupportedOperationException("Not implemented yet");
 	}
 
 	private static List<Field> getInheritedFields(Class<?> type) {

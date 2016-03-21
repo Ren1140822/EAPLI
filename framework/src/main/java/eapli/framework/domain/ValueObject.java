@@ -29,6 +29,14 @@ import java.io.Serializable;
 public interface ValueObject extends Serializable {
 
 	/**
+	 * returns a representation of this value object as a String.
+	 *
+	 * @return
+	 */
+	@Override
+	String toString();
+
+	/**
 	 * Value objects are compared by the values of its properties
 	 *
 	 * @param other

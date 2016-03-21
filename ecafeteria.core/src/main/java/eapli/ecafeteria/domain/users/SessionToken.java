@@ -15,5 +15,14 @@ public class SessionToken implements ValueObject {
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
+	private final String	  token;
 
+	public SessionToken(String token) {
+		this.token = token;
+	}
+
+	@Override
+	public String toString() {
+		return token;
+	}
 }

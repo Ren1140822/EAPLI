@@ -21,4 +21,9 @@ public class EmailAddress implements ValueObject {
 		// FIXME validate invariants
 		this.address = address;
 	}
+
+	@Override
+	public String toString() {
+		return address;
+	}
 }
