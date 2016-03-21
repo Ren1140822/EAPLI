@@ -1,8 +1,10 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template, choose Tools | Templates and open the template in
+ * the editor.
  */
 package eapli.framework.presentation.console;
+
+import eapli.framework.actions.Action;
 
 /**
  * allows for the composition of menus (Composite pattern)
@@ -11,7 +13,7 @@ package eapli.framework.presentation.console;
  */
 public class SubMenu extends MenuItem {
 
-    public SubMenu(int option, Menu menu) {
-        super(option, menu.title(), new SubMenuAction(menu));
-    }
+	public SubMenu(int option, Menu menu, Action a) {
+		super(option, menu.title(), a);
+	}
 }

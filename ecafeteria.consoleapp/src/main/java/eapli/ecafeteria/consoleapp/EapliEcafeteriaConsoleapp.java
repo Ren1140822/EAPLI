@@ -5,7 +5,7 @@
  */
 package eapli.ecafeteria.consoleapp;
 
-import eapli.ecafeteria.presentation.MainMenu;
+import eapli.ecafeteria.consoleapp.presentation.MainMenu;
 
 /**
  *
