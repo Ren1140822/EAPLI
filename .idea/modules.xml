@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/eapli-2016-ecafeteria.iml" filepath="$PROJECT_DIR$/eapli-2016-ecafeteria.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ecafeteria.bootstrapapp/ecafeteria.bootstrapapp.iml" filepath="$PROJECT_DIR$/ecafeteria.bootstrapapp/ecafeteria.bootstrapapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ecafeteria.consoleapp/ecafeteria.consoleapp.iml" filepath="$PROJECT_DIR$/ecafeteria.consoleapp/ecafeteria.consoleapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ecafeteria.core/ecafeteria.core.iml" filepath="$PROJECT_DIR$/ecafeteria.core/ecafeteria.core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ecafeteria.persistence.impl.jpa/ecafeteria.persistence.impl.jpa.iml" filepath="$PROJECT_DIR$/ecafeteria.persistence.impl.jpa/ecafeteria.persistence.impl.jpa.iml" />
+      <module fileurl="file://$PROJECT_DIR$/framework/framework.iml" filepath="$PROJECT_DIR$/framework/framework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/util/util.iml" filepath="$PROJECT_DIR$/util/util.iml" />
+    </modules>
+  </component>
+</project>
