@@ -9,6 +9,11 @@ import java.util.List;
 import eapli.framework.domain.Factory;
 
 /**
+ * A factory for User entities.
+ *
+ * This class demonstrates the use of the factory (DDD) pattern using a fluent
+ * interface. it acts as a Builder (GoF).
+ *
  * @author pgsou_000
  *
  */
@@ -53,6 +58,8 @@ public class UserFactory implements Factory<User> {
 
 	@Override
 	public User build() {
+		// since the factory knows that all the parts are needed it could throw
+		// an exception. however, we will leave that to the constructor
 		return new User(username, password, firstName, lastName, email, roles);
 	}
 }

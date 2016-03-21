@@ -9,7 +9,7 @@ import eapli.framework.dto.DTOable;
 import eapli.framework.dto.GenericDTO;
 import eapli.util.DateTime;
 
-public class User implements AggregateRoot<Username>, DTOable {
+public class User implements AggregateRoot<Username>, DTOable<User> {
 
 	private final Username	   username;
 	private final Password	   password;
@@ -18,16 +18,16 @@ public class User implements AggregateRoot<Username>, DTOable {
 	private final List<Role>   roles;
 	private final Calendar	   createdOn;
 
-	public User(String username2, String password2, String firstName, String lastName, String email2,
-	        List<RoleType> roles2) {
+	public User(String username, String password, String firstName, String lastName, String email,
+	        List<RoleType> roles) {
 		createdOn = DateTime.now();
-		username = new Username(username2);
-		password = new Password(password2);
+		this.username = new Username(username);
+		this.password = new Password(password);
 		name = new Name(firstName, lastName);
-		email = new EmailAddress(email2);
-		roles = new ArrayList<Role>();
-		for (final RoleType rt : roles2) {
-			roles.add(new Role(rt, createdOn));
+		this.email = new EmailAddress(email);
+		this.roles = new ArrayList<Role>();
+		for (final RoleType rt : roles) {
+			this.roles.add(new Role(rt, createdOn));
 		}
 	}
 
