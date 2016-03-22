@@ -1,6 +1,5 @@
 package eapli.ecafeteria.domain.users;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -16,7 +15,7 @@ public class User implements AggregateRoot<Username>, Authorisable<ActionRight>,
 	private final Password	   password;
 	private final Name		   name;
 	private final EmailAddress email;
-	private final List<Role>   roles;
+	private final RoleList	   roles;
 	private final Calendar	   createdOn;
 
 	public User(String username, String password, String firstName, String lastName, String email,
@@ -29,7 +28,7 @@ public class User implements AggregateRoot<Username>, Authorisable<ActionRight>,
 		this.password = new Password(password);
 		name = new Name(firstName, lastName);
 		this.email = new EmailAddress(email);
-		this.roles = new ArrayList<Role>();
+		this.roles = new RoleList();
 		for (final RoleType rt : roles) {
 			this.roles.add(new Role(rt, createdOn));
 		}
@@ -71,14 +70,12 @@ public class User implements AggregateRoot<Username>, Authorisable<ActionRight>,
 
 	@Override
 	public boolean isAuthorizedTo(ActionRight action) {
-
-		throw new UnsupportedOperationException("Not supported yet.");
+		return action.canBePerformedBy(roles.roleTypes());
 	}
 
 	public void passwordMatches(Password password) throws InvalidPasswordException {
 		if (!this.password.equals(password)) {
 			throw new InvalidPasswordException("Password does note match", this);
 		}
-
 	}
 }

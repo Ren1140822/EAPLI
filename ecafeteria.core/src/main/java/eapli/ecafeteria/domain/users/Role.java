@@ -34,4 +34,8 @@ public class Role implements ValueObject {
 	public String toString() {
 		return type + "@" + assignedOn;
 	}
+
+	public RoleType type() {
+		return type;
+	}
 }
