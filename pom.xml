@@ -18,7 +18,7 @@
 
     <modules>
         <module>ecafeteria.bootstrapapp</module>
-        <module>ecafeteria.consoleapp</module>
+        <module>backoffice.consoleapp</module>
         <module>utente.consoleapp</module>
         <module>ecafeteria.core</module>
         <module>ecafeteria.persistence.impl.jpa</module>
