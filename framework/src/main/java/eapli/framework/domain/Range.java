@@ -59,4 +59,24 @@ public class Range<T extends Comparable<T>> implements ValueObject {
 		}
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		final StringBuilder sb = new StringBuilder();
+		if (openStart) {
+			sb.append(']');
+		} else {
+			sb.append('[');
+		}
+		sb.append(start);
+		sb.append(", ");
+		sb.append(end);
+
+		if (openEnd) {
+			sb.append('[');
+		} else {
+			sb.append(']');
+		}
+		return null;
+	}
 }

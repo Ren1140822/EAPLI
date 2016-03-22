@@ -3,8 +3,6 @@
  */
 package eapli.framework.domain;
 
-import eapli.framework.application.GenericDTO;
-
 /**
  * A factory of domain objects. When creation of an entire, internally
  * consistent aggregate, or a large value object, becomes complicated or reveals
@@ -15,10 +13,13 @@ import eapli.framework.application.GenericDTO;
  */
 public interface Factory<T extends DomainEntity<?>> {
 
-	// most likely such method is not interesting as we will need to receive
-	// specific parameters for the constructor
-	T buildNew();
-
-	// not all classes might be interested in using DTOs
-	T fromDTO(GenericDTO dto);
+	/**
+	 * Constructs a new instance of the domain entity. most likely this method
+	 * is the last step in the building process (following the Builder GoF
+	 * pattern) where a series of steps to provide the necessary information to
+	 * the object constructor is previously loaded into the builder.
+	 *
+	 * @return
+	 */
+	T build();
 }

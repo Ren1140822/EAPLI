@@ -24,6 +24,7 @@ public class Username implements ValueObject {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (!(o instanceof Username)) return false;
@@ -33,13 +34,13 @@ public class Username implements ValueObject {
 		return username != null ? username.equals(username1.username) : username1.username == null;
 
 	}
-	@Override
-	public String toString() {
-		return username;
-	}
 
 	@Override
 	public int hashCode() {
 		return username != null ? username.hashCode() : 0;
+=======
+	public String toString() {
+		return username;
+>>>>>>> eb9cd70b06081ee6a54d6df63eb80b4d9f801f95
 	}
 }

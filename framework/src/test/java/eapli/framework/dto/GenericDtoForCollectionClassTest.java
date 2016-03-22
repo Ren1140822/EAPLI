@@ -3,10 +3,13 @@
  * To change this template file, choose Tools | Templates and open the template
  * in the editor.
  */
-package eapli.framework.application;
+package eapli.framework.dto;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.After;
@@ -19,19 +22,20 @@ import org.junit.Test;
  *
  * @author pgsou_000
  */
-public class GenericDtoForSimpleClassTest {
+public class GenericDtoForCollectionClassTest {
 
-	private static String			 STRING_FIELD_VALUE	= "abc";
-	private static int				 INT_FIELD_VALUE	= 3;
-	private static final SimpleClass subject			= new SimpleClass(STRING_FIELD_VALUE, INT_FIELD_VALUE);
-	private static GenericDTO		 instance;
+	private static String			   STRING_FIELD_VALUE = "abc";
+	private static int				   INT_FIELD_VALUE	  = 3;
+	private static final SimpleClass   sample			  = new SimpleClass(STRING_FIELD_VALUE, INT_FIELD_VALUE);
+	private static final WithListClass subject			  = new WithListClass(INT_FIELD_VALUE, sample);
+	private static GenericDTO		   instance;
 
-	public GenericDtoForSimpleClassTest() {
+	public GenericDtoForCollectionClassTest() {
 	}
 
 	@BeforeClass
 	public static void setUpClass() {
-		System.out.println("GenericDtoForSimpleClassTest");
+		System.out.println("GenericDtoForCollectionClassTest");
 
 		instance = GenericDTO.buildDTO(subject);
 
@@ -67,6 +71,18 @@ public class GenericDtoForSimpleClassTest {
 		}
 	}
 
+	private static class WithListClass {
+		private final int				intField;
+		private final List<SimpleClass>	data = new ArrayList<SimpleClass>();
+
+		public WithListClass(int n, SimpleClass c) {
+			intField = n;
+			for (int i = 0; i < intField; i++) {
+				data.add(c);
+			}
+		}
+	}
+
 	@Test
 	public void ensureType() {
 		System.out.println("ensureType");
@@ -82,10 +98,28 @@ public class GenericDtoForSimpleClassTest {
 	}
 
 	@Test
-	public void ensureStringFieldIsTransformed() {
-		System.out.println("ensureStringFieldIsTransformed");
+	public void ensureListFieldIsList() {
+		System.out.println("ensureListFieldIsList");
 
-		assertEquals("'stringField' is incorrectly transformed", STRING_FIELD_VALUE, instance.get("stringField"));
+		assertTrue("'data' is not a List", List.class.isAssignableFrom(instance.get("data").getClass()));
+	}
+
+	@Test
+	public void ensureListFieldHasAllMembers() {
+		System.out.println("ensureListFieldHasAllMembers");
+
+		assertEquals("'data' list is missing elements", INT_FIELD_VALUE, ((List) (instance.get("data"))).size());
+	}
+
+	@Test
+	public void ensureListFieldIsTransformed() {
+		System.out.println("ensureListFieldIsTransformed");
+
+		for (final GenericDTO e : (List<GenericDTO>) (instance.get("data"))) {
+			assertEquals("'intField' is incorrect", INT_FIELD_VALUE, e.get("intField"));
+			assertEquals("'stringField' is incorrect", STRING_FIELD_VALUE, e.get("stringField"));
+		}
+		assertTrue(true);
 	}
 
 	@Test

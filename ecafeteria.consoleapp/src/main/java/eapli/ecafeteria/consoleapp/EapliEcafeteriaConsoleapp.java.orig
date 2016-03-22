@@ -5,9 +5,15 @@
  */
 package eapli.ecafeteria.consoleapp;
 
+<<<<<<< HEAD
 import eapli.ecafeteria.bootstrapapp.UsersBootstrap;
-import eapli.ecafeteria.consoleapp.presentation.MainMenu;
+import eapli.ecafeteria.presentation.MainMenu;
 import eapli.framework.actions.Action;
+
+import javax.persistence.Persistence;
+=======
+import eapli.ecafeteria.consoleapp.presentation.MainMenu;
+>>>>>>> eb9cd70b06081ee6a54d6df63eb80b4d9f801f95
 
 /**
  *
@@ -32,5 +38,6 @@ public final class EapliEcafeteriaConsoleapp {
         bootstrap();
         final MainMenu menu = new MainMenu();
         menu.mainLoop();
+        //Persistence.createEntityManagerFactory("eapli.eCafeteriaPU");
     }
 }

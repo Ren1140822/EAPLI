@@ -24,12 +24,13 @@ public class Session implements ValueObject {
 		return user;
 	}
 
+<<<<<<< HEAD
 	public Session(User user) {
 		this.user = user;
-	}
-
+=======
 	@Override
 	public String toString() {
 		return user.id() + "@" + token;
+>>>>>>> eb9cd70b06081ee6a54d6df63eb80b4d9f801f95
 	}
 }

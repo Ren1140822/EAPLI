@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates and open the template
  * in the editor.
  */
-package eapli.framework.application;
+package eapli.framework.dto;
 
 import static org.junit.Assert.assertEquals;
 
@@ -15,26 +15,25 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import eapli.framework.dto.GenericDTO;
+
 /**
  *
  * @author pgsou_000
  */
-public class GenericDtoForInheritedClassTest {
+public class GenericDtoForSimpleClassTest {
 
 	private static String			 STRING_FIELD_VALUE	= "abc";
 	private static int				 INT_FIELD_VALUE	= 3;
-	private static float			 FLOAT_FIELD_VALUE	= 3.1415f;
-
-	private static final SimpleClass subject			= new SimpleClass(STRING_FIELD_VALUE, INT_FIELD_VALUE,
-	        FLOAT_FIELD_VALUE);
+	private static final SimpleClass subject			= new SimpleClass(STRING_FIELD_VALUE, INT_FIELD_VALUE);
 	private static GenericDTO		 instance;
 
-	public GenericDtoForInheritedClassTest() {
+	public GenericDtoForSimpleClassTest() {
 	}
 
 	@BeforeClass
 	public static void setUpClass() {
-		System.out.println("GenericDtoForInheritedClassTest");
+		System.out.println("GenericDtoForSimpleClassTest");
 
 		instance = GenericDTO.buildDTO(subject);
 
@@ -60,22 +59,13 @@ public class GenericDtoForInheritedClassTest {
 	public void tearDown() {
 	}
 
-	private static class SimpleClassBase {
+	private static class SimpleClass {
 		private final String stringField;
 		private final int	 intField;
 
-		public SimpleClassBase(String s, int i) {
+		public SimpleClass(String s, int i) {
 			stringField = s;
 			intField = i;
-		}
-	}
-
-	private static class SimpleClass extends SimpleClassBase {
-		private final float floatField;
-
-		public SimpleClass(String s, int i, float f) {
-			super(s, i);
-			floatField = f;
 		}
 	}
 
@@ -83,14 +73,14 @@ public class GenericDtoForInheritedClassTest {
 	public void ensureType() {
 		System.out.println("ensureType");
 
-		assertEquals("Name of type is incorrect", instance.type(), subject.getClass().getName());
+		assertEquals("Name of type is incorrect", subject.getClass().getName(), instance.type());
 	}
 
 	@Test
-	public void ensureDTOHas3Fields() {
-		System.out.println("ensureDTOHas3Fields");
+	public void ensureDTOHas2Fields() {
+		System.out.println("ensureDTOHas2Fields");
 
-		assertEquals("Name of type is incorrect", 3, instance.size());
+		assertEquals("Name of type is incorrect", 2, instance.size());
 	}
 
 	@Test
@@ -105,12 +95,5 @@ public class GenericDtoForInheritedClassTest {
 		System.out.println("ensureIntFieldIsTransformed");
 
 		assertEquals("'intField' is incorrectly transformed", INT_FIELD_VALUE, instance.get("intField"));
-	}
-
-	@Test
-	public void ensureFloatFieldIsTransformed() {
-		System.out.println("ensureFloatFieldIsTransformed");
-
-		assertEquals("'floatField' is incorrectly transformed", FLOAT_FIELD_VALUE, instance.get("floatField"));
 	}
 }
