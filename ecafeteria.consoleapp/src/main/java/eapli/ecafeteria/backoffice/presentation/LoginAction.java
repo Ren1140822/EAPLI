@@ -1,4 +1,4 @@
-package eapli.ecafeteria.presentation;
+package eapli.ecafeteria.backoffice.presentation;
 
 import eapli.framework.actions.Action;
 

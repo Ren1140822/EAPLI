@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates and open the template
  * in the editor.
  */
-package eapli.ecafeteria.consoleapp.presentation;
+package eapli.ecafeteria.backoffice.consoleapp.presentation;
 
-import eapli.ecafeteria.presentation.LoginAction;
-import eapli.ecafeteria.presentation.LogoutAction;
+import eapli.ecafeteria.backoffice.presentation.LoginAction;
+import eapli.ecafeteria.backoffice.presentation.LogoutAction;
 import eapli.framework.actions.ReturnAction;
 import eapli.framework.application.Controller;
 import eapli.framework.presentation.console.AbstractUI;

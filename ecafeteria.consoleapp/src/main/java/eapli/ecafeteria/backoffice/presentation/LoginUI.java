@@ -1,4 +1,4 @@
-package eapli.ecafeteria.presentation;
+package eapli.ecafeteria.backoffice.presentation;
 
 import eapli.ecafeteria.application.LoginController;
 import eapli.ecafeteria.domain.users.InvalidPasswordException;
