@@ -13,6 +13,7 @@
         <option value="$PROJECT_DIR$/framework/pom.xml" />
         <option value="$PROJECT_DIR$/ecafeteria.core/pom.xml" />
         <option value="$PROJECT_DIR$/ecafeteria.persistence.impl.jpa/pom.xml" />
+        <option value="$PROJECT_DIR$/backoffice.consoleapp/pom.xml" />
       </list>
     </option>
   </component>
