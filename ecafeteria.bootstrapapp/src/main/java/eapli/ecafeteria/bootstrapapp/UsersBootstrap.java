@@ -5,18 +5,26 @@
  */
 package eapli.ecafeteria.bootstrapapp;
 
+import eapli.ecafeteria.application.UserRegisterController;
+import eapli.ecafeteria.domain.users.Password;
+import eapli.ecafeteria.domain.users.User;
+import eapli.ecafeteria.domain.users.Username;
 import eapli.framework.actions.Action;
 
 /**
  *
  * @author pgsou_000
  */
-class UsersBootstrap implements Action {
-
-    public UsersBootstrap() {
-    }
+public class UsersBootstrap implements Action {
 
     public boolean execute() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        Username username = new Username("admin");
+        Password password = new Password("admin");
+
+        UserRegisterController userController = new UserRegisterController();
+        User newUser = userController.registerUser(username, password);
+        return false;
+
     }
 }

@@ -20,6 +20,8 @@ import eapli.framework.presentation.console.SubMenu;
 public class MainMenu extends AbstractUI {
 
     private static final int EXIT_OPTION = 0;
+    private static final int LOGIN_OPTION = 1;
+    private static final int LOGOUT_OPTION = 2;
     private static final int LISTINGS_OPTION = 100;
     private static final int MASTER_TABLES_OPTION = 200;
 
@@ -72,8 +74,11 @@ public class MainMenu extends AbstractUI {
         //TODO add menu options
         menu.add(new MenuSeparator());
 
-        //TODO add menu options
-        menu.add(new MenuSeparator());
+        menu.add(new MenuItem(LOGIN_OPTION, "Login",
+                new LoginAction()));
+
+        menu.add(new MenuItem(LOGOUT_OPTION, "Logout",
+                new LogoutAction()));
 
         menu.add(new SubMenu(LISTINGS_OPTION, buildListingsMenu()));
 

@@ -10,7 +10,7 @@ import eapli.framework.domain.ValueObject;
  *
  */
 public class Session implements ValueObject {
-
+//TODO NMB:Ask who keeps the session?
 	/**
 	 *
 	 */
@@ -18,7 +18,13 @@ public class Session implements ValueObject {
 	private User			  user;
 	private SessionToken	  token;
 
-	public User authenticatedUser() {
+	public User authenticatedUser() throws NoUserSessionInitiatedException {
+		if ( null == user)
+			throw new NoUserSessionInitiatedException("No user session initiated");
 		return user;
+	}
+
+	public Session(User user) {
+		this.user = user;
 	}
 }

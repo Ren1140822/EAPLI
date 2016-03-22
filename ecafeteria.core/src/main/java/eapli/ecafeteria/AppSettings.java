@@ -1,5 +1,7 @@
 package eapli.ecafeteria;
 
+import eapli.ecafeteria.domain.users.Session;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,8 +19,19 @@ public class AppSettings {
 	private final Properties	applicationProperties  = new Properties();
 	// FIXME use lazy holder idiom
 	private static AppSettings	theInstance;
-	private final static String	PROPERTIES_RESOURCE	   = "eapli/ecafeteria/ecafeteria.properties";
+	//private final static String	PROPERTIES_RESOURCE	   = "eapli/ecafeteria/ecafeteria.properties";
+	private final static String	PROPERTIES_RESOURCE	   = "ecafeteria.properties";
 	private final static String	REPOSITORY_FACTORY_KEY = "persistence.repositoryFactory";
+
+	private static Session theSession = null;
+
+	public void setSession(Session session){
+		theSession = session;
+	}
+
+	public void removeSession(){
+		theSession = null;
+	}
 
 	public static AppSettings instance() {
 		if (theInstance == null) {

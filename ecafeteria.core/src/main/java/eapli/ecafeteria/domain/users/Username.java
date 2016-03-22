@@ -22,4 +22,20 @@ public class Username implements ValueObject {
 
 		this.username = username;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Username)) return false;
+
+		Username username1 = (Username) o;
+
+		return username != null ? username.equals(username1.username) : username1.username == null;
+
+	}
+
+	@Override
+	public int hashCode() {
+		return username != null ? username.hashCode() : 0;
+	}
 }

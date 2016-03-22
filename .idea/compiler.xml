@@ -33,11 +33,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="consoleapp" target="1.8" />
-      <module name="core" target="1.8" />
       <module name="eapli-2016-ecafeteria" target="1.8" />
-      <module name="ecafeteria" target="1.8" />
-      <module name="ecafeteria.bootstrapapp" target="1.5" />
+      <module name="ecafeteria.bootstrapapp" target="1.8" />
       <module name="ecafeteria.consoleapp" target="1.8" />
       <module name="ecafeteria.core" target="1.8" />
       <module name="ecafeteria.persistence.impl.jpa" target="1.5" />
