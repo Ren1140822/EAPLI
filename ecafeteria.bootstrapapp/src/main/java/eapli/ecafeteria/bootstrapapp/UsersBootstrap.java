@@ -1,43 +1,40 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template file, choose Tools | Templates and open the template
+ * in the editor.
  */
 package eapli.ecafeteria.bootstrapapp;
 
-import eapli.ecafeteria.application.UserRegisterController;
-import eapli.ecafeteria.domain.users.Password;
-import eapli.ecafeteria.domain.users.RoleType;
-import eapli.ecafeteria.domain.users.User;
-import eapli.ecafeteria.domain.users.Username;
-import eapli.framework.actions.Action;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import eapli.ecafeteria.application.UserRegisterController;
+import eapli.ecafeteria.domain.users.RoleType;
+import eapli.framework.actions.Action;
 
 /**
  * @author pgsou_000
  */
 public class UsersBootstrap implements Action {
 
-    public boolean execute() {
+	public boolean execute() {
 
-        //Username username = new Username("admin");
-        //Password password = new Password("admin");
+		// Username username = new Username("admin");
+		// Password password = new Password("admin");
 
-        String username = new String("admin");
-        String password = new String("admin");
+		final String username = new String("admin");
+		final String password = new String("admin");
 
-        String firstName = new String("John");
-        String lastName = new String("Doe");
+		final String firstName = new String("John");
+		final String lastName = new String("Doe");
 
-        String email = new String("john.doe@emai.l.com");
+		final String email = new String("john.doe@emai.l.com");
 
-        List<RoleType> roles = new ArrayList<>();
+		final List<RoleType> roles = new ArrayList<RoleType>();
 
-        UserRegisterController userController = new UserRegisterController();
-        User newUser = userController.registerUser(username, password, firstName, lastName, email, roles);
-        return false;
+		final UserRegisterController userController = new UserRegisterController();
+		userController.registerUser(username, password, firstName, lastName, email, roles);
+		return false;
 
-    }
+	}
 }
