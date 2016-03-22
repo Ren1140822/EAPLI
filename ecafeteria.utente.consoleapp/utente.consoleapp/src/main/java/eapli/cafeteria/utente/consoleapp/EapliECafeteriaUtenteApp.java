@@ -4,7 +4,7 @@ package eapli.cafeteria.utente.consoleapp;
  * Hello world!
  *
  */
-public class App 
+public class EapliECafeteriaUtenteApp 
 {
     public static void main( String[] args )
     {
