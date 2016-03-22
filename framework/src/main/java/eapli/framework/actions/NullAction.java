@@ -1,6 +1,6 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template, choose Tools | Templates and open the template in
+ * the editor.
  */
 package eapli.framework.actions;
 
@@ -10,17 +10,18 @@ package eapli.framework.actions;
  */
 public class NullAction implements Action {
 
-    private static final NullAction theInstance = new NullAction();
+	// FIXME use lazy holder idiom
+	private static final NullAction theInstance = new NullAction();
 
-    public static NullAction getInstance() {
-        return theInstance;
-    }
+	public static NullAction instance() {
+		return theInstance;
+	}
 
-    private NullAction() {
-    }
+	private NullAction() {
+	}
 
-    @Override
-    public boolean execute() {
-        return false;
-    }
+	@Override
+	public boolean execute() {
+		return false;
+	}
 }

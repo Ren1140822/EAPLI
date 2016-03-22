@@ -26,7 +26,7 @@ public abstract class MenuRenderer {
 	protected MenuItem readOption() {
 		MenuItem item;
 		do {
-			final int option = Console.readInteger("Please choose an option");
+			final int option = Console.readInteger("\nPlease choose an option");
 			item = menu.item(option);
 		} while (item == null);
 		return item;

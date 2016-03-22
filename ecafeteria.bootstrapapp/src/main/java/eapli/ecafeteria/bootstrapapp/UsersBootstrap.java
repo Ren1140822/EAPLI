@@ -17,24 +17,32 @@ import eapli.framework.actions.Action;
  */
 public class UsersBootstrap implements Action {
 
+	@Override
 	public boolean execute() {
 
 		// Username username = new Username("admin");
 		// Password password = new Password("admin");
 
-		final String username = new String("admin");
-		final String password = new String("admin");
+		registerAdmin();
+		return false;
+	}
 
-		final String firstName = new String("John");
-		final String lastName = new String("Doe");
+	/**
+	 * 
+	 */
+	private void registerAdmin() {
+		final String username = "admin";
+		final String password = "admin";
 
-		final String email = new String("john.doe@emai.l.com");
+		final String firstName = "John";
+		final String lastName = "Doe";
+
+		final String email = "john.doe@emai.l.com";
 
 		final List<RoleType> roles = new ArrayList<RoleType>();
+		roles.add(RoleType.Admin);
 
 		final UserRegisterController userController = new UserRegisterController();
 		userController.registerUser(username, password, firstName, lastName, email, roles);
-		return false;
-
 	}
 }

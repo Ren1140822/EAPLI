@@ -73,6 +73,8 @@ public class User implements AggregateRoot<Username>, Authorisable<ActionRight>,
 		return action.canBePerformedBy(roles.roleTypes());
 	}
 
+	// TODO this method's name suggests a boolean return not a void
+	// we are using exception handling for logic behaviour...
 	public void passwordMatches(Password password) throws InvalidPasswordException {
 		if (!this.password.equals(password)) {
 			throw new InvalidPasswordException("Password does note match", this);

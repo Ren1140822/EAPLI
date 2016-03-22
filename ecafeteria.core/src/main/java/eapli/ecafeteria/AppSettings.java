@@ -1,13 +1,13 @@
 package eapli.ecafeteria;
 
-import eapli.ecafeteria.domain.users.Session;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import eapli.ecafeteria.domain.users.Session;
 
 /**
  * A "global" (singleton) class with the application settings.
@@ -19,20 +19,22 @@ public class AppSettings {
 	private final Properties	applicationProperties  = new Properties();
 	// FIXME use lazy holder idiom
 	private static AppSettings	theInstance;
-	//private final static String	PROPERTIES_RESOURCE	   = "eapli/ecafeteria/ecafeteria.properties";
+	// private final static String PROPERTIES_RESOURCE =
+	// "eapli/ecafeteria/ecafeteria.properties";
 	private final static String	PROPERTIES_RESOURCE	   = "ecafeteria.properties";
 	private final static String	REPOSITORY_FACTORY_KEY = "persistence.repositoryFactory";
 
-	private static Session theSession = null;
+	private Session				theSession			   = null;
 
-	public void setSession(Session session){
+	public void setSession(Session session) {
 		theSession = session;
 	}
 
-	public void removeSession(){
+	public void removeSession() {
 		theSession = null;
 	}
 
+	// TODO use lazy holder idiom
 	public static AppSettings instance() {
 		if (theInstance == null) {
 			theInstance = new AppSettings();
@@ -59,7 +61,7 @@ public class AppSettings {
 				throw new FileNotFoundException(
 				        "property file '" + PROPERTIES_RESOURCE + "' not found in the classpath");
 			}
-		} catch (IOException exio) {
+		} catch (final IOException exio) {
 			setDefaultProperties();
 
 			Logger.getLogger(AppSettings.class.getName()).log(Level.SEVERE, null, exio);
@@ -67,7 +69,7 @@ public class AppSettings {
 			if (propertiesStream != null) {
 				try {
 					propertiesStream.close();
-				} catch (IOException ex) {
+				} catch (final IOException ex) {
 					Logger.getLogger(AppSettings.class.getName()).log(Level.SEVERE, null, ex);
 				}
 			}
@@ -81,5 +83,9 @@ public class AppSettings {
 
 	public String getRepositoryFactory() {
 		return applicationProperties.getProperty(REPOSITORY_FACTORY_KEY);
+	}
+
+	public Session session() {
+		return theSession;
 	}
 }
