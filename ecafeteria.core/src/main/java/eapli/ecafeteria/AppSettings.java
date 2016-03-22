@@ -24,16 +24,6 @@ public class AppSettings {
 	private final static String	PROPERTIES_RESOURCE	   = "ecafeteria.properties";
 	private final static String	REPOSITORY_FACTORY_KEY = "persistence.repositoryFactory";
 
-	private Session				theSession			   = null;
-
-	public void setSession(Session session) {
-		theSession = session;
-	}
-
-	public void removeSession() {
-		theSession = null;
-	}
-
 	// TODO use lazy holder idiom
 	public static AppSettings instance() {
 		if (theInstance == null) {
@@ -44,10 +34,6 @@ public class AppSettings {
 
 	private AppSettings() {
 		loadProperties();
-	}
-
-	public Properties getApplicationProperties() {
-		return applicationProperties;
 	}
 
 	private void loadProperties() {
@@ -83,6 +69,20 @@ public class AppSettings {
 
 	public String getRepositoryFactory() {
 		return applicationProperties.getProperty(REPOSITORY_FACTORY_KEY);
+	}
+
+	//
+	// session
+	//
+
+	private Session theSession = null;
+
+	public void setSession(Session session) {
+		theSession = session;
+	}
+
+	public void removeSession() {
+		theSession = null;
 	}
 
 	public Session session() {

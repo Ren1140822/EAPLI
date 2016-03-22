@@ -14,10 +14,10 @@ import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.Menu;
 import eapli.framework.presentation.console.MenuItem;
 import eapli.framework.presentation.console.MenuRenderer;
-import eapli.framework.presentation.console.VerticalSeparator;
 import eapli.framework.presentation.console.ShowVerticalSubMenuAction;
 import eapli.framework.presentation.console.SubMenu;
 import eapli.framework.presentation.console.VerticalMenuRenderer;
+import eapli.framework.presentation.console.VerticalSeparator;
 
 /**
  *
@@ -101,11 +101,11 @@ public class MainMenu extends AbstractUI {
 			final Menu settingsMenu = buildAdminSettingsMenu();
 			mainMenu.add(new SubMenu(SETTINGS_OPTION, settingsMenu, new ShowVerticalSubMenuAction(settingsMenu)));
 		} else if (AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.ManageKitchen)) {
-
+			// TODO
 		} else if (AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.ManageMenus)) {
-
+			// TODO
 		} else if (AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.Sale)) {
-
+			// TODO
 		}
 		mainMenu.add(new VerticalSeparator());
 
