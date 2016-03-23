@@ -3,16 +3,17 @@ package eapli.ecafeteria.application;
 import eapli.ecafeteria.domain.users.*;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.ecafeteria.persistence.UserRepository;
+import eapli.framework.application.Controller;
 
 import java.util.List;
 
 /**
- * Created by nuno on 20/03/16.
+ * Created by nuno on 21/03/16.
  */
-public class UserRegisterController {
+public class AddUserController implements Controller {
 
-    public User registerUser(String username, String password, String firstName, String lastName, String email,
-                             List<RoleType> roles) {
+    public User addUser(String username, String password, String firstName, String lastName, String email,
+                        List<RoleType> roles) {
 
         UserBuilder userBuilder = new UserBuilder();
         userBuilder.setUsername(username);

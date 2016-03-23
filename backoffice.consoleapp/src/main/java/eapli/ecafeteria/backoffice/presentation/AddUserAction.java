@@ -3,11 +3,11 @@ package eapli.ecafeteria.backoffice.presentation;
 import eapli.framework.actions.Action;
 
 /**
- * Created by nuno on 20/03/16.
+ * Created by nuno on 22/03/16.
  */
-public class LoginAction implements Action {
+public class AddUserAction implements Action {
     @Override
     public boolean execute() {
-        return new LoginUI().show();
+        return new AddUserUI().show();
     }
 }

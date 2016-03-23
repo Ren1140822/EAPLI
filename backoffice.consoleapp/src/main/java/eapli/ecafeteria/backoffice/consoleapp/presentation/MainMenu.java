@@ -5,6 +5,7 @@
  */
 package eapli.ecafeteria.backoffice.consoleapp.presentation;
 
+import eapli.ecafeteria.backoffice.presentation.AddUserAction;
 import eapli.ecafeteria.backoffice.presentation.LoginAction;
 import eapli.ecafeteria.backoffice.presentation.LogoutAction;
 import eapli.framework.actions.ReturnAction;
@@ -29,6 +30,7 @@ public class MainMenu extends AbstractUI {
 	private static final int LOGOUT_OPTION = 2;
 	private static final int LISTINGS_OPTION	  = 100;
 	private static final int MASTER_TABLES_OPTION = 200;
+	private static final int ADD_USER_OPTION = 1;
 
 	public MainMenu() {
 	}
@@ -66,6 +68,9 @@ public class MainMenu extends AbstractUI {
 
 	private Menu buildMasterTablesMenu() {
 		final Menu menu = new Menu("Master tables...");
+
+		menu.add(new MenuItem(ADD_USER_OPTION, "Add User",
+				new AddUserAction()));
 
 		// TODO add menu options
 		menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));

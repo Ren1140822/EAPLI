@@ -3,17 +3,25 @@
  */
 package eapli.ecafeteria.domain.users;
 
+
 import eapli.framework.domain.ValueObject;
+
+import javax.persistence.Embeddable;
+import java.io.Serializable;
 
 /**
  * @author pgsou_000
  */
-public class Password implements ValueObject {
+@Embeddable
+public class Password implements ValueObject, Serializable {
 
     /**
      *
      */
     private static final long serialVersionUID = 1L;
+
+    public Password() {
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -35,7 +43,7 @@ public class Password implements ValueObject {
         Weak, Good, Excelent,
     }
 
-    private final String password;
+    private String password;
 
     public Password(String password) {
         // FIXME validate invariants

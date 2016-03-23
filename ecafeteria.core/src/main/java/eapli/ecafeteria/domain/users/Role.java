@@ -3,22 +3,29 @@
  */
 package eapli.ecafeteria.domain.users;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import eapli.framework.domain.ValueObject;
 import eapli.util.DateTime;
 
+import javax.persistence.Embeddable;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 /**
  * @author pgsou_000
  *
  */
-public class Role implements ValueObject {
+@Embeddable
+public class Role implements ValueObject, Serializable {
 	/**
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	private final RoleType	  type;
-	private final Calendar	  assignedOn;
+	private RoleType	  type;
+	@Temporal(TemporalType.DATE)
+	private Calendar	  assignedOn;
 
 	public Role(RoleType type) {
 		this(type, DateTime.now());
@@ -28,6 +35,9 @@ public class Role implements ValueObject {
 		// FIXME validate invariants
 		this.type = type;
 		this.assignedOn = assignedOn;
+	}
+
+	public Role() {
 	}
 
 	@Override

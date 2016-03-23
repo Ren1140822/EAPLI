@@ -5,22 +5,29 @@ package eapli.ecafeteria.domain.users;
 
 import eapli.framework.domain.ValueObject;
 
+import javax.persistence.Embeddable;
+import java.io.Serializable;
+
 /**
  * @author pgsou_000
  *
  */
-public class Username implements ValueObject {
+@Embeddable
+public class Username implements ValueObject, Serializable {
 
 	/**
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	private final String	  username;
+	private String	  username;
 
 	public Username(String username) {
 		// FIXME validate invariants
 
 		this.username = username;
+	}
+
+	public Username() {
 	}
 
 	@Override

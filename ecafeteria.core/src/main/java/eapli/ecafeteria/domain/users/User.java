@@ -1,5 +1,6 @@
 package eapli.ecafeteria.domain.users;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -10,14 +11,21 @@ import eapli.framework.dto.DTOable;
 import eapli.framework.dto.GenericDTO;
 import eapli.util.DateTime;
 
-public class User implements AggregateRoot<Username>, Authorisable<ActionRight>, DTOable<User> {
+import javax.persistence.*;
 
-	private final Username	   username;
-	private final Password	   password;
-	private final Name		   name;
-	private final EmailAddress email;
-	private final List<Role>   roles;
-	private final Calendar	   createdOn;
+@Entity
+public class User implements AggregateRoot<Username>, Authorisable<ActionRight>, DTOable<User>, Serializable {
+
+	@Id
+	private Username	   username;
+	private Password	   password;
+	private Name		   name;
+	private EmailAddress email;
+
+	@ElementCollection
+	private List<Role>   roles;
+	@Temporal(TemporalType.DATE)
+	private Calendar	   createdOn;
 
 	public User(String username, String password, String firstName, String lastName, String email,
 	        List<RoleType> roles) {
@@ -33,6 +41,9 @@ public class User implements AggregateRoot<Username>, Authorisable<ActionRight>,
 		for (final RoleType rt : roles) {
 			this.roles.add(new Role(rt, createdOn));
 		}
+	}
+
+	protected User() {
 	}
 
 	@Override

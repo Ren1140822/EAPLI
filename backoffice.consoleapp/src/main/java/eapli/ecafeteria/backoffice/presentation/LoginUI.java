@@ -24,6 +24,7 @@ public class LoginUI extends AbstractUI{
         String password = Console.readLine("Password:");
 
         try {
+            //TODO ASK: Why does controller() not work in the following line?
             theController.login(userName, password);
             System.out.println("Authentication Successful");
         } catch (InvalidUserException |  InvalidPasswordException e) {

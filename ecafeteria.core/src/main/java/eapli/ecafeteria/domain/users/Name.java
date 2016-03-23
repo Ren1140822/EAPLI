@@ -2,19 +2,26 @@ package eapli.ecafeteria.domain.users;
 
 import eapli.framework.domain.ValueObject;
 
-public class Name implements ValueObject {
+import javax.persistence.Embeddable;
+import java.io.Serializable;
+
+@Embeddable
+public class Name implements ValueObject, Serializable {
 	/**
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	private final String	  firstName;
-	private final String	  lastName;
+	private String	  firstName;
+	private String	  lastName;
 
 	public Name(String firstName, String lastName) {
 		// FIXME validate invariants
 
 		this.firstName = firstName;
 		this.lastName = lastName;
+	}
+
+	public Name() {
 	}
 
 	@Override

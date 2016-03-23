@@ -5,21 +5,28 @@ package eapli.ecafeteria.domain.users;
 
 import eapli.framework.domain.ValueObject;
 
+import javax.persistence.Embeddable;
+import java.io.Serializable;
+
 /**
  * @author pgsou_000
  *
  */
-public class EmailAddress implements ValueObject {
+@Embeddable
+public class EmailAddress implements ValueObject, Serializable {
 
 	/**
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	private final String	  address;
+	private String	  address;
 
 	public EmailAddress(String address) {
 		// FIXME validate invariants
 		this.address = address;
+	}
+
+	public EmailAddress() {
 	}
 
 	@Override
