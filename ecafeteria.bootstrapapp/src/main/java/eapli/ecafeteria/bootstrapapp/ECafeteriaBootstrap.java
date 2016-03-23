@@ -6,7 +6,7 @@ import eapli.framework.actions.Action;
  * Hello world!
  *
  */
-public class EapliECafeteriaBootstrapApp {
+public class ECafeteriaBootstrap {
 
 	public static void main(String[] args) {
 		System.out.println("Bootstrapping eCafeteria 2016(c) data");

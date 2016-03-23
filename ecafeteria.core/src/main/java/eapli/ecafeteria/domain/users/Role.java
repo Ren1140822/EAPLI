@@ -9,7 +9,6 @@ import java.util.Calendar;
 import eapli.framework.domain.ValueObject;
 import eapli.util.DateTime;
 
-import javax.persistence.Embeddable;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -17,7 +16,7 @@ import javax.persistence.TemporalType;
  * @author pgsou_000
  *
  */
-@Embeddable
+
 public class Role implements ValueObject, Serializable {
 	/**
 	 *
@@ -43,5 +42,9 @@ public class Role implements ValueObject, Serializable {
 	@Override
 	public String toString() {
 		return type + "@" + assignedOn;
+	}
+
+	public RoleType type() {
+		return type;
 	}
 }

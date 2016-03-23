@@ -19,9 +19,9 @@ public class HorizontalMenuRenderer extends MenuRenderer {
 	@Override
 	protected void doShow() {
 		for (final MenuItem item : menu.itens()) {
-			System.out.print("[ ");
+			System.out.print("| ");
 			item.show();
-			System.out.print(" ] ");
+			System.out.print(" | ");
 		}
 	}
 }

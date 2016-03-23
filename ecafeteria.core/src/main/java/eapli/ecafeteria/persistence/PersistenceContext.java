@@ -26,17 +26,6 @@ public final class PersistenceContext {
 			return (RepositoryFactory) Class.forName(factoryClassName).newInstance();
 		} catch (ClassNotFoundException | IllegalAccessException | InstantiationException ex) {
 			// FIXME handle exception properly
-			return null;
-		}
-	}
-
-	public static RepositoryFactory buildPersistence() {
-		final String factoryClassName = AppSettings.instance().getApplicationProperties()
-		        .getProperty("persistence.repositoryFactory");
-
-		try {
-			return (RepositoryFactory) Class.forName(factoryClassName).newInstance();
-		} catch (final ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
 			Logger.getLogger(PersistenceContext.class.getName()).log(Level.SEVERE, null, ex);
 			return null;
 		}

@@ -1,7 +1,6 @@
 package eapli.ecafeteria.domain.users;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -18,12 +17,12 @@ public class User implements AggregateRoot<Username>, Authorisable<ActionRight>,
 
 	@Id
 	private Username	   username;
+	
 	private Password	   password;
 	private Name		   name;
 	private EmailAddress email;
 
-	@ElementCollection
-	private List<Role>   roles;
+	private RoleList	 roles;
 	@Temporal(TemporalType.DATE)
 	private Calendar	   createdOn;
 
@@ -37,7 +36,7 @@ public class User implements AggregateRoot<Username>, Authorisable<ActionRight>,
 		this.password = new Password(password);
 		name = new Name(firstName, lastName);
 		this.email = new EmailAddress(email);
-		this.roles = new ArrayList<Role>();
+		this.roles = new RoleList();
 		for (final RoleType rt : roles) {
 			this.roles.add(new Role(rt, createdOn));
 		}
@@ -82,14 +81,14 @@ public class User implements AggregateRoot<Username>, Authorisable<ActionRight>,
 
 	@Override
 	public boolean isAuthorizedTo(ActionRight action) {
-
-		throw new UnsupportedOperationException("Not supported yet.");
+		return action.canBePerformedBy(roles.roleTypes());
 	}
 
+	// TODO this method's name suggests a boolean return not a void
+	// we are using exception handling for logic behaviour...
 	public void passwordMatches(Password password) throws InvalidPasswordException {
 		if (!this.password.equals(password)) {
 			throw new InvalidPasswordException("Password does note match", this);
 		}
-
 	}
 }
