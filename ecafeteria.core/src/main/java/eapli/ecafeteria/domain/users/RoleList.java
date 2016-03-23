@@ -3,7 +3,6 @@
  */
 package eapli.ecafeteria.domain.users;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,7 +14,6 @@ import java.util.ListIterator;
  * @author pgsou_000
  *
  */
-
 public class RoleList implements List<Role>, Serializable {
 
 	private final List<Role> data = new ArrayList<Role>();

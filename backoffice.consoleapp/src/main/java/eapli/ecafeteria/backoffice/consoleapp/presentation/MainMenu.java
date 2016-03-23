@@ -5,8 +5,9 @@
  */
 package eapli.ecafeteria.backoffice.consoleapp.presentation;
 
-import eapli.ecafeteria.backoffice.presentation.AddUserAction;
 import eapli.ecafeteria.AppSettings;
+import eapli.ecafeteria.backoffice.presentation.AddUserAction;
+import eapli.ecafeteria.domain.users.ActionRight;
 import eapli.ecafeteria.domain.users.ActionRight;
 import eapli.framework.actions.ReturnAction;
 import eapli.framework.actions.ShowMessageAction;
@@ -15,7 +16,6 @@ import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.Menu;
 import eapli.framework.presentation.console.MenuItem;
 import eapli.framework.presentation.console.MenuRenderer;
-
 import eapli.framework.presentation.console.ShowVerticalSubMenuAction;
 import eapli.framework.presentation.console.SubMenu;
 import eapli.framework.presentation.console.VerticalMenuRenderer;
@@ -27,18 +27,15 @@ import eapli.framework.presentation.console.VerticalSeparator;
  */
 public class MainMenu extends AbstractUI {
 
-	private static final int EXIT_OPTION		  = 0;
+	private static final int EXIT_OPTION					= 0;
 
-	//MY USER
+	// MY USER
 	private static final int CHANGE_PASSWORD_OPTION			= 1;
-	private static final int LOGIN_OPTION = 2;
-	private static final int LOGOUT_OPTION = 3;
-
-	//private static final int LISTINGS_OPTION	  = 100;
-	//private static final int MASTER_TABLES_OPTION = 200;
-	private static final int ADD_USER_OPTION = 1;
+	private static final int LOGIN_OPTION					= 2;
+	private static final int LOGOUT_OPTION					= 3;
 
 	// USERS
+	private static final int ADD_USER_OPTION = 1;
 
 	// ORGANIC UNITS
 
@@ -146,8 +143,6 @@ public class MainMenu extends AbstractUI {
 
 		menu.add(new MenuItem(ADD_USER_OPTION, "Add User", new AddUserAction()));
 
-
-		// TODO add menu options
 		menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
 
 		return menu;
