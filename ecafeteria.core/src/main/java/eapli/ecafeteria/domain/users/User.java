@@ -1,9 +1,13 @@
 package eapli.ecafeteria.domain.users;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import eapli.framework.domain.AggregateRoot;
 import eapli.framework.domain.Authorisable;
@@ -11,21 +15,19 @@ import eapli.framework.dto.DTOable;
 import eapli.framework.dto.GenericDTO;
 import eapli.util.DateTime;
 
-import javax.persistence.*;
-
 @Entity
 public class User implements AggregateRoot<Username>, Authorisable<ActionRight>, DTOable<User>, Serializable {
 
 	@Id
-	private Username	   username;
-	
-	private Password	   password;
-	private Name		   name;
+	private Username	 username;
+
+	private Password	 password;
+	private Name		 name;
 	private EmailAddress email;
 
 	private RoleList	 roles;
 	@Temporal(TemporalType.DATE)
-	private Calendar	   createdOn;
+	private Calendar	 createdOn;
 
 	public User(String username, String password, String firstName, String lastName, String email,
 	        List<RoleType> roles) {
@@ -86,7 +88,7 @@ public class User implements AggregateRoot<Username>, Authorisable<ActionRight>,
 	}
 
 	// TODO this method's name suggests a boolean return not a void
-	// we are using exception handling for logic behaviour...
+	// we are using exception handling for logic behavior...
 	public void passwordMatches(Password password) throws InvalidPasswordException {
 		if (!this.password.equals(password)) {
 			throw new InvalidPasswordException("Password does note match", this);
