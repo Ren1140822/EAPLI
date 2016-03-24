@@ -3,6 +3,7 @@ package eapli.ecafeteria.backoffice.consoleapp.presentation;
 import eapli.framework.actions.Action;
 
 /**
+ * Menu action for user logout.
  * Created by nuno on 20/03/16.
  */
 public class LogoutAction implements Action {

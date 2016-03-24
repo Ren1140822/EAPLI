@@ -8,6 +8,7 @@ import eapli.framework.presentation.console.AbstractUI;
 import eapli.util.Console;
 
 /**
+ * UI for user login action.
  * Created by nuno on 21/03/16.
  */
 public class LoginUI extends AbstractUI {

@@ -4,7 +4,6 @@ import eapli.ecafeteria.application.AddUserController;
 import eapli.ecafeteria.domain.users.RoleType;
 import eapli.framework.actions.ReturnAction;
 import eapli.framework.application.Controller;
-
 import eapli.framework.presentation.console.*;
 import eapli.util.Console;
 
@@ -12,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * UI for adding a user to the application.
  * Created by nuno on 22/03/16.
  */
 public class AddUserUI extends AbstractUI {
@@ -26,13 +26,17 @@ public class AddUserUI extends AbstractUI {
     protected boolean doShow() {
 
         String username = Console.readLine("Username");
-        String password= Console.readLine("Password");
-        String firstName= Console.readLine("First Name");
-        String lastName= Console.readLine("Last Name");
-        String email= Console.readLine("E-Mail");
+        String password = Console.readLine("Password");
+        String firstName = Console.readLine("First Name");
+        String lastName = Console.readLine("Last Name");
+        String email = Console.readLine("E-Mail");
         List<RoleType> roleTypes = new ArrayList<>();
 
-        while(!showRoles(roleTypes));
+        boolean show;
+        do {
+            show = showRoles(roleTypes);
+        }
+        while (!show);
 
         theController.addUser(username, password, firstName, lastName, email, roleTypes);
 
@@ -46,9 +50,8 @@ public class AddUserUI extends AbstractUI {
         return renderer.show();
     }
 
-    private Menu buildRolesMenu(List<RoleType> roleTypes)
-    {
-        Menu rolesMenu =new Menu();
+    private Menu buildRolesMenu(List<RoleType> roleTypes) {
+        Menu rolesMenu = new Menu();
 
         int counter = 0;
 
@@ -64,9 +67,10 @@ public class AddUserUI extends AbstractUI {
 
     /**
      * Get all the existing RoleTypes.
+     *
      * @return a list of RoleTypes
      */
-    private RoleType[] getRoleTypes(){
+    private RoleType[] getRoleTypes() {
         //TODO NMB: Should this method have direct access to RoleTypes?
         return RoleType.values();
     }

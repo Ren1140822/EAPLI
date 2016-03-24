@@ -1,8 +1,6 @@
 package eapli.ecafeteria.backoffice.presentation;
 
-import eapli.ecafeteria.domain.users.Role;
 import eapli.ecafeteria.domain.users.RoleType;
-import eapli.ecafeteria.domain.users.User;
 import eapli.framework.actions.Action;
 
 import java.util.List;
@@ -14,7 +12,7 @@ import java.util.List;
 public class AddRoleType2List implements Action {
 
     private List<RoleType> roleTypes;
-    private RoleType roleType;
+    private final RoleType roleType;
 
     public AddRoleType2List(List<RoleType> roleTypes, RoleType roleType) {
         this.roleType = roleType;

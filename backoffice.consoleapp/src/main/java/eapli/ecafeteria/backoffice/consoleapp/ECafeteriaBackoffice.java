@@ -18,7 +18,7 @@ public final class ECafeteriaBackoffice {
 
 	// FIXME we must arrange for another way to bootstrap the in memory DB in
 	// order to avoid code duplication
-	public static void bootstrap() {
+	private static void bootstrap() {
 		// declare bootstrap actions
 		final Action[] actions = { new UsersBootstrap(), };
 
