@@ -6,7 +6,6 @@
 package eapli.ecafeteria.backoffice.consoleapp.presentation;
 
 import eapli.ecafeteria.AppSettings;
-import eapli.ecafeteria.backoffice.presentation.AddUserAction;
 import eapli.ecafeteria.domain.users.ActionRight;
 import eapli.framework.actions.ReturnAction;
 import eapli.framework.actions.ShowMessageAction;
