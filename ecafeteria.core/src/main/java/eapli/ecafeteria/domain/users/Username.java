@@ -3,10 +3,11 @@
  */
 package eapli.ecafeteria.domain.users;
 
-import eapli.framework.domain.ValueObject;
+import java.io.Serializable;
 
 import javax.persistence.Embeddable;
-import java.io.Serializable;
+
+import eapli.framework.domain.ValueObject;
 
 /**
  * @author pgsou_000
@@ -18,15 +19,14 @@ public class Username implements ValueObject, Serializable {
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	private String username;
+	private String			  username;
 
 	public Username(String username) {
 		// FIXME validate invariants
-
 		this.username = username;
 	}
 
-	public Username() {
+	protected Username() {
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public class Username implements ValueObject, Serializable {
 			return false;
 		}
 
-		Username username1 = (Username) o;
+		final Username username1 = (Username) o;
 
 		return username != null ? username.equals(username1.username) : username1.username == null;
 

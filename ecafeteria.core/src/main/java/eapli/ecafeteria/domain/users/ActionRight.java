@@ -12,6 +12,13 @@ import java.util.Collection;
 public enum ActionRight {
 	Administer, SelectMeal, ManageKitchen, ManageMenus, Sale,;
 
+	/**
+	 * checks if this action right can be performed by a user with the specified
+	 * role types
+	 * 
+	 * @param roles
+	 * @return
+	 */
 	public boolean canBePerformedBy(Collection<RoleType> roles) {
 		if (this == Administer && roles.contains(RoleType.Admin)) {
 			return true;

@@ -1,9 +1,10 @@
 package eapli.ecafeteria.domain.users;
 
-import eapli.framework.domain.ValueObject;
+import java.io.Serializable;
 
 import javax.persistence.Embeddable;
-import java.io.Serializable;
+
+import eapli.framework.domain.ValueObject;
 
 @Embeddable
 public class Name implements ValueObject, Serializable {
@@ -12,15 +13,16 @@ public class Name implements ValueObject, Serializable {
 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String firstName;
-	private String lastName;
+	private String			  firstName;
+	private String			  lastName;
+
 	public Name(String firstName, String lastName) {
 		// FIXME validate invariants
-
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
-	public Name() {
+
+	protected Name() {
 	}
 
 	@Override
@@ -32,7 +34,7 @@ public class Name implements ValueObject, Serializable {
 			return false;
 		}
 
-		Name name = (Name) o;
+		final Name name = (Name) o;
 
 		if (!firstName.equals(name.firstName)) {
 			return false;

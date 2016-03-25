@@ -3,11 +3,11 @@
  */
 package eapli.ecafeteria.domain.users;
 
-
-import eapli.framework.domain.ValueObject;
+import java.io.Serializable;
 
 import javax.persistence.Embeddable;
-import java.io.Serializable;
+
+import eapli.framework.domain.ValueObject;
 
 /**
  * @author pgsou_000
@@ -19,9 +19,9 @@ public class Password implements ValueObject, Serializable {
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	private String password;
+	private String			  password;
 
-	public Password() {
+	protected Password() {
 	}
 
 	public Password(String password) {
@@ -38,7 +38,7 @@ public class Password implements ValueObject, Serializable {
 			return false;
 		}
 
-		Password password1 = (Password) o;
+		final Password password1 = (Password) o;
 
 		return password.equals(password1.password);
 
@@ -60,7 +60,7 @@ public class Password implements ValueObject, Serializable {
 			passwordStrength = PasswordStrength.Weak;
 		}
 		return passwordStrength;
-		//TODO implement the rest of the method
+		// TODO implement the rest of the method
 	}
 
 	@Override

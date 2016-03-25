@@ -9,22 +9,32 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import eapli.framework.authz.Authorisable;
 import eapli.framework.domain.AggregateRoot;
-import eapli.framework.domain.Authorisable;
 import eapli.framework.dto.DTOable;
 import eapli.framework.dto.GenericDTO;
 import eapli.util.DateTime;
 
+/**
+ * a system user
+ * 
+ * @author pgsou_000
+ *
+ */
 @Entity
 public class User implements AggregateRoot<Username>, Authorisable<ActionRight>, DTOable<User>, Serializable {
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
-	private Username	 username;
-	private Password	 password;
-	private Name		 name;
-	private EmailAddress email;
-	private RoleList	 roles;
+	private Username		  username;
+	private Password		  password;
+	private Name			  name;
+	private EmailAddress	  email;
+	private RoleList		  roles;
 	@Temporal(TemporalType.DATE)
-	private Calendar	 createdOn;
+	private Calendar		  createdOn;
 
 	public User(String username, String password, String firstName, String lastName, String email,
 	        List<RoleType> roles) {
@@ -131,5 +141,10 @@ public class User implements AggregateRoot<Username>, Authorisable<ActionRight>,
 		if (!this.password.equals(password)) {
 			throw new InvalidPasswordException("Password does note match", this);
 		}
+	}
+
+	@Override
+	public boolean is(Username id) {
+		return id().equals(id);
 	}
 }

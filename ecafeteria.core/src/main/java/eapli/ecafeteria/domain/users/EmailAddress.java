@@ -3,10 +3,11 @@
  */
 package eapli.ecafeteria.domain.users;
 
-import eapli.framework.domain.ValueObject;
+import java.io.Serializable;
 
 import javax.persistence.Embeddable;
-import java.io.Serializable;
+
+import eapli.framework.domain.ValueObject;
 
 /**
  * @author pgsou_000
@@ -15,17 +16,17 @@ import java.io.Serializable;
 public class EmailAddress implements ValueObject, Serializable {
 
 	/**
-
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	private String address;
+	private String			  address;
 
 	public EmailAddress(String address) {
 		// FIXME validate invariants
 		this.address = address;
 	}
-	public EmailAddress() {
+
+	protected EmailAddress() {
 	}
 
 	@Override
@@ -37,7 +38,7 @@ public class EmailAddress implements ValueObject, Serializable {
 			return false;
 		}
 
-		EmailAddress that = (EmailAddress) o;
+		final EmailAddress that = (EmailAddress) o;
 
 		return address.equals(that.address);
 

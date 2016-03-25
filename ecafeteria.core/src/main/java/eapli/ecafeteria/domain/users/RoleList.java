@@ -4,14 +4,22 @@
 package eapli.ecafeteria.domain.users;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 /**
  * @author pgsou_000
  */
 public class RoleList implements List<Role>, Serializable {
 
-	private final List<Role> data = new ArrayList<Role>();
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+	private final List<Role>  data			   = new ArrayList<Role>();
 
 	/**
 	 *
@@ -46,7 +54,6 @@ public class RoleList implements List<Role>, Serializable {
 
 	@Override
 	public boolean contains(Object arg0) {
-
 		return data.contains(arg0);
 	}
 
@@ -103,7 +110,6 @@ public class RoleList implements List<Role>, Serializable {
 
 	@Override
 	public boolean removeAll(Collection<?> arg0) {
-
 		return data.removeAll(arg0);
 	}
 
@@ -146,10 +152,9 @@ public class RoleList implements List<Role>, Serializable {
 			return false;
 		}
 
-		RoleList roles = (RoleList) o;
+		final RoleList roles = (RoleList) o;
 
 		return data.equals(roles.data);
-
 	}
 
 	@Override
