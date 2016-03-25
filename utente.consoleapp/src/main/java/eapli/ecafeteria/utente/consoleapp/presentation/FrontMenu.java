@@ -5,6 +5,7 @@
  */
 package eapli.ecafeteria.utente.consoleapp.presentation;
 
+import eapli.cafeteria.consoleapp.presentation.ExitWithMessageAction;
 import eapli.cafeteria.consoleapp.presentation.LoginAction;
 import eapli.framework.actions.IfThenAction;
 import eapli.framework.actions.ShowMessageAction;
@@ -44,6 +45,7 @@ public class FrontMenu extends AbstractUI {
 		menu.add(new MenuItem(LOGIN_OPTION, "Login",
 		        new IfThenAction(new LoginAction(), new ShowUiAction(new MainMenu()))));
 		menu.add(new MenuItem(SIGNUP_OPTION, "Sign up", new ShowMessageAction("Not implemented yet.")));
+		menu.add(new MenuItem(EXIT_OPTION, "Exit", new ExitWithMessageAction()));
 
 		final MenuRenderer renderer = new VerticalMenuRenderer(menu);
 		return renderer.show();
