@@ -1,4 +1,4 @@
-package eapli.cafeteria.utente.consoleapp;
+package eapli.ecafeteria.utente.consoleapp;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

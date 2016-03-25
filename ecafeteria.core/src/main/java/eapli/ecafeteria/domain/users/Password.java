@@ -15,55 +15,60 @@ import java.io.Serializable;
 @Embeddable
 public class Password implements ValueObject, Serializable {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+	private String password;
 
-    public Password() {
-    }
+	public Password() {
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Password)) return false;
+	public Password(String password) {
+		// FIXME validate invariants
+		this.password = password;
+	}
 
-        Password password1 = (Password) o;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof Password)) {
+			return false;
+		}
 
-        return password.equals(password1.password);
+		Password password1 = (Password) o;
 
-    }
+		return password.equals(password1.password);
 
-    @Override
-    public int hashCode() {
-        return password.hashCode();
-    }
+	}
 
-    public enum PasswordStrength {
-        Weak, Good, Excelent,
-    }
+	@Override
+	public int hashCode() {
+		return password.hashCode();
+	}
 
-    private String password;
-
-    public Password(String password) {
-        // FIXME validate invariants
-        this.password = password;
-    }
-
-    /**
-     * Check how strong a password is
-     * @return how strong a password is
-     */
-    public PasswordStrength strength() {
-        PasswordStrength passwordStrength = PasswordStrength.Weak;
-        if (3 > password.length() )
-            passwordStrength = PasswordStrength.Weak;
-        return passwordStrength;
-        //TODO implement the rest of the method
-    }
+	/**
+	 * Check how strong a password is
+	 *
+	 * @return how strong a password is
+	 */
+	public PasswordStrength strength() {
+		PasswordStrength passwordStrength = PasswordStrength.Weak;
+		if (3 > password.length()) {
+			passwordStrength = PasswordStrength.Weak;
+		}
+		return passwordStrength;
+		//TODO implement the rest of the method
+	}
 
 	@Override
 	public String toString() {
 		return password;
+	}
+
+	public enum PasswordStrength {
+		Weak, Good, Excelent,
 	}
 }
