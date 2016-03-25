@@ -4,15 +4,10 @@
 package eapli.ecafeteria.domain.users;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 /**
  * @author pgsou_000
- *
  */
 public class RoleList implements List<Role>, Serializable {
 
@@ -144,8 +139,12 @@ public class RoleList implements List<Role>, Serializable {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof RoleList)) return false;
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof RoleList)) {
+			return false;
+		}
 
 		RoleList roles = (RoleList) o;
 
