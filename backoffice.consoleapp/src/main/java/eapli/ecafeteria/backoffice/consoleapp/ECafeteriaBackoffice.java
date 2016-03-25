@@ -22,7 +22,7 @@ public final class ECafeteriaBackoffice {
 	public static void main(String[] args) {
 
 		// only needed because of the in memory persistence
-		ECafeteriaBootstrap.bootstrap();
+		new ECafeteriaBootstrap().execute();
 
 		// login and go to main menu
 		// TODO should provide three attempts
