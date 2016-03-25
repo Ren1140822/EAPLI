@@ -108,9 +108,10 @@ public class GenericDtoForCollectionClassTest {
 	public void ensureListFieldHasAllMembers() {
 		System.out.println("ensureListFieldHasAllMembers");
 
-		assertEquals("'data' list is missing elements", INT_FIELD_VALUE, ((List) (instance.get("data"))).size());
+		assertEquals("'data' list is missing elements", INT_FIELD_VALUE, ((List<?>) (instance.get("data"))).size());
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void ensureListFieldIsTransformed() {
 		System.out.println("ensureListFieldIsTransformed");
