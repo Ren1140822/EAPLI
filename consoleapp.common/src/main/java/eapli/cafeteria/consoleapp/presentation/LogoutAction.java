@@ -1,4 +1,4 @@
-package eapli.ecafeteria.backoffice.consoleapp.presentation;
+package eapli.cafeteria.consoleapp.presentation;
 
 import eapli.framework.actions.Action;
 

@@ -3,14 +3,17 @@ package eapli.ecafeteria.bootstrapapp;
 import eapli.framework.actions.Action;
 
 /**
- * Hello world!
+ * eCafeteria Bootstrapping data app
  *
  */
 public class ECafeteriaBootstrap {
 
 	public static void main(String[] args) {
 		System.out.println("Bootstrapping eCafeteria 2016(c) data");
+		bootstrap();
+	}
 
+	public static void bootstrap() {
 		// declare bootstrap actions
 		final Action[] actions = { new UsersBootstrap(), };
 

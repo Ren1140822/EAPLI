@@ -25,7 +25,5 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/framework"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/util"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/core"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/consoleapp.common"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/ecafeteria.bootstrapapp"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
