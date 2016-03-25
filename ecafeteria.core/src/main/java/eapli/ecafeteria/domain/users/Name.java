@@ -7,14 +7,36 @@ import java.io.Serializable;
 
 @Embeddable
 public class Name implements ValueObject, Serializable {
+	/**
+	 *
+
+	 */
+	private static final long serialVersionUID = 1L;
+	private String firstName;
+	private String lastName;
+	public Name(String firstName, String lastName) {
+		// FIXME validate invariants
+
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+	public Name() {
+	}
+
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof Name)) return false;
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof Name)) {
+			return false;
+		}
 
 		Name name = (Name) o;
 
-		if (!firstName.equals(name.firstName)) return false;
+		if (!firstName.equals(name.firstName)) {
+			return false;
+		}
 		return lastName.equals(name.lastName);
 
 	}
@@ -24,24 +46,6 @@ public class Name implements ValueObject, Serializable {
 		int result = firstName.hashCode();
 		result = 31 * result + lastName.hashCode();
 		return result;
-	}
-
-	/**
-	 *
-
-	 */
-	private static final long serialVersionUID = 1L;
-	private String	  firstName;
-	private String	  lastName;
-
-	public Name(String firstName, String lastName) {
-		// FIXME validate invariants
-
-		this.firstName = firstName;
-		this.lastName = lastName;
-	}
-
-	public Name() {
 	}
 
 	@Override
