@@ -23,18 +23,19 @@ package eapli.framework.domain;
  * @param <ID>
  *            the type of the primary <b>business</b> id of the entity
  */
-public interface DomainEntity<ID> {
+public interface DomainEntity<ID> extends Identifiable<ID> {
 
 	/**
 	 * returns the primary <b>business</b> id of the entity
 	 *
 	 * @return the primary <b>business</b> id of the entity
 	 */
+	@Override
 	ID id();
 
 	/**
 	 * Entities are compared by identity only.
-	 * 
+	 *
 	 * @param other
 	 * @return
 	 */

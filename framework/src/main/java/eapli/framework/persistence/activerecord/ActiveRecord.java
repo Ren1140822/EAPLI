@@ -1,8 +1,10 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template, choose Tools | Templates and open the template in
+ * the editor.
  */
 package eapli.framework.persistence.activerecord;
+
+import eapli.framework.domain.Identifiable;
 
 /**
  * An interface to mark a class as an Active Record.
@@ -12,11 +14,11 @@ package eapli.framework.persistence.activerecord;
  *
  * @author Paulo Gandra Sousa
  */
-public interface ActiveRecord {
+public interface ActiveRecord<ID> extends Identifiable<ID> {
 
-    /*
-     * save the current object to the persistence store either by creating it or
-     * updating it
-     */
-    void save();
+	/*
+	 * save the current object to the persistence store either by creating it or
+	 * updating it
+	 */
+	void save();
 }

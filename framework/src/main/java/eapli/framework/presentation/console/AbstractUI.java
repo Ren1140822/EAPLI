@@ -39,6 +39,9 @@ public abstract class AbstractUI {
 	 */
 	public abstract String headline();
 
+	/**
+	 *
+	 */
 	public void mainLoop() {
 		boolean wantsToExit;
 		do {

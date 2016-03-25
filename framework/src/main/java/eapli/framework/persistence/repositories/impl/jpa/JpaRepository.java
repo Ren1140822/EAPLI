@@ -237,12 +237,9 @@ public abstract class JpaRepository<T, K extends Serializable>
 			}
 		} finally {
 			// we are closing the entity manager here because this code is
-			// runing in
-			// a non-container managed way. if it was the case to be runing
-			// under an
-			// application server with a JPA container and managed
-			// transactions/sessions,
-			// one should not be doing this
+			// runing in a non-container managed way. if it was the case to be
+			// runing under an application server with a JPA container and
+			// managed transactions/sessions, one should not be doing this
 			em.close();
 		}
 
@@ -281,6 +278,12 @@ public abstract class JpaRepository<T, K extends Serializable>
 		return q.getResultList();
 	}
 
+	/**
+	 * an iterator over JPA
+	 *
+	 * @author pgsou_000
+	 *
+	 */
 	private class JpaPagedIterator implements Iterator<T> {
 
 		private final JpaRepository<T, K> repository;
@@ -311,16 +314,7 @@ public abstract class JpaRepository<T, K extends Serializable>
 
 		@Override
 		public void remove() {
-			throw new UnsupportedOperationException("Not supported yet."); // To
-			                                                               // change
-			                                                               // body
-			                                                               // of
-			                                                               // generated
-			                                                               // methods,
-			                                                               // choose
-			                                                               // Tools
-			                                                               // |
-			                                                               // Templates.
+			throw new UnsupportedOperationException("Not supported yet.");
 		}
 
 		private void loadNextPage() {

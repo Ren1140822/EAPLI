@@ -1,19 +1,37 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template, choose Tools | Templates and open the template in
+ * the editor.
  */
 package eapli.framework.visitor;
 
 /**
+ * a visitor (GoF)
  *
  * @author Paulo Gandra Sousa
- * @param <T> the specific type we want to visit
+ * @param <T>
+ *            the specific type we want to visit
  */
 public interface Visitor<T> {
 
-    void visit(T visited);
+	/**
+	 * visits a specific object
+	 *
+	 * @param visitee
+	 *            the object to visit
+	 */
+	void visit(T visitee);
 
-    public void beforeVisiting(T visited);
+	/**
+	 * an handler that is called prior to visiting an object
+	 *
+	 * @param visitee
+	 */
+	public void beforeVisiting(T visitee);
 
-    public void afterVisiting(T visited);
+	/**
+	 * an handler that is called after visiting an object
+	 *
+	 * @param visitee
+	 */
+	public void afterVisiting(T visitee);
 }

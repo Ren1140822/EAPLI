@@ -1,7 +1,7 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template file, choose Tools | Templates and open the template
+ * in the editor.
  */
 package eapli.framework.domain;
 
@@ -15,83 +15,60 @@ import java.util.List;
  * there should be one repository per aggregate root only
  *
  * @author Paulo Gandra Sousa
- * @param <T> the type of the entity
- * @param <ID> the type of the entity's ID
+ * @param <T>
+ *            the type of the entity
+ * @param <ID>
+ *            the type of the entity's ID
  */
-public interface Repository<T extends AggregateRoot<?>, ID extends Serializable>
-        extends List<T> {
+public interface Repository<T extends AggregateRoot<?>, ID extends Serializable> extends List<T> {
 
-    /**
-     * gets all instances of the objects hold by this repository. in order to be
-     * consistent with List we should use iterator() instead
-     *
-     * @return
-     */
-    List<T> all();
+	/**
+	 * returns the first n entities according to its "natural" order
+	 *
+	 * @param n
+	 * @return
+	 */
+	Iterable<T> first(int n);
 
-    /**
-     * adds a new entity to the persistence store
-     *
-     * @param entity
-     * @return the newly created persistent object
-     */
-    T create(T entity);
+	/**
+	 * returns a page of results using the natural order of the collection
+	 *
+	 * @param pageNumber
+	 * @param pageSize
+	 * @return
+	 */
+	Iterable<T> page(int pageNumber, int pageSize);
 
-    /**
-     * removes the object from the persistence storage. the object reference is
-     * still valid but the persisted entity is/will be deleted
-     *
-     * @param entity
-     */
-    void delete(T entity);
+	/**
+	 * reads an entity given its ID
+	 *
+	 * @param id
+	 * @return
+	 */
+	T read(ID id);
 
-    /**
-     * returns the first n entities according to its "natural" order
-     *
-     * @param n
-     * @return
-     */
-    List<T> first(int n);
+	/**
+	 * inserts or updates an entity
+	 *
+	 * @param entity
+	 * @return the persisted entity - might be a different object than the
+	 *         parameter
+	 */
+	T save(T entity);
 
-    /**
-     * returns a page of results using the natural order of the collection
-     *
-     * @param pageNumber
-     * @param pageSize
-     * @return
-     */
-    List<T> page(int pageNumber, int pageSize);
+	/**
+	 * updates an existing entity in the repository
+	 *
+	 * @param entity
+	 * @return
+	 */
+	T update(T entity);
 
-    /**
-     * reads an entity given its ID
-     *
-     * @param id
-     * @return
-     */
-    T read(ID id);
-
-    /**
-     * inserts or updates an entity
-     *
-     * @param entity
-     * @return the persisted entity - might be a different object than the
-     * parameter
-     */
-    T save(T entity);
-
-    /**
-     * updates an existing entity in the repository
-     *
-     * @param entity
-     * @return
-     */
-    T update(T entity);
-
-    /**
-     * checks for the existence of an entity with the provided ID.
-     *
-     * @param key
-     * @return
-     */
-    boolean containsEntity(ID key);
+	/**
+	 * checks for the existence of an entity with the provided ID.
+	 *
+	 * @param key
+	 * @return
+	 */
+	boolean containsEntity(ID key);
 }
