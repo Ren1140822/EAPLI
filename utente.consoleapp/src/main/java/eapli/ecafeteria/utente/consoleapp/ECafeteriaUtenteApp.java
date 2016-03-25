@@ -1,4 +1,4 @@
-package eapli.cafeteria.utente.consoleapp;
+package eapli.ecafeteria.utente.consoleapp;
 
 /**
  * Hello world!
