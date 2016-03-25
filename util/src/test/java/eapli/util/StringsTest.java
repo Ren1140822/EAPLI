@@ -1,13 +1,14 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template file, choose Tools | Templates and open the template
+ * in the editor.
  */
 package eapli.util;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.After;
 import org.junit.AfterClass;
-import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -16,7 +17,7 @@ import org.junit.Test;
  *
  * @author Paulo Gandra Sousa
  */
-public class ValidationsTest {
+public class StringsTest {
 
 	@BeforeClass
 	public static void setUpClass() {
@@ -40,9 +41,9 @@ public class ValidationsTest {
 	@Test
 	public void testStringWithContentIsNotNullNorEmpty() {
 		System.out.println("isNullOrEmpty");
-		String text = "abcdef";
-		boolean expResult = false;
-		boolean result = Validations.isNullOrEmpty(text);
+		final String text = "abcdef";
+		final boolean expResult = false;
+		final boolean result = Strings.isNullOrEmpty(text);
 		assertEquals(expResult, result);
 	}
 
@@ -52,9 +53,9 @@ public class ValidationsTest {
 	@Test
 	public void testNullIsNullOrEmpty() {
 		System.out.println("isNullOrEmpty");
-		String text = null;
-		boolean expResult = true;
-		boolean result = Validations.isNullOrEmpty(text);
+		final String text = null;
+		final boolean expResult = true;
+		final boolean result = Strings.isNullOrEmpty(text);
 		assertEquals(expResult, result);
 	}
 
@@ -64,9 +65,9 @@ public class ValidationsTest {
 	@Test
 	public void testEmptyStringIsNullOrEmpty() {
 		System.out.println("isNullOrEmpty");
-		String text = "";
-		boolean expResult = true;
-		boolean result = Validations.isNullOrEmpty(text);
+		final String text = "";
+		final boolean expResult = true;
+		final boolean result = Strings.isNullOrEmpty(text);
 		assertEquals(expResult, result);
 	}
 }
