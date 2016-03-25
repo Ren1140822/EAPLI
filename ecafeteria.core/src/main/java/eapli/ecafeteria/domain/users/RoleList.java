@@ -142,6 +142,22 @@ public class RoleList implements List<Role>, Serializable {
 		return data.toArray(arg0);
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof RoleList)) return false;
+
+		RoleList roles = (RoleList) o;
+
+		return data.equals(roles.data);
+
+	}
+
+	@Override
+	public int hashCode() {
+		return data.hashCode();
+	}
+
 	public Collection<RoleType> roleTypes() {
 		final List<RoleType> roleTypes = new ArrayList<RoleType>();
 

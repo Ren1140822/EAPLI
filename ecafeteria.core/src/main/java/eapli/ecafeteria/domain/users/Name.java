@@ -7,8 +7,28 @@ import java.io.Serializable;
 
 @Embeddable
 public class Name implements ValueObject, Serializable {
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Name)) return false;
+
+		Name name = (Name) o;
+
+		if (!firstName.equals(name.firstName)) return false;
+		return lastName.equals(name.lastName);
+
+	}
+
+	@Override
+	public int hashCode() {
+		int result = firstName.hashCode();
+		result = 31 * result + lastName.hashCode();
+		return result;
+	}
+
 	/**
 	 *
+
 	 */
 	private static final long serialVersionUID = 1L;
 	private String	  firstName;

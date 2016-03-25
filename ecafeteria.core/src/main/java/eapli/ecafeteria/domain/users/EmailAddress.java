@@ -15,7 +15,24 @@ import java.io.Serializable;
 @Embeddable
 public class EmailAddress implements ValueObject, Serializable {
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof EmailAddress)) return false;
+
+		EmailAddress that = (EmailAddress) o;
+
+		return address.equals(that.address);
+
+	}
+
+	@Override
+	public int hashCode() {
+		return address.hashCode();
+	}
+
 	/**
+
 	 *
 	 */
 	private static final long serialVersionUID = 1L;

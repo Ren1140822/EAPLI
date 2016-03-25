@@ -40,6 +40,23 @@ public class Role implements ValueObject, Serializable {
 	}
 
 	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Role)) return false;
+
+		Role role = (Role) o;
+
+		return type == role.type;
+
+	}
+
+	@Override
+	public int hashCode() {
+		return type.hashCode();
+	}
+
+	@Override
+
 	public String toString() {
 		return type + "@" + assignedOn;
 	}
