@@ -5,10 +5,11 @@
  */
 package eapli.ecafeteria.backoffice.consoleapp.presentation;
 
-import eapli.cafeteria.consoleapp.presentation.ExitWithMessageAction;
-import eapli.cafeteria.consoleapp.presentation.LoginAction;
-import eapli.cafeteria.consoleapp.presentation.LogoutAction;
+import eapli.cafeteria.consoleapp.presentation.actions.ExitWithMessageAction;
+import eapli.cafeteria.consoleapp.presentation.actions.LoginAction;
+import eapli.cafeteria.consoleapp.presentation.actions.LogoutAction;
 import eapli.ecafeteria.AppSettings;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.AddUserAction;
 import eapli.ecafeteria.domain.users.ActionRight;
 import eapli.framework.actions.ReturnAction;
 import eapli.framework.actions.ShowMessageAction;

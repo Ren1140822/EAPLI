@@ -1,4 +1,4 @@
-package eapli.ecafeteria.backoffice.consoleapp.presentation.visitors;
+package eapli.cafeteria.consoleapp.presentation.visitors;
 
 import eapli.framework.dto.GenericDTO;
 import eapli.framework.visitor.Visitor;

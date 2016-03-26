@@ -6,7 +6,7 @@
 package eapli.ecafeteria.backoffice.consoleapp;
 
 
-import eapli.cafeteria.consoleapp.presentation.LoginAction;
+import eapli.cafeteria.consoleapp.presentation.actions.LoginAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.MainMenu;
 import eapli.ecafeteria.bootstrapapp.ECafeteriaBootstrap;
 

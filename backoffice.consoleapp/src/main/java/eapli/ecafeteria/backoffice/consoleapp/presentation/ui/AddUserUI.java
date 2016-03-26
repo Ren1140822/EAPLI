@@ -1,10 +1,11 @@
-package eapli.ecafeteria.backoffice.consoleapp.presentation;
+package eapli.ecafeteria.backoffice.consoleapp.presentation.ui;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import eapli.ecafeteria.application.AddUserController;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.visitors.UserUIVisitor;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.util.AddRoleType2List;
+import eapli.cafeteria.consoleapp.presentation.visitors.UserUIVisitor;
 import eapli.ecafeteria.domain.users.RoleType;
 import eapli.ecafeteria.domain.users.User;
 import eapli.framework.actions.ReturnAction;

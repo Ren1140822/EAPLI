@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eapli.cafeteria.consoleapp.presentation;
+package eapli.cafeteria.consoleapp.presentation.actions;
 
 import eapli.framework.actions.Action;
 
