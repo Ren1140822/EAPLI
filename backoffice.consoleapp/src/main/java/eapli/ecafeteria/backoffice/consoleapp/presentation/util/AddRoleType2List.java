@@ -1,4 +1,4 @@
-package eapli.ecafeteria.backoffice.consoleapp.presentation;
+package eapli.ecafeteria.backoffice.consoleapp.presentation.util;
 
 import eapli.ecafeteria.domain.users.RoleType;
 import eapli.framework.actions.Action;

@@ -3,6 +3,8 @@ package eapli.ecafeteria.domain.users;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
+import eapli.framework.visitor.Visitable;
+import eapli.framework.visitor.Visitor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -22,7 +24,7 @@ import eapli.util.DateTime;
  *
  */
 @Entity
-public class User implements AggregateRoot<Username>, Authorisable<ActionRight>, DTOable<User>, Serializable {
+public class User implements AggregateRoot<Username>, Authorisable<ActionRight>, DTOable<User>, Visitable<GenericDTO>, Serializable {
 	/**
 	 *
 	 */
@@ -35,7 +37,6 @@ public class User implements AggregateRoot<Username>, Authorisable<ActionRight>,
 	private RoleList		  roles;
 	@Temporal(TemporalType.DATE)
 	private Calendar		  createdOn;
-
 	public User(String username, String password, String firstName, String lastName, String email,
 	        List<RoleType> roles) {
 		if (roles == null) {
@@ -53,6 +54,10 @@ public class User implements AggregateRoot<Username>, Authorisable<ActionRight>,
 	}
 
 	protected User() {
+	}
+
+	protected Username getUsername() {
+		return username;
 	}
 
 	@Override
@@ -117,6 +122,8 @@ public class User implements AggregateRoot<Username>, Authorisable<ActionRight>,
 		ret.put("password", password.toString());
 		ret.put("name", name.toString());
 		ret.put("email", email.toString());
+		ret.put("roles", roles.roleTypes().toString());
+		//TODO: ASK Isn't it easy to forget mapping an elemento to DTO when manipulating members?
 
 		return ret;
 	}
@@ -141,6 +148,11 @@ public class User implements AggregateRoot<Username>, Authorisable<ActionRight>,
 		if (!this.password.equals(password)) {
 			throw new InvalidPasswordException("Password does note match", this);
 		}
+	}
+
+	@Override
+	public void accept(Visitor<GenericDTO> visitor) {
+		visitor.visit(this.toDTO());
 	}
 
 	@Override

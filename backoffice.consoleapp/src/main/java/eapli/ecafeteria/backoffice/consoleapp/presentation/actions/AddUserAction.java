@@ -1,5 +1,6 @@
-package eapli.ecafeteria.backoffice.consoleapp.presentation;
+package eapli.ecafeteria.backoffice.consoleapp.presentation.actions;
 
+import eapli.ecafeteria.backoffice.consoleapp.presentation.ui.AddUserUI;
 import eapli.framework.actions.Action;
 
 /**

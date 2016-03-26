@@ -5,10 +5,11 @@
  */
 package eapli.ecafeteria.backoffice.consoleapp.presentation;
 
-import eapli.cafeteria.consoleapp.presentation.ExitWithMessageAction;
-import eapli.cafeteria.consoleapp.presentation.LoginAction;
-import eapli.cafeteria.consoleapp.presentation.LogoutAction;
+import eapli.cafeteria.consoleapp.presentation.actions.ExitWithMessageAction;
+import eapli.cafeteria.consoleapp.presentation.actions.LoginAction;
+import eapli.cafeteria.consoleapp.presentation.actions.LogoutAction;
 import eapli.ecafeteria.AppSettings;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.AddUserAction;
 import eapli.ecafeteria.domain.users.ActionRight;
 import eapli.framework.actions.ReturnAction;
 import eapli.framework.actions.ShowMessageAction;
@@ -27,27 +28,27 @@ import eapli.framework.presentation.console.VerticalSeparator;
  */
 public class MainMenu extends AbstractUI {
 
-	private static final int EXIT_OPTION					= 0;
+	private static final int EXIT_OPTION = 0;
 
 	// MY USER
-	private static final int CHANGE_PASSWORD_OPTION			= 1;
-	private static final int LOGIN_OPTION					= 2;
-	private static final int LOGOUT_OPTION					= 3;
+	private static final int CHANGE_PASSWORD_OPTION = 1;
+	private static final int LOGIN_OPTION = 2;
+	private static final int LOGOUT_OPTION = 3;
 
 	// USERS
-	private static final int ADD_USER_OPTION				= 1;
+	private static final int ADD_USER_OPTION = 1;
 
 	// ORGANIC UNITS
 
 	// SETTINGS
-	private static final int SET_KITCHEN_ALERT_LIMIT_OPTION	= 1;
-	private static final int SET_USER_ALERT_LIMIT_OPTION	= 2;
+	private static final int SET_KITCHEN_ALERT_LIMIT_OPTION = 1;
+	private static final int SET_USER_ALERT_LIMIT_OPTION = 2;
 
 	// MAIN MENU
-	private static final int MY_USER_OPTION					= 1;
-	private static final int USERS_OPTION					= 2;
-	private static final int ORGANIC_UNITS_OPTION			= 3;
-	private static final int SETTINGS_OPTION				= 4;
+	private static final int MY_USER_OPTION = 1;
+	private static final int USERS_OPTION = 2;
+	private static final int ORGANIC_UNITS_OPTION = 3;
+	private static final int SETTINGS_OPTION = 4;
 
 	public MainMenu() {
 	}
@@ -77,7 +78,7 @@ public class MainMenu extends AbstractUI {
 		final Menu myUserMenu = new Menu("My account >");
 
 		myUserMenu.add(
-		        new MenuItem(CHANGE_PASSWORD_OPTION, "Change password", new ShowMessageAction("Not implemented yet")));
+				new MenuItem(CHANGE_PASSWORD_OPTION, "Change password", new ShowMessageAction("Not implemented yet")));
 		myUserMenu.add(new MenuItem(LOGIN_OPTION, "Change user (Login)", new LoginAction()));
 		myUserMenu.add(new MenuItem(LOGOUT_OPTION, "Logout", new LogoutAction()));
 
@@ -98,7 +99,7 @@ public class MainMenu extends AbstractUI {
 
 			final Menu organicUnitsMenu = buildOrganicUnitsMenu();
 			mainMenu.add(new SubMenu(ORGANIC_UNITS_OPTION, organicUnitsMenu,
-			        new ShowVerticalSubMenuAction(organicUnitsMenu)));
+					new ShowVerticalSubMenuAction(organicUnitsMenu)));
 
 			final Menu settingsMenu = buildAdminSettingsMenu();
 			mainMenu.add(new SubMenu(SETTINGS_OPTION, settingsMenu, new ShowVerticalSubMenuAction(settingsMenu)));
@@ -123,9 +124,9 @@ public class MainMenu extends AbstractUI {
 		final Menu menu = new Menu("Settings >");
 
 		menu.add(new MenuItem(SET_KITCHEN_ALERT_LIMIT_OPTION, "Set kitchen alert limit",
-		        new ShowMessageAction("Not implemented yet")));
+				new ShowMessageAction("Not implemented yet")));
 		menu.add(new MenuItem(SET_USER_ALERT_LIMIT_OPTION, "Set users' alert limit",
-		        new ShowMessageAction("Not implemented yet")));
+				new ShowMessageAction("Not implemented yet")));
 		menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
 
 		return menu;

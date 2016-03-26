@@ -24,6 +24,7 @@
         <module>ecafeteria.persistence.impl.jpa</module>
         <module>framework</module>
         <module>util</module>
+        <module>consoleapp.common</module>
     </modules>
 
 

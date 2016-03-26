@@ -1,10 +1,13 @@
-package eapli.ecafeteria.backoffice.consoleapp.presentation;
+package eapli.ecafeteria.backoffice.consoleapp.presentation.ui;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import eapli.ecafeteria.application.AddUserController;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.util.AddRoleType2List;
+import eapli.cafeteria.consoleapp.presentation.visitors.UserUIVisitor;
 import eapli.ecafeteria.domain.users.RoleType;
+import eapli.ecafeteria.domain.users.User;
 import eapli.framework.actions.ReturnAction;
 import eapli.framework.application.Controller;
 import eapli.framework.presentation.console.AbstractUI;
@@ -40,9 +43,11 @@ public class AddUserUI extends AbstractUI {
 			show = showRoles(roleTypes);
 		} while (!show);
 
-		theController.addUser(username, password, firstName, lastName, email, roleTypes);
+		User user = theController.addUser(username, password, firstName, lastName, email, roleTypes);
 
-		System.out.println(roleTypes);
+		UserUIVisitor visitor = new UserUIVisitor();
+		user.accept(visitor);
+
 		return false;
 	}
 

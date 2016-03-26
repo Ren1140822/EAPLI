@@ -1,5 +1,6 @@
-package eapli.cafeteria.consoleapp.presentation;
+package eapli.cafeteria.consoleapp.presentation.actions;
 
+import eapli.cafeteria.consoleapp.presentation.ui.LoginUI;
 import eapli.framework.actions.Action;
 
 /**
