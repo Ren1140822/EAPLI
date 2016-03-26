@@ -3,20 +3,28 @@ package eapli.ecafeteria.bootstrapapp;
 import eapli.framework.actions.Action;
 
 /**
- * Hello world!
+ * eCafeteria Bootstrapping data app
  *
  */
-public class ECafeteriaBootstrap {
+public class ECafeteriaBootstrap implements Action {
 
 	public static void main(String[] args) {
 		System.out.println("Bootstrapping eCafeteria 2016(c) data");
 
+		new ECafeteriaBootstrap().execute();
+	}
+
+	@Override
+	public boolean execute() {
 		// declare bootstrap actions
 		final Action[] actions = { new UsersBootstrap(), };
 
-		// execute all bootstrapping
+		// execute all bootstrapping returning true if any of the bootstraping
+		// actions returns true
+		boolean ret = false;
 		for (final Action boot : actions) {
-			boot.execute();
+			ret |= boot.execute();
 		}
+		return ret;
 	}
 }

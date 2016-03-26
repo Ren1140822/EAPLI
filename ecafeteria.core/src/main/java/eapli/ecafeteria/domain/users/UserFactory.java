@@ -60,6 +60,6 @@ public class UserFactory implements Factory<User> {
 	public User build() {
 		// since the factory knows that all the parts are needed it could throw
 		// an exception. however, we will leave that to the constructor
-		return new UserBuilder().setUsername(username).setPassword(password).setFirstName(firstName).setLastName(lastName).setEmail(email).setRoles(roles).createUser();
+		return new User(username, password, firstName, lastName, email, roles);
 	}
 }

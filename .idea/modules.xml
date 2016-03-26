@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/backoffice.consoleapp/backoffice.consoleapp.iml" filepath="$PROJECT_DIR$/backoffice.consoleapp/backoffice.consoleapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/consoleapp.common/consoleapp.common.iml" filepath="$PROJECT_DIR$/consoleapp.common/consoleapp.common.iml" />
       <module fileurl="file://$PROJECT_DIR$/ecafeteria.iml" filepath="$PROJECT_DIR$/ecafeteria.iml" />
       <module fileurl="file://$PROJECT_DIR$/ecafeteria.bootstrapapp/ecafeteria.bootstrapapp.iml" filepath="$PROJECT_DIR$/ecafeteria.bootstrapapp/ecafeteria.bootstrapapp.iml" />
       <module fileurl="file://$PROJECT_DIR$/ecafeteria.core/ecafeteria.core.iml" filepath="$PROJECT_DIR$/ecafeteria.core/ecafeteria.core.iml" />

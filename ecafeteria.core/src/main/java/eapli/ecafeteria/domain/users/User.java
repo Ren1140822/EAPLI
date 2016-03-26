@@ -1,33 +1,34 @@
 package eapli.ecafeteria.domain.users;
 
-import eapli.framework.domain.AggregateRoot;
-import eapli.framework.domain.Authorisable;
-import eapli.framework.dto.DTOable;
-import eapli.framework.dto.GenericDTO;
+import java.io.Serializable;
+import java.util.Calendar;
+import java.util.List;
 import eapli.framework.visitor.Visitable;
 import eapli.framework.visitor.Visitor;
-import eapli.util.DateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import java.io.Serializable;
-import java.util.Calendar;
-import java.util.List;
+
+import eapli.framework.domain.AggregateRoot;
+import eapli.framework.domain.Authorisable;
+import eapli.framework.dto.DTOable;
+import eapli.framework.dto.GenericDTO;
+import eapli.util.DateTime;
 
 @Entity
 public class User implements AggregateRoot<Username>, Authorisable<ActionRight>, DTOable<User>, Visitable<GenericDTO>, Serializable {
 	@Id
-	private Username username;
-	private Password password;
-	private Name name;
+	private Username	 username;
+	private Password	 password;
+	private Name		 name;
 	private EmailAddress email;
-	private RoleList roles;
+	private RoleList	 roles;
 	@Temporal(TemporalType.DATE)
-	private Calendar createdOn;
+	private Calendar	 createdOn;
 	public User(String username, String password, String firstName, String lastName, String email,
-	            List<RoleType> roles) {
+	        List<RoleType> roles) {
 		if (roles == null) {
 			throw new IllegalArgumentException("roles cannot be null");
 		}
@@ -58,11 +59,14 @@ public class User implements AggregateRoot<Username>, Authorisable<ActionRight>,
 			return false;
 		}
 
-		User user = (User) o;
+		final User user = (User) o;
 
 		if (!username.equals(user.username)) {
 			return false;
 		}
+
+		// FIXME DDD entities are only compared thru their ID field. in this
+		// case only username should be compared
 		if (!password.equals(user.password)) {
 			return false;
 		}
@@ -79,6 +83,7 @@ public class User implements AggregateRoot<Username>, Authorisable<ActionRight>,
 	@Override
 	public int hashCode() {
 		int result = username.hashCode();
+		// FIXME hash should only use username field
 		result = 31 * result + password.hashCode();
 		result = 31 * result + name.hashCode();
 		result = 31 * result + email.hashCode();
@@ -128,7 +133,7 @@ public class User implements AggregateRoot<Username>, Authorisable<ActionRight>,
 	}
 
 	// TODO this method's name suggests a boolean return not a void
-	// we are using exception handling for logic behaviour...
+	// we are using exception handling for logic behavior...
 	public void passwordMatches(Password password) throws InvalidPasswordException {
 		if (!this.password.equals(password)) {
 			throw new InvalidPasswordException("Password does note match", this);

@@ -16,9 +16,8 @@ public abstract class AbstractUI {
 	public static final String BORDER	 = "+==============================================================================+";
 
 	/**
-	 * derived classes should provide the getController object
-	 *
-	 * an example of the Factory Method and Template Method patterns
+	 * derived classes should provide the Controller object. an example of the
+	 * Factory Method and Template Method patterns
 	 *
 	 * @return the controller of the derived UI
 	 */
@@ -26,9 +25,7 @@ public abstract class AbstractUI {
 
 	/**
 	 * derived classes should override this method to perform the actual
-	 * rendering of the UI
-	 *
-	 * follows the Template Method pattern
+	 * rendering of the UI. follows the Template Method pattern
 	 *
 	 * @return true if the user wants to leave this UI
 	 */
@@ -50,7 +47,7 @@ public abstract class AbstractUI {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return true if the user wants to leave this UI
 	 */
 	public boolean show() {

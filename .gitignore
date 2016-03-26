@@ -157,3 +157,4 @@ fabric.properties
 
 
 /backoffice.consoleapp/target/
+/backoffice.consoleapp/db/*.db

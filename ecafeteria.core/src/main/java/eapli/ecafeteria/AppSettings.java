@@ -17,19 +17,19 @@ import eapli.ecafeteria.domain.users.Session;
 public class AppSettings {
 
 	private final Properties	applicationProperties  = new Properties();
-	// FIXME use lazy holder idiom
-	private static AppSettings	theInstance;
 	// private final static String PROPERTIES_RESOURCE =
 	// "eapli/ecafeteria/ecafeteria.properties";
 	private final static String	PROPERTIES_RESOURCE	   = "ecafeteria.properties";
 	private final static String	REPOSITORY_FACTORY_KEY = "persistence.repositoryFactory";
 
-	// TODO use lazy holder idiom
+	// use lazy holder idiom
+	// https://en.wikipedia.org/wiki/Initialization-on-demand_holder_idiom
+	private static class LazyHolder {
+		public static final AppSettings INSTANCE = new AppSettings();
+	}
+
 	public static AppSettings instance() {
-		if (theInstance == null) {
-			theInstance = new AppSettings();
-		}
-		return theInstance;
+		return LazyHolder.INSTANCE;
 	}
 
 	private AppSettings() {
@@ -73,6 +73,8 @@ public class AppSettings {
 
 	//
 	// session
+	//
+	// TODO move this part to other class? e.g., AppContext
 	//
 
 	private Session theSession = null;

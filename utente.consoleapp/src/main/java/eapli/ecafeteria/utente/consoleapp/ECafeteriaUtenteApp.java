@@ -1,13 +1,18 @@
 package eapli.ecafeteria.utente.consoleapp;
 
+import eapli.ecafeteria.bootstrapapp.ECafeteriaBootstrap;
+import eapli.ecafeteria.utente.consoleapp.presentation.FrontMenu;
+
 /**
- * Hello world!
+ * eCafeteria User App
  *
  */
-public class ECafeteriaUtenteApp 
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
-    }
+public class ECafeteriaUtenteApp {
+	public static void main(String[] args) {
+
+		// only needed because of the in memory persistence
+		new ECafeteriaBootstrap().execute();
+
+		new FrontMenu().show();
+	}
 }

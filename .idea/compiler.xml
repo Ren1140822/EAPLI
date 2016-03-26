@@ -24,6 +24,7 @@
         <processorPath useClasspath="true" />
         <module name="backoffice.consoleapp" />
         <module name="consoleapp" />
+        <module name="consoleapp.common" />
         <module name="core" />
         <module name="ecafeteria.bootstrapapp" />
         <module name="ecafeteria.consoleapp" />
@@ -36,6 +37,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="backoffice.consoleapp" target="1.8" />
+      <module name="consoleapp.common" target="1.8" />
       <module name="core" target="1.8" />
       <module name="eapli-2016-ecafeteria" target="1.8" />
       <module name="ecafeteria" target="1.8" />
