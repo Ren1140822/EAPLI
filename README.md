@@ -15,12 +15,12 @@ BUILD
 
 make sure Maven is installed and on the PATH
 
-run script build-console.bat
+run script build-all.bat
 
 
 RUN
 ------
 
-make sure Maven is installed and on the PATH
+make sure a JRE is installed and on the PATH
 
-run script run-console.bat
+run script run-backoffice or run-user.bat
