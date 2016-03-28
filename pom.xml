@@ -21,7 +21,6 @@
         <module>backoffice.consoleapp</module>
         <module>utente.consoleapp</module>
         <module>ecafeteria.core</module>
-        <module>ecafeteria.persistence.impl.jpa</module>
         <module>framework</module>
         <module>util</module>
         <module>consoleapp.common</module>

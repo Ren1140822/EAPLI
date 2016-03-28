@@ -92,7 +92,7 @@ public class LoginControllerTest {
 		controller.login(inputUserName, inputPassword);
 		assertTrue(true);
 	}
-
+        /*
 	@Test(expected = InvalidUserException.class)
 	public void ensureInvalidAccessWithEmptyMemoryDatabase() throws Exception {
 		System.getProperties().remove("persistence.repositoryFactory");
@@ -106,4 +106,5 @@ public class LoginControllerTest {
 		controller.login(inputUserName, inputPassword);
 		assertTrue(true);
 	}
+        */
 }
