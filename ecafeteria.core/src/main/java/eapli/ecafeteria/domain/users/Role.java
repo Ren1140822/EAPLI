@@ -17,52 +17,52 @@ import eapli.util.DateTime;
  */
 
 public class Role implements ValueObject, Serializable {
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
-	private RoleType		  type;
-	@Temporal(TemporalType.DATE)
-	private Calendar		  assignedOn;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+    private RoleType type;
+    @Temporal(TemporalType.DATE)
+    private Calendar assignedOn;
 
-	public Role(RoleType type) {
-		this(type, DateTime.now());
-	}
+    public Role(RoleType type) {
+        this(type, DateTime.now());
+    }
 
-	public Role(RoleType type, Calendar assignedOn) {
-		// FIXME validate invariants
-		this.type = type;
-		this.assignedOn = assignedOn;
-	}
+    public Role(RoleType type, Calendar assignedOn) {
+        // FIXME validate invariants
+        this.type = type;
+        this.assignedOn = assignedOn;
+    }
 
-	protected Role() {
-	}
+    protected Role() {
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (!(o instanceof Role)) {
-			return false;
-		}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Role)) {
+            return false;
+        }
 
-		final Role role = (Role) o;
-		return type == role.type;
-	}
+        final Role other = (Role) o;
+        return this.type == other.type && this.assignedOn.equals(other.assignedOn);
+    }
 
-	@Override
-	public int hashCode() {
-		return type.hashCode();
-	}
+    @Override
+    public int hashCode() {
+        return this.type.hashCode();
+    }
 
-	@Override
+    @Override
 
-	public String toString() {
-		return type + "@" + assignedOn;
-	}
+    public String toString() {
+        return this.type + "@" + this.assignedOn;
+    }
 
-	public RoleType type() {
-		return type;
-	}
+    public RoleType type() {
+        return this.type;
+    }
 }
