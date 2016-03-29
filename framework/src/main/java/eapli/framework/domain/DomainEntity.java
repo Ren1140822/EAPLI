@@ -25,23 +25,15 @@ package eapli.framework.domain;
  */
 public interface DomainEntity<ID> extends Identifiable<ID> {
 
-	/**
-	 * returns the primary <b>business</b> id of the entity
-	 *
-	 * @return the primary <b>business</b> id of the entity
-	 */
-	@Override
-	ID id();
+    /**
+     * Entities are compared by identity only.
+     *
+     * @param other
+     * @return
+     */
+    @Override
+    boolean equals(Object other);
 
-	/**
-	 * Entities are compared by identity only.
-	 *
-	 * @param other
-	 * @return
-	 */
-	@Override
-	public boolean equals(Object other);
-
-	@Override
-	public int hashCode();
+    @Override
+    int hashCode();
 }

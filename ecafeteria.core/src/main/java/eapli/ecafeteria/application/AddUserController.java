@@ -16,22 +16,22 @@ import eapli.framework.application.Controller;
  */
 public class AddUserController implements Controller {
 
-	public User addUser(String username, String password, String firstName, String lastName, String email,
-	        List<RoleType> roles) {
-		// FIXME the controller should validate that the user of the logged in
-		// session is authorized to perform this action
+    public User addUser(String username, String password, String firstName, String lastName, String email,
+            List<RoleType> roles) {
+        // FIXME the controller should validate that the user of the logged in
+        // session is authorized to perform this action
 
-		final UserBuilder userBuilder = new UserBuilder();
-		userBuilder.setUsername(username);
-		userBuilder.setPassword(password);
-		userBuilder.setFirstName(firstName);
-		userBuilder.setLastName(lastName);
-		userBuilder.setEmail(email);
-		userBuilder.setRoles(roles);
+        final UserBuilder userBuilder = new UserBuilder();
+        userBuilder.setUsername(username);
+        userBuilder.setPassword(password);
+        userBuilder.setFirstName(firstName);
+        userBuilder.setLastName(lastName);
+        userBuilder.setEmail(email);
+        userBuilder.setRoles(roles);
 
-		final User newUser = userBuilder.createUser();
-		final UserRepository userRepository = PersistenceContext.repositories().users();
-		userRepository.save(newUser);
-		return newUser;
-	}
+        final User newUser = userBuilder.createUser();
+        final UserRepository userRepository = PersistenceContext.repositories().users();
+        userRepository.add(newUser);
+        return newUser;
+    }
 }
