@@ -9,8 +9,4 @@ import eapli.framework.persistence.repositories.Repository;
  */
 public interface UserRepository extends Repository<User, Username> {
 
-    // FIXME this was needed to avoid merging when the user tries to enter a
-    // duplicate, which is the default save() behaviour
-    // we must fix this
-    boolean add(User newUser);
 }
