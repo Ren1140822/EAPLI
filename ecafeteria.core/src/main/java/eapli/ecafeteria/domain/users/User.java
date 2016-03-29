@@ -30,6 +30,7 @@ public class User implements AggregateRoot<Username>, Authorisable<ActionRight>,
      *
      */
     private static final long serialVersionUID = 1L;
+    // TODO provably we should have a db ID (long)...
     @Id
     private Username username;
     private Password password;
@@ -55,6 +56,7 @@ public class User implements AggregateRoot<Username>, Authorisable<ActionRight>,
         }
     }
 
+    // for ORM
     protected User() {
     }
 
