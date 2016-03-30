@@ -3,6 +3,8 @@
  */
 package eapli.ecafeteria.persistence;
 
+import eapli.ecafeteria.persistence.DishTypeRepository;
+
 /**
  * @author pgsou_000
  *
@@ -10,4 +12,5 @@ package eapli.ecafeteria.persistence;
 public interface RepositoryFactory {
 
 	UserRepository users();
+	DishTypeRepository dishTypes();
 }

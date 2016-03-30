@@ -9,6 +9,7 @@ import eapli.cafeteria.consoleapp.presentation.actions.ExitWithMessageAction;
 import eapli.cafeteria.consoleapp.presentation.actions.LoginAction;
 import eapli.cafeteria.consoleapp.presentation.actions.LogoutAction;
 import eapli.ecafeteria.AppSettings;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.ActivateDeactivateDishTypeAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.AddUserAction;
 import eapli.ecafeteria.domain.users.ActionRight;
 import eapli.framework.actions.ReturnAction;
@@ -44,11 +45,15 @@ public class MainMenu extends AbstractUI {
 	private static final int SET_KITCHEN_ALERT_LIMIT_OPTION = 1;
 	private static final int SET_USER_ALERT_LIMIT_OPTION = 2;
 
+	// DISH TYPES
+	private static final int DISH_TYPE_ACTIVATE_DEACTIVATE_OPTION = 1;
+
 	// MAIN MENU
 	private static final int MY_USER_OPTION = 1;
 	private static final int USERS_OPTION = 2;
 	private static final int ORGANIC_UNITS_OPTION = 3;
 	private static final int SETTINGS_OPTION = 4;
+	private static final int DISH_TYPES_OPTION = 5;
 
 	public MainMenu() {
 	}
@@ -115,6 +120,11 @@ public class MainMenu extends AbstractUI {
 		}
 		mainMenu.add(new VerticalSeparator());
 
+		final Menu myDishTypeMenu = buildDishTypeMenu();
+		mainMenu.add(new SubMenu(DISH_TYPES_OPTION, myDishTypeMenu, new ShowVerticalSubMenuAction(myDishTypeMenu)));
+
+		mainMenu.add(new VerticalSeparator());
+
 		mainMenu.add(new MenuItem(EXIT_OPTION, "Exit", new ExitWithMessageAction()));
 
 		return mainMenu;
@@ -145,6 +155,18 @@ public class MainMenu extends AbstractUI {
 		final Menu menu = new Menu("Users >");
 
 		menu.add(new MenuItem(ADD_USER_OPTION, "Add User", new AddUserAction()));
+		// TODO add other options for user management
+
+		menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
+
+		return menu;
+	}
+
+
+	private Menu buildDishTypeMenu() {
+		final Menu menu = new Menu("Dish Type >");
+
+		menu.add(new MenuItem(DISH_TYPE_ACTIVATE_DEACTIVATE_OPTION, "Activate/Deactivate Dish Type", new ActivateDeactivateDishTypeAction()));
 		// TODO add other options for user management
 
 		menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));

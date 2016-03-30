@@ -13,4 +13,9 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	public UserRepository users() {
 		return new JpaUserRepository();
 	}
+
+	@Override
+	public JpaDishTypeRepository dishTypes() {
+		return new JpaDishTypeRepository();
+	}
 }

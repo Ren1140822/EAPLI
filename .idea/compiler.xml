@@ -26,10 +26,11 @@
         <module name="consoleapp" />
         <module name="consoleapp.common" />
         <module name="core" />
+        <module name="ecafeteria.backoffice.consoleapp" />
         <module name="ecafeteria.bootstrapapp" />
         <module name="ecafeteria.consoleapp" />
         <module name="ecafeteria.core" />
-        <module name="ecafeteria.persistence.impl.jpa" />
+        <module name="ecafeteria.utente.consoleapp" />
         <module name="framework" />
         <module name="utente.consoleapp" />
         <module name="util" />
@@ -41,10 +42,12 @@
       <module name="core" target="1.8" />
       <module name="eapli-2016-ecafeteria" target="1.8" />
       <module name="ecafeteria" target="1.8" />
+      <module name="ecafeteria.backoffice.consoleapp" target="1.8" />
       <module name="ecafeteria.bootstrapapp" target="1.8" />
       <module name="ecafeteria.consoleapp" target="1.8" />
       <module name="ecafeteria.core" target="1.8" />
       <module name="ecafeteria.persistence.impl.jpa" target="1.8" />
+      <module name="ecafeteria.utente.consoleapp" target="1.8" />
       <module name="framework" target="1.8" />
       <module name="utente.consoleapp" target="1.8" />
       <module name="util" target="1.8" />

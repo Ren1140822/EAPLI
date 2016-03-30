@@ -9,6 +9,7 @@ import eapli.cafeteria.consoleapp.presentation.actions.ExitWithMessageAction;
 import eapli.cafeteria.consoleapp.presentation.actions.LoginAction;
 import eapli.cafeteria.consoleapp.presentation.actions.LogoutAction;
 import eapli.ecafeteria.AppSettings;
+import eapli.ecafeteria.utente.consoleapp.presentation.actions.ListDishTypeAction;
 import eapli.framework.actions.ReturnAction;
 import eapli.framework.actions.ShowMessageAction;
 import eapli.framework.application.Controller;
@@ -28,13 +29,19 @@ public class MainMenu extends AbstractUI {
 
 	private static final int EXIT_OPTION			= 0;
 
+        
+        // DISH TYPE
+	private static final int LIST_DISH_TYPE_OPTION		= 5;
+	private static final int REGISTER_DISH_TYPE_OPTION	= 4;
+        
 	// MY USER
-	private static final int CHANGE_PASSWORD_OPTION	= 1;
+	private static final int CHANGE_PASSWORD_OPTION	        = 1;
 	private static final int LOGIN_OPTION			= 2;
 	private static final int LOGOUT_OPTION			= 3;
 
 	// MAIN MENU
 	private static final int MY_USER_OPTION			= 1;
+        private static final int DISH_TYPE_OPTION		= 2;
 
 	public MainMenu() {
 	}
@@ -79,6 +86,8 @@ public class MainMenu extends AbstractUI {
 
 		mainMenu.add(new VerticalSeparator());
 
+                final Menu dishTypeMenu = buildDishTypeMenu();
+		mainMenu.add(new SubMenu(DISH_TYPE_OPTION, dishTypeMenu, new ShowVerticalSubMenuAction(dishTypeMenu)));
 		// TODO add menu options
 
 		mainMenu.add(new VerticalSeparator());
@@ -86,6 +95,19 @@ public class MainMenu extends AbstractUI {
 		mainMenu.add(new MenuItem(EXIT_OPTION, "Exit", new ExitWithMessageAction()));
 
 		return mainMenu;
+	}
+        
+        private Menu buildDishTypeMenu() {
+		final Menu dishTypeMenu = new Menu("Dish Type >");
+
+                dishTypeMenu.add(
+		        new MenuItem(REGISTER_DISH_TYPE_OPTION, "Register Dish Type", new ShowMessageAction("Not implemented yet")));
+		dishTypeMenu.add(new MenuItem(LIST_DISH_TYPE_OPTION, "List Dish Type", new ListDishTypeAction()));
+		
+		// TODO add menu options
+		dishTypeMenu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
+
+		return dishTypeMenu;
 	}
 
 	private Menu buildXptoMenu() {

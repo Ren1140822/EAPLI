@@ -26,6 +26,8 @@ public class FrontMenu extends AbstractUI {
 
 	private static final int LOGIN_OPTION  = 1;
 	private static final int SIGNUP_OPTION = 2;
+        private static final int REGISTER_DISH_TYPE_OPTION = 3;
+        private static final int LIST_DISH_TYPE_OPTION = 4;
 
 	public FrontMenu() {
 	}
