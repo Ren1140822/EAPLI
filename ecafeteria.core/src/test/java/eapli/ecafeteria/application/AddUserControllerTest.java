@@ -1,18 +1,31 @@
 package eapli.ecafeteria.application;
 
+import eapli.ecafeteria.AppSettings;
+import eapli.ecafeteria.domain.users.AuthenticationService;
+import eapli.ecafeteria.domain.users.InvalidPasswordException;
+import eapli.ecafeteria.domain.users.InvalidUserException;
+import eapli.ecafeteria.domain.users.Password;
 import eapli.ecafeteria.domain.users.RoleType;
+import eapli.ecafeteria.domain.users.Session;
 import eapli.ecafeteria.domain.users.User;
-import org.junit.Test;
-
+import eapli.ecafeteria.domain.users.Username;
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.Assert.assertEquals;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 /**
  * Created by Nuno Bettencourt [NMB] on 24/03/16.
  */
 public class AddUserControllerTest {
+
+    @BeforeClass
+    public static void setUp() throws InvalidUserException, InvalidPasswordException {
+        AuthenticationService authz = new AuthenticationService();
+        Session adminSession = authz.authenticate(new Username("admin"), new Password("admin"));
+        AppSettings.instance().setSession(adminSession);
+    }
 
     @Test
     public void attestNormalBehaviour() throws Exception {
@@ -34,7 +47,7 @@ public class AddUserControllerTest {
         assertEquals(expected, result);
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void ensureRoleTypeListIsNotNull() throws Exception {
 
         String userName = "john";
@@ -69,5 +82,5 @@ public class AddUserControllerTest {
         User result = controller.addUser(userName, password, firstName, lastName, email, roles);
         assertEquals(expected, result);
     }
-    */
+     */
 }
