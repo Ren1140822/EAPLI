@@ -10,4 +10,9 @@ import eapli.framework.persistence.repositories.impl.inmemory.InMemoryRepository
  * Created by nuno on 20/03/16.
  */
 public class InMemoryUserRepository extends InMemoryRepository<User, Username> implements UserRepository {
+
+    @Override
+    protected Username newPK(User u) {
+        return u.username();
+    }
 }

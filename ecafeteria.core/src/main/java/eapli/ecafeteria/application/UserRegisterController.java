@@ -19,7 +19,7 @@ public class UserRegisterController {
 
     public User registerUser(String username, String password, String firstName, String lastName, String email,
             List<RoleType> roles) {
-        if (!AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.Administer)) {
+        if (!AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.Administer)) { 
             // TODO check which exception to throw
             throw new IllegalStateException("user is not authorized to perform this action");
         }

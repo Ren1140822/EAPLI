@@ -193,4 +193,8 @@ public class User implements AggregateRoot<Username>, Authorisable<ActionRight>,
     public boolean is(Username id) {
         return id().equals(id);
     }
+
+    public Username username() {
+        return this.username;
+    }
 }

@@ -9,14 +9,16 @@ import eapli.framework.domain.DomainEntity;
 import eapli.framework.persistence.repositories.DeleteableRepository;
 import eapli.framework.persistence.repositories.IterableRepository;
 import eapli.framework.persistence.repositories.Repository;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by nuno on 20/03/16.
  */
-public class InMemoryRepository<T extends DomainEntity<K>, K extends Serializable>
+public abstract class InMemoryRepository<T, K>
         implements Repository<T, K>, IterableRepository<T, K>, DeleteableRepository<T, K> {
 
-    private final List<T> repository = new ArrayList<T>();
+    private final Map<K, T> repository = new HashMap<K, T>();
 
     @Override
     public void delete(T entity) {
@@ -35,13 +37,13 @@ public class InMemoryRepository<T extends DomainEntity<K>, K extends Serializabl
 
     @Override
     public T save(T entity) {
-        this.repository.add(entity);
+        this.repository.put(newPK(entity), entity);
         return entity;
     }
 
     @Override
-    public List<T> all() {
-        return this.repository;
+    public Iterable<T> all() {
+        return this.repository.values();
     }
 
     /**
@@ -54,13 +56,7 @@ public class InMemoryRepository<T extends DomainEntity<K>, K extends Serializabl
      */
     @Override
     public T findById(K id) {
-        for (final T item : this.repository) {
-            if (item.id().equals(id)) {
-                return item;
-            }
-        }
-        // FIXME do not return null
-        return null;
+        return repository.get(id);
     }
 
     /**
@@ -84,11 +80,14 @@ public class InMemoryRepository<T extends DomainEntity<K>, K extends Serializabl
 
     @Override
     public Iterator<T> iterator() {
-        return this.repository.iterator();
+        return this.repository.values().iterator();
     }
 
     @Override
     public boolean add(T entity) {
-        return this.repository.add(entity);
+        this.repository.put(newPK(entity), entity);
+        return true;
     }
+
+    protected abstract K newPK(T entity);
 }

@@ -9,8 +9,13 @@ import eapli.framework.persistence.repositories.impl.inmemory.InMemoryRepository
 /**
  * Created by MCN on 29/03/2016.
  */
-public class InMemoryDishTypeRepository extends InMemoryRepository<DishType, String> implements DishTypeRepository {
+public class InMemoryDishTypeRepository extends InMemoryRepository<DishType, Long> implements DishTypeRepository {
 
-}
+    long nextID = 1;
 
-
+    @Override
+    protected Long newPK(DishType entity) {
+        return ++nextID;
+    }   
+    
+    }
