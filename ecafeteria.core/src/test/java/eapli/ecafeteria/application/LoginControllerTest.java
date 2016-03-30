@@ -11,6 +11,7 @@ import org.junit.Test;
 import eapli.ecafeteria.domain.users.InvalidPasswordException;
 import eapli.ecafeteria.domain.users.InvalidUserException;
 import eapli.ecafeteria.domain.users.RoleType;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Nuno Bettencourt [NMB] on 24/03/16.
