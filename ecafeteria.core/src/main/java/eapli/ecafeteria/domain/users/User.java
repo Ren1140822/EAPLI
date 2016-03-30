@@ -18,7 +18,15 @@ import eapli.framework.visitor.Visitor;
 import eapli.util.DateTime;
 
 /**
- * a system user
+ * An application user.
+ *
+ * This class represents application users. It follows a DDD approach where User
+ * is the root entity of the User Aggregate and all of its properties are
+ * instances of value objects.
+ *
+ * This approach may seem a little more complex than just having String or
+ * native type attributes but provides for real semantic of the domain and
+ * follows the Single Responsibility Pattern
  *
  * @author pgsou_000
  *
