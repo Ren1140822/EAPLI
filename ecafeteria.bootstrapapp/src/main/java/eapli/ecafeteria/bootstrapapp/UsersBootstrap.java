@@ -17,32 +17,37 @@ import eapli.framework.actions.Action;
  */
 public class UsersBootstrap implements Action {
 
-	@Override
-	public boolean execute() {
+    @Override
+    public boolean execute() {
 
-		// Username username = new Username("admin");
-		// Password password = new Password("admin");
+        // Username username = new Username("admin");
+        // Password password = new Password("admin");
 
-		registerAdmin();
-		return false;
-	}
+        registerAdmin();
+        return false;
+    }
 
-	/**
-	 * 
-	 */
-	private void registerAdmin() {
-		final String username = "admin";
-		final String password = "admin";
+    /**
+     * 
+     */
+    private void registerAdmin() {
+        final String username = "admin";
+        final String password = "admin";
 
-		final String firstName = "John";
-		final String lastName = "Doe";
+        final String firstName = "John";
+        final String lastName = "Doe";
 
-		final String email = "john.doe@emai.l.com";
+        final String email = "john.doe@emai.l.com";
 
-		final List<RoleType> roles = new ArrayList<RoleType>();
-		roles.add(RoleType.Admin);
+        final List<RoleType> roles = new ArrayList<RoleType>();
+        roles.add(RoleType.Admin);
 
-		final UserRegisterController userController = new UserRegisterController();
-		userController.registerUser(username, password, firstName, lastName, email, roles);
-	}
+        final UserRegisterController userController = new UserRegisterController();
+        try {
+            userController.registerUser(username, password, firstName, lastName, email, roles);
+        } catch (final Exception e) {
+            // ignoring exception. assuming it is justa primiray key violation
+            // due to the tentative of inserting a duplicated user
+        }
+    }
 }
