@@ -29,7 +29,7 @@ public enum ActionRight {
 		if (this == ManageKitchen && roles.contains(RoleType.KitchenManager)) {
 			return true;
 		}
-		if (this == ManageMenus && roles.contains(RoleType.Nutricionist)) {
+		if (this == ManageMenus && roles.contains(RoleType.MenuManager)) {
 			return true;
 		}
 		if (this == Sale && roles.contains(RoleType.Cashier)) {
