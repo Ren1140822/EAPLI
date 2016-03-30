@@ -1,7 +1,5 @@
 package eapli.ecafeteria.application;
 
-import java.util.List;
-
 import eapli.ecafeteria.AppSettings;
 import eapli.ecafeteria.domain.users.ActionRight;
 import eapli.ecafeteria.domain.users.RoleType;
@@ -10,6 +8,9 @@ import eapli.ecafeteria.domain.users.UserBuilder;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.ecafeteria.persistence.UserRepository;
 import eapli.framework.application.Controller;
+import eapli.util.DateTime;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * FIXME this class is a duplicate of UserRegisterController.
@@ -19,7 +20,8 @@ import eapli.framework.application.Controller;
 public class AddUserController implements Controller {
 
     public User addUser(String username, String password, String firstName, String lastName, String email,
-            List<RoleType> roles) {
+            List<RoleType> roles, Calendar createdOn) {
+
         if (!AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.Administer)) {
             // TODO check which exception to throw
             throw new IllegalStateException("user is not authorized to perform this action");
@@ -32,6 +34,7 @@ public class AddUserController implements Controller {
         userBuilder.setLastName(lastName);
         userBuilder.setEmail(email);
         userBuilder.setRoles(roles);
+        userBuilder.setCreatedOn(createdOn);
 
         final User newUser = userBuilder.createUser();
         final UserRepository userRepository = PersistenceContext.repositories().users();
@@ -39,5 +42,10 @@ public class AddUserController implements Controller {
         // store
         userRepository.add(newUser);
         return newUser;
+    }
+
+    public User addUser(String username, String password, String firstName, String lastName, String email,
+            List<RoleType> roles) {
+        return addUser(username, password, firstName, lastName, email, roles, DateTime.now());
     }
 }

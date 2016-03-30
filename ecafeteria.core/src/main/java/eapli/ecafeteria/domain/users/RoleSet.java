@@ -22,7 +22,7 @@ public class RoleSet implements Set<Role>, Serializable {
      *
      */
     private static final long serialVersionUID = 1L;
-    private final Set<Role> data = new HashSet<Role>();
+    private final Set<Role> data = new HashSet<>();
 
     /**
      *
@@ -110,7 +110,20 @@ public class RoleSet implements Set<Role>, Serializable {
 
         final RoleSet roles = (RoleSet) o;
 
-        return this.data.equals(roles.data);
+        // we need to perform a deep equals() as we want to compare values and not object instances, so we cannot do: return this.data.equals(roles.data);
+        for (Role r : this.data) {
+            boolean found = false;
+            for (Role or : roles.data) {
+                if (r.equals(or)) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

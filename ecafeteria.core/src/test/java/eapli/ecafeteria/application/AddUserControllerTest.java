@@ -1,17 +1,17 @@
 package eapli.ecafeteria.application;
 
 import eapli.ecafeteria.AppSettings;
-import eapli.ecafeteria.domain.users.AuthenticationService;
 import eapli.ecafeteria.domain.users.InvalidPasswordException;
 import eapli.ecafeteria.domain.users.InvalidUserException;
-import eapli.ecafeteria.domain.users.Password;
 import eapli.ecafeteria.domain.users.RoleType;
 import eapli.ecafeteria.domain.users.Session;
 import eapli.ecafeteria.domain.users.User;
-import eapli.ecafeteria.domain.users.Username;
+import eapli.util.DateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -22,8 +22,12 @@ public class AddUserControllerTest {
 
     @BeforeClass
     public static void setUp() throws InvalidUserException, InvalidPasswordException {
-        AuthenticationService authz = new AuthenticationService();
-        Session adminSession = authz.authenticate(new Username("admin"), new Password("admin"));
+        // in this case we will inject the session but we shouldn't do this
+        //AuthenticationService authz = new AuthenticationService();
+        //Session adminSession = authz.authenticate(new Username("admin"), new Password("admin"));
+        List<RoleType> roles = new ArrayList<RoleType>();
+        roles.add(RoleType.Admin);
+        Session adminSession = new Session(new User("admin", "admin", "joe", "doe", "joe@email.org", roles));
         AppSettings.instance().setSession(adminSession);
     }
 
@@ -39,12 +43,13 @@ public class AddUserControllerTest {
         roles.add(RoleType.Admin);
         roles.add(RoleType.Cashier);
 
-        User expected = new User(userName, password, firstName, lastName, email, roles);
+        Calendar createdOn = DateTime.now();
+        User expected = new User(userName, password, firstName, lastName, email, roles, createdOn);
 
         AddUserController controller = new AddUserController();
 
-        User result = controller.addUser(userName, password, firstName, lastName, email, roles);
-        assertEquals(expected, result);
+        User result = controller.addUser(userName, password, firstName, lastName, email, roles, createdOn);
+        assertTrue("the added user does not have the same data as input", expected.sameAs(result));
     }
 
     @Test(expected = IllegalArgumentException.class)

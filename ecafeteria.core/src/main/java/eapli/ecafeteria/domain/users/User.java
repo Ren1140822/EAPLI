@@ -1,14 +1,5 @@
 package eapli.ecafeteria.domain.users;
 
-import java.io.Serializable;
-import java.util.Calendar;
-import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 import eapli.framework.authz.Authorisable;
 import eapli.framework.domain.AggregateRoot;
 import eapli.framework.dto.DTOable;
@@ -16,6 +7,13 @@ import eapli.framework.dto.GenericDTO;
 import eapli.framework.visitor.Visitable;
 import eapli.framework.visitor.Visitor;
 import eapli.util.DateTime;
+import java.io.Serializable;
+import java.util.Calendar;
+import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * An application user.
@@ -34,11 +32,12 @@ import eapli.util.DateTime;
 @Entity
 public class User implements AggregateRoot<Username>, Authorisable<ActionRight>, DTOable<User>, Visitable<GenericDTO>,
         Serializable {
+
     /**
      *
      */
     private static final long serialVersionUID = 1L;
-    // TODO provably we should have a db ID (long)...
+    // TODO provably we should have a db ID (long) differen than the domain ID.
     @Id
     private Username username;
     private Password password;
@@ -50,10 +49,15 @@ public class User implements AggregateRoot<Username>, Authorisable<ActionRight>,
 
     public User(String username, String password, String firstName, String lastName, String email,
             List<RoleType> roles) {
+        this(username, password, firstName, lastName, email, roles, DateTime.now());
+    }
+
+    public User(String username, String password, String firstName, String lastName, String email,
+            List<RoleType> roles, Calendar createdOn) {
         if (roles == null) {
             throw new IllegalArgumentException("roles cannot be null");
         }
-        this.createdOn = DateTime.now();
+        this.createdOn = createdOn;
         this.username = new Username(username);
         this.password = new Password(password);
         this.name = new Name(firstName, lastName);
@@ -107,6 +111,26 @@ public class User implements AggregateRoot<Username>, Authorisable<ActionRight>,
         result = 31 * result + this.email.hashCode();
         result = 31 * result + this.roles.hashCode();
         return result;
+    }
+
+    public boolean sameAs(User user) {
+        if (this == user) {
+            return true;
+        }
+        if (!this.username.equals(user.username)) {
+            return false;
+        }
+
+        if (!this.password.equals(user.password)) {
+            return false;
+        }
+        if (!this.name.equals(user.name)) {
+            return false;
+        }
+        if (!this.email.equals(user.email)) {
+            return false;
+        }
+        return this.roles.equals(user.roles);
     }
 
     @Override
