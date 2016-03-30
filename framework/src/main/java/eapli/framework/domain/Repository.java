@@ -18,57 +18,57 @@ import java.util.List;
  * @param <T>
  *            the type of the entity
  * @param <ID>
- *            the type of the entity's ID
+ *            the type of the entity's identity
  */
 public interface Repository<T extends AggregateRoot<?>, ID extends Serializable> extends List<T> {
 
-	/**
-	 * returns the first n entities according to its "natural" order
-	 *
-	 * @param n
-	 * @return
-	 */
-	Iterable<T> first(int n);
+    /**
+     * returns the first n entities according to its "natural" order
+     *
+     * @param n
+     * @return
+     */
+    Iterable<T> first(int n);
 
-	/**
-	 * returns a page of results using the natural order of the collection
-	 *
-	 * @param pageNumber
-	 * @param pageSize
-	 * @return
-	 */
-	Iterable<T> page(int pageNumber, int pageSize);
+    /**
+     * returns a page of results using the natural order of the collection
+     *
+     * @param pageNumber
+     * @param pageSize
+     * @return
+     */
+    Iterable<T> page(int pageNumber, int pageSize);
 
-	/**
-	 * reads an entity given its ID
-	 *
-	 * @param id
-	 * @return
-	 */
-	T read(ID id);
+    /**
+     * reads an entity given its ID
+     *
+     * @param id
+     * @return
+     */
+    T read(ID id);
 
-	/**
-	 * inserts or updates an entity
-	 *
-	 * @param entity
-	 * @return the persisted entity - might be a different object than the
-	 *         parameter
-	 */
-	T save(T entity);
+    /**
+     * inserts or updates an entity
+     *
+     * @param entity
+     * @return the persisted entity - might be a different object than the
+     *         parameter
+     */
+    T save(T entity);
 
-	/**
-	 * updates an existing entity in the repository
-	 *
-	 * @param entity
-	 * @return
-	 */
-	T update(T entity);
+    /**
+     * updates an existing entity in the repository
+     *
+     * @param entity
+     * @return
+     */
+    T update(T entity);
 
-	/**
-	 * checks for the existence of an entity with the provided ID.
-	 *
-	 * @param key
-	 * @return
-	 */
-	boolean containsEntity(ID key);
+    /**
+     * checks for the existence of an entity with the provided ID.
+     *
+     * @param key
+     * @return
+     */
+    boolean containsEntity(ID key);
 }

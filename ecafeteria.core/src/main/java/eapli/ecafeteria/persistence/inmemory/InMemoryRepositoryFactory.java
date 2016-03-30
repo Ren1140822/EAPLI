@@ -5,7 +5,6 @@ import eapli.ecafeteria.persistence.UserRepository;
 import eapli.ecafeteria.persistence.DishTypeRepository;
 
 /**
- * FIXME move to a separate project
  *
  * Created by nuno on 20/03/16.
  */

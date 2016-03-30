@@ -1,162 +1,196 @@
 package eapli.ecafeteria.domain.users;
 
+import eapli.framework.authz.Authorisable;
+import eapli.framework.domain.AggregateRoot;
+import eapli.framework.dto.DTOable;
+import eapli.framework.dto.GenericDTO;
+import eapli.framework.visitor.Visitable;
+import eapli.framework.visitor.Visitor;
+import eapli.util.DateTime;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
-import eapli.framework.visitor.Visitable;
-import eapli.framework.visitor.Visitor;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import eapli.framework.authz.Authorisable;
-import eapli.framework.domain.AggregateRoot;
-import eapli.framework.dto.DTOable;
-import eapli.framework.dto.GenericDTO;
-import eapli.util.DateTime;
-
 /**
- * a system user
- * 
+ * An application user.
+ *
+ * This class represents application users. It follows a DDD approach where User
+ * is the root entity of the User Aggregate and all of its properties are
+ * instances of value objects.
+ *
+ * This approach may seem a little more complex than just having String or
+ * native type attributes but provides for real semantic of the domain and
+ * follows the Single Responsibility Pattern
+ *
  * @author pgsou_000
  *
  */
 @Entity
-public class User implements AggregateRoot<Username>, Authorisable<ActionRight>, DTOable<User>, Visitable<GenericDTO>, Serializable {
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
-	@Id
-	private Username		  username;
-	private Password		  password;
-	private Name			  name;
-	private EmailAddress	  email;
-	private RoleList		  roles;
-	@Temporal(TemporalType.DATE)
-	private Calendar		  createdOn;
-	public User(String username, String password, String firstName, String lastName, String email,
-	        List<RoleType> roles) {
-		if (roles == null) {
-			throw new IllegalArgumentException("roles cannot be null");
-		}
-		createdOn = DateTime.now();
-		this.username = new Username(username);
-		this.password = new Password(password);
-		name = new Name(firstName, lastName);
-		this.email = new EmailAddress(email);
-		this.roles = new RoleList();
-		for (final RoleType rt : roles) {
-			this.roles.add(new Role(rt, createdOn));
-		}
-	}
+public class User implements AggregateRoot<Username>, Authorisable<ActionRight>, DTOable<User>, Visitable<GenericDTO>,
+        Serializable {
 
-	protected User() {
-	}
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+    // TODO provably we should have a db ID (long) differen than the domain ID.
+    @Id
+    private Username username;
+    private Password password;
+    private Name name;
+    private EmailAddress email;
+    private RoleSet roles;
+    @Temporal(TemporalType.DATE)
+    private Calendar createdOn;
 
-	protected Username getUsername() {
-		return username;
-	}
+    public User(String username, String password, String firstName, String lastName, String email,
+            List<RoleType> roles) {
+        this(username, password, firstName, lastName, email, roles, DateTime.now());
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (!(o instanceof User)) {
-			return false;
-		}
+    public User(String username, String password, String firstName, String lastName, String email,
+            List<RoleType> roles, Calendar createdOn) {
+        if (roles == null) {
+            throw new IllegalArgumentException("roles cannot be null");
+        }
+        this.createdOn = createdOn;
+        this.username = new Username(username);
+        this.password = new Password(password);
+        this.name = new Name(firstName, lastName);
+        this.email = new EmailAddress(email);
+        this.roles = new RoleSet();
+        for (final RoleType rt : roles) {
+            this.roles.add(new Role(rt, this.createdOn));
+        }
+    }
 
-		final User user = (User) o;
+    // for ORM
+    protected User() {
+    }
 
-		if (!username.equals(user.username)) {
-			return false;
-		}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof User)) {
+            return false;
+        }
 
-		// FIXME DDD entities are only compared thru their ID field. in this
-		// case only username should be compared
-		if (!password.equals(user.password)) {
-			return false;
-		}
-		if (!name.equals(user.name)) {
-			return false;
-		}
-		if (!email.equals(user.email)) {
-			return false;
-		}
-		return roles.equals(user.roles);
+        final User user = (User) o;
 
-	}
+        if (!this.username.equals(user.username)) {
+            return false;
+        }
 
-	@Override
-	public int hashCode() {
-		int result = username.hashCode();
-		// FIXME hash should only use username field
-		result = 31 * result + password.hashCode();
-		result = 31 * result + name.hashCode();
-		result = 31 * result + email.hashCode();
-		result = 31 * result + roles.hashCode();
-		return result;
-	}
+        // FIXME DDD entities are only compared thru their ID field. in this
+        // case only username should be compared
+        if (!this.password.equals(user.password)) {
+            return false;
+        }
+        if (!this.name.equals(user.name)) {
+            return false;
+        }
+        if (!this.email.equals(user.email)) {
+            return false;
+        }
+        return this.roles.equals(user.roles);
 
-	@Override
-	public Username id() {
-		return username;
-	}
+    }
 
-	/**
-	 * Add role to user
-	 *
-	 * @param role
-	 */
-	public void addRole(Role role) {
-		roles.add(role);
-	}
+    @Override
+    public int hashCode() {
+        int result = this.username.hashCode();
+        // FIXME hash should only use username field
+        result = 31 * result + this.password.hashCode();
+        result = 31 * result + this.name.hashCode();
+        result = 31 * result + this.email.hashCode();
+        result = 31 * result + this.roles.hashCode();
+        return result;
+    }
 
-	@Override
-	public GenericDTO toDTO() {
-		final GenericDTO ret = new GenericDTO("user");
-		ret.put("username", username.toString());
-		ret.put("password", password.toString());
-		ret.put("name", name.toString());
-		ret.put("email", email.toString());
-		ret.put("roles", roles.roleTypes().toString());
-		//TODO: ASK Isn't it easy to forget mapping an elemento to DTO when manipulating members?
+    public boolean sameAs(User user) {
+        if (this == user) {
+            return true;
+        }
+        if (!this.username.equals(user.username)) {
+            return false;
+        }
 
-		return ret;
-	}
+        if (!this.password.equals(user.password)) {
+            return false;
+        }
+        if (!this.name.equals(user.name)) {
+            return false;
+        }
+        if (!this.email.equals(user.email)) {
+            return false;
+        }
+        return this.roles.equals(user.roles);
+    }
 
-	/**
-	 * Add role to user
-	 *
-	 * @param role
-	 */
-	public void removeRole(Role role) {
-		roles.remove(role);
-	}
+    @Override
+    public Username id() {
+        return this.username;
+    }
 
-	@Override
-	public boolean isAuthorizedTo(ActionRight action) {
-		return action.canBePerformedBy(roles.roleTypes());
-	}
+    /**
+     * Add role to user
+     *
+     * @param role
+     */
+    public void addRole(Role role) {
+        this.roles.add(role);
+    }
 
-	// TODO this method's name suggests a boolean return not a void
-	// we are using exception handling for logic behavior...
-	public void passwordMatches(Password password) throws InvalidPasswordException {
-		if (!this.password.equals(password)) {
-			throw new InvalidPasswordException("Password does note match", this);
-		}
-	}
+    @Override
+    public GenericDTO toDTO() {
+        final GenericDTO ret = new GenericDTO("user");
+        ret.put("username", this.username.toString());
+        ret.put("password", this.password.toString());
+        ret.put("name", this.name.toString());
+        ret.put("email", this.email.toString());
+        ret.put("roles", this.roles.roleTypes().toString());
+        // TODO: ASK Isn't it easy to forget mapping an element to DTO when
+        // manipulating members?
 
-	@Override
-	public void accept(Visitor<GenericDTO> visitor) {
-		visitor.visit(this.toDTO());
-	}
+        return ret;
+    }
 
-	@Override
-	public boolean is(Username id) {
-		return id().equals(id);
-	}
+    /**
+     * remove role from user
+     *
+     * @param role
+     */
+    public void removeRole(Role role) {
+        // TODO should the role be removed or marked as "expired"?
+        this.roles.remove(role);
+    }
+
+    @Override
+    public boolean isAuthorizedTo(ActionRight action) {
+        return action.canBePerformedBy(this.roles.roleTypes());
+    }
+
+    // TODO this method's name suggests a boolean return not a void
+    // we are using exception handling for logic behavior...
+    public void passwordMatches(Password password) throws InvalidPasswordException {
+        if (!this.password.equals(password)) {
+            throw new InvalidPasswordException("Password does note match", this);
+        }
+    }
+
+    @Override
+    public void accept(Visitor<GenericDTO> visitor) {
+        visitor.visit(toDTO());
+    }
+
+    @Override
+    public boolean is(Username id) {
+        return id().equals(id);
+    }
 }

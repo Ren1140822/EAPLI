@@ -1,14 +1,17 @@
 package eapli.ecafeteria.domain.users;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class UserBuilder {
+
     private String username;
     private String password;
     private String firstName;
     private String lastName;
     private String email;
     private List<RoleType> roles;
+    private Calendar createdOn;
 
     public UserBuilder setUsername(String username) {
         this.username = username;
@@ -41,6 +44,14 @@ public class UserBuilder {
     }
 
     public User createUser() {
-        return new User(username, password, firstName, lastName, email, roles);
+        if (createdOn != null) {
+            return new User(username, password, firstName, lastName, email, roles, createdOn);
+        } else {
+            return new User(username, password, firstName, lastName, email, roles);
+        }
+    }
+
+    public void setCreatedOn(Calendar createdOn) {
+        this.createdOn = createdOn;
     }
 }
