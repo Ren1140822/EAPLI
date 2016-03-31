@@ -17,9 +17,10 @@ public class ListDishTypeController implements Controller {
         return dishTypeRepository.all();
     }
 
+    //TOFIXE save() in inMemoryRepository
     public void changeDishTypeState(DishType dType){
         dType.changeDishTypeState();
         DishTypeRepository dishTypeRepository = PersistenceContext.repositories().dishTypes();
-
+//        dishTypeRepository.save(dType);
     }
 }
