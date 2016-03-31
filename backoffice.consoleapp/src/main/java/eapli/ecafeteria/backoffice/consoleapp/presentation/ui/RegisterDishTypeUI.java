@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eapli.ecafeteria.utente.consoleapp.presentation;
+package eapli.ecafeteria.backoffice.consoleapp.presentation.ui;
 
 import eapli.ecafeteria.application.RegisterDishTypeController;
 import eapli.framework.application.Controller;

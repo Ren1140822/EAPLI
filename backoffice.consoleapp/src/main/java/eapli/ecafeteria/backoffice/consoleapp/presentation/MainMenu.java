@@ -11,6 +11,7 @@ import eapli.cafeteria.consoleapp.presentation.actions.LogoutAction;
 import eapli.ecafeteria.AppSettings;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.ActivateDeactivateDishTypeAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.AddUserAction;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.RegisterDishTypeAction;
 import eapli.ecafeteria.domain.users.ActionRight;
 import eapli.framework.actions.ReturnAction;
 import eapli.framework.actions.ShowMessageAction;
@@ -45,7 +46,9 @@ public class MainMenu extends AbstractUI {
     private static final int SET_USER_ALERT_LIMIT_OPTION = 2;
 
     // DISH TYPES
-    private static final int DISH_TYPE_ACTIVATE_DEACTIVATE_OPTION = 1;
+    private static final int DISH_TYPE_REGISTER_OPTION = 1;
+    private static final int DISH_TYPE_CHANGE_OPTION = 2;
+    private static final int DISH_TYPE_ACTIVATE_DEACTIVATE_OPTION = 3;
 
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
@@ -159,6 +162,9 @@ public class MainMenu extends AbstractUI {
     private Menu buildDishTypeMenu() {
         final Menu menu = new Menu("Dish Type >");
 
+        menu.add(new MenuItem(DISH_TYPE_REGISTER_OPTION, "Register new Dish Type", new RegisterDishTypeAction()));
+        menu.add(new MenuItem(DISH_TYPE_CHANGE_OPTION, "Changee Dish Type", new ShowMessageAction("Not implemented yet.")));
+        //menu.add(new MenuItem(DISH_TYPE_CHANGE_OPTION, "Changee Dish Type", new ChangeDishTypeAction()));
         menu.add(new MenuItem(DISH_TYPE_ACTIVATE_DEACTIVATE_OPTION, "Activate/Deactivate Dish Type", new ActivateDeactivateDishTypeAction()));
         // TODO add other options for user management
 

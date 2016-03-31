@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eapli.ecafeteria.utente.consoleapp.presentation.actions;
+package eapli.ecafeteria.backoffice.consoleapp.presentation.actions;
 
-import eapli.ecafeteria.utente.consoleapp.presentation.RegisterDishTypeUI;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.ui.RegisterDishTypeUI;
 import eapli.framework.actions.Action;
 
 /**

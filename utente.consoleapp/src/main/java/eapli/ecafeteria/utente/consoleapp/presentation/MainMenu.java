@@ -10,7 +10,6 @@ import eapli.cafeteria.consoleapp.presentation.actions.LoginAction;
 import eapli.cafeteria.consoleapp.presentation.actions.LogoutAction;
 import eapli.ecafeteria.AppSettings;
 import eapli.ecafeteria.utente.consoleapp.presentation.actions.ListDishTypeAction;
-import eapli.ecafeteria.utente.consoleapp.presentation.actions.RegisterDishTypeAction;
 import eapli.framework.actions.ReturnAction;
 import eapli.framework.actions.ShowMessageAction;
 import eapli.framework.application.Controller;
@@ -32,8 +31,7 @@ public class MainMenu extends AbstractUI {
 
         
         // DISH TYPE
-	private static final int LIST_DISH_TYPE_OPTION		= 5;
-	private static final int REGISTER_DISH_TYPE_OPTION	= 4;
+	private static final int LIST_DISH_TYPE_OPTION		= 4;
         
 	// MY USER
 	private static final int CHANGE_PASSWORD_OPTION	        = 1;
@@ -101,8 +99,6 @@ public class MainMenu extends AbstractUI {
         private Menu buildDishTypeMenu() {
 		final Menu dishTypeMenu = new Menu("Dish Type >");
 
-                dishTypeMenu.add(
-		        new MenuItem(REGISTER_DISH_TYPE_OPTION, "Register Dish Type", new RegisterDishTypeAction()));
 		dishTypeMenu.add(new MenuItem(LIST_DISH_TYPE_OPTION, "List Dish Type", new ListDishTypeAction()));
 		
 		// TODO add menu options
