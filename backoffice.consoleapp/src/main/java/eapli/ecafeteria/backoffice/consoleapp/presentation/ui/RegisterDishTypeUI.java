@@ -1,7 +1,7 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template file, choose Tools | Templates and open the template
+ * in the editor.
  */
 package eapli.ecafeteria.backoffice.consoleapp.presentation.ui;
 
@@ -19,19 +19,21 @@ public class RegisterDishTypeUI extends AbstractUI {
 
     @Override
     protected Controller controller() {
-        return theController;
+        return this.theController;
     }
 
     @Override
     protected boolean doShow() {
-         final String acronym = Console.readLine("Dish Type Acronym:");
-         final String description = Console.readLine("Dish Type Description:");
-         theController.registerDishType(acronym,description);
+        final String acronym = Console.readLine("Dish Type Acronym:");
+        final String description = Console.readLine("Dish Type Description:");
+
+        // FIXME handle /prevent duplicates
+        this.theController.registerDishType(acronym, description);
         return true;
     }
 
     @Override
     public String headline() {
-        return "Register Dish Type";  
+        return "Register Dish Type";
     }
 }

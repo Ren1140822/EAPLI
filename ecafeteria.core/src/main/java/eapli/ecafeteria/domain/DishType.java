@@ -1,26 +1,34 @@
 package eapli.ecafeteria.domain;
 
-import eapli.framework.domain.AggregateRoot;
+import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.io.Serializable;
+
+import eapli.framework.domain.AggregateRoot;
 
 /**
  * Created by MCN on 29/03/2016.
  */
 @Entity
 public class DishType implements AggregateRoot<String>, Serializable {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue
     private Long id;
 
+    @Column(unique = true)
     private String acronym;
     private String description;
     private boolean active;
 
-    public DishType() {
+    protected DishType() {
     }
 
     public DishType(String name, String description) {
@@ -29,22 +37,17 @@ public class DishType implements AggregateRoot<String>, Serializable {
         this.active = true;
     }
 
-
     public String description() {
         return this.description;
     }
 
     public boolean isActive() {
-        return active;
+        return this.active;
     }
 
-    public void changeDishTypeState(){
-        if(this.isActive()){
-            this.active=false;
-        }
-        else{
-            this.active=true;
-        }
+    public void changeDishTypeState() {
+
+        this.active = !this.active;
     }
 
     @Override
@@ -54,8 +57,7 @@ public class DishType implements AggregateRoot<String>, Serializable {
 
     @Override
     public boolean is(String id) {
-        return id.equalsIgnoreCase(acronym);
+        return id.equalsIgnoreCase(this.acronym);
     }
 
-  
 }

@@ -1,7 +1,7 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template file, choose Tools | Templates and open the template
+ * in the editor.
  */
 package eapli.ecafeteria.application;
 
@@ -17,11 +17,11 @@ import eapli.framework.application.Controller;
 public class RegisterDishTypeController implements Controller {
 
     public DishType registerDishType(String acronym, String description) {
-        //FIXME needs to perform authorization checking
+        // FIXME needs to perform authorization checking
 
         final DishType newDishType = new DishType(acronym, description);
         final DishTypeRepository repo = PersistenceContext.repositories().dishTypes();
-        // TODO error checking if the newDishType is already in the persistence
+        // FIXME error checking if the newDishType is already in the persistence
         // store
         repo.add(newDishType);
         return newDishType;
