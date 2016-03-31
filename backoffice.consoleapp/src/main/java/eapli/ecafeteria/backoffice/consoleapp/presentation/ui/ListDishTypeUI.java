@@ -1,4 +1,4 @@
-package eapli.ecafeteria.utente.consoleapp.presentation;
+package eapli.ecafeteria.backoffice.consoleapp.presentation.ui;
 
 import eapli.ecafeteria.application.ListDishTypeController;
 import eapli.ecafeteria.domain.DishType;

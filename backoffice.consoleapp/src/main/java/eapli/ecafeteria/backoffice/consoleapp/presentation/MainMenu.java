@@ -11,9 +11,9 @@ import eapli.cafeteria.consoleapp.presentation.actions.LogoutAction;
 import eapli.ecafeteria.AppSettings;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.ActivateDeactivateDishTypeAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.AddUserAction;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.ListDishTypeAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.RegisterDishTypeAction;
 import eapli.ecafeteria.domain.users.ActionRight;
-import eapli.ecafeteria.utente.consoleapp.presentation.actions.ListDishTypeAction;
 import eapli.framework.actions.ReturnAction;
 import eapli.framework.actions.ShowMessageAction;
 import eapli.framework.application.Controller;
@@ -166,9 +166,12 @@ public class MainMenu extends AbstractUI {
 
         menu.add(new MenuItem(DISH_TYPE_REGISTER_OPTION, "Register new Dish Type", new RegisterDishTypeAction()));
         menu.add(new MenuItem(DISH_TYPE_LIST_OPTION, "List all Dish Type", new ListDishTypeAction()));
-        menu.add(new MenuItem(DISH_TYPE_CHANGE_OPTION, "Changee Dish Type", new ShowMessageAction("Not implemented yet.")));
-        //menu.add(new MenuItem(DISH_TYPE_CHANGE_OPTION, "Changee Dish Type", new ChangeDishTypeAction()));
-        menu.add(new MenuItem(DISH_TYPE_ACTIVATE_DEACTIVATE_OPTION, "Activate/Deactivate Dish Type", new ActivateDeactivateDishTypeAction()));
+        menu.add(new MenuItem(DISH_TYPE_CHANGE_OPTION, "Change Dish Type",
+                new ShowMessageAction("Not implemented yet.")));
+        // menu.add(new MenuItem(DISH_TYPE_CHANGE_OPTION, "ChangeDish Type", new
+        // ChangeDishTypeAction()));
+        menu.add(new MenuItem(DISH_TYPE_ACTIVATE_DEACTIVATE_OPTION, "Activate/Deactivate Dish Type",
+                new ActivateDeactivateDishTypeAction()));
         // TODO add other options for user management
 
         menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));

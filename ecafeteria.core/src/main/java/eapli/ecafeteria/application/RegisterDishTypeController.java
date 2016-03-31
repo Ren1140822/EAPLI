@@ -17,7 +17,8 @@ import eapli.framework.application.Controller;
 public class RegisterDishTypeController implements Controller {
 
     public DishType registerDishType(String acronym, String description) {
-        
+        //FIXME needs to perform authorization checking
+
         final DishType newDishType = new DishType(acronym, description);
         final DishTypeRepository repo = PersistenceContext.repositories().dishTypes();
         // TODO error checking if the newDishType is already in the persistence
@@ -26,5 +27,4 @@ public class RegisterDishTypeController implements Controller {
         return newDishType;
     }
 
-    
 }

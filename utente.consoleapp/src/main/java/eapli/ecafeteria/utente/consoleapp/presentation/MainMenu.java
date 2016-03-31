@@ -9,7 +9,6 @@ import eapli.cafeteria.consoleapp.presentation.actions.ExitWithMessageAction;
 import eapli.cafeteria.consoleapp.presentation.actions.LoginAction;
 import eapli.cafeteria.consoleapp.presentation.actions.LogoutAction;
 import eapli.ecafeteria.AppSettings;
-import eapli.ecafeteria.utente.consoleapp.presentation.actions.ListDishTypeAction;
 import eapli.framework.actions.ReturnAction;
 import eapli.framework.actions.ShowMessageAction;
 import eapli.framework.application.Controller;
@@ -27,97 +26,83 @@ import eapli.framework.presentation.console.VerticalSeparator;
  */
 public class MainMenu extends AbstractUI {
 
-	private static final int EXIT_OPTION			= 0;
+    private static final int EXIT_OPTION = 0;
 
-        
-        // DISH TYPE
-	private static final int LIST_DISH_TYPE_OPTION		= 4;
-        
-	// MY USER
-	private static final int CHANGE_PASSWORD_OPTION	        = 1;
-	private static final int LOGIN_OPTION			= 2;
-	private static final int LOGOUT_OPTION			= 3;
+    // DISH TYPE
+    private static final int LIST_DISH_TYPE_OPTION = 4;
 
-	// MAIN MENU
-	private static final int MY_USER_OPTION			= 1;
-        private static final int DISH_TYPE_OPTION		= 2;
+    // MY USER
+    private static final int CHANGE_PASSWORD_OPTION = 1;
+    private static final int LOGIN_OPTION = 2;
+    private static final int LOGOUT_OPTION = 3;
 
-	public MainMenu() {
-	}
+    // MAIN MENU
+    private static final int MY_USER_OPTION = 1;
+    private static final int DISH_TYPE_OPTION = 2;
 
-	@Override
-	public boolean show() {
-		drawFormTitle();
-		return doShow();
-	}
+    public MainMenu() {
+    }
 
-	/**
-	 * @return true if the user selected the exit option
-	 */
-	@Override
-	public boolean doShow() {
-		final Menu menu = buildMainMenu();
-		final MenuRenderer renderer = new VerticalMenuRenderer(menu);
-		return renderer.show();
-	}
+    @Override
+    public boolean show() {
+        drawFormTitle();
+        return doShow();
+    }
 
-	@Override
-	public String headline() {
-		return "eCAFETERIA [@" + AppSettings.instance().session().authenticatedUser().id() + "]";
-	}
+    /**
+     * @return true if the user selected the exit option
+     */
+    @Override
+    public boolean doShow() {
+        final Menu menu = buildMainMenu();
+        final MenuRenderer renderer = new VerticalMenuRenderer(menu);
+        return renderer.show();
+    }
 
-	private Menu buildMyUserMenu() {
-		final Menu myUserMenu = new Menu("My account >");
+    @Override
+    public String headline() {
+        return "eCAFETERIA [@" + AppSettings.instance().session().authenticatedUser().id() + "]";
+    }
 
-		myUserMenu.add(
-		        new MenuItem(CHANGE_PASSWORD_OPTION, "Change password", new ShowMessageAction("Not implemented yet")));
-		myUserMenu.add(new MenuItem(LOGIN_OPTION, "Change user (Login)", new LoginAction()));
-		myUserMenu.add(new MenuItem(LOGOUT_OPTION, "Logout", new LogoutAction()));
+    private Menu buildMyUserMenu() {
+        final Menu myUserMenu = new Menu("My account >");
 
-		return myUserMenu;
-	}
+        myUserMenu.add(
+                new MenuItem(CHANGE_PASSWORD_OPTION, "Change password", new ShowMessageAction("Not implemented yet")));
+        myUserMenu.add(new MenuItem(LOGIN_OPTION, "Change user (Login)", new LoginAction()));
+        myUserMenu.add(new MenuItem(LOGOUT_OPTION, "Logout", new LogoutAction()));
 
-	private Menu buildMainMenu() {
-		final Menu mainMenu = new Menu();
+        return myUserMenu;
+    }
 
-		final Menu myUserMenu = buildMyUserMenu();
-		mainMenu.add(new SubMenu(MY_USER_OPTION, myUserMenu, new ShowVerticalSubMenuAction(myUserMenu)));
+    private Menu buildMainMenu() {
+        final Menu mainMenu = new Menu();
 
-		mainMenu.add(new VerticalSeparator());
+        final Menu myUserMenu = buildMyUserMenu();
+        mainMenu.add(new SubMenu(MY_USER_OPTION, myUserMenu, new ShowVerticalSubMenuAction(myUserMenu)));
 
-                final Menu dishTypeMenu = buildDishTypeMenu();
-		mainMenu.add(new SubMenu(DISH_TYPE_OPTION, dishTypeMenu, new ShowVerticalSubMenuAction(dishTypeMenu)));
-		// TODO add menu options
+        mainMenu.add(new VerticalSeparator());
 
-		mainMenu.add(new VerticalSeparator());
+        // TODO add menu options
 
-		mainMenu.add(new MenuItem(EXIT_OPTION, "Exit", new ExitWithMessageAction()));
+        mainMenu.add(new VerticalSeparator());
 
-		return mainMenu;
-	}
-        
-        private Menu buildDishTypeMenu() {
-		final Menu dishTypeMenu = new Menu("Dish Type >");
+        mainMenu.add(new MenuItem(EXIT_OPTION, "Exit", new ExitWithMessageAction()));
 
-		dishTypeMenu.add(new MenuItem(LIST_DISH_TYPE_OPTION, "List Dish Type", new ListDishTypeAction()));
-		
-		// TODO add menu options
-		dishTypeMenu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
+        return mainMenu;
+    }
 
-		return dishTypeMenu;
-	}
+    private Menu buildXptoMenu() {
+        final Menu menu = new Menu("Xpto >");
 
-	private Menu buildXptoMenu() {
-		final Menu menu = new Menu("Xpto >");
+        // TODO add menu options
+        menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
 
-		// TODO add menu options
-		menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
+        return menu;
+    }
 
-		return menu;
-	}
-
-	@Override
-	protected Controller controller() {
-		throw new UnsupportedOperationException("Menus don't have a controller");
-	}
+    @Override
+    protected Controller controller() {
+        throw new UnsupportedOperationException("Menus don't have a controller");
+    }
 }

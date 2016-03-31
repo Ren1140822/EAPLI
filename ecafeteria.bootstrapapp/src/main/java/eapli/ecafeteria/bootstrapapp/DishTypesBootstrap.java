@@ -16,9 +16,9 @@ public class DishTypesBootstrap implements Action {
 
     @Override
     public boolean execute() {
-        register("vege01", "vegetarian dish");
-        register("fish01", "fish dish");
-        register("meat01", "fish dish");
+        register("vegie", "vegetarian dish");
+        register("fish", "fish dish");
+        register("meat", "meat dish");
         return false;
     }
 
@@ -26,11 +26,11 @@ public class DishTypesBootstrap implements Action {
      *
      */
     private void register(String acronym, String description) {
-          final RegisterDishTypeController controller = new RegisterDishTypeController();
+        final RegisterDishTypeController controller = new RegisterDishTypeController();
         try {
-            controller.registerDishType(acronym,description);
+            controller.registerDishType(acronym, description);
         } catch (final Exception e) {
-            // ignoring exception. assuming it is justa primiray key violation
+            // ignoring exception. assuming it is just a primary key violation
             // due to the tentative of inserting a duplicated user
         }
     }
