@@ -5,6 +5,7 @@
  */
 package eapli.ecafeteria.utente.consoleapp.presentation.actions;
 
+import eapli.ecafeteria.utente.consoleapp.presentation.RegisterDishTypeUI;
 import eapli.framework.actions.Action;
 
 /**
@@ -15,7 +16,7 @@ public class RegisterDishTypeAction implements Action{
 
     @Override
     public boolean execute() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new RegisterDishTypeUI().show();
     }
     
 }

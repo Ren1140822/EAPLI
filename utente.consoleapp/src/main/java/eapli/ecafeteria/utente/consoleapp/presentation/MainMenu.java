@@ -10,6 +10,7 @@ import eapli.cafeteria.consoleapp.presentation.actions.LoginAction;
 import eapli.cafeteria.consoleapp.presentation.actions.LogoutAction;
 import eapli.ecafeteria.AppSettings;
 import eapli.ecafeteria.utente.consoleapp.presentation.actions.ListDishTypeAction;
+import eapli.ecafeteria.utente.consoleapp.presentation.actions.RegisterDishTypeAction;
 import eapli.framework.actions.ReturnAction;
 import eapli.framework.actions.ShowMessageAction;
 import eapli.framework.application.Controller;
@@ -101,7 +102,7 @@ public class MainMenu extends AbstractUI {
 		final Menu dishTypeMenu = new Menu("Dish Type >");
 
                 dishTypeMenu.add(
-		        new MenuItem(REGISTER_DISH_TYPE_OPTION, "Register Dish Type", new ShowMessageAction("Not implemented yet")));
+		        new MenuItem(REGISTER_DISH_TYPE_OPTION, "Register Dish Type", new RegisterDishTypeAction()));
 		dishTypeMenu.add(new MenuItem(LIST_DISH_TYPE_OPTION, "List Dish Type", new ListDishTypeAction()));
 		
 		// TODO add menu options
