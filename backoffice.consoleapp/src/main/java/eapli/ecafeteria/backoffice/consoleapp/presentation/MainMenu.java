@@ -29,153 +29,146 @@ import eapli.framework.presentation.console.VerticalSeparator;
  */
 public class MainMenu extends AbstractUI {
 
-	private static final int EXIT_OPTION = 0;
+    private static final int EXIT_OPTION = 0;
 
-	// MY USER
-	private static final int CHANGE_PASSWORD_OPTION = 1;
-	private static final int LOGIN_OPTION = 2;
-	private static final int LOGOUT_OPTION = 3;
+    // MY USER
+    private static final int CHANGE_PASSWORD_OPTION = 1;
+    private static final int LOGIN_OPTION = 2;
+    private static final int LOGOUT_OPTION = 3;
 
-	// USERS
-	private static final int ADD_USER_OPTION = 1;
+    // USERS
+    private static final int ADD_USER_OPTION = 1;
 
-	// ORGANIC UNITS
+    // ORGANIC UNITS
+    // SETTINGS
+    private static final int SET_KITCHEN_ALERT_LIMIT_OPTION = 1;
+    private static final int SET_USER_ALERT_LIMIT_OPTION = 2;
 
-	// SETTINGS
-	private static final int SET_KITCHEN_ALERT_LIMIT_OPTION = 1;
-	private static final int SET_USER_ALERT_LIMIT_OPTION = 2;
+    // DISH TYPES
+    private static final int DISH_TYPE_ACTIVATE_DEACTIVATE_OPTION = 1;
 
-	// DISH TYPES
-	private static final int DISH_TYPE_ACTIVATE_DEACTIVATE_OPTION = 1;
+    // MAIN MENU
+    private static final int MY_USER_OPTION = 1;
+    private static final int USERS_OPTION = 2;
+    private static final int ORGANIC_UNITS_OPTION = 3;
+    private static final int SETTINGS_OPTION = 4;
+    private static final int DISH_TYPES_OPTION = 5;
 
-	// MAIN MENU
-	private static final int MY_USER_OPTION = 1;
-	private static final int USERS_OPTION = 2;
-	private static final int ORGANIC_UNITS_OPTION = 3;
-	private static final int SETTINGS_OPTION = 4;
-	private static final int DISH_TYPES_OPTION = 5;
+    public MainMenu() {
+    }
 
-	public MainMenu() {
-	}
+    @Override
+    public boolean show() {
+        drawFormTitle();
+        return doShow();
+    }
 
-	@Override
-	public boolean show() {
-		drawFormTitle();
-		return doShow();
-	}
+    /**
+     * @return true if the user selected the exit option
+     */
+    @Override
+    public boolean doShow() {
+        final Menu menu = buildMainMenu();
+        final MenuRenderer renderer = new VerticalMenuRenderer(menu);
+        return renderer.show();
+    }
 
-	/**
-	 * @return true if the user selected the exit option
-	 */
-	@Override
-	public boolean doShow() {
-		final Menu menu = buildMainMenu();
-		final MenuRenderer renderer = new VerticalMenuRenderer(menu);
-		return renderer.show();
-	}
+    @Override
+    public String headline() {
+        return "eCAFETERIA [@" + AppSettings.instance().session().authenticatedUser().id() + "]";
+    }
 
-	@Override
-	public String headline() {
-		return "eCAFETERIA [@" + AppSettings.instance().session().authenticatedUser().id() + "]";
-	}
+    private Menu buildMyUserMenu() {
+        final Menu myUserMenu = new Menu("My account >");
 
-	private Menu buildMyUserMenu() {
-		final Menu myUserMenu = new Menu("My account >");
+        myUserMenu.add(
+                new MenuItem(CHANGE_PASSWORD_OPTION, "Change password", new ShowMessageAction("Not implemented yet")));
+        myUserMenu.add(new MenuItem(LOGIN_OPTION, "Change user (Login)", new LoginAction()));
+        myUserMenu.add(new MenuItem(LOGOUT_OPTION, "Logout", new LogoutAction()));
 
-		myUserMenu.add(
-				new MenuItem(CHANGE_PASSWORD_OPTION, "Change password", new ShowMessageAction("Not implemented yet")));
-		myUserMenu.add(new MenuItem(LOGIN_OPTION, "Change user (Login)", new LoginAction()));
-		myUserMenu.add(new MenuItem(LOGOUT_OPTION, "Logout", new LogoutAction()));
+        return myUserMenu;
+    }
 
-		return myUserMenu;
-	}
+    private Menu buildMainMenu() {
+        final Menu mainMenu = new Menu();
 
-	private Menu buildMainMenu() {
-		final Menu mainMenu = new Menu();
+        final Menu myUserMenu = buildMyUserMenu();
+        mainMenu.add(new SubMenu(MY_USER_OPTION, myUserMenu, new ShowVerticalSubMenuAction(myUserMenu)));
 
-		final Menu myUserMenu = buildMyUserMenu();
-		mainMenu.add(new SubMenu(MY_USER_OPTION, myUserMenu, new ShowVerticalSubMenuAction(myUserMenu)));
+        mainMenu.add(new VerticalSeparator());
 
-		mainMenu.add(new VerticalSeparator());
+        if (AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.Administer)) {
+            final Menu usersMenu = buildUsersMenu();
+            mainMenu.add(new SubMenu(USERS_OPTION, usersMenu, new ShowVerticalSubMenuAction(usersMenu)));
 
-		if (AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.Administer)) {
-			final Menu usersMenu = buildUsersMenu();
-			mainMenu.add(new SubMenu(USERS_OPTION, usersMenu, new ShowVerticalSubMenuAction(usersMenu)));
+            final Menu organicUnitsMenu = buildOrganicUnitsMenu();
+            mainMenu.add(new SubMenu(ORGANIC_UNITS_OPTION, organicUnitsMenu,
+                    new ShowVerticalSubMenuAction(organicUnitsMenu)));
 
-			final Menu organicUnitsMenu = buildOrganicUnitsMenu();
-			mainMenu.add(new SubMenu(ORGANIC_UNITS_OPTION, organicUnitsMenu,
-					new ShowVerticalSubMenuAction(organicUnitsMenu)));
+            final Menu settingsMenu = buildAdminSettingsMenu();
+            mainMenu.add(new SubMenu(SETTINGS_OPTION, settingsMenu, new ShowVerticalSubMenuAction(settingsMenu)));
+        } else if (AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.ManageKitchen)) {
+            // TODO
+            throw new UnsupportedOperationException();
+        } else if (AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.ManageMenus)) {
+            final Menu myDishTypeMenu = buildDishTypeMenu();
+            mainMenu.add(new SubMenu(DISH_TYPES_OPTION, myDishTypeMenu, new ShowVerticalSubMenuAction(myDishTypeMenu)));
+        } else if (AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.Sale)) {
+            // TODO
+            throw new UnsupportedOperationException();
+        }
+        mainMenu.add(new VerticalSeparator());
 
-			final Menu settingsMenu = buildAdminSettingsMenu();
-			mainMenu.add(new SubMenu(SETTINGS_OPTION, settingsMenu, new ShowVerticalSubMenuAction(settingsMenu)));
-		} else if (AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.ManageKitchen)) {
-			// TODO
-			throw new UnsupportedOperationException();
-		} else if (AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.ManageMenus)) {
-			// TODO
-			throw new UnsupportedOperationException();
-		} else if (AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.Sale)) {
-			// TODO
-			throw new UnsupportedOperationException();
-		}
-		mainMenu.add(new VerticalSeparator());
+        mainMenu.add(new MenuItem(EXIT_OPTION, "Exit", new ExitWithMessageAction()));
 
-		final Menu myDishTypeMenu = buildDishTypeMenu();
-		mainMenu.add(new SubMenu(DISH_TYPES_OPTION, myDishTypeMenu, new ShowVerticalSubMenuAction(myDishTypeMenu)));
+        return mainMenu;
+    }
 
-		mainMenu.add(new VerticalSeparator());
+    private Menu buildAdminSettingsMenu() {
+        final Menu menu = new Menu("Settings >");
 
-		mainMenu.add(new MenuItem(EXIT_OPTION, "Exit", new ExitWithMessageAction()));
+        menu.add(new MenuItem(SET_KITCHEN_ALERT_LIMIT_OPTION, "Set kitchen alert limit",
+                new ShowMessageAction("Not implemented yet")));
+        menu.add(new MenuItem(SET_USER_ALERT_LIMIT_OPTION, "Set users' alert limit",
+                new ShowMessageAction("Not implemented yet")));
+        menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
 
-		return mainMenu;
-	}
+        return menu;
+    }
 
-	private Menu buildAdminSettingsMenu() {
-		final Menu menu = new Menu("Settings >");
+    private Menu buildOrganicUnitsMenu() {
+        final Menu menu = new Menu("Organic units >");
 
-		menu.add(new MenuItem(SET_KITCHEN_ALERT_LIMIT_OPTION, "Set kitchen alert limit",
-				new ShowMessageAction("Not implemented yet")));
-		menu.add(new MenuItem(SET_USER_ALERT_LIMIT_OPTION, "Set users' alert limit",
-				new ShowMessageAction("Not implemented yet")));
-		menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
+        // TODO add menu options
+        menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
 
-		return menu;
-	}
+        return menu;
+    }
 
-	private Menu buildOrganicUnitsMenu() {
-		final Menu menu = new Menu("Organic units >");
+    private Menu buildUsersMenu() {
+        final Menu menu = new Menu("Users >");
 
-		// TODO add menu options
-		menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
+        menu.add(new MenuItem(ADD_USER_OPTION, "Add User", new AddUserAction()));
+        // TODO add other options for user management
 
-		return menu;
-	}
+        menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
 
-	private Menu buildUsersMenu() {
-		final Menu menu = new Menu("Users >");
+        return menu;
+    }
 
-		menu.add(new MenuItem(ADD_USER_OPTION, "Add User", new AddUserAction()));
-		// TODO add other options for user management
+    private Menu buildDishTypeMenu() {
+        final Menu menu = new Menu("Dish Type >");
 
-		menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
+        menu.add(new MenuItem(DISH_TYPE_ACTIVATE_DEACTIVATE_OPTION, "Activate/Deactivate Dish Type", new ActivateDeactivateDishTypeAction()));
+        // TODO add other options for user management
 
-		return menu;
-	}
+        menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
 
+        return menu;
+    }
 
-	private Menu buildDishTypeMenu() {
-		final Menu menu = new Menu("Dish Type >");
-
-		menu.add(new MenuItem(DISH_TYPE_ACTIVATE_DEACTIVATE_OPTION, "Activate/Deactivate Dish Type", new ActivateDeactivateDishTypeAction()));
-		// TODO add other options for user management
-
-		menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
-
-		return menu;
-	}
-
-	@Override
-	protected Controller controller() {
-		throw new UnsupportedOperationException("Menus don't have a controller");
-	}
+    @Override
+    protected Controller controller() {
+        throw new UnsupportedOperationException("Menus don't have a controller");
+    }
 }
