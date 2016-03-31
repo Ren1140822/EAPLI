@@ -16,8 +16,9 @@ public class DishTypesBootstrap implements Action {
 
     @Override
     public boolean execute() {
-        register("aaa", "vegetarian dish");
-        register("bbb", "vegetarian dish");
+        register("vege01", "vegetarian dish");
+        register("fish01", "fish dish");
+        register("meat01", "fish dish");
         return false;
     }
 

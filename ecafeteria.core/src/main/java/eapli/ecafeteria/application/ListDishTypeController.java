@@ -1,6 +1,6 @@
 package eapli.ecafeteria.application;
 
-import eapli.ecafeteria.domain.dishtype.DishType;
+import eapli.ecafeteria.domain.DishType;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.ecafeteria.persistence.DishTypeRepository;
 import eapli.framework.application.Controller;

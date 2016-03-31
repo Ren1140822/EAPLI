@@ -1,7 +1,7 @@
 package eapli.ecafeteria.utente.consoleapp.presentation;
 
 import eapli.ecafeteria.application.ListDishTypeController;
-import eapli.ecafeteria.domain.dishtype.DishType;
+import eapli.ecafeteria.domain.DishType;
 import eapli.framework.application.Controller;
 import eapli.framework.presentation.console.AbstractUI;
 
