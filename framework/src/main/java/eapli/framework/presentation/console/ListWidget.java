@@ -9,31 +9,39 @@ import java.util.Collection;
 import eapli.framework.visitor.Visitor;
 
 /**
- * a simple widget to list the itens of a collection
+ * A simple widget to list the items of a collection
+ *
+ * e.g., create a widget for User
+ *
+ * Collection<User> itens = controller.all(); <br/>
+ * ListWidget<User> wg = new ListWidget<>(itens, new ShowUserVisitor());
+ *
+ *
  *
  * @author Paulo Gandra Sousa
  * @param <T>
+ *            the type of element each item in list is
  */
 public class ListWidget<T> {
 
-	private final Collection<T>	source;
-	private final Visitor<T>	visitor;
+    private final Collection<T> source;
+    private final Visitor<T> visitor;
 
-	public ListWidget(Collection<T> source, Visitor<T> visitor) {
-		this.source = source;
-		this.visitor = visitor;
-	}
+    public ListWidget(Collection<T> source, Visitor<T> visitor) {
+        this.source = source;
+        this.visitor = visitor;
+    }
 
-	public void show() {
-		int position = 0;
-		for (final T et : source) {
-			position++;
-			System.out.print(position + ". ");
-			visitor.visit(et);
-		}
-	}
+    public void show() {
+        int position = 0;
+        for (final T et : this.source) {
+            position++;
+            System.out.print(position + ". ");
+            this.visitor.visit(et);
+        }
+    }
 
-	protected int size() {
-		return source.size();
-	}
+    protected int size() {
+        return this.source.size();
+    }
 }
