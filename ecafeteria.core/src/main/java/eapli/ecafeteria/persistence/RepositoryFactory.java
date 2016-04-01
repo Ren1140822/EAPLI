@@ -13,4 +13,5 @@ public interface RepositoryFactory {
 
 	UserRepository users();
 	DishTypeRepository dishTypes();
+        
 }

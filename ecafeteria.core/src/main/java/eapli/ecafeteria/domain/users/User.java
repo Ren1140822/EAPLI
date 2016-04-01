@@ -138,6 +138,9 @@ public class User implements AggregateRoot<Username>, Authorisable<ActionRight>,
         return this.username;
     }
 
+    public Name name() { 
+        return this.name;
+    }
     /**
      * Add role to user
      *

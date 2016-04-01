@@ -25,6 +25,16 @@ public class Name implements ValueObject, Serializable {
 	protected Name() {
 	}
 
+        public String firstName()
+        {
+            return this.firstName;
+        }
+        
+        public String lastName()
+        {
+            return this.lastName;
+        }
+        
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {

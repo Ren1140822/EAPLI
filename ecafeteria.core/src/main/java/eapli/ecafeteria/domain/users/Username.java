@@ -43,7 +43,8 @@ public class Username implements ValueObject, Serializable {
 		return username != null ? username.equals(username1.username) : username1.username == null;
 
 	}
-
+       
+        
 	@Override
 	public String toString() {
 		return username;

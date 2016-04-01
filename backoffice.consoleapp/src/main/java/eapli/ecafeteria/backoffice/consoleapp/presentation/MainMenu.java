@@ -13,6 +13,7 @@ import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.ActivateDeact
 import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.AddUserAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.ChangeDishTypeAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.ListDishTypeAction;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.ListUsersAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.RegisterDishTypeAction;
 import eapli.ecafeteria.domain.users.ActionRight;
 import eapli.framework.actions.ReturnAction;
@@ -41,7 +42,7 @@ public class MainMenu extends AbstractUI {
 
     // USERS
     private static final int ADD_USER_OPTION = 1;
-
+    private static final int LIST_USERS_OPTION = 2;
     // ORGANIC UNITS
     // SETTINGS
     private static final int SET_KITCHEN_ALERT_LIMIT_OPTION = 1;
@@ -156,7 +157,7 @@ public class MainMenu extends AbstractUI {
 
         menu.add(new MenuItem(ADD_USER_OPTION, "Add User", new AddUserAction()));
         // TODO add other options for user management
-
+        menu.add(new MenuItem(LIST_USERS_OPTION, "List all Users", new ListUsersAction()));
         menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
 
         return menu;
