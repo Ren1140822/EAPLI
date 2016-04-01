@@ -18,7 +18,9 @@ import eapli.framework.presentation.console.VerticalMenuRenderer;
 import eapli.util.Console;
 
 /**
- * UI for adding a user to the application. Created by nuno on 22/03/16.
+ * UI for adding a user to the application.
+ *
+ * Created by nuno on 22/03/16.
  */
 public class AddUserUI extends AbstractUI {
     private final AddUserController theController = new AddUserController();

@@ -21,6 +21,7 @@ public class ListDishTypeController implements Controller {
     // dish type here?
     // TOFIXE save() in inMemoryRepository
     public void changeDishTypeState(DishType dType) {
+        // FIXME check permissions
         dType.changeDishTypeState();
         PersistenceContext.repositories().dishTypes();
     }
