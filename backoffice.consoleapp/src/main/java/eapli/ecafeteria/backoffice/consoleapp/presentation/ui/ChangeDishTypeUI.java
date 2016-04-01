@@ -28,27 +28,23 @@ public class ChangeDishTypeUI extends AbstractUI{
 
     @Override
     protected boolean doShow() {
-           Boolean res;
-           int dishTypeKey;
-           int n;
-           String newDescription;
-           DishType updtDishType = new DishType(null, null);
-           Iterator<DishType> dishTypeIterator;
-           
+           //TODO a UI class should only interact with one controller
            Iterable<DishType> allDishTypes = new ListDishTypeController().listDishTypes();
-           dishTypeIterator = allDishTypes.iterator();
-           res = new ListDishTypeUI().doShowIterable(allDishTypes);
+           Iterator<DishType> dishTypeIterator = allDishTypes.iterator();
+           //TODO we should not call a new UI from another to do this kind of things. there should be a UI widget reused in both UIs
+           Boolean res = new ListDishTypeUI().doShowIterable(allDishTypes);
            
-           dishTypeKey = Console.readInteger("Select dish type to change");
-           n = 0;
+           int dishTypeKey = Console.readInteger("Select dish type to change");
+           int n = 0;
            //iterators do not implement random access, sequential access required to reach the object selected by user
+           DishType updtDishType;
            while (dishTypeIterator.hasNext() && n != dishTypeKey) {
                 updtDishType = dishTypeIterator.next();
                 n++;
            }
 
            if (dishTypeKey == n) { //DishType selected by user exists
-               newDescription = Console.readLine("Enter new description for " + updtDishType.description() + ": ");
+               String newDescription = Console.readLine("Enter new description for " + updtDishType.description() + ": ");
                updtDishType.changeDescriptionTo(newDescription);
                theController.changeDishType(updtDishType);
            } else { //DishType selected by user does not exist
@@ -62,5 +58,4 @@ public class ChangeDishTypeUI extends AbstractUI{
     public String headline() {
         return "Change Dish Type description";  
     }
-    
 }
