@@ -12,24 +12,27 @@ import eapli.framework.domain.ValueObject;
  *
  */
 public class Session implements ValueObject {
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
-	private final User		  user;
-	private final UUID		  token;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+    private final User user;
+    private final UUID token;
 
-	public User authenticatedUser() {
-		return user;
-	}
+    public User authenticatedUser() {
+        return this.user;
+    }
 
-	public Session(User user) {
-		this.user = user;
-		token = UUID.randomUUID();
-	}
+    public Session(User user) {
+        if (user == null) {
+            throw new IllegalStateException("user must not be null");
+        }
+        this.user = user;
+        this.token = UUID.randomUUID();
+    }
 
-	@Override
-	public String toString() {
-		return user.id() + "@" + token;
-	}
+    @Override
+    public String toString() {
+        return this.user.id() + "@" + this.token;
+    }
 }

@@ -8,50 +8,58 @@ import java.io.Serializable;
 import javax.persistence.Embeddable;
 
 import eapli.framework.domain.ValueObject;
+import eapli.util.Strings;
 
 /**
+ * a username.
+ *
+ * it must be at least 6 characters long, with at least one capital letter and a
+ * digit.
+ *
  * @author pgsou_000
  */
 @Embeddable
 public class Username implements ValueObject, Serializable {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
-	private String			  username;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+    private String username;
 
-	public Username(String username) {
-		// FIXME validate invariants
-		this.username = username;
-	}
+    public Username(String username) {
+        if (Strings.isNullOrEmpty(username)) {
+            throw new IllegalStateException("username should neither be null nor empty");
+        }
+        // FIXME validate other invariants, e.g., regular expression
+        this.username = username;
+    }
 
-	protected Username() {
-	}
+    protected Username() {
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (!(o instanceof Username)) {
-			return false;
-		}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Username)) {
+            return false;
+        }
 
-		final Username username1 = (Username) o;
+        final Username other = (Username) o;
 
-		return username != null ? username.equals(username1.username) : username1.username == null;
+        return this.username.equals(other.username);
 
-	}
-       
-        
-	@Override
-	public String toString() {
-		return username;
-	}
+    }
 
-	@Override
-	public int hashCode() {
-		return username != null ? username.hashCode() : 0;
-	}
+    @Override
+    public String toString() {
+        return this.username;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.username.hashCode();
+    }
 }

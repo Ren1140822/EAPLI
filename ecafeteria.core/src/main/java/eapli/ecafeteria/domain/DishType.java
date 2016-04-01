@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import eapli.framework.domain.AggregateRoot;
 
 /**
+ * TODO implement equals() and hashCode()
+ *
  * Created by MCN on 29/03/2016.
  */
 @Entity
@@ -32,6 +34,7 @@ public class DishType implements AggregateRoot<String>, Serializable {
     }
 
     public DishType(String name, String description) {
+        // FIXME validate parameters
         this.acronym = name;
         this.description = description;
         this.active = true;
@@ -51,7 +54,7 @@ public class DishType implements AggregateRoot<String>, Serializable {
     }
 
     public void changeDescriptionTo(String newDescription) {
-
+        // FIXME validate parameter
         this.description = newDescription;
     }
 
@@ -64,5 +67,4 @@ public class DishType implements AggregateRoot<String>, Serializable {
     public boolean is(String id) {
         return id.equalsIgnoreCase(this.acronym);
     }
-
 }
