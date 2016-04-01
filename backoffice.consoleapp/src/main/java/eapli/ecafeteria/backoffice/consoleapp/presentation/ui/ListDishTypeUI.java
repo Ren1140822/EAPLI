@@ -18,9 +18,25 @@ public class ListDishTypeUI extends AbstractUI {
         return theController;
     }
 
+//    @Override
+//    protected boolean doShow() {
+//        Iterable<DishType> iterable = theController.listDishTypes();
+//        if (!iterable.iterator().hasNext()) {
+//            System.out.println("There is no registered Dish Type");
+//        } else {
+//            System.out.printf("%30s---%6s\n", "Dish Type description ---", "Active");
+//            for (DishType dT : iterable) {
+//                System.out.printf("%30s--- %1$B\n", dT.description(), dT.isActive());
+//            }
+//        }
+//        return true;
+//    }
+
+    //TODO review doShowIterable implementation. Consider: generic type; reusable ui component
     @Override
     protected boolean doShow() {
         Iterable<DishType> iterable = theController.listDishTypes();
+//        return doShowIterable(iterable);
         if (!iterable.iterator().hasNext()) {
             System.out.println("There is no registered Dish Type");
         } else {
@@ -32,6 +48,25 @@ public class ListDishTypeUI extends AbstractUI {
         return true;
     }
 
+    protected boolean doShowIterable(Iterable<DishType> iterable) {
+        int i;
+        
+        if (!iterable.iterator().hasNext()) {
+            System.out.println("There is no registered Dish Type");
+        } else {
+            System.out.printf("%-6s%-30s%6s\n", "Key", "Dish Type description", "Active");
+            i = 0;
+            for (DishType dT : iterable) {
+                i++;
+                System.out.printf("%-6d%-30s%6s\n", i, dT.description(), dT.isActive());
+            }
+        }
+        return true;
+    }
+
+
+    
+    
     @Override
     public String headline() {
         return "List Dish Types";

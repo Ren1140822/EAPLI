@@ -6,9 +6,12 @@
 package eapli.ecafeteria.backoffice.consoleapp.presentation.ui;
 
 import eapli.ecafeteria.application.ChangeDishTypeController;
+import eapli.ecafeteria.application.ListDishTypeController;
 import eapli.ecafeteria.domain.DishType;
 import eapli.framework.application.Controller;
 import eapli.framework.presentation.console.AbstractUI;
+import eapli.util.Console;
+import java.util.Iterator;
 
 /**
  *
@@ -25,10 +28,33 @@ public class ChangeDishTypeUI extends AbstractUI{
 
     @Override
     protected boolean doShow() {
-//         final String acronym = Console.readLine("Dish Type Acronym:");
-//         final String description = Console.readLine("Dish Type Description:");
-           DishType updtDishType = new DishType("testeACR", "testeDESCR");
-           theController.changeDishType(updtDishType);
+           Boolean res;
+           int dishTypeKey;
+           int n;
+           String newDescription;
+           DishType updtDishType = new DishType(null, null);
+           Iterator<DishType> dishTypeIterator;
+           
+           Iterable<DishType> allDishTypes = new ListDishTypeController().listDishTypes();
+           dishTypeIterator = allDishTypes.iterator();
+           res = new ListDishTypeUI().doShowIterable(allDishTypes);
+           
+           dishTypeKey = Console.readInteger("Select dish type to change");
+           n = 0;
+           //iterators do not implement random access, sequential access required to reach the object selected by user
+           while (dishTypeIterator.hasNext() && n != dishTypeKey) {
+                updtDishType = dishTypeIterator.next();
+                n++;
+           }
+
+           if (dishTypeKey == n) { //DishType selected by user exists
+               newDescription = Console.readLine("Enter new description for " + updtDishType.description() + ": ");
+               updtDishType.changeDescriptionTo(newDescription);
+               theController.changeDishType(updtDishType);
+           } else { //DishType selected by user does not exist
+               System.out.print("Invalid dish type. Select one of the items in the list.");
+           }
+               
         return true;
     }
 

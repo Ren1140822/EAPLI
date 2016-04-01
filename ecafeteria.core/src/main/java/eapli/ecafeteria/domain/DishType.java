@@ -50,6 +50,11 @@ public class DishType implements AggregateRoot<String>, Serializable {
         this.active = !this.active;
     }
 
+    public void changeDescriptionTo(String newDescription) {
+
+        this.description = newDescription;
+    }
+
     @Override
     public String id() {
         return this.acronym;
