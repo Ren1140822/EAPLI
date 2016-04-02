@@ -10,6 +10,7 @@ import eapli.cafeteria.consoleapp.presentation.actions.LoginAction;
 import eapli.cafeteria.consoleapp.presentation.actions.LogoutAction;
 import eapli.ecafeteria.AppSettings;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.ActivateDeactivateDishTypeAction;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.AddOrganicUnitAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.AddUserAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.ChangeDishTypeAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.ListDishTypeAction;
@@ -43,6 +44,8 @@ public class MainMenu extends AbstractUI {
     private static final int ADD_USER_OPTION = 1;
 
     // ORGANIC UNITS
+    private static final int ADD_ORGANIC_UNIT_OPTION = 1;
+    
     // SETTINGS
     private static final int SET_KITCHEN_ALERT_LIMIT_OPTION = 1;
     private static final int SET_USER_ALERT_LIMIT_OPTION = 2;
@@ -145,7 +148,8 @@ public class MainMenu extends AbstractUI {
     private Menu buildOrganicUnitsMenu() {
         final Menu menu = new Menu("Organic units >");
 
-        // TODO add menu options
+        menu.add(new MenuItem(ADD_ORGANIC_UNIT_OPTION, "Add Organic Unit", new AddOrganicUnitAction()));
+        // TODO add other options for Organic Unit management
         menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
 
         return menu;
@@ -178,7 +182,7 @@ public class MainMenu extends AbstractUI {
 
         return menu;
     }
-
+      
     @Override
     protected Controller controller() {
         throw new UnsupportedOperationException("Menus don't have a controller");

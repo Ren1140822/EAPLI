@@ -3,6 +3,7 @@ package eapli.ecafeteria.persistence.inmemory;
 import eapli.ecafeteria.persistence.RepositoryFactory;
 import eapli.ecafeteria.persistence.UserRepository;
 import eapli.ecafeteria.persistence.DishTypeRepository;
+import eapli.ecafeteria.persistence.OrganicUnitRepository;
 
 /**
  *
@@ -12,6 +13,7 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 
 	private static UserRepository userRepository = null;
 	private static DishTypeRepository dishTypeRepository = null;
+        private static OrganicUnitRepository organicUnitRepository = null;
 
 	@Override
 	public UserRepository users() {
@@ -27,5 +29,13 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 			dishTypeRepository = new InMemoryDishTypeRepository();
 		}
 		return dishTypeRepository;
+	}
+        
+        @Override
+	public OrganicUnitRepository organicUnits() {
+		if (organicUnitRepository == null) {
+			organicUnitRepository = new InMemoryOrganicUnitRepository();
+		}
+		return organicUnitRepository;
 	}
 }
