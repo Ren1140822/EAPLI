@@ -5,7 +5,7 @@
  */
 package eapli.ecafeteria.application;
 
-import eapli.ecafeteria.domain.users.SystemUser;
+import eapli.ecafeteria.domain.authz.SystemUser;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.ecafeteria.persistence.UserRepository;
 import eapli.framework.application.Controller;

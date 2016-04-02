@@ -1,8 +1,8 @@
 package eapli.cafeteria.consoleapp.presentation.ui;
 
 import eapli.ecafeteria.application.LoginController;
-import eapli.ecafeteria.domain.users.InvalidPasswordException;
-import eapli.ecafeteria.domain.users.InvalidUserException;
+import eapli.ecafeteria.domain.authz.InvalidPasswordException;
+import eapli.ecafeteria.domain.authz.InvalidUserException;
 import eapli.framework.application.Controller;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.util.Console;

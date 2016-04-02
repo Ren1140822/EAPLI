@@ -1,6 +1,6 @@
 package eapli.ecafeteria.backoffice.consoleapp.presentation.util;
 
-import eapli.ecafeteria.domain.users.RoleType;
+import eapli.ecafeteria.domain.authz.RoleType;
 import eapli.framework.actions.Action;
 
 import java.util.List;

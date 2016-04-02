@@ -1,11 +1,11 @@
 package eapli.ecafeteria.application;
 
 import eapli.ecafeteria.AppSettings;
-import eapli.ecafeteria.domain.users.InvalidPasswordException;
-import eapli.ecafeteria.domain.users.InvalidUserException;
-import eapli.ecafeteria.domain.users.RoleType;
-import eapli.ecafeteria.domain.users.Session;
-import eapli.ecafeteria.domain.users.SystemUser;
+import eapli.ecafeteria.domain.authz.InvalidPasswordException;
+import eapli.ecafeteria.domain.authz.InvalidUserException;
+import eapli.ecafeteria.domain.authz.RoleType;
+import eapli.ecafeteria.domain.authz.Session;
+import eapli.ecafeteria.domain.authz.SystemUser;
 import eapli.util.DateTime;
 import java.util.ArrayList;
 import java.util.Calendar;

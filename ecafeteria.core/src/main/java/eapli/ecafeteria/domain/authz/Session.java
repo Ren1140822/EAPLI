@@ -1,7 +1,7 @@
 /**
  *
  */
-package eapli.ecafeteria.domain.users;
+package eapli.ecafeteria.domain.authz;
 
 import java.util.UUID;
 

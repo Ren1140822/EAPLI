@@ -1,14 +1,16 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template file, choose Tools | Templates and open the template
+ * in the editor.
  */
 package eapli.ecafeteria.domain;
 
+import java.io.Serializable;
+
+import javax.persistence.Embeddable;
+
 import eapli.framework.domain.ValueObject;
 import eapli.util.Strings;
-import java.io.Serializable;
-import javax.persistence.Embeddable;
 
 /**
  *
@@ -16,18 +18,17 @@ import javax.persistence.Embeddable;
  */
 
 @Embeddable
-public class MecanographicNumber implements ValueObject, Serializable
-{
-    
+public class MecanographicNumber implements ValueObject, Serializable {
+
     /**
      *
      */
     private static final long serialVersionUID = 1L;
-    
-    private String  mecanographicNumber;
 
-    public MecanographicNumber(String account) {
-        if (Strings.isNullOrEmpty(account)) {
+    private String mecanographicNumber;
+
+    public MecanographicNumber(String mecanographicNumber) {
+        if (Strings.isNullOrEmpty(mecanographicNumber)) {
             throw new IllegalStateException("Mecanographic Number should neither be null nor empty");
         }
         // FIXME validate invariants, i.e., account regular expression
@@ -35,6 +36,7 @@ public class MecanographicNumber implements ValueObject, Serializable
     }
 
     protected MecanographicNumber() {
+        // for ORM
     }
 
     @Override
@@ -49,7 +51,6 @@ public class MecanographicNumber implements ValueObject, Serializable
         final MecanographicNumber that = (MecanographicNumber) o;
 
         return this.mecanographicNumber.equals(that.mecanographicNumber);
-
     }
 
     @Override
@@ -62,4 +63,3 @@ public class MecanographicNumber implements ValueObject, Serializable
         return this.mecanographicNumber;
     }
 }
-

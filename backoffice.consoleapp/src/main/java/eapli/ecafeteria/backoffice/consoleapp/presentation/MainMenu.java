@@ -16,7 +16,7 @@ import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.ChangeDishTyp
 import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.ListDishTypeAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.ListUsersAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.RegisterDishTypeAction;
-import eapli.ecafeteria.domain.users.ActionRight;
+import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.framework.actions.ReturnAction;
 import eapli.framework.actions.ShowMessageAction;
 import eapli.framework.application.Controller;

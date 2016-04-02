@@ -8,9 +8,9 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Test;
 
-import eapli.ecafeteria.domain.users.InvalidPasswordException;
-import eapli.ecafeteria.domain.users.InvalidUserException;
-import eapli.ecafeteria.domain.users.RoleType;
+import eapli.ecafeteria.domain.authz.InvalidPasswordException;
+import eapli.ecafeteria.domain.authz.InvalidUserException;
+import eapli.ecafeteria.domain.authz.RoleType;
 
 /**
  * Created by Nuno Bettencourt [NMB] on 24/03/16.

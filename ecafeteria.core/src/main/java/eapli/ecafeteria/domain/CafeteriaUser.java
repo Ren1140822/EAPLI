@@ -6,8 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-import eapli.ecafeteria.domain.users.ActionRight;
-import eapli.ecafeteria.domain.users.SystemUser;
+import eapli.ecafeteria.domain.authz.ActionRight;
+import eapli.ecafeteria.domain.authz.SystemUser;
 import eapli.framework.authz.Authorisable;
 import eapli.framework.domain.AggregateRoot;
 

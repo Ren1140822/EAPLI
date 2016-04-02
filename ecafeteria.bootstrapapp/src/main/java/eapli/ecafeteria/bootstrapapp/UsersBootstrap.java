@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eapli.ecafeteria.application.AddUserController;
-import eapli.ecafeteria.domain.users.RoleType;
+import eapli.ecafeteria.domain.authz.RoleType;
 import eapli.framework.actions.Action;
 
 /**

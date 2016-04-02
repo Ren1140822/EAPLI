@@ -1,6 +1,6 @@
-package eapli.ecafeteria.domain.users;
+package eapli.ecafeteria.domain.authz;
 
-import eapli.ecafeteria.domain.users.SystemUser;
+import eapli.ecafeteria.domain.authz.SystemUser;
 
 /**
  * Created by nuno on 21/03/16.

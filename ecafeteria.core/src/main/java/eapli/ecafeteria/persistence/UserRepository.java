@@ -1,7 +1,7 @@
 package eapli.ecafeteria.persistence;
 
-import eapli.ecafeteria.domain.users.SystemUser;
-import eapli.ecafeteria.domain.users.Username;
+import eapli.ecafeteria.domain.authz.SystemUser;
+import eapli.ecafeteria.domain.authz.Username;
 import eapli.framework.persistence.repositories.Repository;
 
 /**

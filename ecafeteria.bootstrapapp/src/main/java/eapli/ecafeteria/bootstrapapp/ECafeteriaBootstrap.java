@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eapli.ecafeteria.AppSettings;
-import eapli.ecafeteria.domain.users.RoleType;
-import eapli.ecafeteria.domain.users.Session;
-import eapli.ecafeteria.domain.users.SystemUser;
+import eapli.ecafeteria.domain.authz.RoleType;
+import eapli.ecafeteria.domain.authz.Session;
+import eapli.ecafeteria.domain.authz.SystemUser;
 import eapli.framework.actions.Action;
 
 /**

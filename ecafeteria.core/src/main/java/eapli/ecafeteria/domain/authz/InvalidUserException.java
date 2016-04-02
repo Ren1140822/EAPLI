@@ -1,4 +1,4 @@
-package eapli.ecafeteria.domain.users;
+package eapli.ecafeteria.domain.authz;
 
 /**
  * Created by nuno on 22/03/16.

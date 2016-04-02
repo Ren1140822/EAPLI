@@ -7,7 +7,7 @@ package eapli.ecafeteria.application;
 
 import eapli.ecafeteria.AppSettings;
 import eapli.ecafeteria.domain.DishType;
-import eapli.ecafeteria.domain.users.ActionRight;
+import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.ecafeteria.persistence.DishTypeRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.framework.application.Controller;

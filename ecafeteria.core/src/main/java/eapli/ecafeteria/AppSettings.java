@@ -1,12 +1,13 @@
 package eapli.ecafeteria;
 
-import eapli.ecafeteria.domain.users.Session;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import eapli.ecafeteria.domain.authz.Session;
 
 /**
  * A "global" (singleton) class with the application settings.

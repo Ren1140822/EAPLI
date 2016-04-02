@@ -4,10 +4,10 @@ import java.util.Calendar;
 import java.util.List;
 
 import eapli.ecafeteria.AppSettings;
-import eapli.ecafeteria.domain.users.ActionRight;
-import eapli.ecafeteria.domain.users.RoleType;
-import eapli.ecafeteria.domain.users.SystemUser;
-import eapli.ecafeteria.domain.users.UserBuilder;
+import eapli.ecafeteria.domain.authz.ActionRight;
+import eapli.ecafeteria.domain.authz.RoleType;
+import eapli.ecafeteria.domain.authz.SystemUser;
+import eapli.ecafeteria.domain.authz.UserBuilder;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.ecafeteria.persistence.UserRepository;
 import eapli.framework.application.Controller;
