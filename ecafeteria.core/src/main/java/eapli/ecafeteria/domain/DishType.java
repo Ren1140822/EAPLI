@@ -16,6 +16,7 @@ import eapli.framework.domain.AggregateRoot;
  */
 @Entity
 public class DishType implements AggregateRoot<String>, Serializable {
+
     /**
      *
      */
@@ -34,7 +35,11 @@ public class DishType implements AggregateRoot<String>, Serializable {
     }
 
     public DishType(String name, String description) {
-        // FIXME validate parameters
+
+        if (name == null || description == null
+                || name.trim().isEmpty() || description.trim().isEmpty()) {
+            throw new IllegalArgumentException();
+        }
         this.acronym = name;
         this.description = description;
         this.active = true;
@@ -54,7 +59,9 @@ public class DishType implements AggregateRoot<String>, Serializable {
     }
 
     public void changeDescriptionTo(String newDescription) {
-        // FIXME validate parameter
+        if (newDescription == null|| newDescription.trim().isEmpty()) {
+            throw new IllegalArgumentException();
+        }
         this.description = newDescription;
     }
 
