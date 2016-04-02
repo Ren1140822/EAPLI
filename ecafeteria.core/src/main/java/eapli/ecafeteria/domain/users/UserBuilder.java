@@ -1,57 +1,76 @@
 package eapli.ecafeteria.domain.users;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class UserBuilder {
+import eapli.framework.domain.Factory;
+
+/**
+ * A factory for User entities.
+ *
+ * This class demonstrates the use of the factory (DDD) pattern using a fluent
+ * interface. it acts as a Builder (GoF).
+ */
+public class UserBuilder implements Factory<SystemUser> {
 
     private String username;
     private String password;
     private String firstName;
     private String lastName;
     private String email;
-    private List<RoleType> roles;
+    private final List<RoleType> roles = new ArrayList<>();
     private Calendar createdOn;
 
-    public UserBuilder setUsername(String username) {
+    public UserBuilder withUsername(String username) {
         this.username = username;
         return this;
     }
 
-    public UserBuilder setPassword(String password) {
+    public UserBuilder withPassword(String password) {
         this.password = password;
         return this;
     }
 
-    public UserBuilder setFirstName(String firstName) {
+    public UserBuilder withFirstName(String firstName) {
         this.firstName = firstName;
         return this;
     }
 
-    public UserBuilder setLastName(String lastName) {
+    public UserBuilder withLastName(String lastName) {
         this.lastName = lastName;
         return this;
     }
 
-    public UserBuilder setEmail(String email) {
+    public UserBuilder withEmail(String email) {
         this.email = email;
         return this;
     }
 
-    public UserBuilder setRoles(List<RoleType> roles) {
-        this.roles = roles;
+    public UserBuilder withRole(RoleType role) {
+        this.roles.add(role);
         return this;
     }
 
-    public SystemUser createUser() {
-        if (createdOn != null) {
-            return new SystemUser(username, password, firstName, lastName, email, roles, createdOn);
+    public UserBuilder withCreatedOn(Calendar createdOn) {
+        this.createdOn = createdOn;
+        return this;
+    }
+
+    @Override
+    public SystemUser build() {
+        // since the factory knows that all the parts are needed it could throw
+        // an exception. however, we will leave that to the constructor
+        if (this.createdOn != null) {
+            return new SystemUser(this.username, this.password, this.firstName, this.lastName, this.email, this.roles,
+                    this.createdOn);
         } else {
-            return new SystemUser(username, password, firstName, lastName, email, roles);
+            return new SystemUser(this.username, this.password, this.firstName, this.lastName, this.email, this.roles);
         }
     }
 
-    public void setCreatedOn(Calendar createdOn) {
-        this.createdOn = createdOn;
+    public UserBuilder withRoles(List<RoleType> roles) {
+        this.roles.addAll(roles);
+        return this;
     }
 }

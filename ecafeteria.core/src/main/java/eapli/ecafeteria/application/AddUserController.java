@@ -28,15 +28,15 @@ public class AddUserController implements Controller {
         }
 
         final UserBuilder userBuilder = new UserBuilder();
-        userBuilder.setUsername(username);
-        userBuilder.setPassword(password);
-        userBuilder.setFirstName(firstName);
-        userBuilder.setLastName(lastName);
-        userBuilder.setEmail(email);
-        userBuilder.setRoles(roles);
-        userBuilder.setCreatedOn(createdOn);
+        userBuilder.withUsername(username);
+        userBuilder.withPassword(password);
+        userBuilder.withFirstName(firstName);
+        userBuilder.withLastName(lastName);
+        userBuilder.withEmail(email);
+        userBuilder.withRoles(roles);
+        userBuilder.withCreatedOn(createdOn);
 
-        final SystemUser newUser = userBuilder.createUser();
+        final SystemUser newUser = userBuilder.build();
         final UserRepository userRepository = PersistenceContext.repositories().users();
         // TODO error checking if the username is already in the persistence
         // store
