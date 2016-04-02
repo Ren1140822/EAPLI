@@ -37,7 +37,7 @@ public class ChangeDishTypeUI extends AbstractUI{
            int dishTypeKey = Console.readInteger("Select dish type to change");
            int n = 0;
            //iterators do not implement random access, sequential access required to reach the object selected by user
-           DishType updtDishType;
+           DishType updtDishType=null;
            while (dishTypeIterator.hasNext() && n != dishTypeKey) {
                 updtDishType = dishTypeIterator.next();
                 n++;
