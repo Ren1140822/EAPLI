@@ -17,7 +17,7 @@ import eapli.framework.domain.Factory;
  * @author pgsou_000
  *
  */
-public class UserFactory implements Factory<User> {
+public class UserFactory implements Factory<SystemUser> {
 
 	private String				 username;
 	private String				 password;
@@ -57,9 +57,9 @@ public class UserFactory implements Factory<User> {
 	}
 
 	@Override
-	public User build() {
+	public SystemUser build() {
 		// since the factory knows that all the parts are needed it could throw
 		// an exception. however, we will leave that to the constructor
-		return new User(username, password, firstName, lastName, email, roles);
+		return new SystemUser(username, password, firstName, lastName, email, roles);
 	}
 }

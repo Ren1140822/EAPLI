@@ -5,7 +5,7 @@ import java.util.List;
 import eapli.ecafeteria.AppSettings;
 import eapli.ecafeteria.domain.users.ActionRight;
 import eapli.ecafeteria.domain.users.RoleType;
-import eapli.ecafeteria.domain.users.User;
+import eapli.ecafeteria.domain.users.SystemUser;
 import eapli.ecafeteria.domain.users.UserBuilder;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.ecafeteria.persistence.UserRepository;
@@ -17,7 +17,7 @@ import eapli.ecafeteria.persistence.UserRepository;
  */
 public class UserRegisterController {
 
-    public User registerUser(String username, String password, String firstName, String lastName, String email,
+    public SystemUser registerUser(String username, String password, String firstName, String lastName, String email,
             List<RoleType> roles) {
         if (!AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.Administer)) { 
             // TODO check which exception to throw
@@ -32,7 +32,7 @@ public class UserRegisterController {
         userBuilder.setEmail(email);
         userBuilder.setRoles(roles);
 
-        final User newUser = userBuilder.createUser();
+        final SystemUser newUser = userBuilder.createUser();
         final UserRepository userRepository = PersistenceContext.repositories().users();
         // TODO error checking if the username is already in the persistence
         // store

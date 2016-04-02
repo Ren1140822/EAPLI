@@ -16,14 +16,14 @@ public class Session implements ValueObject {
      *
      */
     private static final long serialVersionUID = 1L;
-    private final User user;
+    private final SystemUser user;
     private final UUID token;
 
-    public User authenticatedUser() {
+    public SystemUser authenticatedUser() {
         return this.user;
     }
 
-    public Session(User user) {
+    public Session(SystemUser user) {
         if (user == null) {
             throw new IllegalStateException("user must not be null");
         }

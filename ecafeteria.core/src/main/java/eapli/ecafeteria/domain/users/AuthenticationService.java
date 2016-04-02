@@ -13,7 +13,7 @@ public class AuthenticationService {
 	 */
 	public Session authenticate(Username username, Password pass)
 			throws InvalidUserException, InvalidPasswordException {
-		final User user = retrieveUser(username);
+		final SystemUser user = retrieveUser(username);
 		if (null == user) {
 			throw new InvalidUserException("Invalid User");
 		}
@@ -41,11 +41,11 @@ public class AuthenticationService {
             throw new InvalidUserException("Invalid User");
         }
     }*/
-	private Session createSessionForUser(User user) {
+	private Session createSessionForUser(SystemUser user) {
 		return new Session(user);
 	}
 
-	private User retrieveUser(Username userName) {
+	private SystemUser retrieveUser(Username userName) {
 		return PersistenceContext.repositories().users().findById(userName);
 	}
 }

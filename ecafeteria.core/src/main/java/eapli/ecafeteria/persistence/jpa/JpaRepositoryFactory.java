@@ -17,4 +17,9 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	public JpaDishTypeRepository dishTypes() {
 		return new JpaDishTypeRepository();
 	}
+        
+	@Override
+	public JpaOrganicUnitRepository organicUnits() {
+		return new JpaOrganicUnitRepository();
+	}        
 }

@@ -39,6 +39,8 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Author
     @OneToOne
     private SystemUser systemUser;
     private Account account;
+    
+    @OneToOne
     private OrganicUnit OrganicUnit;
 
     @Id

@@ -5,61 +5,54 @@
  */
 package eapli.ecafeteria.domain;
 
-import eapli.framework.domain.ValueObject;
-import eapli.util.Strings;
+import eapli.framework.domain.AggregateRoot;
 import java.io.Serializable;
-import javax.persistence.Embeddable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /**
  *
- * @author Jorge Santos ajs@isep.ipp.pt
+ * @author arocha
  */
-
-@Embeddable
-public class OrganicUnit implements ValueObject, Serializable
-{
-    
+@Entity
+public class OrganicUnit implements AggregateRoot<String>, Serializable {
     /**
      *
      */
     private static final long serialVersionUID = 1L;
-    
-    private String  organicUnit;
 
-    public OrganicUnit(String organicUnit) {
-        if (Strings.isNullOrEmpty(organicUnit)) {
-            throw new IllegalStateException("Organic Unit should neither be null nor empty");
-        }
-        // FIXME validate invariants, i.e., account regular expression
-        this.organicUnit = organicUnit;
-    }
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @Column(unique = true)
+    private String acronym;
+    private String name;
+    private String description;
+    private boolean active;
 
     protected OrganicUnit() {
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
+    public OrganicUnit(String acronym, String name, String description) {
+        if (acronym == null || name == null || description == null || acronym.trim().isEmpty()) {
+                throw new IllegalArgumentException();
         }
-        if (!(o instanceof OrganicUnit)) {
-            return false;
-        }
-
-        final OrganicUnit that = (OrganicUnit) o;
-
-        return this.organicUnit.equals(that.organicUnit);
-
+        this.acronym = acronym;
+        this.name = name;
+        this.description = description;
+        this.active = true;
     }
 
     @Override
-    public int hashCode() {
-        return this.organicUnit.hashCode();
+    public String id() {
+        return this.acronym;
     }
 
     @Override
-    public String toString() {
-        return this.organicUnit;
+    public boolean is(String id) {
+        return id.equalsIgnoreCase(this.acronym);
     }
 }
-

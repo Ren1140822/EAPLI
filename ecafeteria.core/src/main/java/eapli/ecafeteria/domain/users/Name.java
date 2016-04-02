@@ -7,6 +7,8 @@ import javax.persistence.Embeddable;
 import eapli.framework.domain.ValueObject;
 import eapli.util.Strings;
 
+import eapli.util.Strings;
+
 @Embeddable
 public class Name implements ValueObject, Serializable {
     /**
@@ -29,6 +31,18 @@ public class Name implements ValueObject, Serializable {
     protected Name() {
     }
 
+        public String firstName()
+        {
+            return this.firstName;
+        }
+        
+        public String lastName()
+        {
+            return this.lastName;
+        }
+        
+	
+        
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -37,6 +51,7 @@ public class Name implements ValueObject, Serializable {
         if (!(o instanceof Name)) {
             return false;
         }
+
 
         final Name name = (Name) o;
 

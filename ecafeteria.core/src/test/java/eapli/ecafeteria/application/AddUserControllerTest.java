@@ -5,7 +5,7 @@ import eapli.ecafeteria.domain.users.InvalidPasswordException;
 import eapli.ecafeteria.domain.users.InvalidUserException;
 import eapli.ecafeteria.domain.users.RoleType;
 import eapli.ecafeteria.domain.users.Session;
-import eapli.ecafeteria.domain.users.User;
+import eapli.ecafeteria.domain.users.SystemUser;
 import eapli.util.DateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,6 +14,34 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -29,7 +57,7 @@ public class AddUserControllerTest {
         //Session adminSession = authz.authenticate(new Username("admin"), new Password("admin"));
         List<RoleType> roles = new ArrayList<RoleType>();
         roles.add(RoleType.Admin);
-        Session adminSession = new Session(new User("admin", "admin", "joe", "doe", "joe@email.org", roles));
+        Session adminSession = new Session(new SystemUser("admin", "admin", "joe", "doe", "joe@email.org", roles));
         AppSettings.instance().setSession(adminSession);
     }
 
@@ -46,11 +74,11 @@ public class AddUserControllerTest {
         roles.add(RoleType.Cashier);
 
         Calendar createdOn = DateTime.now();
-        User expected = new User(userName, password, firstName, lastName, email, roles, createdOn);
+        SystemUser expected = new SystemUser(userName, password, firstName, lastName, email, roles, createdOn);
 
         AddUserController controller = new AddUserController();
 
-        User result = controller.addUser(userName, password, firstName, lastName, email, roles, createdOn);
+        SystemUser result = controller.addUser(userName, password, firstName, lastName, email, roles, createdOn);
         assertTrue("the added user does not have the same data as input", expected.sameAs(result));
     }
 
@@ -64,11 +92,11 @@ public class AddUserControllerTest {
         String email = "johndoe@email.com";
         List<RoleType> roles = null;
 
-        User expected = new User(userName, password, firstName, lastName, email, roles);
+        SystemUser expected = new SystemUser(userName, password, firstName, lastName, email, roles);
 
         AddUserController controller = new AddUserController();
 
-        User result = controller.addUser(userName, password, firstName, lastName, email, roles);
+        SystemUser result = controller.addUser(userName, password, firstName, lastName, email, roles);
         assertEquals(expected, result);
     }
     /*
