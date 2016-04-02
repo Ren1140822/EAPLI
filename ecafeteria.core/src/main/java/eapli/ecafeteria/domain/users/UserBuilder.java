@@ -43,11 +43,11 @@ public class UserBuilder {
         return this;
     }
 
-    public User createUser() {
+    public SystemUser createUser() {
         if (createdOn != null) {
-            return new User(username, password, firstName, lastName, email, roles, createdOn);
+            return new SystemUser(username, password, firstName, lastName, email, roles, createdOn);
         } else {
-            return new User(username, password, firstName, lastName, email, roles);
+            return new SystemUser(username, password, firstName, lastName, email, roles);
         }
     }
 

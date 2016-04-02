@@ -12,7 +12,7 @@ import eapli.framework.actions.Action;
  */
 public class MenuItem {
 
-	private final int	 option;
+	private final int option;
 	private final String text;
 	private final Action action;
 

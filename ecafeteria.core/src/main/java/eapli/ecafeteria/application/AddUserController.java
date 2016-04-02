@@ -3,7 +3,7 @@ package eapli.ecafeteria.application;
 import eapli.ecafeteria.AppSettings;
 import eapli.ecafeteria.domain.users.ActionRight;
 import eapli.ecafeteria.domain.users.RoleType;
-import eapli.ecafeteria.domain.users.User;
+import eapli.ecafeteria.domain.users.SystemUser;
 import eapli.ecafeteria.domain.users.UserBuilder;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.ecafeteria.persistence.UserRepository;
@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class AddUserController implements Controller {
 
-    public User addUser(String username, String password, String firstName, String lastName, String email,
+    public SystemUser addUser(String username, String password, String firstName, String lastName, String email,
             List<RoleType> roles, Calendar createdOn) {
 
         if (!AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.Administer)) {
@@ -36,7 +36,7 @@ public class AddUserController implements Controller {
         userBuilder.setRoles(roles);
         userBuilder.setCreatedOn(createdOn);
 
-        final User newUser = userBuilder.createUser();
+        final SystemUser newUser = userBuilder.createUser();
         final UserRepository userRepository = PersistenceContext.repositories().users();
         // TODO error checking if the username is already in the persistence
         // store
@@ -44,7 +44,7 @@ public class AddUserController implements Controller {
         return newUser;
     }
 
-    public User addUser(String username, String password, String firstName, String lastName, String email,
+    public SystemUser addUser(String username, String password, String firstName, String lastName, String email,
             List<RoleType> roles) {
         return addUser(username, password, firstName, lastName, email, roles, DateTime.now());
     }

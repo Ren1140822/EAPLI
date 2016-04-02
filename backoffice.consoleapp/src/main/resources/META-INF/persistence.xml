@@ -2,12 +2,12 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence">
   <persistence-unit name="eapli.eCafeteriaPU">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>eapli.ecafeteria.domain.users.User</class>
+    <class>eapli.ecafeteria.domain.users.SystemUser</class>
     <class>eapli.ecafeteria.domain.DishType</class>
     <class>eapli.ecafeteria.domain.OrganicUnit</class>
     <properties>
       <!--            <property name="javax.persistence.jdbc.url" value="jdbc:h2:./db/ecafeteria;MV_STORE=FALSE"/>-->
-      <property name="javax.persistence.jdbc.url" value="jdbc:h2:D:\ISEP\EAPLI\EAPLI2016\PL\TrabalhoPratico\db\ecafeteria"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:h2:.\db\ecafeteria"/>
       <property name="javax.persistence.jdbc.password" value=""/>
       <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
       <property name="javax.persistence.jdbc.user" value=""/>

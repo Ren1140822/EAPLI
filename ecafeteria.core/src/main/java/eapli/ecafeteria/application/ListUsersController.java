@@ -6,7 +6,7 @@
 package eapli.ecafeteria.application;
 
 import eapli.ecafeteria.domain.DishType;
-import eapli.ecafeteria.domain.users.User;
+import eapli.ecafeteria.domain.users.SystemUser;
 import eapli.ecafeteria.persistence.DishTypeRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.ecafeteria.persistence.UserRepository;
@@ -18,7 +18,7 @@ import eapli.framework.application.Controller;
  */
 public class ListUsersController implements Controller {
 
-    public Iterable<User> listUsers(){
+    public Iterable<SystemUser> listUsers(){
         UserRepository userRepository = PersistenceContext.repositories().users();
         return userRepository.all();
     }

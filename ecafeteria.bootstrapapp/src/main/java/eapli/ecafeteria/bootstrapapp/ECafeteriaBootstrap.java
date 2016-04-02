@@ -1,12 +1,13 @@
 package eapli.ecafeteria.bootstrapapp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import eapli.ecafeteria.AppSettings;
 import eapli.ecafeteria.domain.users.RoleType;
 import eapli.ecafeteria.domain.users.Session;
-import eapli.ecafeteria.domain.users.User;
+import eapli.ecafeteria.domain.users.SystemUser;
 import eapli.framework.actions.Action;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * eCafeteria Bootstrapping data app
@@ -23,15 +24,17 @@ public class ECafeteriaBootstrap implements Action {
     @Override
     public boolean execute() {
         // declare bootstrap actions
-        final Action[] actions = {new UsersBootstrap(),new DishTypesBootstrap(),};
+        final Action[] actions = { new UsersBootstrap(), new DishTypesBootstrap(), new OrganicUnitBootsrap() };
 
-        //authenticate a super user to be able to register new users, ...
+        // authenticate a super user to be able to register new users, ...
         // in this case we will inject the session but we shouldn't do this
-        //AuthenticationService authz = new AuthenticationService();
-        //Session adminSession = authz.authenticate(new Username("admin"), new Password("admin"));
-        List<RoleType> roles = new ArrayList<RoleType>();
+        // AuthenticationService authz = new AuthenticationService();
+        // Session adminSession = authz.authenticate(new Username("admin"), new
+        // Password("admin"));
+        final List<RoleType> roles = new ArrayList<RoleType>();
         roles.add(RoleType.Admin);
-        Session adminSession = new Session(new User("poweruser", "poweruser", "joe", "doe", "joe@email.org", roles));
+        final Session adminSession = new Session(
+                new SystemUser("poweruser", "poweruser", "joe", "doe", "joe@email.org", roles));
         AppSettings.instance().setSession(adminSession);
 
         // execute all bootstrapping returning true if any of the bootstraping

@@ -1,5 +1,14 @@
 package eapli.ecafeteria.domain.users;
 
+import java.io.Serializable;
+import java.util.Calendar;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import eapli.framework.authz.Authorisable;
 import eapli.framework.domain.AggregateRoot;
 import eapli.framework.dto.DTOable;
@@ -7,13 +16,6 @@ import eapli.framework.dto.GenericDTO;
 import eapli.framework.visitor.Visitable;
 import eapli.framework.visitor.Visitor;
 import eapli.util.DateTime;
-import java.io.Serializable;
-import java.util.Calendar;
-import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * An application user.
@@ -30,8 +32,8 @@ import javax.persistence.TemporalType;
  *
  */
 @Entity
-public class User implements AggregateRoot<Username>, Authorisable<ActionRight>, DTOable<User>, Visitable<GenericDTO>,
-        Serializable {
+public class SystemUser implements AggregateRoot<Username>, Authorisable<ActionRight>, DTOable<SystemUser>,
+        Visitable<GenericDTO>, Serializable {
 
     /**
      *
@@ -47,12 +49,12 @@ public class User implements AggregateRoot<Username>, Authorisable<ActionRight>,
     @Temporal(TemporalType.DATE)
     private Calendar createdOn;
 
-    public User(String username, String password, String firstName, String lastName, String email,
+    public SystemUser(String username, String password, String firstName, String lastName, String email,
             List<RoleType> roles) {
         this(username, password, firstName, lastName, email, roles, DateTime.now());
     }
 
-    public User(String username, String password, String firstName, String lastName, String email,
+    public SystemUser(String username, String password, String firstName, String lastName, String email,
             List<RoleType> roles, Calendar createdOn) {
         if (roles == null) {
             throw new IllegalArgumentException("roles cannot be null");
@@ -69,7 +71,7 @@ public class User implements AggregateRoot<Username>, Authorisable<ActionRight>,
     }
 
     // for ORM
-    protected User() {
+    protected SystemUser() {
     }
 
     @Override
@@ -77,11 +79,11 @@ public class User implements AggregateRoot<Username>, Authorisable<ActionRight>,
         if (this == o) {
             return true;
         }
-        if (!(o instanceof User)) {
+        if (!(o instanceof SystemUser)) {
             return false;
         }
 
-        final User user = (User) o;
+        final SystemUser user = (SystemUser) o;
 
         if (!this.username.equals(user.username)) {
             return false;
@@ -113,7 +115,7 @@ public class User implements AggregateRoot<Username>, Authorisable<ActionRight>,
         return result;
     }
 
-    public boolean sameAs(User user) {
+    public boolean sameAs(SystemUser user) {
         if (this == user) {
             return true;
         }
@@ -138,9 +140,6 @@ public class User implements AggregateRoot<Username>, Authorisable<ActionRight>,
         return this.username;
     }
 
-    public Name name() { 
-        return this.name;
-    }
     /**
      * Add role to user
      *
@@ -148,6 +147,10 @@ public class User implements AggregateRoot<Username>, Authorisable<ActionRight>,
      */
     public void addRole(Role role) {
         this.roles.add(role);
+    }
+
+    public RoleSet getRoles() {
+        return this.roles;
     }
 
     @Override
@@ -199,5 +202,9 @@ public class User implements AggregateRoot<Username>, Authorisable<ActionRight>,
 
     public Username username() {
         return this.username;
+    }
+
+    public Name name() {
+        return this.name;
     }
 }
