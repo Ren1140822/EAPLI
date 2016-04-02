@@ -5,11 +5,12 @@
  */
 package eapli.ecafeteria.bootstrapapp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import eapli.ecafeteria.application.UserRegisterController;
 import eapli.ecafeteria.domain.users.RoleType;
 import eapli.framework.actions.Action;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author pgsou_000
@@ -33,10 +34,10 @@ public class UsersBootstrap implements Action {
         final String username = "admin";
         final String password = "admin";
 
-        final String firstName = "John";
-        final String lastName = "Doe";
+        final String firstName = "Mary";
+        final String lastName = "Admin";
 
-        final String email = "john.doe@emai.l.com";
+        final String email = "mary.doe@emai.l.com";
 
         final List<RoleType> roles = new ArrayList<RoleType>();
         roles.add(RoleType.Admin);
@@ -54,10 +55,10 @@ public class UsersBootstrap implements Action {
         final String username = "cashier";
         final String password = "cashier";
 
-        final String firstName = "John";
-        final String lastName = "Doe";
+        final String firstName = "Johny";
+        final String lastName = "Cash";
 
-        final String email = "john.doe@emai.l.com";
+        final String email = "johny.doe@emai.l.com";
 
         final List<RoleType> roles = new ArrayList<RoleType>();
         roles.add(RoleType.Cashier);
@@ -75,10 +76,10 @@ public class UsersBootstrap implements Action {
         final String username = "user";
         final String password = "user";
 
-        final String firstName = "John";
-        final String lastName = "Doe";
+        final String firstName = "The";
+        final String lastName = "User";
 
-        final String email = "john.doe@emai.l.com";
+        final String email = "the.user@emai.l.com";
 
         final List<RoleType> roles = new ArrayList<RoleType>();
         roles.add(RoleType.User);
@@ -96,10 +97,10 @@ public class UsersBootstrap implements Action {
         final String username = "kitchen";
         final String password = "kitchen";
 
-        final String firstName = "John";
-        final String lastName = "Doe";
+        final String firstName = "Oven";
+        final String lastName = "Stove";
 
-        final String email = "john.doe@emai.l.com";
+        final String email = "Oven.and.stove@emai.l.com";
 
         final List<RoleType> roles = new ArrayList<RoleType>();
         roles.add(RoleType.KitchenManager);
@@ -117,10 +118,10 @@ public class UsersBootstrap implements Action {
         final String username = "chef";
         final String password = "chef";
 
-        final String firstName = "John";
-        final String lastName = "Doe";
+        final String firstName = "Master";
+        final String lastName = "Chef";
 
-        final String email = "john.doe@emai.l.com";
+        final String email = "master.chef@emai.l.com";
 
         final List<RoleType> roles = new ArrayList<RoleType>();
         roles.add(RoleType.MenuManager);

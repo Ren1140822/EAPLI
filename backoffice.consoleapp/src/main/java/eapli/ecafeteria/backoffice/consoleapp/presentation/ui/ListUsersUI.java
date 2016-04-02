@@ -30,13 +30,12 @@ public class ListUsersUI extends AbstractUI {
         if (!iterable.iterator().hasNext()) {
             System.out.println("There is no registered User");
         } else {
-            // System.out.printf("%30s\n", "List of Users ---");
             for (final SystemUser user : iterable) {
                 // TODO display other attributes
-                System.out.printf("%30s %30s\n", user.name().firstName(), user.name().lastName());
+                System.out.printf("%10s %30s %30s\n", user.username(), user.name().firstName(), user.name().lastName());
             }
         }
-        return true;
+        return false;
     }
 
     // TODO use a widget from the framework

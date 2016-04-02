@@ -44,7 +44,7 @@ public class ListDishTypeUI extends AbstractUI {
                 System.out.printf("%30s--- %1$B\n", dT.description(), dT.isActive());
             }
         }
-        return true;
+        return false;
     }
 
     protected boolean doShowIterable(Iterable<DishType> iterable) {

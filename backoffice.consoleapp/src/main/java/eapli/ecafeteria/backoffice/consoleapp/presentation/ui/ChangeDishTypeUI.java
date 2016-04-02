@@ -53,7 +53,7 @@ public class ChangeDishTypeUI extends AbstractUI {
             System.out.print("Invalid dish type. Select one of the items in the list.");
         }
 
-        return true;
+        return false;
     }
 
     @Override
