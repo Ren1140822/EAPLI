@@ -7,6 +7,7 @@ package eapli.ecafeteria.backoffice.consoleapp.presentation.ui;
 
 import eapli.ecafeteria.application.RegisterDishTypeController;
 import eapli.framework.application.Controller;
+import eapli.framework.persistence.DataIntegrityViolationException;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.util.Console;
 
@@ -27,8 +28,11 @@ public class RegisterDishTypeUI extends AbstractUI {
         final String acronym = Console.readLine("Dish Type Acronym:");
         final String description = Console.readLine("Dish Type Description:");
 
-        // FIXME handle /prevent duplicates
-        this.theController.registerDishType(acronym, description);
+        try {
+            this.theController.registerDishType(acronym, description);
+        } catch (final DataIntegrityViolationException e) {
+            System.out.println("That acronym is already in use.");
+        }
         return false;
     }
 

@@ -11,6 +11,7 @@ import eapli.ecafeteria.domain.users.ActionRight;
 import eapli.ecafeteria.persistence.DishTypeRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.framework.application.Controller;
+import eapli.framework.persistence.DataIntegrityViolationException;
 
 /**
  *
@@ -18,8 +19,8 @@ import eapli.framework.application.Controller;
  */
 public class RegisterDishTypeController implements Controller {
 
-    public DishType registerDishType(String acronym, String description) {
-        if (!AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.ManageMenus)) { 
+    public DishType registerDishType(String acronym, String description) throws DataIntegrityViolationException {
+        if (!AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.ManageMenus)) {
             // TODO check which exception to throw
             throw new IllegalStateException("user is not authorized to perform this action");
         }

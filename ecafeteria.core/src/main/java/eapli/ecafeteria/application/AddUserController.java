@@ -11,6 +11,7 @@ import eapli.ecafeteria.domain.users.UserBuilder;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.ecafeteria.persistence.UserRepository;
 import eapli.framework.application.Controller;
+import eapli.framework.persistence.DataIntegrityViolationException;
 import eapli.util.DateTime;
 
 /**
@@ -21,7 +22,7 @@ import eapli.util.DateTime;
 public class AddUserController implements Controller {
 
     public SystemUser addUser(String username, String password, String firstName, String lastName, String email,
-            List<RoleType> roles, Calendar createdOn) {
+            List<RoleType> roles, Calendar createdOn) throws DataIntegrityViolationException {
 
         if (!AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.Administer)) {
             // TODO check which exception to throw
@@ -41,7 +42,7 @@ public class AddUserController implements Controller {
     }
 
     public SystemUser addUser(String username, String password, String firstName, String lastName, String email,
-            List<RoleType> roles) {
+            List<RoleType> roles) throws DataIntegrityViolationException {
         return addUser(username, password, firstName, lastName, email, roles, DateTime.now());
     }
 }

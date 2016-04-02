@@ -4,6 +4,8 @@
  */
 package eapli.framework.persistence.repositories;
 
+import eapli.framework.persistence.DataIntegrityViolationException;
+
 /**
  * A generic interface for repositories.
  *
@@ -34,7 +36,7 @@ public interface Repository<T, PK> {
      * @param entity
      * @return
      */
-    boolean add(T entity);
+    boolean add(T entity) throws DataIntegrityViolationException;
 
     /**
      * gets all entities from the repository.
