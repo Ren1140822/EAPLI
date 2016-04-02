@@ -1,17 +1,15 @@
 package eapli.ecafeteria.domain;
 
-import eapli.ecafeteria.domain.Account;
-import eapli.ecafeteria.domain.MecanographicNumber;
-import eapli.ecafeteria.domain.OrganicUnit;
-import eapli.ecafeteria.domain.Status;
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
 import eapli.ecafeteria.domain.users.ActionRight;
 import eapli.ecafeteria.domain.users.SystemUser;
 import eapli.framework.authz.Authorisable;
 import eapli.framework.domain.AggregateRoot;
-import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 /**
  * An Cafeteria User.
@@ -39,7 +37,7 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Author
     @OneToOne
     private SystemUser systemUser;
     private Account account;
-    
+
     @OneToOne
     private OrganicUnit OrganicUnit;
 
@@ -47,16 +45,19 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Author
     private MecanographicNumber mecanographicNumber;
     private Status status;
 
-    public CafeteriaUser(SystemUser user, Account account, OrganicUnit OrganicUnit, MecanographicNumber mecanographicNumber, Status status) {
+    public CafeteriaUser(SystemUser user, Account account, OrganicUnit OrganicUnit,
+            MecanographicNumber mecanographicNumber, Status status) {
+        // FIXME validate parameters
         this.systemUser = user;
         this.account = account;
         this.OrganicUnit = OrganicUnit;
         this.mecanographicNumber = mecanographicNumber;
+        // TODO does it make sense to receive the status as a parameter?
         this.status = status;
     }
 
-    // for ORM
     protected CafeteriaUser() {
+        // for ORM
     }
 
     @Override
@@ -79,7 +80,7 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Author
 
     @Override
     public int hashCode() {
-        int result = this.mecanographicNumber.hashCode();
+        final int result = this.mecanographicNumber.hashCode();
 
         return result;
     }
@@ -106,6 +107,8 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Author
         return true;
     }
 
+    // TODO CafeteriaUser should not have this responsibility. this a
+    // Responsibility of SystemUser
     @Override
     public boolean isAuthorizedTo(ActionRight action) {
         return action.canBePerformedBy(this.systemUser.getRoles().roleTypes());
@@ -125,10 +128,13 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Author
         return this.mecanographicNumber;
     }
 
+    // FIXME this get is unnecessary as id() already has this meaning
     public MecanographicNumber getMecanographicNumber() {
-        return mecanographicNumber;
+        return this.mecanographicNumber;
     }
 
+    // FIXME this method should not exist as an ID should never be changed. it
+    // should only be assigned on creation
     public void setMecanographicNumber(MecanographicNumber mecanographicNumber) {
         this.mecanographicNumber = mecanographicNumber;
     }

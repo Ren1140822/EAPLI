@@ -27,19 +27,19 @@ public class ListUsersUI extends AbstractUI {
     @Override
     protected boolean doShow() {
         final Iterable<SystemUser> iterable = this.theController.listUsers();
-        // return doShowIterable(iterable);
         if (!iterable.iterator().hasNext()) {
             System.out.println("There is no registered User");
         } else {
             // System.out.printf("%30s\n", "List of Users ---");
             for (final SystemUser user : iterable) {
-                // FIX display other attributes
+                // TODO display other attributes
                 System.out.printf("%30s %30s\n", user.name().firstName(), user.name().lastName());
             }
         }
         return true;
     }
 
+    // TODO use a widget from the framework
     protected boolean doShowIterable(Iterable<User> iterable) {
         if (!iterable.iterator().hasNext()) {
             System.out.println("There is no registered Dish Type");

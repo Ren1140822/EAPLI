@@ -32,12 +32,12 @@ public class DishType implements AggregateRoot<String>, Serializable {
     private boolean active;
 
     protected DishType() {
+        // for ORM
     }
 
     public DishType(String name, String description) {
 
-        if (name == null || description == null
-                || name.trim().isEmpty() || description.trim().isEmpty()) {
+        if (name == null || description == null || name.trim().isEmpty() || description.trim().isEmpty()) {
             throw new IllegalArgumentException();
         }
         this.acronym = name;
@@ -59,7 +59,7 @@ public class DishType implements AggregateRoot<String>, Serializable {
     }
 
     public void changeDescriptionTo(String newDescription) {
-        if (newDescription == null|| newDescription.trim().isEmpty()) {
+        if (newDescription == null || newDescription.trim().isEmpty()) {
             throw new IllegalArgumentException();
         }
         this.description = newDescription;
