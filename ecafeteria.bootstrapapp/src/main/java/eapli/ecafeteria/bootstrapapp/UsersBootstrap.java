@@ -8,7 +8,7 @@ package eapli.ecafeteria.bootstrapapp;
 import java.util.ArrayList;
 import java.util.List;
 
-import eapli.ecafeteria.application.UserRegisterController;
+import eapli.ecafeteria.application.AddUserController;
 import eapli.ecafeteria.domain.users.RoleType;
 import eapli.framework.actions.Action;
 
@@ -42,9 +42,9 @@ public class UsersBootstrap implements Action {
         final List<RoleType> roles = new ArrayList<RoleType>();
         roles.add(RoleType.Admin);
 
-        final UserRegisterController userController = new UserRegisterController();
+        final AddUserController userController = new AddUserController();
         try {
-            userController.registerUser(username, password, firstName, lastName, email, roles);
+            userController.addUser(username, password, firstName, lastName, email, roles);
         } catch (final Exception e) {
             // ignoring exception. assuming it is justa primiray key violation
             // due to the tentative of inserting a duplicated user
@@ -63,11 +63,11 @@ public class UsersBootstrap implements Action {
         final List<RoleType> roles = new ArrayList<RoleType>();
         roles.add(RoleType.Cashier);
 
-        final UserRegisterController userController = new UserRegisterController();
+        final AddUserController userController = new AddUserController();
         try {
-            userController.registerUser(username, password, firstName, lastName, email, roles);
+            userController.addUser(username, password, firstName, lastName, email, roles);
         } catch (final Exception e) {
-            // ignoring exception. assuming it is justa primiray key violation
+            // ignoring exception. assuming it is just a primary key violation
             // due to the tentative of inserting a duplicated user
         }
     }
@@ -84,9 +84,9 @@ public class UsersBootstrap implements Action {
         final List<RoleType> roles = new ArrayList<RoleType>();
         roles.add(RoleType.User);
 
-        final UserRegisterController userController = new UserRegisterController();
+        final AddUserController userController = new AddUserController();
         try {
-            userController.registerUser(username, password, firstName, lastName, email, roles);
+            userController.addUser(username, password, firstName, lastName, email, roles);
         } catch (final Exception e) {
             // ignoring exception. assuming it is justa primiray key violation
             // due to the tentative of inserting a duplicated user
@@ -105,11 +105,11 @@ public class UsersBootstrap implements Action {
         final List<RoleType> roles = new ArrayList<RoleType>();
         roles.add(RoleType.KitchenManager);
 
-        final UserRegisterController userController = new UserRegisterController();
+        final AddUserController userController = new AddUserController();
         try {
-            userController.registerUser(username, password, firstName, lastName, email, roles);
+            userController.addUser(username, password, firstName, lastName, email, roles);
         } catch (final Exception e) {
-            // ignoring exception. assuming it is justa primiray key violation
+            // ignoring exception. assuming it is just a primary key violation
             // due to the tentative of inserting a duplicated user
         }
     }
@@ -126,11 +126,11 @@ public class UsersBootstrap implements Action {
         final List<RoleType> roles = new ArrayList<RoleType>();
         roles.add(RoleType.MenuManager);
 
-        final UserRegisterController userController = new UserRegisterController();
+        final AddUserController userController = new AddUserController();
         try {
-            userController.registerUser(username, password, firstName, lastName, email, roles);
+            userController.addUser(username, password, firstName, lastName, email, roles);
         } catch (final Exception e) {
-            // ignoring exception. assuming it is justa primiray key violation
+            // ignoring exception. assuming it is just a primary key violation
             // due to the tentative of inserting a duplicated user
         }
     }

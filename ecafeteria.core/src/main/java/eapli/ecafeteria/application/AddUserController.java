@@ -1,5 +1,8 @@
 package eapli.ecafeteria.application;
 
+import java.util.Calendar;
+import java.util.List;
+
 import eapli.ecafeteria.AppSettings;
 import eapli.ecafeteria.domain.users.ActionRight;
 import eapli.ecafeteria.domain.users.RoleType;
@@ -8,9 +11,8 @@ import eapli.ecafeteria.domain.users.UserBuilder;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.ecafeteria.persistence.UserRepository;
 import eapli.framework.application.Controller;
+import eapli.framework.persistence.DataIntegrityViolationException;
 import eapli.util.DateTime;
-import java.util.Calendar;
-import java.util.List;
 
 /**
  * FIXME this class is a duplicate of UserRegisterController.
@@ -20,7 +22,7 @@ import java.util.List;
 public class AddUserController implements Controller {
 
     public SystemUser addUser(String username, String password, String firstName, String lastName, String email,
-            List<RoleType> roles, Calendar createdOn) {
+            List<RoleType> roles, Calendar createdOn) throws DataIntegrityViolationException {
 
         if (!AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.Administer)) {
             // TODO check which exception to throw
@@ -28,15 +30,10 @@ public class AddUserController implements Controller {
         }
 
         final UserBuilder userBuilder = new UserBuilder();
-        userBuilder.setUsername(username);
-        userBuilder.setPassword(password);
-        userBuilder.setFirstName(firstName);
-        userBuilder.setLastName(lastName);
-        userBuilder.setEmail(email);
-        userBuilder.setRoles(roles);
-        userBuilder.setCreatedOn(createdOn);
+        userBuilder.withUsername(username).withPassword(password).withFirstName(firstName).withLastName(lastName)
+                .withEmail(email).withRoles(roles).withCreatedOn(createdOn);
 
-        final SystemUser newUser = userBuilder.createUser();
+        final SystemUser newUser = userBuilder.build();
         final UserRepository userRepository = PersistenceContext.repositories().users();
         // TODO error checking if the username is already in the persistence
         // store
@@ -45,7 +42,7 @@ public class AddUserController implements Controller {
     }
 
     public SystemUser addUser(String username, String password, String firstName, String lastName, String email,
-            List<RoleType> roles) {
+            List<RoleType> roles) throws DataIntegrityViolationException {
         return addUser(username, password, firstName, lastName, email, roles, DateTime.now());
     }
 }
