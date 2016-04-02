@@ -1,6 +1,8 @@
 package eapli.ecafeteria.application;
 
+import eapli.ecafeteria.AppSettings;
 import eapli.ecafeteria.domain.DishType;
+import eapli.ecafeteria.domain.users.ActionRight;
 import eapli.ecafeteria.persistence.DishTypeRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.framework.application.Controller;
@@ -11,18 +13,12 @@ import eapli.framework.application.Controller;
 public class ListDishTypeController implements Controller {
 
     public Iterable<DishType> listDishTypes() {
-        // FIXME check permissions
+         if (!AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.ManageMenus)) {
+            // TODO check which exception to throw
+            throw new IllegalStateException("user is not authorized to perform this action");
+        }
         final DishTypeRepository dishTypeRepository = PersistenceContext.repositories().dishTypes();
         return dishTypeRepository.all();
     }
-
-    // TODO why do we need this method in this controller? this controller's
-    // name suggest it only list dish types. why is there a method to change the
-    // dish type here?
-    // TOFIXE save() in inMemoryRepository
-    public void changeDishTypeState(DishType dType) {
-        // FIXME check permissions
-        dType.changeDishTypeState();
-        PersistenceContext.repositories().dishTypes();
-    }
+  
 }
