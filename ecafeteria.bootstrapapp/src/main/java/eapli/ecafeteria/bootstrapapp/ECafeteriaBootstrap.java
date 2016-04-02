@@ -33,6 +33,7 @@ public class ECafeteriaBootstrap implements Action {
         // Password("admin"));
         final List<RoleType> roles = new ArrayList<RoleType>();
         roles.add(RoleType.Admin);
+        roles.add(RoleType.MenuManager);
         final Session adminSession = new Session(
                 new SystemUser("poweruser", "poweruser", "joe", "doe", "joe@email.org", roles));
         AppSettings.instance().setSession(adminSession);

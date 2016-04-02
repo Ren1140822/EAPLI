@@ -46,7 +46,7 @@ public abstract class AbstractUI {
             boolean wantsToExit;
             do {
                 wantsToExit = show();
-            } while (!wantsToExit);
+        } while (!wantsToExit);
     }
 
     /**
