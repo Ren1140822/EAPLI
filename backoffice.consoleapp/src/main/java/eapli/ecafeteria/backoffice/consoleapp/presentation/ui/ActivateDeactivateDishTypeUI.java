@@ -1,5 +1,6 @@
 package eapli.ecafeteria.backoffice.consoleapp.presentation.ui;
 
+import eapli.ecafeteria.application.ActivateDeactivateDishTypeController;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import eapli.util.Console;
  */
 public class ActivateDeactivateDishTypeUI extends AbstractUI {
 
-    private final ListDishTypeController theController = new ListDishTypeController();
+    private final ActivateDeactivateDishTypeController theController = new ActivateDeactivateDishTypeController();
 
     @Override
     protected Controller controller() {
@@ -30,10 +31,11 @@ public class ActivateDeactivateDishTypeUI extends AbstractUI {
         } else {
             int option;
             int cont = 1;
-            System.out.printf("Nº :%30s---%6s\n", "Dish Type description ---", "Active");
+            System.out.println("SELECT Dish Type to Activate / Deactivate\n");
+            System.out.printf("%-6s%-10s%-30s%-6s\n", "Nº:","Acronym", "Description", "Active");
             for (final DishType dT : iter) {
                 list.add(dT);
-                System.out.printf("%3d:%30s--- %1$B\n", cont, dT.description(), dT.isActive());
+                System.out.printf("%-6d%-10s%-30s%-4s\n", cont, dT.id(),dT.description(), String.valueOf(dT.isActive()));
                 cont++;
             }
             switch (option = Console.readInteger("Enter dish nº to change ative state or 0 to finish ")) {
@@ -41,12 +43,12 @@ public class ActivateDeactivateDishTypeUI extends AbstractUI {
                 System.out.println("No dish type selected");
                 break;
             default:
-                this.theController.changeDishTypeState(list.get(option + 1));
+                this.theController.changeDishTypeState(list.get(option - 1));
             }
         }
         return true;
     }
-
+    
     @Override
     public String headline() {
         return "Activate / Deactivate Dish Types";

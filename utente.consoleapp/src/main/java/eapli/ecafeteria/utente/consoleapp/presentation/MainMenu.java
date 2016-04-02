@@ -9,7 +9,6 @@ import eapli.cafeteria.consoleapp.presentation.actions.ExitWithMessageAction;
 import eapli.cafeteria.consoleapp.presentation.actions.LoginAction;
 import eapli.cafeteria.consoleapp.presentation.actions.LogoutAction;
 import eapli.ecafeteria.AppSettings;
-import eapli.framework.actions.ReturnAction;
 import eapli.framework.actions.ShowMessageAction;
 import eapli.framework.application.Controller;
 import eapli.framework.presentation.console.AbstractUI;
@@ -27,9 +26,6 @@ import eapli.framework.presentation.console.VerticalSeparator;
 public class MainMenu extends AbstractUI {
 
     private static final int EXIT_OPTION = 0;
-
-    // DISH TYPE
-    private static final int LIST_DISH_TYPE_OPTION = 4;
 
     // MY USER
     private static final int CHANGE_PASSWORD_OPTION = 1;
@@ -90,15 +86,6 @@ public class MainMenu extends AbstractUI {
         mainMenu.add(new MenuItem(EXIT_OPTION, "Exit", new ExitWithMessageAction()));
 
         return mainMenu;
-    }
-
-    private Menu buildXptoMenu() {
-        final Menu menu = new Menu("Xpto >");
-
-        // TODO add menu options
-        menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
-
-        return menu;
     }
 
     @Override
