@@ -29,7 +29,7 @@ public class RegisterDishTypeUI extends AbstractUI {
 
         // FIXME handle /prevent duplicates
         this.theController.registerDishType(acronym, description);
-        return true;
+        return false;
     }
 
     @Override

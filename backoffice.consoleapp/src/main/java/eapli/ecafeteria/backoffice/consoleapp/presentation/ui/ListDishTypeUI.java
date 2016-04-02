@@ -52,9 +52,6 @@ public class ListDishTypeUI extends AbstractUI {
         return true;
     }
 
-
-    
-    
     @Override
     public String headline() {
         return "List Dish Types";
