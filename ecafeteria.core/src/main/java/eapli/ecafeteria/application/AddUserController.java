@@ -1,5 +1,8 @@
 package eapli.ecafeteria.application;
 
+import java.util.Calendar;
+import java.util.List;
+
 import eapli.ecafeteria.AppSettings;
 import eapli.ecafeteria.domain.users.ActionRight;
 import eapli.ecafeteria.domain.users.RoleType;
@@ -9,8 +12,6 @@ import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.ecafeteria.persistence.UserRepository;
 import eapli.framework.application.Controller;
 import eapli.util.DateTime;
-import java.util.Calendar;
-import java.util.List;
 
 /**
  * FIXME this class is a duplicate of UserRegisterController.
@@ -28,13 +29,8 @@ public class AddUserController implements Controller {
         }
 
         final UserBuilder userBuilder = new UserBuilder();
-        userBuilder.withUsername(username);
-        userBuilder.withPassword(password);
-        userBuilder.withFirstName(firstName);
-        userBuilder.withLastName(lastName);
-        userBuilder.withEmail(email);
-        userBuilder.withRoles(roles);
-        userBuilder.withCreatedOn(createdOn);
+        userBuilder.withUsername(username).withPassword(password).withFirstName(firstName).withLastName(lastName)
+                .withEmail(email).withRoles(roles).withCreatedOn(createdOn);
 
         final SystemUser newUser = userBuilder.build();
         final UserRepository userRepository = PersistenceContext.repositories().users();
