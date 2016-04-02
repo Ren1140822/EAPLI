@@ -1,5 +1,14 @@
 package eapli.ecafeteria.domain.users;
 
+import java.io.Serializable;
+import java.util.Calendar;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import eapli.framework.authz.Authorisable;
 import eapli.framework.domain.AggregateRoot;
 import eapli.framework.dto.DTOable;
@@ -7,13 +16,6 @@ import eapli.framework.dto.GenericDTO;
 import eapli.framework.visitor.Visitable;
 import eapli.framework.visitor.Visitor;
 import eapli.util.DateTime;
-import java.io.Serializable;
-import java.util.Calendar;
-import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * An application user.
@@ -30,8 +32,8 @@ import javax.persistence.TemporalType;
  *
  */
 @Entity
-public class SystemUser implements AggregateRoot<Username>, Authorisable<ActionRight>, DTOable<SystemUser>, Visitable<GenericDTO>,
-        Serializable {
+public class SystemUser implements AggregateRoot<Username>, Authorisable<ActionRight>, DTOable<SystemUser>,
+        Visitable<GenericDTO>, Serializable {
 
     /**
      *
@@ -146,12 +148,10 @@ public class SystemUser implements AggregateRoot<Username>, Authorisable<ActionR
     public void addRole(Role role) {
         this.roles.add(role);
     }
-    
-    public RoleSet getRoles()
-    {
+
+    public RoleSet getRoles() {
         return this.roles;
     }
-    
 
     @Override
     public GenericDTO toDTO() {
@@ -202,5 +202,9 @@ public class SystemUser implements AggregateRoot<Username>, Authorisable<ActionR
 
     public Username username() {
         return this.username;
+    }
+
+    public Name name() {
+        return this.name;
     }
 }
