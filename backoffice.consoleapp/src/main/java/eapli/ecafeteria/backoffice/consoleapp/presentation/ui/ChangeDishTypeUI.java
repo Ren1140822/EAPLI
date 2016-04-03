@@ -33,7 +33,7 @@ public class ChangeDishTypeUI extends AbstractUI {
         allDishTypes.iterator();
 
         //Note: Java no longer requires explicit type argument, thus new SelectWidget<DishType> may be replaced by new SelectWidget<>
-        final SelectWidget<DishType> selector = new SelectWidget<DishType>(allDishTypes, new DishTypeVisitor());
+        final SelectWidget<DishType> selector = new SelectWidget<DishType>(allDishTypes, new DishTypePrinter());
 
         selector.show();
         final DishType updtDishType = selector.selectedElement();

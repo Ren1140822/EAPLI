@@ -7,6 +7,7 @@ package eapli.ecafeteria.utente.consoleapp.presentation;
 
 import eapli.cafeteria.consoleapp.presentation.actions.ExitWithMessageAction;
 import eapli.cafeteria.consoleapp.presentation.actions.LoginAction;
+import eapli.ecafeteria.utente.consoleapp.presentation.actions.SignupCafeteriaUserAction;
 import eapli.framework.actions.IfThenAction;
 import eapli.framework.actions.ShowMessageAction;
 import eapli.framework.application.Controller;
@@ -26,10 +27,9 @@ public class FrontMenu extends AbstractUI {
 
 	private static final int LOGIN_OPTION  = 1;
 	private static final int SIGNUP_OPTION = 2;
-    /* Options not being used
-    private static final int REGISTER_DISH_TYPE_OPTION = 3;
-    private static final int LIST_DISH_TYPE_OPTION = 4;
-    */
+        private static final int REGISTER_DISH_TYPE_OPTION = 3;
+        private static final int LIST_DISH_TYPE_OPTION = 4;
+
     public FrontMenu() {
     }
 
@@ -47,7 +47,7 @@ public class FrontMenu extends AbstractUI {
         final Menu menu = new Menu();
         menu.add(new MenuItem(LOGIN_OPTION, "Login",
                 new IfThenAction(new LoginAction(), new ShowUiAction(new MainMenu()))));
-        menu.add(new MenuItem(SIGNUP_OPTION, "Sign up", new ShowMessageAction("Not implemented yet.")));
+        menu.add(new MenuItem(SIGNUP_OPTION, "Sign up", new SignupCafeteriaUserAction()));
         menu.add(new MenuItem(EXIT_OPTION, "Exit", new ExitWithMessageAction()));
 
         final MenuRenderer renderer = new VerticalMenuRenderer(menu);

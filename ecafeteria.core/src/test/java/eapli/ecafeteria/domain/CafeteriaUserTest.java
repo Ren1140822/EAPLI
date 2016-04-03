@@ -15,35 +15,47 @@ public class CafeteriaUserTest {
 
 	@Test
 	public void ensureCafeteriaUserEqualsPassesForTheSameMecanographicNumber() throws Exception {
-		MecanographicNumber mecanographicNumber = new MecanographicNumber("abc");
-
 		boolean expected = true;
 
-		CafeteriaUser aCafeteriaUser = new CafeteriaUser();
-		aCafeteriaUser.setMecanographicNumber(mecanographicNumber);
+		String aMecanographicNumber = new String("abc");
+		String anotherMecanographicNumber = new String("abc");
 
-		CafeteriaUser anotherUser = new CafeteriaUser();
-		anotherUser.setMecanographicNumber(mecanographicNumber);
+		ArrayList<RoleType> roles = new ArrayList<>();
+		roles.add(RoleType.Admin);
 
-		expected = aCafeteriaUser.equals(anotherUser);
+		SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", "emailA", roles);
+
+		String anAccount= new String("acountA");
+
+		OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
+
+		CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anAccount, anOrganicUnit, aMecanographicNumber);
+		CafeteriaUser anotherCafeteriaUser = new CafeteriaUser(aSystemUser, anAccount, anOrganicUnit, anotherMecanographicNumber);
+		expected = aCafeteriaUser.equals(anotherCafeteriaUser );
 
 		assertTrue(expected);
 	}
 
 	@Test
 	public void ensureCafeteriaUserEqualsFailsForDifferenteMecanographicNumber() throws Exception {
-		MecanographicNumber aMecanographicNumber = new MecanographicNumber("abc");
-		MecanographicNumber anotherMecanographicNumber = new MecanographicNumber("qwe");
-
 		boolean expected = false;
 
-		CafeteriaUser aCafeteriaUser = new CafeteriaUser();
-		aCafeteriaUser.setMecanographicNumber(aMecanographicNumber);
+		String aMecanographicNumber = new String("abc");
+		String anotherMecanographicNumber = new String("qwe");
 
-		CafeteriaUser anotherUser = new CafeteriaUser();
-		anotherUser.setMecanographicNumber(anotherMecanographicNumber);
+		ArrayList<RoleType> roles = new ArrayList<>();
+		roles.add(RoleType.Admin);
 
-		expected = aCafeteriaUser.equals(anotherUser);
+		SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", "emailA", roles);
+
+		String anAccount= new String("acountA");
+
+		OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
+
+		CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anAccount, anOrganicUnit, aMecanographicNumber);
+		CafeteriaUser anotherCafeteriaUser = new CafeteriaUser(aSystemUser, anAccount, anOrganicUnit, anotherMecanographicNumber);
+
+		expected = aCafeteriaUser.equals(anotherCafeteriaUser);
 
 		assertFalse(expected);
 	}
@@ -61,17 +73,25 @@ public class CafeteriaUserTest {
 
 	@Test
 	public void ensureCafeteriaUserEqualsFailsForDifferenteObjectTypes() throws Exception {
-		MecanographicNumber aMecanographicNumber = new MecanographicNumber("abc");
-
 		boolean expected = false;
 
-		CafeteriaUser aCafeteriaUser = new CafeteriaUser();
-		aCafeteriaUser.setMecanographicNumber(aMecanographicNumber);
+		String aMecanographicNumber = new String("abc");
 
 		ArrayList<RoleType> roles = new ArrayList<>();
 		roles.add(RoleType.Admin);
 
-		SystemUser systemUser = new SystemUser("userName", "password", "firsName", "lastName", "email", roles);
+		SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", "emailA", roles);
+
+		String anAccount= new String("acountA");
+
+		OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
+
+		CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anAccount, anOrganicUnit, aMecanographicNumber);
+
+		ArrayList<RoleType> systemUserRoles = new ArrayList<>();
+		systemUserRoles.add(RoleType.Admin);
+
+		SystemUser systemUser = new SystemUser("userName", "password", "firsName", "lastName", "email", systemUserRoles);
 
 		expected = aCafeteriaUser.equals(systemUser);
 
@@ -82,9 +102,18 @@ public class CafeteriaUserTest {
 	public void ensureCafeteriaUserIsTheSameAsItsInstance() throws Exception {
 		boolean expected = true;
 
-		MecanographicNumber aMecanographicNumber = new MecanographicNumber("abc");
-		CafeteriaUser aCafeteriaUser = new CafeteriaUser();
-		aCafeteriaUser.setMecanographicNumber(aMecanographicNumber);
+		String aMecanographicNumber = new String("abc");
+
+		ArrayList<RoleType> roles = new ArrayList<>();
+		roles.add(RoleType.Admin);
+
+		SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", "emailA", roles);
+
+		String anAccount= new String("acountA");
+
+		OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
+
+		CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anAccount, anOrganicUnit, aMecanographicNumber);
 
 		expected = aCafeteriaUser.sameAs(aCafeteriaUser);
 
@@ -93,34 +122,23 @@ public class CafeteriaUserTest {
 
 	@Test
 	public void ensureTwoCafeteriaUserWithDifferentMecanographicNumbersAreNotTheSame() throws Exception {
-		boolean expected = false;
-
-		MecanographicNumber aMecanographicNumber = new MecanographicNumber("abc");
-		MecanographicNumber anotherMecanographicNumber = new MecanographicNumber("qwe");
-
-		CafeteriaUser aCafeteriaUser = new CafeteriaUser();
-		aCafeteriaUser.setMecanographicNumber(aMecanographicNumber);
-
-		CafeteriaUser anotherCafeteriaUser = new CafeteriaUser();
-		anotherCafeteriaUser.setMecanographicNumber(anotherMecanographicNumber);
-
-		expected = aCafeteriaUser.sameAs(anotherCafeteriaUser);
-
-		assertFalse(expected);
-	}
-
-	@Test
-	public void ensureTwoCafeteriaUserWithDifferentMecanographicNumberAreNotTheSame() throws Exception {
 		boolean expected = true;
 
-		MecanographicNumber aMecanographicNumber = new MecanographicNumber("abc");
-		MecanographicNumber anotherMecanographicNumber = new MecanographicNumber("qwe");
+		String aMecanographicNumber = new String("abc");
+		String anotherMecanographicNumber = new String("qwe");
 
-		CafeteriaUser aCafeteriaUser = new CafeteriaUser();
-		aCafeteriaUser.setMecanographicNumber(aMecanographicNumber);
+		ArrayList<RoleType> roles = new ArrayList<>();
+		roles.add(RoleType.Admin);
 
-		CafeteriaUser anotherCafeteriaUser = new CafeteriaUser();
-		anotherCafeteriaUser.setMecanographicNumber(anotherMecanographicNumber);
+		SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", "emailA", roles);
+
+		String anAccount= new String("acountA");
+
+		OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
+
+		CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anAccount, anOrganicUnit, aMecanographicNumber);
+
+		CafeteriaUser anotherCafeteriaUser = new CafeteriaUser(aSystemUser, anAccount, anOrganicUnit, anotherMecanographicNumber);
 
 		expected = aCafeteriaUser.sameAs(anotherCafeteriaUser);
 
@@ -138,14 +156,14 @@ public class CafeteriaUserTest {
 
 		SystemUser anotherSystemUser = new SystemUser("userNameB", "passwordB", "firsNameB", "lastNameB", "emailB", roles);
 
-		MecanographicNumber aMecanographicNumber = new MecanographicNumber("abc");
+		String aMecanographicNumber = new String("abc");
 
-		Account anAccount = new Account("newAccount");
+		String anAccount = new String("newAccount");
 		OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
 
-		CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anAccount, anOrganicUnit, aMecanographicNumber, Status.ACTIVE);
+		CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anAccount, anOrganicUnit, aMecanographicNumber);
 
-		CafeteriaUser anotherCafeteriaUser = new CafeteriaUser(anotherSystemUser, anAccount, anOrganicUnit, aMecanographicNumber, Status.ACTIVE);
+		CafeteriaUser anotherCafeteriaUser = new CafeteriaUser(anotherSystemUser, anAccount, anOrganicUnit, aMecanographicNumber);
 
 		expected = aCafeteriaUser.sameAs(anotherCafeteriaUser);
 
@@ -161,15 +179,15 @@ public class CafeteriaUserTest {
 
 		SystemUser aSystemUser = new SystemUser("userName", "password", "firsName", "lastName", "email", roles);
 
-		MecanographicNumber aMecanographicNumber = new MecanographicNumber("abc");
+		String aMecanographicNumber = new String("abc");
 
-		Account anAccount = new Account("accountA");
-		Account anotherAccount = new Account("accountB");
+		String anAccount = new String ("accountA");
+		String anotherAccount = new String("accountB");
 		OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
 
-		CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anAccount, anOrganicUnit, aMecanographicNumber, Status.ACTIVE);
+		CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anAccount, anOrganicUnit, aMecanographicNumber);
 
-		CafeteriaUser anotherCafeteriaUser = new CafeteriaUser(aSystemUser, anotherAccount , anOrganicUnit, aMecanographicNumber, Status.ACTIVE);
+		CafeteriaUser anotherCafeteriaUser = new CafeteriaUser(aSystemUser, anotherAccount , anOrganicUnit, aMecanographicNumber);
 
 		expected = aCafeteriaUser.sameAs(anotherCafeteriaUser);
 
@@ -185,15 +203,15 @@ public class CafeteriaUserTest {
 
 		SystemUser aSystemUser = new SystemUser("userName", "password", "firsName", "lastName", "email", roles);
 
-		MecanographicNumber aMecanographicNumber = new MecanographicNumber("abc");
+		String aMecanographicNumber = new String("abc");
 
-		Account anAccount = new Account("accountA");
+		String anAccount = new String("accountA");
 		OrganicUnit anOrganicUnit = new OrganicUnit("acronymA", "nameA", "descriptionA");
 		OrganicUnit anotherOrganicUnit = new OrganicUnit("acronymB", "nameB", "descriptionB");
 
-		CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anAccount, anOrganicUnit, aMecanographicNumber, Status.ACTIVE);
+		CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anAccount, anOrganicUnit, aMecanographicNumber);
 
-		CafeteriaUser anotherCafeteriaUser = new CafeteriaUser(aSystemUser, anAccount , anotherOrganicUnit, aMecanographicNumber, Status.ACTIVE);
+		CafeteriaUser anotherCafeteriaUser = new CafeteriaUser(aSystemUser, anAccount , anotherOrganicUnit, aMecanographicNumber);
 
 		expected = aCafeteriaUser.sameAs(anotherCafeteriaUser);
 
