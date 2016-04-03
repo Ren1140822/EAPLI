@@ -13,18 +13,14 @@ import eapli.framework.application.Controller;
  */
 public class LoginController implements Controller {
     /**
-     * This method allows a user to perform login.
+     * This method allows a user to perform login and creates the session.
      *
      * @param userName
      * @param password
      */
     public void login(String userName, String password) throws UnableToAuthenticateException {
         final AuthenticationService authenticationService = new AuthenticationService();
-
-        final Username inputUserName = new Username(userName);
-        final Password inputPassword = new Password(password);
-
-        final Session newSession = authenticationService.authenticate(inputUserName, inputPassword);
+        final Session newSession = authenticationService.authenticate(new Username(userName), new Password(password));
         AppSettings.instance().setSession(newSession);
     }
 }
