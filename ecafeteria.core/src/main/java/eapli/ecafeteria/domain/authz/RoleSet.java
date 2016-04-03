@@ -32,8 +32,10 @@ public class RoleSet implements Set<Role>, Serializable {
 
     @Override
     public boolean add(Role arg0) {
+        if (arg0 == null) {
+            throw new IllegalStateException();
+        }
         // FIXME validations are missing, e.g.,
-        // role != null
         // no overlap in roles with the same role type?
         return this.data.add(arg0);
     }
@@ -110,10 +112,12 @@ public class RoleSet implements Set<Role>, Serializable {
 
         final RoleSet roles = (RoleSet) o;
 
-        // we need to perform a deep equals() as we want to compare values and not object instances, so we cannot do: return this.data.equals(roles.data);
-        for (Role r : this.data) {
+        // we need to perform a deep equals() as we want to compare values and
+        // not object instances, so we cannot do: return
+        // this.data.equals(roles.data);
+        for (final Role r : this.data) {
             boolean found = false;
-            for (Role or : roles.data) {
+            for (final Role or : roles.data) {
                 if (r.equals(or)) {
                     found = true;
                     break;
