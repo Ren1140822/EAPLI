@@ -30,17 +30,17 @@ public class ListDishTypeUI extends AbstractUI {
             System.out.println("Listing Dish Types");
             System.out.printf("%-10s%-30s%-6s\n", "Acronym","Description", "Active");
             for (DishType dT : iterable) {
-                System.out.printf("%-10s%-30s%-4s\n", dT.id(),dT.description(), String.valueOf(dT.isActive()));
+                System.out.printf("%-10s%-30s%-4s\n", dT.id(), dT.description(), String.valueOf(dT.isActive()));
             }
         }
         return true;
     }
 
-    protected boolean doShowIterable(Iterable<DishType> iterable) {
+    protected boolean doShowIterable(final Iterable<DishType> iterable) {
         int i;
-        
-        if (!iterable.iterator().hasNext()) {
-            System.out.println("There is no registered Dish Type");
+
+	    if (!iterable.iterator().hasNext()) {
+		    System.out.println("There is no registered Dish Type");
         } else {
             System.out.printf("%-6s%-30s%6s\n", "Key", "Dish Type description", "Active");
             i = 0;
@@ -49,6 +49,7 @@ public class ListDishTypeUI extends AbstractUI {
                 System.out.printf("%-6d%-30s%6s\n", i, dT.description(), dT.isActive());
             }
         }
+        //FIXME: method always returns true or could be void
         return true;
     }
 

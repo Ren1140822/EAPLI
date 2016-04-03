@@ -45,6 +45,7 @@ public class ChangeDishTypeUI extends AbstractUI {
         }
 
         if (dishTypeKey == n) { // DishType selected by user exists
+            //FIXME: updtDishType.description() may produce a null excepetion
             final String newDescription = Console
                     .readLine("Enter new description for " + updtDishType.description() + ": ");
             updtDishType.changeDescriptionTo(newDescription);

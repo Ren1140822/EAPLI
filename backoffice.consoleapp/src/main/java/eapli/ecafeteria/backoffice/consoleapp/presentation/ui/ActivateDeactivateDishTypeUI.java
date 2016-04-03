@@ -37,6 +37,7 @@ public class ActivateDeactivateDishTypeUI extends AbstractUI {
 				System.out.printf("%-6d%-10s%-30s%-4s\n", cont, dT.id(), dT.description(), String.valueOf(dT.isActive()));
 				cont++;
 			}
+			//FIXME: avoid inner assignements option = ...
 			switch (option = Console.readInteger("Enter dish nº to change ative state or 0 to finish ")) {
 				case 0:
 					System.out.println("No dish type selected");

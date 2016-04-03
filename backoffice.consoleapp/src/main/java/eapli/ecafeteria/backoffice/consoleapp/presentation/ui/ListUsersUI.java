@@ -5,8 +5,6 @@
  */
 package eapli.ecafeteria.backoffice.consoleapp.presentation.ui;
 
-import org.h2.engine.User;
-
 import eapli.ecafeteria.application.ListUsersController;
 import eapli.ecafeteria.domain.authz.SystemUser;
 import eapli.framework.application.Controller;
@@ -39,6 +37,7 @@ public class ListUsersUI extends AbstractUI {
     }
 
     // TODO use a widget from the framework
+    /*NMB: method is never used
     protected boolean doShowIterable(Iterable<User> iterable) {
         if (!iterable.iterator().hasNext()) {
             System.out.println("There is no registered Dish Type");
@@ -48,9 +47,10 @@ public class ListUsersUI extends AbstractUI {
             for (final User dT : iterable) {
             }
             */
-        }
+        /*}
         return true;
     }
+    */
 
     @Override
     public String headline() {
