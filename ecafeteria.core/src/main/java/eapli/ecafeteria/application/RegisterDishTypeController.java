@@ -5,12 +5,14 @@
  */
 package eapli.ecafeteria.application;
 
-import eapli.ecafeteria.AppSettings;
+import static eapli.ecafeteria.AppSettings.ensurePermissionOfLoggedInUser;
+
 import eapli.ecafeteria.domain.DishType;
-import eapli.ecafeteria.domain.users.ActionRight;
+import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.ecafeteria.persistence.DishTypeRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.framework.application.Controller;
+import eapli.framework.persistence.DataIntegrityViolationException;
 
 /**
  *
@@ -18,11 +20,8 @@ import eapli.framework.application.Controller;
  */
 public class RegisterDishTypeController implements Controller {
 
-    public DishType registerDishType(String acronym, String description) {
-        if (!AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.ManageMenus)) { 
-            // TODO check which exception to throw
-            throw new IllegalStateException("user is not authorized to perform this action");
-        }
+    public DishType registerDishType(String acronym, String description) throws DataIntegrityViolationException {
+        ensurePermissionOfLoggedInUser(ActionRight.ManageMenus);
 
         final DishType newDishType = new DishType(acronym, description);
         final DishTypeRepository repo = PersistenceContext.repositories().dishTypes();

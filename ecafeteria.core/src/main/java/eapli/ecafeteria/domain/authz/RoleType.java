@@ -1,4 +1,4 @@
-package eapli.ecafeteria.domain.users;
+package eapli.ecafeteria.domain.authz;
 
 
 public enum RoleType {

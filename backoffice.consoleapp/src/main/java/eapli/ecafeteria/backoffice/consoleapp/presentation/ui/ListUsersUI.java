@@ -8,7 +8,7 @@ package eapli.ecafeteria.backoffice.consoleapp.presentation.ui;
 import org.h2.engine.User;
 
 import eapli.ecafeteria.application.ListUsersController;
-import eapli.ecafeteria.domain.users.SystemUser;
+import eapli.ecafeteria.domain.authz.SystemUser;
 import eapli.framework.application.Controller;
 import eapli.framework.presentation.console.AbstractUI;
 

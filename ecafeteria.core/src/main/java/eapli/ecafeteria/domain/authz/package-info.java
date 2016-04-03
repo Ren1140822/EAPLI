@@ -5,4 +5,4 @@
  * @author pgsou_000
  *
  */
-package eapli.ecafeteria.domain.users;
+package eapli.ecafeteria.domain.authz;

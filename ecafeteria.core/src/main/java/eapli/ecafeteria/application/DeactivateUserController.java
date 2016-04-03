@@ -12,17 +12,31 @@ import eapli.ecafeteria.domain.authz.SystemUser;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.ecafeteria.persistence.UserRepository;
 import eapli.framework.application.Controller;
+import eapli.util.DateTime;
 
 /**
  *
- * @author losa
+ * @author Fernando
  */
-public class ListUsersController implements Controller {
+public class DeactivateUserController implements Controller {
 
+    // TODO this method should return only the list of active users
     public Iterable<SystemUser> listUsers() {
         ensurePermissionOfLoggedInUser(ActionRight.Administer);
 
+        // TODO a controller should not call another controller. we should
+        // refactor this code to a common service
+        final ListUsersController listUsersController = new ListUsersController();
+        return listUsersController.listUsers();
+    }
+
+    public SystemUser deactivateUser(SystemUser user) {
+        ensurePermissionOfLoggedInUser(ActionRight.Administer);
+
+        user.deactivate(DateTime.now());
+
         final UserRepository userRepository = PersistenceContext.repositories().users();
-        return userRepository.all();
+        user = userRepository.save(user);
+        return user;
     }
 }

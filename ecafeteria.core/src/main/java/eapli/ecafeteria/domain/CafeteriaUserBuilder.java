@@ -1,7 +1,8 @@
 package eapli.ecafeteria.domain;
 
-import eapli.ecafeteria.domain.users.*;
 
+
+import eapli.ecafeteria.domain.authz.SystemUser;
 import eapli.framework.domain.Factory;
 
 /**
@@ -50,7 +51,7 @@ public class CafeteriaUserBuilder implements Factory<CafeteriaUser> {
         // since the factory knows that all the parts are needed it could throw
         // an exception. however, we will leave that to the constructor
 
-        return new CafeteriaUser(this.systemUser, this.account, this.organicUnit, this.mecanographicNumber, this.status);
+        return new CafeteriaUser(this.systemUser, this.account, this.organicUnit, this.mecanographicNumber);
     }
 
 }

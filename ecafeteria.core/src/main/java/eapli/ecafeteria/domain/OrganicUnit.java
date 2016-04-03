@@ -36,6 +36,7 @@ public class OrganicUnit implements AggregateRoot<String>, Serializable {
     private boolean active;
 
     protected OrganicUnit() {
+        // for ORM
     }
 
     public OrganicUnit(String acronym, String name, String description) {
@@ -58,4 +59,6 @@ public class OrganicUnit implements AggregateRoot<String>, Serializable {
     public boolean is(String id) {
         return id.equalsIgnoreCase(this.acronym);
     }
+
+    // FIXME implement equals() and hashCode()
 }

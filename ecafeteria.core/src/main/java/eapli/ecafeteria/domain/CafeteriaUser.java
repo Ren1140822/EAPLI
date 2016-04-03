@@ -6,10 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-import eapli.ecafeteria.domain.users.ActionRight;
-import eapli.ecafeteria.domain.users.SystemUser;
-import eapli.framework.authz.Authorisable;
+import eapli.ecafeteria.domain.authz.SystemUser;
 import eapli.framework.domain.AggregateRoot;
+import javax.persistence.CascadeType;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.ManyToOne;
 
 /**
  * An Cafeteria User.
@@ -27,33 +29,34 @@ import eapli.framework.domain.AggregateRoot;
  *
  */
 @Entity
-public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Authorisable<ActionRight>, Serializable {
+public class CafeteriaUser implements AggregateRoot<MecanographicNumber>,  Serializable {
 
     /**
      *
      */
     private static final Long serialVersionUID = 1L;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private SystemUser systemUser;
     private Account account;
 
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private OrganicUnit OrganicUnit;
 
     @Id
     private MecanographicNumber mecanographicNumber;
+    @Enumerated(EnumType.ORDINAL)
     private Status status;
 
     public CafeteriaUser(SystemUser user, String account, OrganicUnit OrganicUnit,
-            String mecanographicNumber, Status status) {
+            String mecanographicNumber) {
         // FIXME validate parameters
         this.systemUser = user;
         this.account = new Account(account);
         this.OrganicUnit = OrganicUnit;
         this.mecanographicNumber = new MecanographicNumber(mecanographicNumber);
-        // TODO does it make sense to receive the status as a parameter?
-        this.status = status;
+        // by default
+        this.status = Status.APPROVAL_PENDING;
     }
 
     protected CafeteriaUser() {
@@ -107,12 +110,6 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Author
         return true;
     }
 
-    // TODO CafeteriaUser should not have this responsibility. this a
-    // Responsibility of SystemUser
-    @Override
-    public boolean isAuthorizedTo(ActionRight action) {
-        return action.canBePerformedBy(this.systemUser.getRoles().roleTypes());
-    }
 
     @Override
     public boolean is(MecanographicNumber id) {
@@ -126,16 +123,5 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Author
     @Override
     public MecanographicNumber id() {
         return this.mecanographicNumber;
-    }
-
-    // FIXME this get is unnecessary as id() already has this meaning
-    public MecanographicNumber getMecanographicNumber() {
-        return this.mecanographicNumber;
-    }
-
-    // FIXME this method should not exist as an ID should never be changed. it
-    // should only be assigned on creation
-    public void setMecanographicNumber(MecanographicNumber mecanographicNumber) {
-        this.mecanographicNumber = mecanographicNumber;
     }
 }

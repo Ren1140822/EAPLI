@@ -1,23 +1,17 @@
 package eapli.ecafeteria.application;
 
 import eapli.ecafeteria.AppSettings;
-import eapli.ecafeteria.domain.Account;
 import eapli.ecafeteria.domain.CafeteriaUser;
 import eapli.ecafeteria.domain.CafeteriaUserBuilder;
-import eapli.ecafeteria.domain.MecanographicNumber;
 import eapli.ecafeteria.domain.OrganicUnit;
 import eapli.ecafeteria.domain.Status;
-import eapli.ecafeteria.domain.users.ActionRight;
-import eapli.ecafeteria.domain.users.RoleType;
-import eapli.ecafeteria.domain.users.SystemUser;
-import eapli.ecafeteria.domain.users.UserBuilder;
+import eapli.ecafeteria.domain.authz.ActionRight;
+import eapli.ecafeteria.domain.authz.SystemUser;
 import eapli.ecafeteria.persistence.CafeteriaUserRepository;
+import eapli.ecafeteria.persistence.OrganicUnitRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
-import eapli.ecafeteria.persistence.UserRepository;
 import eapli.framework.application.Controller;
-import eapli.util.DateTime;
-import java.util.Calendar;
-import java.util.List;
+import eapli.framework.persistence.DataIntegrityViolationException;
 
 /**
  *
@@ -25,7 +19,7 @@ import java.util.List;
  */
 public class SignupCafeteriaUserController implements Controller {
 
-    public CafeteriaUser addUser(SystemUser user, String account, OrganicUnit organicUnit, String mecanographicNumber, Status status) {
+    public CafeteriaUser addUser(SystemUser user, String account, OrganicUnit organicUnit, String mecanographicNumber, Status status) throws DataIntegrityViolationException {
 
         if (!AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.Administer)) {
             // TODO check which exception to throw
@@ -48,4 +42,12 @@ public class SignupCafeteriaUserController implements Controller {
         return newUser;
     }
 
+    public Iterable<OrganicUnit> getAllOrganicUnit() {
+        final OrganicUnitRepository organicUnitRepository = PersistenceContext.repositories().organicUnits();
+
+        return organicUnitRepository.all();
+
+    }
+    
+   
 }

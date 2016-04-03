@@ -7,7 +7,7 @@ package eapli.cafeteria.consoleapp.presentation.actions;
 
 import eapli.cafeteria.consoleapp.presentation.ui.LoginUI;
 import eapli.ecafeteria.AppSettings;
-import eapli.ecafeteria.domain.users.ActionRight;
+import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.framework.actions.Action;
 import eapli.framework.actions.CompoundAction;
 

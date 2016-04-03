@@ -6,10 +6,11 @@ import java.util.List;
 import eapli.cafeteria.consoleapp.presentation.visitors.UserUIVisitor;
 import eapli.ecafeteria.application.AddUserController;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.util.AddRoleType2List;
-import eapli.ecafeteria.domain.users.RoleType;
-import eapli.ecafeteria.domain.users.SystemUser;
+import eapli.ecafeteria.domain.authz.RoleType;
+import eapli.ecafeteria.domain.authz.SystemUser;
 import eapli.framework.actions.ReturnAction;
 import eapli.framework.application.Controller;
+import eapli.framework.persistence.DataIntegrityViolationException;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.Menu;
 import eapli.framework.presentation.console.MenuItem;
@@ -45,14 +46,18 @@ public class AddUserUI extends AbstractUI {
             show = showRoles(roleTypes);
         } while (!show);
 
-        final SystemUser user = this.theController.addUser(username, password, firstName, lastName, email, roleTypes);
-
-        // TODO talvez seja demasiado complexo para apresentar aos alunos.
-        // nos slides da TP dizemos que usamos os objetos de dominio na UI
-        // pelo que podemos aqui apenas fazer uso direto dos "getter" para
-        // output
-        final UserUIVisitor visitor = new UserUIVisitor();
-        user.accept(visitor);
+        try {
+            final SystemUser user = this.theController.addUser(username, password, firstName, lastName, email,
+                    roleTypes);
+            // TODO talvez seja demasiado complexo para apresentar aos alunos.
+            // nos slides da TP dizemos que usamos os objetos de dominio na UI
+            // pelo que podemos aqui apenas fazer uso direto dos "getter" para
+            // output
+            final UserUIVisitor visitor = new UserUIVisitor();
+            user.accept(visitor);
+        } catch (final DataIntegrityViolationException e) {
+            System.out.println("That username is already in use.");
+        }
 
         return false;
     }

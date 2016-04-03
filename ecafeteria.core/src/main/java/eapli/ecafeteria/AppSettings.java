@@ -1,12 +1,15 @@
 package eapli.ecafeteria;
 
-import eapli.ecafeteria.domain.users.Session;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import eapli.ecafeteria.domain.authz.ActionRight;
+import eapli.ecafeteria.domain.authz.Session;
+import eapli.ecafeteria.domain.authz.UnauthorizedException;
 
 /**
  * A "global" (singleton) class with the application settings.
@@ -42,7 +45,7 @@ public class AppSettings {
             // propertiesStream = new FileInputStream(PROPERTIES_FILENAME);
             propertiesStream = AppSettings.class.getClassLoader().getResourceAsStream(PROPERTIES_RESOURCE);
             if (propertiesStream != null) {
-                applicationProperties.load(propertiesStream);
+                this.applicationProperties.load(propertiesStream);
             } else {
                 throw new FileNotFoundException(
                         "property file '" + PROPERTIES_RESOURCE + "' not found in the classpath");
@@ -63,12 +66,12 @@ public class AppSettings {
     }
 
     private void setDefaultProperties() {
-        applicationProperties.setProperty(REPOSITORY_FACTORY_KEY,
+        this.applicationProperties.setProperty(REPOSITORY_FACTORY_KEY,
                 "eapli.ecafeteria.persistence.jpa.JpaRepositoryFactory");
     }
 
     public String getRepositoryFactory() {
-        return applicationProperties.getProperty(REPOSITORY_FACTORY_KEY);
+        return this.applicationProperties.getProperty(REPOSITORY_FACTORY_KEY);
     }
 
     //
@@ -78,16 +81,27 @@ public class AppSettings {
     //
     private Session theSession = null;
 
-    //in a real life situation this method should not exist! anyone could circunvent the authentication
+    // in a real life situation this method should not exist! anyone could
+    // circunvent the authentication
     public void setSession(Session session) {
-        theSession = session;
+        this.theSession = session;
     }
 
     public void removeSession() {
-        theSession = null;
+        this.theSession = null;
     }
 
     public Session session() {
-        return theSession;
+        return this.theSession;
+    }
+
+    /**
+     * helper method to check the permission of the currently logged in user
+     */
+    public static void ensurePermissionOfLoggedInUser(ActionRight action) {
+        if (!AppSettings.instance().session().authenticatedUser().isAuthorizedTo(action)) {
+            throw new UnauthorizedException("User is not authorized to perform this action",
+                    AppSettings.instance().session().authenticatedUser(), action);
+        }
     }
 }

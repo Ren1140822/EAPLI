@@ -14,6 +14,6 @@ public class InMemoryCafeteriaUserRepository extends InMemoryRepository<Cafeteri
 
     @Override
     protected MecanographicNumber newPK(CafeteriaUser u) {
-        return u.getMecanographicNumber();
+        return u.id();
     }
 }

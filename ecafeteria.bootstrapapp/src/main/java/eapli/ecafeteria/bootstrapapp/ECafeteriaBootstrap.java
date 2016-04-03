@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eapli.ecafeteria.AppSettings;
-import eapli.ecafeteria.domain.users.RoleType;
-import eapli.ecafeteria.domain.users.Session;
-import eapli.ecafeteria.domain.users.SystemUser;
+import eapli.ecafeteria.domain.authz.RoleType;
+import eapli.ecafeteria.domain.authz.Session;
+import eapli.ecafeteria.domain.authz.SystemUser;
 import eapli.framework.actions.Action;
 
 /**
@@ -33,6 +33,7 @@ public class ECafeteriaBootstrap implements Action {
         // Password("admin"));
         final List<RoleType> roles = new ArrayList<RoleType>();
         roles.add(RoleType.Admin);
+        roles.add(RoleType.MenuManager);
         final Session adminSession = new Session(
                 new SystemUser("poweruser", "poweruser", "joe", "doe", "joe@email.org", roles));
         AppSettings.instance().setSession(adminSession);
