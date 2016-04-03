@@ -1,6 +1,7 @@
 package eapli.ecafeteria.application;
 
-import eapli.ecafeteria.AppSettings;
+import static eapli.ecafeteria.AppSettings.ensurePermissionOfLoggedInUser;
+
 import eapli.ecafeteria.domain.DishType;
 import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.ecafeteria.persistence.DishTypeRepository;
@@ -13,12 +14,9 @@ import eapli.framework.application.Controller;
 public class ListDishTypeController implements Controller {
 
     public Iterable<DishType> listDishTypes() {
-         if (!AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.ManageMenus)) {
-            // TODO check which exception to throw
-            throw new IllegalStateException("user is not authorized to perform this action");
-        }
+        ensurePermissionOfLoggedInUser(ActionRight.ManageMenus);
+
         final DishTypeRepository dishTypeRepository = PersistenceContext.repositories().dishTypes();
         return dishTypeRepository.all();
     }
-  
 }

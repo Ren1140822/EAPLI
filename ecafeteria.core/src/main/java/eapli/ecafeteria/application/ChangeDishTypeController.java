@@ -5,7 +5,10 @@
  */
 package eapli.ecafeteria.application;
 
+import static eapli.ecafeteria.AppSettings.ensurePermissionOfLoggedInUser;
+
 import eapli.ecafeteria.domain.DishType;
+import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.ecafeteria.persistence.DishTypeRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.framework.application.Controller;
@@ -17,6 +20,8 @@ import eapli.framework.application.Controller;
 public class ChangeDishTypeController implements Controller {
 
     public DishType changeDishType(DishType updatedDishType) {
+        ensurePermissionOfLoggedInUser(ActionRight.ManageMenus);
+
         // FIXME check permissions
         final DishTypeRepository repo = PersistenceContext.repositories().dishTypes();
         // store
