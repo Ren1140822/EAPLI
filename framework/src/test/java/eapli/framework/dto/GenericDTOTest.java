@@ -11,48 +11,43 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import eapli.framework.dto.GenericDTO;
-
 /**
  *
  * @author pgsou_000
  */
 public class GenericDTOTest {
 
-	private GenericDTO instance;
+    public GenericDTOTest() {
+    }
 
-	public GenericDTOTest() {
-	}
+    @BeforeClass
+    public static void setUpClass() {
+        System.out.println("GenericDTO");
 
-	@BeforeClass
-	public static void setUpClass() {
-		System.out.println("GenericDTO");
+    }
 
-	}
+    @AfterClass
+    public static void tearDownClass() {
+    }
 
-	@AfterClass
-	public static void tearDownClass() {
-	}
+    @Before
+    public void setUp() {
 
-	@Before
-	public void setUp() {
+    }
 
-	}
+    @After
+    public void tearDown() {
+    }
 
-	@After
-	public void tearDown() {
-		instance = null;
-	}
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureTypeIsNotNull() {
+        System.out.println("ensureTypeIsNotNull");
+        new GenericDTO(null);
+    }
 
-	@Test(expected = IllegalArgumentException.class)
-	public void ensureTypeIsNotNull() {
-		System.out.println("ensureTypeIsNotNull");
-		new GenericDTO(null);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void ensureTypeIsNotEmpty() {
-		System.out.println("ensureTypeIsNotEmpty");
-		new GenericDTO("");
-	}
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureTypeIsNotEmpty() {
+        System.out.println("ensureTypeIsNotEmpty");
+        new GenericDTO("");
+    }
 }

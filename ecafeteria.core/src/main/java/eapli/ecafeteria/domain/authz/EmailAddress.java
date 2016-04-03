@@ -34,7 +34,7 @@ public class EmailAddress implements ValueObject, Serializable {
         }
         final Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(address);
         if (!matcher.find()) {
-            throw new IllegalStateException();
+            throw new IllegalStateException("Invalid E-mail");
         }
 
         this.address = address;

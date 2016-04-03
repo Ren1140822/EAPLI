@@ -62,9 +62,6 @@ public class MainMenu extends AbstractUI {
     private static final int SETTINGS_OPTION = 4;
     private static final int DISH_TYPES_OPTION = 5;
 
-    public MainMenu() {
-    }
-
     @Override
     public boolean show() {
         drawFormTitle();
