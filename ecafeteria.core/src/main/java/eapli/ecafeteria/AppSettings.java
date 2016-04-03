@@ -77,7 +77,7 @@ public class AppSettings {
     }
 
     public Boolean isMenuLayoutHorizontal() {
-        return this.applicationProperties.getProperty(UI_MENU_LAYOUT_KEY).equalsIgnoreCase("horizontal");
+        return "horizontal".equalsIgnoreCase(this.applicationProperties.getProperty(UI_MENU_LAYOUT_KEY));
     }
 
     //
