@@ -117,6 +117,6 @@ public class Range<T extends Comparable<T>> implements ValueObject {
 		} else {
 			sb.append(']');
 		}
-		return null;
+		return sb.toString();
 	}
 }

@@ -2,6 +2,7 @@ package eapli.ecafeteria.domain;
 
 import eapli.ecafeteria.domain.authz.RoleType;
 import eapli.ecafeteria.domain.authz.SystemUser;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -13,6 +14,9 @@ import static org.junit.Assert.*;
  */
 public class CafeteriaUserTest {
 
+	private String anEmail = new String("a@a.en");
+	private String anotherEmail= new String("a@a.en");
+
 	@Test
 	public void ensureCafeteriaUserEqualsPassesForTheSameMecanographicNumber() throws Exception {
 		boolean expected = true;
@@ -23,7 +27,7 @@ public class CafeteriaUserTest {
 		ArrayList<RoleType> roles = new ArrayList<>();
 		roles.add(RoleType.Admin);
 
-		SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", "emailA", roles);
+		SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", anEmail, roles);
 
 		String anAccount= new String("acountA");
 
@@ -46,7 +50,7 @@ public class CafeteriaUserTest {
 		ArrayList<RoleType> roles = new ArrayList<>();
 		roles.add(RoleType.Admin);
 
-		SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", "emailA", roles);
+		SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", anEmail, roles);
 
 		String anAccount= new String("acountA");
 
@@ -80,7 +84,7 @@ public class CafeteriaUserTest {
 		ArrayList<RoleType> roles = new ArrayList<>();
 		roles.add(RoleType.Admin);
 
-		SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", "emailA", roles);
+		SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", anEmail, roles);
 
 		String anAccount= new String("acountA");
 
@@ -91,7 +95,7 @@ public class CafeteriaUserTest {
 		ArrayList<RoleType> systemUserRoles = new ArrayList<>();
 		systemUserRoles.add(RoleType.Admin);
 
-		SystemUser systemUser = new SystemUser("userName", "password", "firsName", "lastName", "email", systemUserRoles);
+		SystemUser systemUser = new SystemUser("userName", "password", "firsName", "lastName", anEmail, systemUserRoles);
 
 		expected = aCafeteriaUser.equals(systemUser);
 
@@ -107,7 +111,7 @@ public class CafeteriaUserTest {
 		ArrayList<RoleType> roles = new ArrayList<>();
 		roles.add(RoleType.Admin);
 
-		SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", "emailA", roles);
+		SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", anEmail, roles);
 
 		String anAccount= new String("acountA");
 
@@ -130,7 +134,7 @@ public class CafeteriaUserTest {
 		ArrayList<RoleType> roles = new ArrayList<>();
 		roles.add(RoleType.Admin);
 
-		SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", "emailA", roles);
+		SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", anEmail, roles);
 
 		String anAccount= new String("acountA");
 
@@ -152,9 +156,9 @@ public class CafeteriaUserTest {
 		ArrayList<RoleType> roles = new ArrayList<>();
 		roles.add(RoleType.Admin);
 
-		SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", "emailA", roles);
+		SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", anEmail, roles);
 
-		SystemUser anotherSystemUser = new SystemUser("userNameB", "passwordB", "firsNameB", "lastNameB", "emailB", roles);
+		SystemUser anotherSystemUser = new SystemUser("userNameB", "passwordB", "firsNameB", "lastNameB", anotherEmail, roles);
 
 		String aMecanographicNumber = new String("abc");
 
@@ -177,7 +181,7 @@ public class CafeteriaUserTest {
 		ArrayList<RoleType> roles = new ArrayList<>();
 		roles.add(RoleType.Admin);
 
-		SystemUser aSystemUser = new SystemUser("userName", "password", "firsName", "lastName", "email", roles);
+		SystemUser aSystemUser = new SystemUser("userName", "password", "firsName", "lastName", anEmail, roles);
 
 		String aMecanographicNumber = new String("abc");
 
@@ -201,7 +205,7 @@ public class CafeteriaUserTest {
 		ArrayList<RoleType> roles = new ArrayList<>();
 		roles.add(RoleType.Admin);
 
-		SystemUser aSystemUser = new SystemUser("userName", "password", "firsName", "lastName", "email", roles);
+		SystemUser aSystemUser = new SystemUser("userName", "password", "firsName", "lastName", anEmail, roles);
 
 		String aMecanographicNumber = new String("abc");
 
