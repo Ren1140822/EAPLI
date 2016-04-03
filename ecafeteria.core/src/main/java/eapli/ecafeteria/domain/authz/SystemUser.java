@@ -211,12 +211,14 @@ public class SystemUser implements AggregateRoot<Username>, Authorisable<ActionR
     public Name name() {
         return this.name;
     }
-    
+
     public boolean isActive() {
         return this.active;
     }
-    
+
     public void deactivate(Calendar deactivatedOn) {
+        // FIXME validate parameters: not null; deactivatedOn > createdOn;
+        // cannot deactivate an inactive user
         this.active = false;
         this.deactivatedOn = deactivatedOn;
     }
