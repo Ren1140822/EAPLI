@@ -21,6 +21,7 @@ import eapli.framework.actions.ReturnAction;
 import eapli.framework.actions.ShowMessageAction;
 import eapli.framework.application.Controller;
 import eapli.framework.presentation.console.AbstractUI;
+import eapli.framework.presentation.console.HorizontalMenuRenderer;
 import eapli.framework.presentation.console.Menu;
 import eapli.framework.presentation.console.MenuItem;
 import eapli.framework.presentation.console.MenuRenderer;
@@ -76,7 +77,12 @@ public class MainMenu extends AbstractUI {
     @Override
     public boolean doShow() {
         final Menu menu = buildMainMenu();
-        final MenuRenderer renderer = new VerticalMenuRenderer(menu);
+        final MenuRenderer renderer;
+        if (AppSettings.instance().isMenuLayoutHorizontal()) {
+            renderer = new HorizontalMenuRenderer(menu);
+        } else {
+            renderer = new VerticalMenuRenderer(menu);
+        }
         return renderer.show();
     }
 
@@ -91,7 +97,9 @@ public class MainMenu extends AbstractUI {
         final Menu myUserMenu = new MyUserMenu();
         mainMenu.add(new SubMenu(MY_USER_OPTION, myUserMenu, new ShowVerticalSubMenuAction(myUserMenu)));
 
-        mainMenu.add(VerticalSeparator.separator());
+        if (!AppSettings.instance().isMenuLayoutHorizontal()) {
+            mainMenu.add(VerticalSeparator.separator());
+        }
 
         if (AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.Administer)) {
             final Menu usersMenu = buildUsersMenu();
@@ -111,7 +119,10 @@ public class MainMenu extends AbstractUI {
             // TODO
             throw new UnsupportedOperationException();
         }
-        mainMenu.add(VerticalSeparator.separator());
+
+        if (!AppSettings.instance().isMenuLayoutHorizontal()) {
+            mainMenu.add(VerticalSeparator.separator());
+        }
 
         mainMenu.add(new MenuItem(EXIT_OPTION, "Exit", new ExitWithMessageAction()));
 

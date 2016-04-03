@@ -23,6 +23,7 @@ public class AppSettings {
     // "eapli/ecafeteria/ecafeteria.properties";
     private final static String PROPERTIES_RESOURCE = "ecafeteria.properties";
     private final static String REPOSITORY_FACTORY_KEY = "persistence.repositoryFactory";
+    private final static String UI_MENU_LAYOUT_KEY = "ui.menu.layout";
 
     // use lazy holder idiom
     // https://en.wikipedia.org/wiki/Initialization-on-demand_holder_idiom
@@ -68,10 +69,15 @@ public class AppSettings {
     private void setDefaultProperties() {
         this.applicationProperties.setProperty(REPOSITORY_FACTORY_KEY,
                 "eapli.ecafeteria.persistence.jpa.JpaRepositoryFactory");
+        this.applicationProperties.setProperty(UI_MENU_LAYOUT_KEY, "horizontal");
     }
 
     public String getRepositoryFactory() {
         return this.applicationProperties.getProperty(REPOSITORY_FACTORY_KEY);
+    }
+
+    public Boolean isMenuLayoutHorizontal() {
+        return this.applicationProperties.getProperty(UI_MENU_LAYOUT_KEY).equalsIgnoreCase("horizontal");
     }
 
     //
