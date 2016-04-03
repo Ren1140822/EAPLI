@@ -5,7 +5,7 @@
  */
 package eapli.ecafeteria.backoffice.consoleapp.presentation.actions;
 
- 
+
 import eapli.ecafeteria.backoffice.consoleapp.presentation.ui.ListUsersUI;
 import eapli.framework.actions.Action;
 
@@ -13,12 +13,12 @@ import eapli.framework.actions.Action;
  *
  * @author losa
  */
-public class ListUsersAction implements Action{
+public class ListUsersAction implements Action {
 
     @Override
     public boolean execute() {
-           return new ListUsersUI().show(); 
+        return new ListUsersUI().show();
     }
-    
-    
+
+
 }

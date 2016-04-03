@@ -62,7 +62,7 @@ public class AddUserUI extends AbstractUI {
         return false;
     }
 
-    private boolean showRoles(List<RoleType> roleTypes) {
+    private boolean showRoles(final List<RoleType> roleTypes) {
         // TODO we could also use the "widget" classes from the framework...
         final Menu rolesMenu = buildRolesMenu(roleTypes);
         final MenuRenderer renderer = new VerticalMenuRenderer(rolesMenu);

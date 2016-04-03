@@ -46,10 +46,10 @@ public class MainMenu extends AbstractUI {
     private static final int ADD_USER_OPTION = 1;
     private static final int LIST_USERS_OPTION = 2;
     private static final int DEACTIVATE_USER_OPTION = 3;
-    
+
     // ORGANIC UNITS
     private static final int ADD_ORGANIC_UNIT_OPTION = 1;
-    
+
     // SETTINGS
     private static final int SET_KITCHEN_ALERT_LIMIT_OPTION = 1;
     private static final int SET_USER_ALERT_LIMIT_OPTION = 2;
@@ -91,6 +91,7 @@ public class MainMenu extends AbstractUI {
         return "eCAFETERIA [@" + AppSettings.instance().session().authenticatedUser().id() + "]";
     }
 
+    //FIXME: duplicate code in utente.consoleapp.presentation.MainMenu.java
     private Menu buildMyUserMenu() {
         final Menu myUserMenu = new Menu("My account >");
 
@@ -187,7 +188,7 @@ public class MainMenu extends AbstractUI {
 
         return menu;
     }
-      
+
     @Override
     protected Controller controller() {
         throw new UnsupportedOperationException("Menus don't have a controller");

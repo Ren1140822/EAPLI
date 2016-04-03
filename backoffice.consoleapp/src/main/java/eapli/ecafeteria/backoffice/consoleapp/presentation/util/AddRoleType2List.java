@@ -11,10 +11,10 @@ import java.util.List;
  */
 public class AddRoleType2List implements Action {
 
-    private List<RoleType> roleTypes;
+    private final List<RoleType> roleTypes;
     private final RoleType roleType;
 
-    public AddRoleType2List(List<RoleType> roleTypes, RoleType roleType) {
+    public AddRoleType2List(final List<RoleType> roleTypes, final RoleType roleType) {
         this.roleType = roleType;
         this.roleTypes = roleTypes;
     }
