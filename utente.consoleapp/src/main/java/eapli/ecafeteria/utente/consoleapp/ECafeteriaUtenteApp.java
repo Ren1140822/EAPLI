@@ -4,11 +4,17 @@ import eapli.ecafeteria.bootstrapapp.ECafeteriaBootstrap;
 import eapli.ecafeteria.utente.consoleapp.presentation.FrontMenu;
 
 /**
- * eCafeteria User App
- *
+ * eCafeteria User App.
  */
-public class ECafeteriaUtenteApp {
-	public static void main(String[] args) {
+public final class ECafeteriaUtenteApp {
+
+	/**
+	 * Empty constructor is private to avoid instantiation of this class.
+	 */
+	private ECafeteriaUtenteApp() {
+	}
+
+	public static void main(final String[] args) {
 
 		// only needed because of the in memory persistence
 		new ECafeteriaBootstrap().execute();

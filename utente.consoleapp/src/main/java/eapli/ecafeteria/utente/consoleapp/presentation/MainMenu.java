@@ -34,8 +34,9 @@ public class MainMenu extends AbstractUI {
 
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
+    /* Option not being used
     private static final int DISH_TYPE_OPTION = 2;
-
+    */
     public MainMenu() {
     }
 
