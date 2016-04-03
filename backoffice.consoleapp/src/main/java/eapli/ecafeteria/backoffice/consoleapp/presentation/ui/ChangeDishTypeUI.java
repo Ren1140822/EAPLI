@@ -11,7 +11,6 @@ import eapli.ecafeteria.domain.DishType;
 import eapli.framework.application.Controller;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
-import eapli.framework.visitor.Visitor;
 import eapli.util.Console;
 
 /**
@@ -33,22 +32,7 @@ public class ChangeDishTypeUI extends AbstractUI {
         final Iterable<DishType> allDishTypes = new ListDishTypeController().listDishTypes();
         allDishTypes.iterator();
 
-        final SelectWidget<DishType> selector = new SelectWidget<DishType>(allDishTypes, new Visitor<DishType>() {
-
-            @Override
-            public void visit(DishType visitee) {
-                System.out.printf("%-10s%-30s%-4s\n", visitee.id(), visitee.description(),
-                        String.valueOf(visitee.isActive()));
-            }
-
-            @Override
-            public void beforeVisiting(DishType visitee) {
-            }
-
-            @Override
-            public void afterVisiting(DishType visitee) {
-            }
-        });
+        final SelectWidget<DishType> selector = new SelectWidget<DishType>(allDishTypes, new DishTypeVisitor());
 
         selector.show();
         final DishType updtDishType = selector.selectedElement();
