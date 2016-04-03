@@ -2,16 +2,16 @@ package eapli.ecafeteria.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import eapli.ecafeteria.domain.authz.SystemUser;
 import eapli.framework.domain.AggregateRoot;
-import javax.persistence.CascadeType;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.ManyToOne;
 
 /**
  * An Cafeteria User.
@@ -29,12 +29,12 @@ import javax.persistence.ManyToOne;
  *
  */
 @Entity
-public class CafeteriaUser implements AggregateRoot<MecanographicNumber>,  Serializable {
+public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Serializable {
 
     /**
      *
      */
-    private static final Long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     @OneToOne(cascade = CascadeType.PERSIST)
     private SystemUser systemUser;
@@ -48,8 +48,7 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>,  Seria
     @Enumerated(EnumType.ORDINAL)
     private Status status;
 
-    public CafeteriaUser(SystemUser user, String account, OrganicUnit OrganicUnit,
-            String mecanographicNumber) {
+    public CafeteriaUser(SystemUser user, String account, OrganicUnit OrganicUnit, String mecanographicNumber) {
         // FIXME validate parameters
         this.systemUser = user;
         this.account = new Account(account);
@@ -68,7 +67,8 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>,  Seria
         if (this == o) {
             return true;
         }
-        //TODO: I think SystemUser should be replaced by CafeteriaUser. Is there a reason for the opposite?
+        // TODO: I think SystemUser should be replaced by CafeteriaUser. Is
+        // there a reason for the opposite?
         if (!(o instanceof CafeteriaUser)) {
             return false;
         }
@@ -110,7 +110,6 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>,  Seria
 
         return true;
     }
-
 
     @Override
     public boolean is(MecanographicNumber id) {

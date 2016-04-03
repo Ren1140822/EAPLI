@@ -9,7 +9,6 @@ import eapli.cafeteria.consoleapp.presentation.actions.ExitWithMessageAction;
 import eapli.cafeteria.consoleapp.presentation.actions.LoginAction;
 import eapli.ecafeteria.utente.consoleapp.presentation.actions.SignupCafeteriaUserAction;
 import eapli.framework.actions.IfThenAction;
-import eapli.framework.actions.ShowMessageAction;
 import eapli.framework.application.Controller;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.Menu;
@@ -25,10 +24,8 @@ public class FrontMenu extends AbstractUI {
 
     private static final int EXIT_OPTION = 0;
 
-	private static final int LOGIN_OPTION  = 1;
-	private static final int SIGNUP_OPTION = 2;
-        private static final int REGISTER_DISH_TYPE_OPTION = 3;
-        private static final int LIST_DISH_TYPE_OPTION = 4;
+    private static final int LOGIN_OPTION = 1;
+    private static final int SIGNUP_OPTION = 2;
 
     public FrontMenu() {
     }

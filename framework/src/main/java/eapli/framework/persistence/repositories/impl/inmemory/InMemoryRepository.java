@@ -1,16 +1,12 @@
 package eapli.framework.persistence.repositories.impl.inmemory;
 
-import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
+import java.util.Map;
 
-import eapli.framework.domain.DomainEntity;
 import eapli.framework.persistence.repositories.DeleteableRepository;
 import eapli.framework.persistence.repositories.IterableRepository;
 import eapli.framework.persistence.repositories.Repository;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by nuno on 20/03/16.
@@ -56,7 +52,7 @@ public abstract class InMemoryRepository<T, K>
      */
     @Override
     public T findById(K id) {
-        return repository.get(id);
+        return this.repository.get(id);
     }
 
     /**

@@ -15,104 +15,103 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import eapli.framework.dto.GenericDTO;
-
 /**
  *
  * @author pgsou_000
  */
 public class GenericDtoForInheritedClassTest {
 
-	private static String			 STRING_FIELD_VALUE	= "abc";
-	private static int				 INT_FIELD_VALUE	= 3;
-	private static float			 FLOAT_FIELD_VALUE	= 3.1415f;
+    private static String STRING_FIELD_VALUE = "abc";
+    private static int INT_FIELD_VALUE = 3;
+    private static float FLOAT_FIELD_VALUE = 3.1415f;
 
-	private static final SimpleClass subject			= new SimpleClass(STRING_FIELD_VALUE, INT_FIELD_VALUE,
-	        FLOAT_FIELD_VALUE);
-	private static GenericDTO		 instance;
+    private static final SimpleClass subject = new SimpleClass(STRING_FIELD_VALUE, INT_FIELD_VALUE, FLOAT_FIELD_VALUE);
+    private static GenericDTO instance;
 
-	public GenericDtoForInheritedClassTest() {
-	}
+    public GenericDtoForInheritedClassTest() {
+    }
 
-	@BeforeClass
-	public static void setUpClass() {
-		System.out.println("GenericDtoForInheritedClassTest");
+    @BeforeClass
+    public static void setUpClass() {
+        System.out.println("GenericDtoForInheritedClassTest");
 
-		instance = GenericDTO.buildDTO(subject);
+        instance = GenericDTO.buildDTO(subject);
 
-		System.out.println("===========");
-		System.out.println(instance);
-		System.out.println(instance.type());
-		for (final Map.Entry<String, Object> e : instance.entrySet()) {
-			System.out.println("[" + e.getKey() + "] => [" + e.getValue() + "]");
-		}
-		System.out.println("===========");
-	}
+        System.out.println("===========");
+        System.out.println(instance);
+        System.out.println(instance.type());
+        for (final Map.Entry<String, Object> e : instance.entrySet()) {
+            System.out.println("[" + e.getKey() + "] => [" + e.getValue() + "]");
+        }
+        System.out.println("===========");
+    }
 
-	@AfterClass
-	public static void tearDownClass() {
-	}
+    @AfterClass
+    public static void tearDownClass() {
+    }
 
-	@Before
-	public void setUp() {
+    @Before
+    public void setUp() {
 
-	}
+    }
 
-	@After
-	public void tearDown() {
-	}
+    @After
+    public void tearDown() {
+    }
 
-	private static class SimpleClassBase {
-		private final String stringField;
-		private final int	 intField;
+    @SuppressWarnings("unused")
+    private static class SimpleClassBase {
+        private final String stringField;
+        private final int intField;
 
-		public SimpleClassBase(String s, int i) {
-			stringField = s;
-			intField = i;
-		}
-	}
+        public SimpleClassBase(String s, int i) {
+            this.stringField = s;
+            this.intField = i;
+        }
+    }
 
-	private static class SimpleClass extends SimpleClassBase {
-		private final float floatField;
+    @SuppressWarnings("unused")
+    private static class SimpleClass extends SimpleClassBase {
+        private final float floatField;
 
-		public SimpleClass(String s, int i, float f) {
-			super(s, i);
-			floatField = f;
-		}
-	}
+        public SimpleClass(String s, int i, float f) {
+            super(s, i);
+            this.floatField = f;
+        }
+    }
 
-	@Test
-	public void ensureType() {
-		System.out.println("ensureType");
+    @Test
+    public void ensureType() {
+        System.out.println("ensureType");
 
-		assertEquals("Name of type is incorrect", instance.type(), subject.getClass().getName());
-	}
+        assertEquals("Name of type is incorrect", instance.type(), subject.getClass().getName());
+    }
 
-	@Test
-	public void ensureDTOHas3Fields() {
-		System.out.println("ensureDTOHas3Fields");
+    @Test
+    public void ensureDTOHas3Fields() {
+        System.out.println("ensureDTOHas3Fields");
 
-		assertEquals("Name of type is incorrect", 3, instance.size());
-	}
+        assertEquals("Name of type is incorrect", 3, instance.size());
+    }
 
-	@Test
-	public void ensureStringFieldIsTransformed() {
-		System.out.println("ensureStringFieldIsTransformed");
+    @Test
+    public void ensureStringFieldIsTransformed() {
+        System.out.println("ensureStringFieldIsTransformed");
 
-		assertEquals("'stringField' is incorrectly transformed", STRING_FIELD_VALUE, instance.get("stringField"));
-	}
+        assertEquals("'stringField' is incorrectly transformed", STRING_FIELD_VALUE, instance.get("stringField"));
+    }
 
-	@Test
-	public void ensureIntFieldIsTransformed() {
-		System.out.println("ensureIntFieldIsTransformed");
+    @Test
+    public void ensureIntFieldIsTransformed() {
+        System.out.println("ensureIntFieldIsTransformed");
 
-		assertEquals("'intField' is incorrectly transformed", INT_FIELD_VALUE, instance.get("intField"));
-	}
+        assertEquals("'intField' is incorrectly transformed", INT_FIELD_VALUE, instance.get("intField"));
+    }
 
-	@Test
-	public void ensureFloatFieldIsTransformed() {
-		System.out.println("ensureFloatFieldIsTransformed");
+    @Test
+    public void ensureFloatFieldIsTransformed() {
+        System.out.println("ensureFloatFieldIsTransformed");
 
-		assertEquals("'floatField' is incorrectly transformed", FLOAT_FIELD_VALUE, instance.get("floatField"));
-	}
+        assertEquals("'floatField' is incorrectly transformed", FLOAT_FIELD_VALUE, instance.get("floatField"));
+    }
 }
