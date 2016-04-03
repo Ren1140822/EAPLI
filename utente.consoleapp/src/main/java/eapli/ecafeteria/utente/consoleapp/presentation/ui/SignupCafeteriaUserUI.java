@@ -50,25 +50,21 @@ public class SignupCafeteriaUserUI extends AbstractUI {
         final String account = Console.readLine("Account");
 
         final OrganicUnitUIVisitor organicUnitVisitor = new OrganicUnitUIVisitor();
-        SelectWidget<OrganicUnit> widget;
-       widget = new SelectWidget((Collection) theController.getAllOrganicUnit(),organicUnitVisitor);
-       widget.show();
-       
-        int key = widget.selectedOption();
-        
-        System.out.println("key=" + key);
+        SelectWidget<OrganicUnit> selector;
+        selector = new SelectWidget((Collection) theController.getAllOrganicUnit(), organicUnitVisitor);
+        selector.show();
+
+        final OrganicUnit organicUnit = selector.selectedElement();
 
         final String mecanographicNumber = Console.readLine("Mecanographic Number");
-        
-        
-//
-//        if (user != null) {
-//            try {
-//                this.theController.addUser(user, account, organicUnit, mecanographicNumber, Status.APPROVAL_PENDING);
-//            } catch (DataIntegrityViolationException ex) {
-//                Logger.getLogger(SignupCafeteriaUserUI.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
+
+        if (user != null) {
+            try {
+                this.theController.addUser(user, account, organicUnit, mecanographicNumber, Status.APPROVAL_PENDING);
+            } catch (DataIntegrityViolationException ex) {
+                Logger.getLogger(SignupCafeteriaUserUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
 
         return false;
     }
