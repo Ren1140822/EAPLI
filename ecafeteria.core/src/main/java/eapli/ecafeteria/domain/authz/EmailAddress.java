@@ -4,6 +4,8 @@
 package eapli.ecafeteria.domain.authz;
 
 import java.io.Serializable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.persistence.Embeddable;
 
@@ -20,17 +22,26 @@ public class EmailAddress implements ValueObject, Serializable {
      *
      */
     private static final long serialVersionUID = 1L;
+
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
+            Pattern.CASE_INSENSITIVE);
+
     private String address;
 
     public EmailAddress(String address) {
         if (Strings.isNullOrEmpty(address)) {
             throw new IllegalStateException("email address should neither be null nor empty");
         }
-        // FIXME validate invariants, i.e., email regular expression
+        final Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(address);
+        if (!matcher.find()) {
+            throw new IllegalStateException();
+        }
+
         this.address = address;
     }
 
     protected EmailAddress() {
+        // for ORM
     }
 
     @Override

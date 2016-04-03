@@ -28,6 +28,7 @@ public class ListUsersUI extends AbstractUI {
         if (!iterable.iterator().hasNext()) {
             System.out.println("There is no registered User");
         } else {
+            // TODO use a widget
             for (final SystemUser user : iterable) {
                 // TODO display other attributes
                 System.out.printf("%10s %30s %30s\n", user.username(), user.name().firstName(), user.name().lastName());
@@ -35,22 +36,6 @@ public class ListUsersUI extends AbstractUI {
         }
         return false;
     }
-
-    // TODO use a widget from the framework
-    /*NMB: method is never used
-    protected boolean doShowIterable(Iterable<User> iterable) {
-        if (!iterable.iterator().hasNext()) {
-            System.out.println("There is no registered Dish Type");
-        } else {
-            System.out.printf("%-6s%-30s%6s\n", "Key", "Dish Type description", "Active");
-            /*
-            for (final User dT : iterable) {
-            }
-            */
-        /*}
-        return true;
-    }
-    */
 
     @Override
     public String headline() {

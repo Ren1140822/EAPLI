@@ -22,9 +22,7 @@ public class ChangeDishTypeController implements Controller {
     public DishType changeDishType(DishType updatedDishType) {
         ensurePermissionOfLoggedInUser(ActionRight.ManageMenus);
 
-        // FIXME check permissions
         final DishTypeRepository repo = PersistenceContext.repositories().dishTypes();
-        // store
         updatedDishType = repo.save(updatedDishType);
         return updatedDishType;
     }

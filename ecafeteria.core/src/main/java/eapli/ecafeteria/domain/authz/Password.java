@@ -8,6 +8,7 @@ import java.io.Serializable;
 import javax.persistence.Embeddable;
 
 import eapli.framework.domain.ValueObject;
+import eapli.util.Strings;
 
 /**
  * TODO passwords should never be stored in plain format
@@ -23,12 +24,14 @@ public class Password implements ValueObject, Serializable {
     private static final long serialVersionUID = 1L;
     private String password;
 
-    // for ORM only
     protected Password() {
+        // for ORM only
     }
 
     public Password(String password) {
-        // FIXME validate invariants
+        if (Strings.isNullOrEmpty(password)) {
+            throw new IllegalStateException();
+        }
         this.password = password;
     }
 
