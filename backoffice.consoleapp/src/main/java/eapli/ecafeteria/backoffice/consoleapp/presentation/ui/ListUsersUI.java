@@ -44,8 +44,10 @@ public class ListUsersUI extends AbstractUI {
             System.out.println("There is no registered Dish Type");
         } else {
             System.out.printf("%-6s%-30s%6s\n", "Key", "Dish Type description", "Active");
+            /*
             for (final User dT : iterable) {
             }
+            */
         }
         return true;
     }
