@@ -39,7 +39,7 @@ public class SystemUser implements AggregateRoot<Username>, Authorisable<ActionR
      *
      */
     private static final long serialVersionUID = 1L;
-    // TODO provably we should have a db ID (long) differen than the domain ID.
+    // TODO probably we should have a db ID (long) different from the domain ID.
     @Id
     private Username username;
     private Password password;
@@ -48,6 +48,9 @@ public class SystemUser implements AggregateRoot<Username>, Authorisable<ActionR
     private RoleSet roles;
     @Temporal(TemporalType.DATE)
     private Calendar createdOn;
+    private boolean active;
+    @Temporal(TemporalType.DATE)
+    private Calendar deactivatedOn;
 
     public SystemUser(String username, String password, String firstName, String lastName, String email,
             List<RoleType> roles) {
@@ -68,6 +71,7 @@ public class SystemUser implements AggregateRoot<Username>, Authorisable<ActionR
         for (final RoleType rt : roles) {
             this.roles.add(new Role(rt, this.createdOn));
         }
+        this.active = true;
     }
 
     // for ORM
@@ -206,5 +210,16 @@ public class SystemUser implements AggregateRoot<Username>, Authorisable<ActionR
 
     public Name name() {
         return this.name;
+    }
+
+    public boolean isActive() {
+        return this.active;
+    }
+
+    public void deactivate(Calendar deactivatedOn) {
+        // FIXME validate parameters: not null; deactivatedOn > createdOn;
+        // cannot deactivate an inactive user
+        this.active = false;
+        this.deactivatedOn = deactivatedOn;
     }
 }
