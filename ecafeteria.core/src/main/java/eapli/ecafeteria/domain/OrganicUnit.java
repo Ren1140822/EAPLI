@@ -60,5 +60,12 @@ public class OrganicUnit implements AggregateRoot<String>, Serializable {
         return id.equalsIgnoreCase(this.acronym);
     }
 
+    public boolean isActive() {
+        return this.active;
+    }
+
+    public String description() {
+        return this.description;
+    }
     // FIXME implement equals() and hashCode()
 }
