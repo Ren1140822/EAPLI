@@ -1,9 +1,10 @@
 package eapli.ecafeteria.application;
 
+import static eapli.ecafeteria.AppSettings.ensurePermissionOfLoggedInUser;
+
 import java.util.Calendar;
 import java.util.List;
 
-import eapli.ecafeteria.AppSettings;
 import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.ecafeteria.domain.authz.RoleType;
 import eapli.ecafeteria.domain.authz.SystemUser;
@@ -15,7 +16,6 @@ import eapli.framework.persistence.DataIntegrityViolationException;
 import eapli.util.DateTime;
 
 /**
- * FIXME this class is a duplicate of UserRegisterController.
  *
  * Created by nuno on 21/03/16.
  */
@@ -23,11 +23,7 @@ public class AddUserController implements Controller {
 
     public SystemUser addUser(String username, String password, String firstName, String lastName, String email,
             List<RoleType> roles, Calendar createdOn) throws DataIntegrityViolationException {
-
-        if (!AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.Administer)) {
-            // TODO check which exception to throw
-            throw new IllegalStateException("user is not authorized to perform this action");
-        }
+        ensurePermissionOfLoggedInUser(ActionRight.Administer);
 
         final UserBuilder userBuilder = new UserBuilder();
         userBuilder.withUsername(username).withPassword(password).withFirstName(firstName).withLastName(lastName)

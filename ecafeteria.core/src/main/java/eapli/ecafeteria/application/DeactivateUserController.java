@@ -1,11 +1,12 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template file, choose Tools | Templates and open the template
+ * in the editor.
  */
 package eapli.ecafeteria.application;
 
-import eapli.ecafeteria.AppSettings;
+import static eapli.ecafeteria.AppSettings.ensurePermissionOfLoggedInUser;
+
 import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.ecafeteria.domain.authz.SystemUser;
 import eapli.ecafeteria.persistence.PersistenceContext;
@@ -19,24 +20,23 @@ import eapli.util.DateTime;
  */
 public class DeactivateUserController implements Controller {
 
+    // TODO this method should return only the list of active users
     public Iterable<SystemUser> listUsers() {
-        if (!AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.Administer)) {
-            // TODO check which exception to throw
-            throw new IllegalStateException("User is not authorized to perform this action");
-        }
+        ensurePermissionOfLoggedInUser(ActionRight.Administer);
+
+        // TODO a controller should not call another controller. we should
+        // refactor this code to a common service
         final ListUsersController listUsersController = new ListUsersController();
         return listUsersController.listUsers();
     }
-    
-        public SystemUser deactivateUser(SystemUser user) {
-        if (!AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.Administer)) {
-            // TODO check which exception to throw
-            throw new IllegalStateException("User is not authorized to perform this action");
-        }
+
+    public SystemUser deactivateUser(SystemUser user) {
+        ensurePermissionOfLoggedInUser(ActionRight.Administer);
+
         user.deactivate(DateTime.now());
-        
+
         final UserRepository userRepository = PersistenceContext.repositories().users();
-        userRepository.save(user);
+        user = userRepository.save(user);
         return user;
     }
 }

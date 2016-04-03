@@ -5,7 +5,8 @@
  */
 package eapli.ecafeteria.application;
 
-import eapli.ecafeteria.AppSettings;
+import static eapli.ecafeteria.AppSettings.ensurePermissionOfLoggedInUser;
+
 import eapli.ecafeteria.domain.OrganicUnit;
 import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.ecafeteria.persistence.OrganicUnitRepository;
@@ -20,11 +21,7 @@ import eapli.framework.persistence.DataIntegrityViolationException;
 public class AddOrganicUnitController implements Controller {
     public OrganicUnit addOrganicUnit(String acronym, String name, String description)
             throws DataIntegrityViolationException {
-
-        if (!AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.Administer)) {
-            // TODO check which exception to throw
-            throw new IllegalStateException("user is not authorized to perform this action");
-        }
+        ensurePermissionOfLoggedInUser(ActionRight.Administer);
 
         final OrganicUnit newOrganicUnit = new OrganicUnit(acronym, name, description);
         final OrganicUnitRepository organicUnitRepository = PersistenceContext.repositories().organicUnits();
@@ -32,6 +29,5 @@ public class AddOrganicUnitController implements Controller {
         // store
         organicUnitRepository.add(newOrganicUnit);
         return newOrganicUnit;
-
     }
 }

@@ -8,9 +8,8 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Test;
 
-import eapli.ecafeteria.domain.authz.InvalidPasswordException;
-import eapli.ecafeteria.domain.authz.InvalidUserException;
 import eapli.ecafeteria.domain.authz.RoleType;
+import eapli.ecafeteria.domain.authz.UnableToAuthenticateException;
 
 /**
  * Created by Nuno Bettencourt [NMB] on 24/03/16.
@@ -43,7 +42,7 @@ public class LoginControllerTest {
         assertTrue(true);
     }
 
-    @Test(expected = InvalidUserException.class)
+    @Test(expected = UnableToAuthenticateException.class)
     public void ensureInvalidUser() throws Exception {
         System.getProperties().setProperty("persistence.repositoryFactory",
                 "eapli.ecafeteria.persistence.inmemory.InMemoryRepositoryFactory");
@@ -68,7 +67,7 @@ public class LoginControllerTest {
         assertTrue(true);
     }
 
-    @Test(expected = InvalidPasswordException.class)
+    @Test(expected = UnableToAuthenticateException.class)
     public void ensureInvalidPassword() throws Exception {
         System.getProperties().setProperty("persistence.repositoryFactory",
                 "eapli.ecafeteria.persistence.inmemory.InMemoryRepositoryFactory");
