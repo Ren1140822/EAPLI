@@ -5,6 +5,7 @@
 package eapli.framework.presentation.console;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import eapli.framework.visitor.Visitor;
 import eapli.util.Console;
@@ -25,6 +26,10 @@ public class SelectWidget<T> extends ListWidget<T> {
         super(source, visitor);
     }
 
+    public SelectWidget(Iterable<T> source, Visitor<T> visitor) {
+        super(source, visitor);
+    }
+
     @Override
     public void show() {
         super.show();
@@ -34,11 +39,28 @@ public class SelectWidget<T> extends ListWidget<T> {
 
     /**
      *
-     * @return -1 is the user has not yet made a selection 0 if the user
+     * @return -1 if the user has not yet made a selection 0 if the user
      *         selected "exit" a positive number corresponding to the list index
-     *         os source if the user selected an item
+     *         of source if the user selected an item
      */
     public int selectedOption() {
         return this.option;
+    }
+
+    public T selectedElement() {
+        switch (this.option) {
+        case -1:
+        case 0:
+            return null;
+        default:
+            int idx = 0;
+            T elem = null;
+            final Iterator<T> it = this.source.iterator();
+            while (idx < this.option) {
+                elem = it.next();
+                idx++;
+            }
+            return elem;
+        }
     }
 }

@@ -17,5 +17,5 @@ public class ListDishTypeAction implements Action {
     public boolean execute() {
         return new ListDishTypeUI().show();
     }
-    
+
 }
