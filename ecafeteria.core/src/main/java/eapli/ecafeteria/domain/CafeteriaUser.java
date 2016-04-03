@@ -45,13 +45,13 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Author
     private MecanographicNumber mecanographicNumber;
     private Status status;
 
-    public CafeteriaUser(SystemUser user, Account account, OrganicUnit OrganicUnit,
-            MecanographicNumber mecanographicNumber, Status status) {
+    public CafeteriaUser(SystemUser user, String account, OrganicUnit OrganicUnit,
+            String mecanographicNumber, Status status) {
         // FIXME validate parameters
         this.systemUser = user;
-        this.account = account;
+        this.account = new Account(account);
         this.OrganicUnit = OrganicUnit;
-        this.mecanographicNumber = mecanographicNumber;
+        this.mecanographicNumber = new MecanographicNumber(mecanographicNumber);
         // TODO does it make sense to receive the status as a parameter?
         this.status = status;
     }

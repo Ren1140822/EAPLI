@@ -1,8 +1,8 @@
 package eapli.ecafeteria.persistence.inmemory;
 
-import eapli.ecafeteria.domain.users.SystemUser;
-import eapli.ecafeteria.domain.users.Username;
-import eapli.ecafeteria.persistence.UserRepository;
+import eapli.ecafeteria.domain.CafeteriaUser;
+import eapli.ecafeteria.domain.MecanographicNumber;
+import eapli.ecafeteria.persistence.CafeteriaUserRepository;
 import eapli.framework.persistence.repositories.impl.inmemory.InMemoryRepository;
 
 /**
@@ -10,10 +10,10 @@ import eapli.framework.persistence.repositories.impl.inmemory.InMemoryRepository
  * @author Jorge Santos ajs@isep.ipp.pt
  * 02/04/2016
  */
-public class InMemoryCafeteriaUserRepository extends InMemoryRepository<SystemUser, Username> implements UserRepository {
+public class InMemoryCafeteriaUserRepository extends InMemoryRepository<CafeteriaUser, MecanographicNumber> implements CafeteriaUserRepository {
 
     @Override
-    protected Username newPK(SystemUser u) {
-        return u.username();
+    protected MecanographicNumber newPK(CafeteriaUser u) {
+        return u.getMecanographicNumber();
     }
 }

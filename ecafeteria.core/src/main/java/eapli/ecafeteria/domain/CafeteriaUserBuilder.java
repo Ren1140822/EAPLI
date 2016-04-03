@@ -1,55 +1,56 @@
 package eapli.ecafeteria.domain;
 
 import eapli.ecafeteria.domain.users.*;
-import java.util.Calendar;
-import java.util.List;
 
-public class CafeteriaUserBuilder {
+import eapli.framework.domain.Factory;
 
-    private String username;
-    private String password;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private List<RoleType> roles;
-    private Calendar createdOn;
+/**
+ * A factory for User entities.
+ *
+ * This class demonstrates the use of the factory (DDD) pattern using a fluent
+ * interface. it acts as a Builder (GoF).
+ *
+ * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
+ */
+public class CafeteriaUserBuilder implements Factory<CafeteriaUser> {
 
-    public CafeteriaUserBuilder setUsername(String username) {
-        this.username = username;
+    private SystemUser systemUser;
+    private String account;
+    private OrganicUnit organicUnit;
+    private String mecanographicNumber;
+    private Status status;
+
+    public CafeteriaUserBuilder withSystemUser(SystemUser systemUser) {
+        this.systemUser = systemUser;
         return this;
     }
 
-    public CafeteriaUserBuilder setPassword(String password) {
-        this.password = password;
+    public CafeteriaUserBuilder withAccount(String account) {
+        this.account = account;
         return this;
     }
 
-    public CafeteriaUserBuilder setFirstName(String firstName) {
-        this.firstName = firstName;
+    public CafeteriaUserBuilder withOrganicUnit(OrganicUnit organicUnit) {
+        this.organicUnit = organicUnit;
         return this;
     }
 
-    public CafeteriaUserBuilder setLastName(String lastName) {
-        this.lastName = lastName;
+    public CafeteriaUserBuilder withMecanographicNumber(String mecanographicNumber) {
+        this.mecanographicNumber = mecanographicNumber;
         return this;
     }
 
-    public CafeteriaUserBuilder setEmail(String email) {
-        this.email = email;
+    public CafeteriaUserBuilder withStatus(Status status) {
+        this.status = status;
         return this;
     }
 
-    public CafeteriaUserBuilder setRoles(List<RoleType> roles) {
-        this.roles = roles;
-        return this;
-    }
+    @Override
+    public CafeteriaUser build() {
+        // since the factory knows that all the parts are needed it could throw
+        // an exception. however, we will leave that to the constructor
 
-    public SystemUser createUser() {
-        if (createdOn != null) {
-            return new SystemUser(username, password, firstName, lastName, email, roles, createdOn);
-        } else {
-            return new SystemUser(username, password, firstName, lastName, email, roles);
-        }
+        return new CafeteriaUser(this.systemUser, this.account, this.organicUnit, this.mecanographicNumber, this.status);
     }
 
 }
