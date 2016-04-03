@@ -38,6 +38,7 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Author
     private SystemUser systemUser;
     private Account account;
 
+    //TODO: fix OrganicUnit name
     @OneToOne
     private OrganicUnit OrganicUnit;
 
@@ -61,31 +62,26 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Author
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof SystemUser)) {
+        //TODO: ASK: Why does equals require object o to be of type SystemUser? I guess this should be CafeteriaUser instead of SystemUSer
+        if (!(o instanceof CafeteriaUser)) {
             return false;
         }
 
         final CafeteriaUser cafeteriaUser = (CafeteriaUser) o;
 
-        if (!this.mecanographicNumber.equals(cafeteriaUser.mecanographicNumber)) {
-            return false;
-        }
-
-        return true;
+        return this.mecanographicNumber.equals(cafeteriaUser.mecanographicNumber);
     }
 
     @Override
     public int hashCode() {
-        final int result = this.mecanographicNumber.hashCode();
-
-        return result;
+        return this.mecanographicNumber.hashCode();
     }
 
-    public boolean sameAs(CafeteriaUser cafeteriaUser) {
+    public boolean sameAs(final CafeteriaUser cafeteriaUser) {
         if (this == cafeteriaUser) {
             return true;
         }
@@ -100,22 +96,19 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Author
         if (!this.account.equals(cafeteriaUser.account)) {
             return false;
         }
-        if (!this.OrganicUnit.equals(cafeteriaUser.OrganicUnit)) {
-            return false;
-        }
+        return this.OrganicUnit.equals(cafeteriaUser.OrganicUnit);
 
-        return true;
     }
 
     // TODO CafeteriaUser should not have this responsibility. this a
     // Responsibility of SystemUser
     @Override
-    public boolean isAuthorizedTo(ActionRight action) {
+    public boolean isAuthorizedTo(final ActionRight action) {
         return action.canBePerformedBy(this.systemUser.getRoles().roleTypes());
     }
 
     @Override
-    public boolean is(MecanographicNumber id) {
+    public boolean is(final MecanographicNumber id) {
         return id().equals(id);
     }
 
