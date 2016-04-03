@@ -64,6 +64,10 @@ public class OrganicUnit implements AggregateRoot<String>, Serializable {
         return this.active;
     }
 
+    public String name() {
+        return this.name;
+    }
+
     public String description() {
         return this.description;
     }

@@ -1,7 +1,5 @@
 package eapli.ecafeteria.domain;
 
-
-
 import eapli.ecafeteria.domain.authz.SystemUser;
 import eapli.framework.domain.Factory;
 
@@ -53,5 +51,4 @@ public class CafeteriaUserBuilder implements Factory<CafeteriaUser> {
 
         return new CafeteriaUser(this.systemUser, this.account, this.organicUnit, this.mecanographicNumber);
     }
-
 }
