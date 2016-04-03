@@ -4,6 +4,7 @@
  */
 package eapli.framework.presentation.console;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import eapli.framework.visitor.Visitor;
@@ -24,11 +25,17 @@ import eapli.framework.visitor.Visitor;
  */
 public class ListWidget<T> {
 
-    private final Collection<T> source;
+    protected final Collection<T> source;
     private final Visitor<T> visitor;
 
     public ListWidget(Collection<T> source, Visitor<T> visitor) {
         this.source = source;
+        this.visitor = visitor;
+    }
+
+    public ListWidget(Iterable<T> source, Visitor<T> visitor) {
+        this.source = new ArrayList<T>();
+        source.forEach(x -> this.source.add(x));
         this.visitor = visitor;
     }
 
