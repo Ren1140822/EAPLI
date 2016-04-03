@@ -10,12 +10,12 @@ import eapli.framework.visitor.Visitor;
  * @author pgsou_000
  *
  */
-class DishTypeVisitor implements Visitor<DishType> {
+class DishTypePrinter implements Visitor<DishType> {
 
     /**
      *
      */
-    public DishTypeVisitor() {
+    public DishTypePrinter() {
     }
 
     @Override
