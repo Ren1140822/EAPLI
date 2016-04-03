@@ -15,11 +15,13 @@ import org.slf4j.LoggerFactory;
 public class LoginUI extends AbstractUI {
     private final LoginController theController = new LoginController();
 
+    /*
     private final Logger logger = LoggerFactory.getLogger(LoginUI.class);
 
     public Logger getLogger() {
         return logger;
     }
+    */
 
     @Override
     protected Controller controller() {
@@ -36,7 +38,7 @@ public class LoginUI extends AbstractUI {
             System.out.println("Authentication Successful");
             return true;
         } catch (final UnableToAuthenticateException e) {
-            getLogger().info("Invalid Authenticon:" + e);
+            //getLogger().info("Invalid Authenticon:" + e);
             System.out.println("Invalid authentication");
             return false;
         }
