@@ -5,11 +5,9 @@
  */
 package eapli.ecafeteria.utente.consoleapp.presentation;
 
+import eapli.cafeteria.consoleapp.presentation.MyUserMenu;
 import eapli.cafeteria.consoleapp.presentation.actions.ExitWithMessageAction;
-import eapli.cafeteria.consoleapp.presentation.actions.LoginAction;
-import eapli.cafeteria.consoleapp.presentation.actions.LogoutAction;
 import eapli.ecafeteria.AppSettings;
-import eapli.framework.actions.ShowMessageAction;
 import eapli.framework.application.Controller;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.Menu;
@@ -27,16 +25,12 @@ public class MainMenu extends AbstractUI {
 
     private static final int EXIT_OPTION = 0;
 
-    // MY USER
-    private static final int CHANGE_PASSWORD_OPTION = 1;
-    private static final int LOGIN_OPTION = 2;
-    private static final int LOGOUT_OPTION = 3;
-
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
-    /* Option not being used
-    private static final int DISH_TYPE_OPTION = 2;
-    */
+
+    /*
+     * Option not being used private static final int DISH_TYPE_OPTION = 2;
+     */
     public MainMenu() {
     }
 
@@ -61,28 +55,17 @@ public class MainMenu extends AbstractUI {
         return "eCAFETERIA [@" + AppSettings.instance().session().authenticatedUser().id() + "]";
     }
 
-    private Menu buildMyUserMenu() {
-        final Menu myUserMenu = new Menu("My account >");
-
-        myUserMenu.add(
-                new MenuItem(CHANGE_PASSWORD_OPTION, "Change password", new ShowMessageAction("Not implemented yet")));
-        myUserMenu.add(new MenuItem(LOGIN_OPTION, "Change user (Login)", new LoginAction()));
-        myUserMenu.add(new MenuItem(LOGOUT_OPTION, "Logout", new LogoutAction()));
-
-        return myUserMenu;
-    }
-
     private Menu buildMainMenu() {
         final Menu mainMenu = new Menu();
 
-        final Menu myUserMenu = buildMyUserMenu();
+        final Menu myUserMenu = new MyUserMenu();
         mainMenu.add(new SubMenu(MY_USER_OPTION, myUserMenu, new ShowVerticalSubMenuAction(myUserMenu)));
 
-        mainMenu.add(new VerticalSeparator());
+        mainMenu.add(VerticalSeparator.separator());
 
         // TODO add menu options
 
-        mainMenu.add(new VerticalSeparator());
+        mainMenu.add(VerticalSeparator.separator());
 
         mainMenu.add(new MenuItem(EXIT_OPTION, "Exit", new ExitWithMessageAction()));
 
