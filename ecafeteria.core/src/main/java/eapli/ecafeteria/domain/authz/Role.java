@@ -30,12 +30,15 @@ public class Role implements ValueObject, Serializable {
     }
 
     public Role(RoleType type, Calendar assignedOn) {
-        // FIXME validate invariants
+        if (type == null || assignedOn == null) {
+            throw new IllegalStateException();
+        }
         this.type = type;
         this.assignedOn = assignedOn;
     }
 
     protected Role() {
+        // for ORM
     }
 
     @Override

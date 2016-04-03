@@ -56,9 +56,9 @@ public final class Console {
         do {
             try {
                 String strBool = readLine(prompt).toLowerCase();
-                if (strBool.equals("y") || strBool.equals("s")) {
+                if ("y".equals(strBool) || "s".equals(strBool)) {
                     return true;
-                } else if (strBool.equals("n")) {
+                } else if ("n".equals(strBool)) {
                     return false;
                 }
             } catch (NumberFormatException ex) {
