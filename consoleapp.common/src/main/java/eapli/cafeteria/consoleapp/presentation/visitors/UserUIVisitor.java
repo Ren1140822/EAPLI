@@ -9,7 +9,8 @@ import eapli.framework.visitor.Visitor;
 public class UserUIVisitor implements Visitor<GenericDTO> {
 	@Override
 	public void visit(GenericDTO visited) {
-		//TODO: Ask esta implementação não é pior do que usar getters? pois pode falhar em runtime?
+		//TODO: Discussion: Is not this type of implementation worse than using getter?
+		//This way it may fail during runtime
 		System.out.println("UserName:" + visited.get("username"));
 		System.out.println("Name:" + visited.get("name"));
 		System.out.println("Email:" + visited.get("email"));
