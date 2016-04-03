@@ -16,7 +16,7 @@ import eapli.ecafeteria.domain.authz.UnauthorizedException;
  *
  * @author Paulo Gandra Sousa
  */
-public class AppSettings {
+public final class AppSettings {
 
     private final Properties applicationProperties = new Properties();
     // private final static String PROPERTIES_RESOURCE =
