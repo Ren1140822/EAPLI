@@ -5,7 +5,6 @@ import eapli.ecafeteria.domain.DishType;
 import eapli.framework.application.Controller;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.ListWidget;
-import eapli.framework.visitor.Visitor;
 
 /**
  * Created by MCN on 29/03/2016.
@@ -26,22 +25,8 @@ public class ListDishTypeUI extends AbstractUI {
             System.out.println("There is no registered Dish Type");
         } else {
             System.out.println("Listing Dish Types");
-            new ListWidget<DishType>(dishTypes, new Visitor<DishType>() {
-
-                @Override
-                public void visit(DishType visitee) {
-                    System.out.printf("%-10s%-30s%-4s\n", visitee.id(), visitee.description(),
-                            String.valueOf(visitee.isActive()));
-                }
-
-                @Override
-                public void beforeVisiting(DishType visitee) {
-                }
-
-                @Override
-                public void afterVisiting(DishType visitee) {
-                }
-            }).show();
+            //Note: Java no longer requires explicit type argument, thus SelectWidget<DishType> may be replaced by SelectWidget<>
+            new ListWidget<DishType>(dishTypes, new DishTypeVisitor()).show();
         }
         return true;
     }
