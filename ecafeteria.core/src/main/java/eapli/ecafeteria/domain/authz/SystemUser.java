@@ -78,46 +78,8 @@ public class SystemUser implements AggregateRoot<Username>, Authorisable<ActionR
     protected SystemUser() {
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof SystemUser)) {
-            return false;
-        }
 
-        final SystemUser user = (SystemUser) o;
 
-        if (!this.username.equals(user.username)) {
-            return false;
-        }
-
-        // FIXME DDD entities are only compared thru their ID field. in this
-        // case only username should be compared
-        if (!this.password.equals(user.password)) {
-            return false;
-        }
-        if (!this.name.equals(user.name)) {
-            return false;
-        }
-        if (!this.email.equals(user.email)) {
-            return false;
-        }
-        return this.roles.equals(user.roles);
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = this.username.hashCode();
-        // FIXME hash should only use username field
-        result = 31 * result + this.password.hashCode();
-        result = 31 * result + this.name.hashCode();
-        result = 31 * result + this.email.hashCode();
-        result = 31 * result + this.roles.hashCode();
-        return result;
-    }
 
     public boolean sameAs(SystemUser user) {
         if (this == user) {
@@ -145,7 +107,7 @@ public class SystemUser implements AggregateRoot<Username>, Authorisable<ActionR
     }
 
     /**
-     * Add role to user
+     * Add role to user.
      *
      * @param role
      */
@@ -221,4 +183,26 @@ public class SystemUser implements AggregateRoot<Username>, Authorisable<ActionR
         this.active = false;
         this.deactivatedOn = deactivatedOn;
     }
+
+	@Override
+	public int hashCode() {
+		return username.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof SystemUser)) {
+			return false;
+		}
+
+		SystemUser that = (SystemUser) o;
+
+		//DDD entities are only compared thru their ID field. in this
+		//case only username should be compared
+		return username.equals(that.username);
+
+	}
 }

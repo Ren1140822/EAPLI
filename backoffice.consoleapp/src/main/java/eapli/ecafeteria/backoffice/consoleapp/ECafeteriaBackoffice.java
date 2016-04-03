@@ -16,7 +16,7 @@ import eapli.ecafeteria.bootstrapapp.ECafeteriaBootstrap;
  */
 public final class ECafeteriaBackoffice {
 	/**
-	 * Empty constructor is private to avoid instantion of this class.
+	 * Empty constructor is private to avoid instantiation of this class.
 	 */
 	private ECafeteriaBackoffice() {
 	}

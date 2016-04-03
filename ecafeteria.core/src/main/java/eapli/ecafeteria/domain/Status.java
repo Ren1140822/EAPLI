@@ -14,5 +14,8 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public enum Status {
-    ACTIVE, APPROVAL_PENDING, INACTIVE;
+    ACTIVE, 
+    APPROVAL_PENDING, 
+    INACTIVE;
 }
+
