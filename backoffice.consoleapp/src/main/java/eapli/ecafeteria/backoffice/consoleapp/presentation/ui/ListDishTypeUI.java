@@ -26,6 +26,7 @@ public class ListDishTypeUI extends AbstractUI {
             System.out.println("There is no registered Dish Type");
         } else {
             System.out.println("Listing Dish Types");
+            //Note: Java no longer requires explicit type argument, thus ListWidget<DishType> may be replaced by SelectWidget<>
             new ListWidget<DishType>(dishTypes, new Visitor<DishType>() {
 
                 @Override
