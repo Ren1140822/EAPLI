@@ -3,6 +3,7 @@ package eapli.ecafeteria.domain.authz;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -52,14 +53,16 @@ public class SystemUser implements AggregateRoot<Username>, Authorisable<ActionR
     @Temporal(TemporalType.DATE)
     private Calendar deactivatedOn;
 
-    public SystemUser(String username, String password, String firstName, String lastName, String email,
-            List<RoleType> roles) {
-        this(username, password, firstName, lastName, email, roles, DateTime.now());
-    }
+    public SystemUser(final String username, final String password, final String firstName, final String lastName,
+	                  final String email,
+	                  final List<RoleType> roles) {
+		this(username, password, firstName, lastName, email, roles, DateTime.now());
+	}
 
-    public SystemUser(String username, String password, String firstName, String lastName, String email,
-            List<RoleType> roles, Calendar createdOn) {
-        if (roles == null) {
+	public SystemUser(final String username, final String password, final String firstName, final String lastName,
+	                  final String email,
+	                  final List<RoleType> roles, final Calendar createdOn) {
+		if (roles == null) {
             throw new IllegalArgumentException("roles cannot be null");
         }
         this.createdOn = createdOn;
@@ -68,10 +71,16 @@ public class SystemUser implements AggregateRoot<Username>, Authorisable<ActionR
         this.name = new Name(firstName, lastName);
         this.email = new EmailAddress(email);
         this.roles = new RoleSet();
-        for (final RoleType rt : roles) {
-            this.roles.add(new Role(rt, this.createdOn));
-        }
-        this.active = true;
+
+	    /* The line bellow does exacly the same thing
+	    for (final RoleType rt : roles) {
+		    this.roles.add(new Role(rt, this.createdOn));
+	    }
+	    */
+	    this.roles.addAll(roles.stream().map(rt -> new Role(rt, this.createdOn)).collect(Collectors.toList()));
+
+
+	    this.active = true;
     }
 
     // for ORM
@@ -81,7 +90,7 @@ public class SystemUser implements AggregateRoot<Username>, Authorisable<ActionR
 
 
 
-    public boolean sameAs(SystemUser user) {
+    public boolean sameAs(final SystemUser user) {
         if (this == user) {
             return true;
         }
@@ -109,9 +118,9 @@ public class SystemUser implements AggregateRoot<Username>, Authorisable<ActionR
     /**
      * Add role to user.
      *
-     * @param role
+     * @param role Role to assing to SystemUser.
      */
-    public void addRole(Role role) {
+    public void addRole(final Role role) {
         this.roles.add(role);
     }
 
@@ -134,34 +143,31 @@ public class SystemUser implements AggregateRoot<Username>, Authorisable<ActionR
     }
 
     /**
-     * remove role from user
+     * Remove role from user.
      *
-     * @param role
+     * @param role Role to remove from SystemUser.
      */
-    public void removeRole(Role role) {
-        // TODO should the role be removed or marked as "expired"?
+    public void removeRole(final Role role) {
+        //TODO should the role be removed or marked as "expired"?
         this.roles.remove(role);
     }
 
     @Override
-    public boolean isAuthorizedTo(ActionRight action) {
+    public boolean isAuthorizedTo(final ActionRight action) {
         return action.canBePerformedBy(this.roles.roleTypes());
     }
 
-    public boolean passwordMatches(Password password) {
-        if (!this.password.equals(password)) {
-            return false;
-        }
-        return true;
+    public boolean passwordMatches(final Password password) {
+	    return this.password.equals(password);
     }
 
     @Override
-    public void accept(Visitor<GenericDTO> visitor) {
+    public void accept(final Visitor<GenericDTO> visitor) {
         visitor.visit(toDTO());
     }
 
     @Override
-    public boolean is(Username id) {
+    public boolean is(final Username id) {
         return id().equals(id);
     }
 
@@ -190,7 +196,7 @@ public class SystemUser implements AggregateRoot<Username>, Authorisable<ActionR
 	}
 
 	@Override
-	public boolean equals(Object o) {
+	public boolean equals(final Object o) {
 		if (this == o) {
 			return true;
 		}
