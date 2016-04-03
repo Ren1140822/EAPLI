@@ -5,13 +5,13 @@
  */
 package eapli.ecafeteria.backoffice.consoleapp.presentation.ui;
 
-import java.util.Iterator;
-
 import eapli.ecafeteria.application.ChangeDishTypeController;
 import eapli.ecafeteria.application.ListDishTypeController;
 import eapli.ecafeteria.domain.DishType;
 import eapli.framework.application.Controller;
 import eapli.framework.presentation.console.AbstractUI;
+import eapli.framework.presentation.console.SelectWidget;
+import eapli.framework.visitor.Visitor;
 import eapli.util.Console;
 
 /**
@@ -31,27 +31,32 @@ public class ChangeDishTypeUI extends AbstractUI {
     protected boolean doShow() {
         // TODO a UI class should only interact with one controller
         final Iterable<DishType> allDishTypes = new ListDishTypeController().listDishTypes();
-        final Iterator<DishType> dishTypeIterator = allDishTypes.iterator();
-        new ListDishTypeUI().doShowIterable(allDishTypes);
+        allDishTypes.iterator();
 
-        final int dishTypeKey = Console.readInteger("Select dish type to change");
-        int n = 0;
-        // iterators do not implement random access, sequential access required
-        // to reach the object selected by user
-        DishType updtDishType = null;
-        while (dishTypeIterator.hasNext() && n != dishTypeKey) {
-            updtDishType = dishTypeIterator.next();
-            n++;
-        }
+        final SelectWidget<DishType> selector = new SelectWidget<DishType>(allDishTypes, new Visitor<DishType>() {
 
-        if (dishTypeKey == n) { // DishType selected by user exists
-            final String newDescription = Console
-                    .readLine("Enter new description for " + updtDishType.description() + ": ");
-            updtDishType.changeDescriptionTo(newDescription);
-            this.theController.changeDishType(updtDishType);
-        } else { // DishType selected by user does not exist
-            System.out.print("Invalid dish type. Select one of the items in the list.");
-        }
+            @Override
+            public void visit(DishType visitee) {
+                System.out.printf("%-10s%-30s%-4s\n", visitee.id(), visitee.description(),
+                        String.valueOf(visitee.isActive()));
+            }
+
+            @Override
+            public void beforeVisiting(DishType visitee) {
+            }
+
+            @Override
+            public void afterVisiting(DishType visitee) {
+            }
+        });
+
+        selector.show();
+        final DishType updtDishType = selector.selectedElement();
+
+        final String newDescription = Console
+                .readLine("Enter new description for " + updtDishType.description() + ": ");
+        updtDishType.changeDescriptionTo(newDescription);
+        this.theController.changeDishType(updtDishType);
 
         return false;
     }
