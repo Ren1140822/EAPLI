@@ -53,6 +53,7 @@ public class SystemUser implements AggregateRoot<Username>, Authorisable<ActionR
     @Temporal(TemporalType.DATE)
     private Calendar deactivatedOn;
 
+	//TODO: Why are there two constructors for SystemUser? createdOn shouldn't only be assigned when approved?
     public SystemUser(final String username, final String password, final String firstName, final String lastName,
 	                  final String email,
 	                  final List<RoleType> roles) {
