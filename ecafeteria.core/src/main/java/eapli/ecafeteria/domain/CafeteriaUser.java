@@ -53,7 +53,7 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Serial
         if (mecanographicNumber == null) {
             throw new IllegalStateException();
         }
-        if (account == null) {
+        if (user == null || account == null) {
             throw new IllegalStateException();
         }
         this.systemUser = user;
@@ -126,11 +126,10 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Serial
     public MecanographicNumber id() {
         return this.mecanographicNumber;
     }
-    
-    public Account account(){
+
+    public Account account() {
         return this.account;
     }
-            
 
     public OrganicUnit organicUnit() {
         return this.organicUnit;
