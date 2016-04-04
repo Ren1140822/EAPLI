@@ -20,7 +20,7 @@ import eapli.framework.application.Controller;
 public class ActivateDeactivateDishTypeController implements Controller {
 
     public Iterable<DishType> listDishTypes() {
-        return new ListDishTypeService().listDishTypes();
+        return new ListDishTypeService().allDishTypes();
     }
 
     public void changeDishTypeState(DishType dType) {
