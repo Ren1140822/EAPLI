@@ -50,6 +50,9 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Serial
 
     public CafeteriaUser(SystemUser user, String account, OrganicUnit organicUnit, String mecanographicNumber) {
         // FIXME validate parameters
+        if (mecanographicNumber == null) {
+            throw new IllegalStateException();
+        }
         if (account == null) {
             throw new IllegalStateException();
         }
