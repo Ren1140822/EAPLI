@@ -2,6 +2,7 @@ package eapli.ecafeteria.domain;
 
 import eapli.ecafeteria.domain.authz.SystemUser;
 import eapli.framework.domain.AggregateRoot;
+import eapli.util.Strings;
 import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -45,12 +46,9 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Serial
     @Enumerated(EnumType.ORDINAL)
     private Status status;
 
+    //TODO check if the string account parameter is really needed
     public CafeteriaUser(SystemUser user, String account, OrganicUnit organicUnit, String mecanographicNumber) {
-        // FIXME validate parameters
-        if (mecanographicNumber == null) {
-            throw new IllegalStateException();
-        }
-        if (user == null || account == null) {
+        if (mecanographicNumber == null || user == null || organicUnit == null || Strings.isNullOrEmpty(mecanographicNumber)) {
             throw new IllegalStateException();
         }
         this.systemUser = user;
