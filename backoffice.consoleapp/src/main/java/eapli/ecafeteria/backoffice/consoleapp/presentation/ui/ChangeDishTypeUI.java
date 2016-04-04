@@ -6,7 +6,6 @@
 package eapli.ecafeteria.backoffice.consoleapp.presentation.ui;
 
 import eapli.ecafeteria.application.ChangeDishTypeController;
-import eapli.ecafeteria.application.ListDishTypeController;
 import eapli.ecafeteria.domain.DishType;
 import eapli.framework.application.Controller;
 import eapli.framework.presentation.console.AbstractUI;
@@ -28,13 +27,9 @@ public class ChangeDishTypeUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
-        // TODO a UI class should only interact with one controller
-        final Iterable<DishType> allDishTypes = new ListDishTypeController().listDishTypes();
-        allDishTypes.iterator();
+        final Iterable<DishType> allDishTypes = this.theController.listDishTypes();
 
-        //Note: Java no longer requires explicit type argument, thus new SelectWidget<DishType> may be replaced by new SelectWidget<>
-        final SelectWidget<DishType> selector = new SelectWidget<DishType>(allDishTypes, new DishTypePrinter());
-
+        final SelectWidget<DishType> selector = new SelectWidget<>(allDishTypes, new DishTypePrinter());
         selector.show();
         final DishType updtDishType = selector.selectedElement();
 

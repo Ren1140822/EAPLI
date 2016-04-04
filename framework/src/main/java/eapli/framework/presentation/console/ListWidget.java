@@ -34,8 +34,8 @@ public class ListWidget<T> {
     }
 
     public ListWidget(Iterable<T> source, Visitor<T> visitor) {
-        this.source = new ArrayList<T>();
-        source.forEach(x -> this.source.add(x));
+        this.source = new ArrayList<>();
+        source.forEach(elem -> this.source.add(elem));
         this.visitor = visitor;
     }
 

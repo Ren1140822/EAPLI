@@ -10,6 +10,14 @@ import javax.persistence.Id;
 import eapli.framework.domain.AggregateRoot;
 
 /**
+ * a dish type, e.g., vegetarian or fish or meat.
+ *
+ * this class is implemented in a more traditional way than DDD, by using
+ * primitive types for the attributes instead of value objects. this means that
+ * some semantic is lost and potential code duplication may rise if the same
+ * concept is used as an attribute in more than one class. however, the learning
+ * curve is smoother when compared to full DDD.
+ *
  * TODO implement equals() and hashCode()
  *
  * Created by MCN on 29/03/2016.

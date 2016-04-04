@@ -23,7 +23,10 @@ public class ChangeDishTypeController implements Controller {
         ensurePermissionOfLoggedInUser(ActionRight.ManageMenus);
 
         final DishTypeRepository repo = PersistenceContext.repositories().dishTypes();
-        updatedDishType = repo.save(updatedDishType);
-        return updatedDishType;
+        return repo.save(updatedDishType);
+    }
+
+    public Iterable<DishType> listDishTypes() {
+        return new ListDishTypeService().listDishTypes();
     }
 }

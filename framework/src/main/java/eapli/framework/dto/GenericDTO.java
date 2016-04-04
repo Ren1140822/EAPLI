@@ -22,9 +22,15 @@ import java.util.Set;
  */
 public class GenericDTO implements DTO, Map<String, Object> {
 
-    Map<String, Object> data = new HashMap<String, Object>();
-
+    private final Map<String, Object> data = new HashMap<>();
     private final String type;
+
+    public GenericDTO(String type) {
+        if (type == null || type.trim().length() == 0) {
+            throw new IllegalArgumentException();
+        }
+        this.type = type;
+    }
 
     /**
      * Builds a DTO from an object using reflection.
@@ -69,7 +75,7 @@ public class GenericDTO implements DTO, Map<String, Object> {
     private static void buildDtoForIterable(String name, Iterable<?> col, final GenericDTO out)
             throws IllegalAccessException {
 
-        final List<GenericDTO> data = new ArrayList<GenericDTO>();
+        final List<GenericDTO> data = new ArrayList<>();
         for (final Object member : col) {
             data.add(buildDTO(member));
         }
@@ -110,18 +116,11 @@ public class GenericDTO implements DTO, Map<String, Object> {
     }
 
     private static List<Field> getInheritedFields(Class<?> type) {
-        final List<Field> fields = new ArrayList<Field>();
+        final List<Field> fields = new ArrayList<>();
         for (Class<?> c = type; c != null; c = c.getSuperclass()) {
             fields.addAll(Arrays.asList(c.getDeclaredFields()));
         }
         return fields;
-    }
-
-    public GenericDTO(String type) {
-        if (type == null || type.trim().length() == 0) {
-            throw new IllegalArgumentException();
-        }
-        this.type = type;
     }
 
     /**

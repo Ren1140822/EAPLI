@@ -14,7 +14,7 @@ import eapli.framework.persistence.repositories.Repository;
 public abstract class InMemoryRepository<T, K>
         implements Repository<T, K>, IterableRepository<T, K>, DeleteableRepository<T, K> {
 
-    private final Map<K, T> repository = new HashMap<K, T>();
+    private final Map<K, T> repository = new HashMap<>();
 
     @Override
     public void delete(T entity) {
