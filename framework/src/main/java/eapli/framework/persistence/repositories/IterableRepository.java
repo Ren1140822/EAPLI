@@ -17,7 +17,7 @@ import java.util.Iterator;
  *
  * @author Paulo Gandra Sousa
  */
-public interface IterableRepository<T, PK> extends Repository<T, PK>, Iterable<T> {
+public interface IterableRepository<T, K> extends Repository<T, K>, Iterable<T> {
 
     Iterator<T> iterator(int pagesize);
 }

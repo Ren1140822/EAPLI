@@ -5,11 +5,14 @@
  */
 package eapli.framework.domain;
 
+import javax.persistence.Embeddable;
+
 /**
  * a generic range class.
  *
  * @author pgsou_000
  */
+@Embeddable
 public class Range<T extends Comparable<T>> implements ValueObject {
 
     /**

@@ -3,7 +3,7 @@ package eapli.ecafeteria.backoffice.consoleapp.presentation.ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import eapli.cafeteria.consoleapp.presentation.visitors.UserUIVisitor;
+import eapli.cafeteria.consoleapp.presentation.visitors.UserDtoPrinter;
 import eapli.ecafeteria.application.AddUserController;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.util.AddRoleType2List;
 import eapli.ecafeteria.domain.authz.RoleType;
@@ -53,7 +53,7 @@ public class AddUserUI extends AbstractUI {
             // nos slides da TP dizemos que usamos os objetos de dominio na UI
             // pelo que podemos aqui apenas fazer uso direto dos "getter" para
             // output
-            final UserUIVisitor visitor = new UserUIVisitor();
+            final UserDtoPrinter visitor = new UserDtoPrinter();
             user.accept(visitor);
         } catch (final DataIntegrityViolationException e) {
             System.out.println("That username is already in use.");

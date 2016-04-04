@@ -15,7 +15,7 @@ import eapli.framework.persistence.DataIntegrityViolationException;
  *            the class denoting the primary key of the entity
  * @author Paulo Gandra Sousa
  */
-public interface Repository<T, PK> {
+public interface Repository<T, K> {
 
     /**
      * Saves an entity either by creating it or updating it in the persistence.
@@ -51,7 +51,7 @@ public interface Repository<T, PK> {
      * @param id
      * @return
      */
-    T findById(PK id);
+    T findById(K id);
 
     /**
      * returns the number of entities in the repository.

@@ -8,7 +8,7 @@ package eapli.framework.persistence.repositories;
  *
  * @author Paulo Gandra Sousa
  */
-public interface DeleteableRepository<T, PK> extends Repository<T, PK> {
+public interface DeleteableRepository<T, K> extends Repository<T, K> {
 
     /**
      * removes the specified entity from the repository.
@@ -26,5 +26,5 @@ public interface DeleteableRepository<T, PK> extends Repository<T, PK> {
      * @throws UnsuportedOperationException if the delete operation makes no
      * sense for this repository
      */
-    void deleteById(PK entityId);
+    void deleteById(K entityId);
 }
