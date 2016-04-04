@@ -50,7 +50,11 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Serial
 
     public CafeteriaUser(SystemUser user, String account, OrganicUnit organicUnit, String mecanographicNumber) {
         // FIXME validate parameters
+        if (account == null) {
+            throw new IllegalStateException();
+        }
         this.systemUser = user;
+
         this.account = new Account(account);
         this.organicUnit = organicUnit;
         this.mecanographicNumber = new MecanographicNumber(mecanographicNumber);
@@ -125,4 +129,9 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Serial
     public MecanographicNumber id() {
         return this.mecanographicNumber;
     }
+    
+    public Account account(){
+        return this.account;
+    }
+            
 }
