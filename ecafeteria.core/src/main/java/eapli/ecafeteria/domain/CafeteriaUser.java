@@ -63,8 +63,7 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Serial
     }
 
     protected CafeteriaUser() {
-        int i = 0;
-        i++;
+        // for ORM only
     }
 
     @Override
@@ -72,15 +71,12 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Serial
         if (this == o) {
             return true;
         }
-        // TODO: I think SystemUser should be replaced by CafeteriaUser. Is
-        // there a reason for the opposite?
         if (!(o instanceof CafeteriaUser)) {
             return false;
         }
 
-        final CafeteriaUser cafeteriaUser = (CafeteriaUser) o;
-
-        if (!this.mecanographicNumber.equals(cafeteriaUser.mecanographicNumber)) {
+        final CafeteriaUser other = (CafeteriaUser) o;
+        if (!this.mecanographicNumber.equals(other.mecanographicNumber)) {
             return false;
         }
 
@@ -89,9 +85,7 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Serial
 
     @Override
     public int hashCode() {
-        final int result = this.mecanographicNumber.hashCode();
-
-        return result;
+        return this.mecanographicNumber.hashCode();
     }
 
     public boolean sameAs(CafeteriaUser cafeteriaUser) {
@@ -134,4 +128,8 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Serial
         return this.account;
     }
             
+
+    public OrganicUnit organicUnit() {
+        return this.organicUnit;
+    }
 }
