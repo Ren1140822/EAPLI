@@ -1,7 +1,9 @@
 package eapli.ecafeteria.domain;
 
+import eapli.ecafeteria.domain.authz.SystemUser;
+import eapli.framework.domain.AggregateRoot;
+import eapli.util.Strings;
 import java.io.Serializable;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,9 +11,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-
-import eapli.ecafeteria.domain.authz.SystemUser;
-import eapli.framework.domain.AggregateRoot;
 
 /**
  * An Cafeteria User.
@@ -23,7 +22,6 @@ import eapli.framework.domain.AggregateRoot;
  * This approach may seem a little more complex than just having String or
  * native type attributes but provides for real semantic of the domain and
  * follows the Single Responsibility Pattern
- *
  *
  * @author Jorge Santos ajs@isep.ipp.pt
  *
@@ -41,25 +39,28 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Serial
     private Account account;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    private OrganicUnit OrganicUnit;
+    private OrganicUnit organicUnit;
 
     @Id
     private MecanographicNumber mecanographicNumber;
     @Enumerated(EnumType.ORDINAL)
     private Status status;
 
-    public CafeteriaUser(SystemUser user, String account, OrganicUnit OrganicUnit, String mecanographicNumber) {
-        // FIXME validate parameters
+    //TODO check if the string account parameter is really needed
+    public CafeteriaUser(SystemUser user, String account, OrganicUnit organicUnit, String mecanographicNumber) {
+        if (mecanographicNumber == null || user == null || organicUnit == null || Strings.isNullOrEmpty(mecanographicNumber)) {
+            throw new IllegalStateException();
+        }
         this.systemUser = user;
         this.account = new Account(account);
-        this.OrganicUnit = OrganicUnit;
+        this.organicUnit = organicUnit;
         this.mecanographicNumber = new MecanographicNumber(mecanographicNumber);
         // by default
         this.status = Status.APPROVAL_PENDING;
     }
 
     protected CafeteriaUser() {
-        // for ORM
+        // for ORM only
     }
 
     @Override
@@ -67,15 +68,12 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Serial
         if (this == o) {
             return true;
         }
-        // TODO: I think SystemUser should be replaced by CafeteriaUser. Is
-        // there a reason for the opposite?
         if (!(o instanceof CafeteriaUser)) {
             return false;
         }
 
-        final CafeteriaUser cafeteriaUser = (CafeteriaUser) o;
-
-        if (!this.mecanographicNumber.equals(cafeteriaUser.mecanographicNumber)) {
+        final CafeteriaUser other = (CafeteriaUser) o;
+        if (!this.mecanographicNumber.equals(other.mecanographicNumber)) {
             return false;
         }
 
@@ -84,9 +82,7 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Serial
 
     @Override
     public int hashCode() {
-        final int result = this.mecanographicNumber.hashCode();
-
-        return result;
+        return this.mecanographicNumber.hashCode();
     }
 
     public boolean sameAs(CafeteriaUser cafeteriaUser) {
@@ -104,7 +100,7 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Serial
         if (!this.account.equals(cafeteriaUser.account)) {
             return false;
         }
-        if (!this.OrganicUnit.equals(cafeteriaUser.OrganicUnit)) {
+        if (!this.organicUnit.equals(cafeteriaUser.organicUnit)) {
             return false;
         }
 
@@ -123,5 +119,13 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Serial
     @Override
     public MecanographicNumber id() {
         return this.mecanographicNumber;
+    }
+
+    public Account account() {
+        return this.account;
+    }
+
+    public OrganicUnit organicUnit() {
+        return this.organicUnit;
     }
 }

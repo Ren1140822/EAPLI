@@ -1,15 +1,22 @@
 package eapli.ecafeteria.domain;
 
+import eapli.framework.domain.AggregateRoot;
+import eapli.util.Strings;
 import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-import eapli.framework.domain.AggregateRoot;
-
 /**
+ * a dish type, e.g., vegetarian or fish or meat.
+ *
+ * this class is implemented in a more traditional way than DDD, by using
+ * primitive types for the attributes instead of value objects. this means that
+ * some semantic is lost and potential code duplication may rise if the same
+ * concept is used as an attribute in more than one class. however, the learning
+ * curve is smoother when compared to full DDD.
+ *
  * TODO implement equals() and hashCode()
  *
  * Created by MCN on 29/03/2016.
@@ -36,8 +43,7 @@ public class DishType implements AggregateRoot<String>, Serializable {
     }
 
     public DishType(String name, String description) {
-
-        if (name == null || description == null || name.trim().isEmpty() || description.trim().isEmpty()) {
+        if (Strings.isNullOrEmpty(name) || Strings.isNullOrEmpty(description)) {
             throw new IllegalArgumentException();
         }
         this.acronym = name;

@@ -4,11 +4,14 @@
  */
 package eapli.framework.persistence.repositories.impl.jpa;
 
+import eapli.framework.persistence.DataIntegrityViolationException;
+import eapli.framework.persistence.repositories.DeleteableRepository;
+import eapli.framework.persistence.repositories.IterableRepository;
+import eapli.framework.persistence.repositories.Repository;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.Iterator;
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -18,30 +21,23 @@ import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 import javax.persistence.RollbackException;
 
-import eapli.framework.persistence.DataIntegrityViolationException;
-import eapli.framework.persistence.repositories.DeleteableRepository;
-import eapli.framework.persistence.repositories.IterableRepository;
-import eapli.framework.persistence.repositories.Repository;
-
 /**
  * An utility abstract class for implementing JPA repositories.
  *
  * @author Paulo Gandra Sousa
  *
- *         <p>
- *         based on <a href=
+ * <p>
+ * based on <a href=
  *         "http://stackoverflow.com/questions/3888575/single-dao-generic-crud-methods-jpa-hibernate-spring">
- *         stackoverflow</a> and on
- *         <a href="https://burtbeckwith.com/blog/?p=40">burtbeckwith</a>.
- *         <p>
- *         also have a look at
- *         <a href="http://blog.xebia.com/tag/jpa-implementation-patterns/">JPA
- *         implementation patterns</a>
+ * stackoverflow</a> and on
+ * <a href="https://burtbeckwith.com/blog/?p=40">burtbeckwith</a>.
+ * <p>
+ * also have a look at
+ * <a href="http://blog.xebia.com/tag/jpa-implementation-patterns/">JPA
+ * implementation patterns</a>
  *
- * @param <T>
- *            the entity type that we want to build a repository for
- * @param <K>
- *            the key type of the entity
+ * @param <T> the entity type that we want to build a repository for
+ * @param <K> the key type of the entity
  */
 public abstract class JpaRepository<T, K extends Serializable>
         implements Repository<T, K>, IterableRepository<T, K>, DeleteableRepository<T, K> {
@@ -125,8 +121,8 @@ public abstract class JpaRepository<T, K extends Serializable>
      * Removes the entity with the specified ID from the repository.
      *
      * @param entityId
-     * @throws UnsuportedOperationException
-     *             if the delete operation makes no sense for this repository
+     * @throws UnsuportedOperationException if the delete operation makes no
+     * sense for this repository
      */
     @Override
     public void deleteById(K entityId) {
@@ -212,7 +208,7 @@ public abstract class JpaRepository<T, K extends Serializable>
      *
      * @param entity
      * @return the persisted entity - might be a different object than the
-     *         parameter
+     * parameter
      */
     @Override
     public T save(T entity) {
@@ -359,15 +355,16 @@ public abstract class JpaRepository<T, K extends Serializable>
     }
 
     /**
-     * helper method. not to be exposed as public in any situation.
+     * helper method. not to be exposed as public in any situation. the where
+     * clause should use "e" as the query object
      *
      * @param where
      * @return
      */
     @SuppressWarnings("unchecked")
-    private List<T> match(String where) {
+    protected List<T> match(String where) {
         final String className = this.entityClass.getSimpleName(); // entityClass.getAnnotation(Table.class).name();
-        final Query q = entityManager().createQuery("SELECT it FROM " + className + " it WHERE " + where);
+        final Query q = entityManager().createQuery("SELECT e FROM " + className + " e WHERE " + where);
         final List<T> some = q.getResultList();
         return some;
     }

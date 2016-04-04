@@ -33,8 +33,8 @@ import eapli.util.DateTime;
  *
  */
 @Entity
-public class SystemUser implements AggregateRoot<Username>, Authorisable<ActionRight>, DTOable<SystemUser>,
-        Visitable<GenericDTO>, Serializable {
+public class SystemUser
+        implements AggregateRoot<Username>, Authorisable<ActionRight>, DTOable, Visitable<GenericDTO>, Serializable {
 
     /**
      *
@@ -55,15 +55,13 @@ public class SystemUser implements AggregateRoot<Username>, Authorisable<ActionR
 
 	//TODO: Why are there two constructors for SystemUser? createdOn shouldn't only be assigned when approved?
     public SystemUser(final String username, final String password, final String firstName, final String lastName,
-	                  final String email,
-	                  final List<RoleType> roles) {
-		this(username, password, firstName, lastName, email, roles, DateTime.now());
-	}
+            final String email, final List<RoleType> roles) {
+        this(username, password, firstName, lastName, email, roles, DateTime.now());
+    }
 
-	public SystemUser(final String username, final String password, final String firstName, final String lastName,
-	                  final String email,
-	                  final List<RoleType> roles, final Calendar createdOn) {
-		if (roles == null) {
+    public SystemUser(final String username, final String password, final String firstName, final String lastName,
+            final String email, final List<RoleType> roles, final Calendar createdOn) {
+        if (roles == null) {
             throw new IllegalArgumentException("roles cannot be null");
         }
         this.createdOn = createdOn;
@@ -73,23 +71,18 @@ public class SystemUser implements AggregateRoot<Username>, Authorisable<ActionR
         this.email = new EmailAddress(email);
         this.roles = new RoleSet();
 
-	    /* The line bellow does exacly the same thing
-	    for (final RoleType rt : roles) {
-		    this.roles.add(new Role(rt, this.createdOn));
-	    }
-	    */
-	    this.roles.addAll(roles.stream().map(rt -> new Role(rt, this.createdOn)).collect(Collectors.toList()));
+        /*
+         * The line bellow does exacly the same thing for (final RoleType rt :
+         * roles) { this.roles.add(new Role(rt, this.createdOn)); }
+         */
+        this.roles.addAll(roles.stream().map(rt -> new Role(rt, this.createdOn)).collect(Collectors.toList()));
 
-
-	    this.active = true;
+        this.active = true;
     }
 
     // for ORM
     protected SystemUser() {
     }
-
-
-
 
     public boolean sameAs(final SystemUser user) {
         if (this == user) {
@@ -119,7 +112,8 @@ public class SystemUser implements AggregateRoot<Username>, Authorisable<ActionR
     /**
      * Add role to user.
      *
-     * @param role Role to assing to SystemUser.
+     * @param role
+     *            Role to assing to SystemUser.
      */
     public void addRole(final Role role) {
         this.roles.add(role);
@@ -146,10 +140,11 @@ public class SystemUser implements AggregateRoot<Username>, Authorisable<ActionR
     /**
      * Remove role from user.
      *
-     * @param role Role to remove from SystemUser.
+     * @param role
+     *            Role to remove from SystemUser.
      */
     public void removeRole(final Role role) {
-        //TODO should the role be removed or marked as "expired"?
+        // TODO should the role be removed or marked as "expired"?
         this.roles.remove(role);
     }
 
@@ -159,7 +154,7 @@ public class SystemUser implements AggregateRoot<Username>, Authorisable<ActionR
     }
 
     public boolean passwordMatches(final Password password) {
-	    return this.password.equals(password);
+        return this.password.equals(password);
     }
 
     @Override
@@ -191,25 +186,25 @@ public class SystemUser implements AggregateRoot<Username>, Authorisable<ActionR
         this.deactivatedOn = deactivatedOn;
     }
 
-	@Override
-	public int hashCode() {
-		return username.hashCode();
-	}
+    @Override
+    public int hashCode() {
+        return this.username.hashCode();
+    }
 
-	@Override
-	public boolean equals(final Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (!(o instanceof SystemUser)) {
-			return false;
-		}
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SystemUser)) {
+            return false;
+        }
 
-		SystemUser that = (SystemUser) o;
+        final SystemUser that = (SystemUser) o;
 
-		//DDD entities are only compared thru their ID field. in this
-		//case only username should be compared
-		return username.equals(that.username);
+        // DDD entities are only compared thru their ID field. in this
+        // case only username should be compared
+        return this.username.equals(that.username);
 
-	}
+    }
 }

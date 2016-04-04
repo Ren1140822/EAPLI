@@ -6,7 +6,6 @@
 package eapli.ecafeteria.application;
 
 import static eapli.ecafeteria.AppSettings.ensurePermissionOfLoggedInUser;
-
 import eapli.ecafeteria.domain.DishType;
 import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.ecafeteria.persistence.DishTypeRepository;
@@ -19,11 +18,25 @@ import eapli.framework.application.Controller;
  */
 public class ChangeDishTypeController implements Controller {
 
-    public DishType changeDishType(DishType updatedDishType) {
+    public DishType changeDishType(DishType theDishType, String newDescription) {
         ensurePermissionOfLoggedInUser(ActionRight.ManageMenus);
 
+        if (theDishType == null) {
+            throw new IllegalStateException();
+        }
+
+        theDishType.changeDescriptionTo(newDescription);
+
         final DishTypeRepository repo = PersistenceContext.repositories().dishTypes();
-        updatedDishType = repo.save(updatedDishType);
-        return updatedDishType;
+        return repo.save(theDishType);
+    }
+
+    /**
+     * in the context of this use case only active dish types are meaningful.
+     *
+     * @return
+     */
+    public Iterable<DishType> listDishTypes() {
+        return new ListDishTypeService().activeDishTypes();
     }
 }

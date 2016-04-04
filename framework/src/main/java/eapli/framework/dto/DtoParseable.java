@@ -9,10 +9,11 @@ package eapli.framework.dto;
  * @author pgsou_000
  *
  */
-public interface DtoParseable<T extends DTOable<T>> {
+@FunctionalInterface
+public interface DtoParseable<T extends DTOable> {
 
     /**
-     * parses the dto and builds a new T based on the content of the DTO
+     * parses the DTO and builds a new T based on the content of the DTO
      *
      * @param dto
      * @return

@@ -20,8 +20,7 @@ import eapli.framework.application.Controller;
 public class ActivateDeactivateDishTypeController implements Controller {
 
     public Iterable<DishType> listDishTypes() {
-        // FIXME a controller should not call other controllers...
-        return new ListDishTypeController().listDishTypes();
+        return new ListDishTypeService().allDishTypes();
     }
 
     public void changeDishTypeState(DishType dType) {
@@ -31,5 +30,4 @@ public class ActivateDeactivateDishTypeController implements Controller {
         final DishTypeRepository dishTypeRepository = PersistenceContext.repositories().dishTypes();
         dishTypeRepository.save(dType);
     }
-
 }
