@@ -14,4 +14,8 @@ class JpaDishTypeRepository extends JpaRepository<DishType, Long> implements Dis
         return PersistenceSettings.PERSISTENCE_UNIT_NAME;
     }
 
+    @Override
+    public Iterable<DishType> activeDishTypes() {
+        return match("e.active=true");
+    }
 }

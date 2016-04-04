@@ -28,16 +28,14 @@ public class ChangeDishTypeUI extends AbstractUI {
     @Override
     protected boolean doShow() {
         final Iterable<DishType> allDishTypes = this.theController.listDishTypes();
-
         final SelectWidget<DishType> selector = new SelectWidget<>(allDishTypes, new DishTypePrinter());
         selector.show();
-        final DishType updtDishType = selector.selectedElement();
-
-        final String newDescription = Console
-                .readLine("Enter new description for " + updtDishType.description() + ": ");
-        updtDishType.changeDescriptionTo(newDescription);
-        this.theController.changeDishType(updtDishType);
-
+        final DishType theDishType = selector.selectedElement();
+        if (theDishType != null) {
+            final String newDescription = Console
+                    .readLine("Enter new description for " + theDishType.description() + ": ");
+            this.theController.changeDishType(theDishType, newDescription);
+        }
         return false;
     }
 

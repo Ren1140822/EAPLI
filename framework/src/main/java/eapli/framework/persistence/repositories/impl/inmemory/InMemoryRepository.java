@@ -1,12 +1,11 @@
 package eapli.framework.persistence.repositories.impl.inmemory;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
 import eapli.framework.persistence.repositories.DeleteableRepository;
 import eapli.framework.persistence.repositories.IterableRepository;
 import eapli.framework.persistence.repositories.Repository;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Created by nuno on 20/03/16.
@@ -14,7 +13,7 @@ import eapli.framework.persistence.repositories.Repository;
 public abstract class InMemoryRepository<T, K>
         implements Repository<T, K>, IterableRepository<T, K>, DeleteableRepository<T, K> {
 
-    private final Map<K, T> repository = new HashMap<>();
+    protected final Map<K, T> repository = new HashMap<>();
 
     @Override
     public void delete(T entity) {
@@ -46,8 +45,7 @@ public abstract class InMemoryRepository<T, K>
      * This method is used for searching a list without using Optional and
      * Streams, thus returning null when no element is found.
      *
-     * @param id
-     *            K identifier for object
+     * @param id K identifier for object
      * @return T if object identified by K is found, otherwise returns null.
      */
     @Override
@@ -60,8 +58,7 @@ public abstract class InMemoryRepository<T, K>
      * avoid returning null. In either case, the client code must check for
      * NoSuchElementException.
      *
-     * @param id
-     *            Identifier to look for
+     * @param id Identifier to look for
      * @return T
      */
     /*
