@@ -5,10 +5,6 @@ import eapli.ecafeteria.domain.DishType;
 import eapli.framework.application.Controller;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
-import eapli.util.Console;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by MCN on 29/03/2016.
