@@ -122,4 +122,8 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Serial
     public MecanographicNumber id() {
         return this.mecanographicNumber;
     }
+
+    public OrganicUnit organicUnit() {
+        return this.organicUnit;
+    }
 }
