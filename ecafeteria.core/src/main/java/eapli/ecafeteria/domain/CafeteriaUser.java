@@ -1,7 +1,8 @@
 package eapli.ecafeteria.domain;
 
+import eapli.ecafeteria.domain.authz.SystemUser;
+import eapli.framework.domain.AggregateRoot;
 import java.io.Serializable;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,9 +10,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-
-import eapli.ecafeteria.domain.authz.SystemUser;
-import eapli.framework.domain.AggregateRoot;
 
 /**
  * An Cafeteria User.
@@ -23,7 +21,6 @@ import eapli.framework.domain.AggregateRoot;
  * This approach may seem a little more complex than just having String or
  * native type attributes but provides for real semantic of the domain and
  * follows the Single Responsibility Pattern
- *
  *
  * @author Jorge Santos ajs@isep.ipp.pt
  *
@@ -54,7 +51,6 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Serial
             throw new IllegalStateException();
         }
         this.systemUser = user;
-
         this.account = new Account(account);
         this.organicUnit = organicUnit;
         this.mecanographicNumber = new MecanographicNumber(mecanographicNumber);
