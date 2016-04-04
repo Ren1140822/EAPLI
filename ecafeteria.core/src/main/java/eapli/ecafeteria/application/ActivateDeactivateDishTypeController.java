@@ -20,8 +20,10 @@ import eapli.framework.application.Controller;
 public class ActivateDeactivateDishTypeController implements Controller {
 
     public Iterable<DishType> listDishTypes() {
-        // FIXME a controller should not call other controllers...
-        return new ListDishTypeController().listDishTypes();
+        ensurePermissionOfLoggedInUser(ActionRight.ManageMenus);
+        
+        final DishTypeRepository dishTypeRepository = PersistenceContext.repositories().dishTypes();
+        return dishTypeRepository.all();
     }
 
     public void changeDishTypeState(DishType dType) {
