@@ -27,8 +27,8 @@ public class ChangeDishTypeUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
-        final Iterable<DishType> allDishTypes = this.theController.listDishTypes();
-        final SelectWidget<DishType> selector = new SelectWidget<>(allDishTypes, new DishTypePrinter());
+        final Iterable<DishType> dishTypes = this.theController.listDishTypes();
+        final SelectWidget<DishType> selector = new SelectWidget<>(dishTypes, new DishTypePrinter());
         selector.show();
         final DishType theDishType = selector.selectedElement();
         if (theDishType != null) {
