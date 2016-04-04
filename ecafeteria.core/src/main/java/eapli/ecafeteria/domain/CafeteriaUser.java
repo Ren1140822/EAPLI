@@ -41,25 +41,26 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Serial
     private Account account;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    private OrganicUnit OrganicUnit;
+    private OrganicUnit organicUnit;
 
     @Id
     private MecanographicNumber mecanographicNumber;
     @Enumerated(EnumType.ORDINAL)
     private Status status;
 
-    public CafeteriaUser(SystemUser user, String account, OrganicUnit OrganicUnit, String mecanographicNumber) {
+    public CafeteriaUser(SystemUser user, String account, OrganicUnit organicUnit, String mecanographicNumber) {
         // FIXME validate parameters
         this.systemUser = user;
         this.account = new Account(account);
-        this.OrganicUnit = OrganicUnit;
+        this.organicUnit = organicUnit;
         this.mecanographicNumber = new MecanographicNumber(mecanographicNumber);
         // by default
         this.status = Status.APPROVAL_PENDING;
     }
 
     protected CafeteriaUser() {
-int i = 0 +1;        // for ORM
+        int i = 0;
+        i++;
     }
 
     @Override
@@ -104,7 +105,7 @@ int i = 0 +1;        // for ORM
         if (!this.account.equals(cafeteriaUser.account)) {
             return false;
         }
-        if (!this.OrganicUnit.equals(cafeteriaUser.OrganicUnit)) {
+        if (!this.organicUnit.equals(cafeteriaUser.organicUnit)) {
             return false;
         }
 
