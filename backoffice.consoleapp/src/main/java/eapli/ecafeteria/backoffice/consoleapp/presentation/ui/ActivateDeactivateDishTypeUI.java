@@ -26,7 +26,6 @@ public class ActivateDeactivateDishTypeUI extends AbstractUI {
             System.out.println("There is no registered Dish Type");
         } else {
             final SelectWidget<DishType> selector = new SelectWidget<>(allDishTypes, new DishTypePrinter());
-
             selector.show();
             final DishType updtDishType = selector.selectedElement();
             this.theController.changeDishTypeState(updtDishType);

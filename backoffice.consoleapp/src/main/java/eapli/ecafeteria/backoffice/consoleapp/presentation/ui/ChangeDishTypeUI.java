@@ -5,13 +5,8 @@
  */
 package eapli.ecafeteria.backoffice.consoleapp.presentation.ui;
 
-import static eapli.ecafeteria.AppSettings.ensurePermissionOfLoggedInUser;
-
 import eapli.ecafeteria.application.ChangeDishTypeController;
 import eapli.ecafeteria.domain.DishType;
-import eapli.ecafeteria.domain.authz.ActionRight;
-import eapli.ecafeteria.persistence.DishTypeRepository;
-import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.framework.application.Controller;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
@@ -32,17 +27,9 @@ public class ChangeDishTypeUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
-        // TODO a UI class should only interact with one controller
-        //final Iterable<DishType> allDishTypes = new ListDishTypeController().listDishTypes();
-        ensurePermissionOfLoggedInUser(ActionRight.ManageMenus);
+        final Iterable<DishType> allDishTypes = this.theController.listDishTypes();
 
-        final DishTypeRepository dishTypeRepository = PersistenceContext.repositories().dishTypes();
-        final Iterable<DishType> allDishTypes = dishTypeRepository.all();
-        //allDishTypes.iterator();
-             
-        //Note: Java no longer requires explicit type argument, thus new SelectWidget<DishType> may be replaced by new SelectWidget<>
-        final SelectWidget<DishType> selector = new SelectWidget<DishType>(allDishTypes, new DishTypePrinter());
-
+        final SelectWidget<DishType> selector = new SelectWidget<>(allDishTypes, new DishTypePrinter());
         selector.show();
         final DishType updtDishType = selector.selectedElement();
 
