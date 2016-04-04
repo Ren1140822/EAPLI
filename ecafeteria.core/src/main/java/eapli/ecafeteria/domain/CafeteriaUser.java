@@ -59,7 +59,7 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Serial
     }
 
     protected CafeteriaUser() {
-        // for ORM
+int i = 0 +1;        // for ORM
     }
 
     @Override
