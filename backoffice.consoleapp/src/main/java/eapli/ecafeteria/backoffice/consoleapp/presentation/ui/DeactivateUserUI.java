@@ -34,7 +34,6 @@ public class DeactivateUserUI extends AbstractUI {
         if (!iterable.iterator().hasNext()) {
             System.out.println("There is no registered User");
         } else {
-            int option;
             int cont = 1;
             System.out.println("SELECT User to deactivate\n");
             // FIXME use select widget, see, ChangeDishTypeUI
@@ -45,12 +44,10 @@ public class DeactivateUserUI extends AbstractUI {
                         user.name().lastName());
                 cont++;
             }
-            // FIXME: Avoid inner assignments option = ...
-            switch (option = Console.readInteger("Enter user nº to deactivate or 0 to finish ")) {
-            case 0:
+            final int option = Console.readInteger("Enter user nº to deactivate or 0 to finish ");
+            if (option == 0) {
                 System.out.println("No user selected");
-                break;
-            default:
+            } else {
                 this.theController.deactivateUser(list.get(option - 1));
             }
         }

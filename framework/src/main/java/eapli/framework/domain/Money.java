@@ -35,22 +35,6 @@ public class Money implements Comparable<Money>, Serializable, ValueObject {
     }
 
     /**
-     * If you use one currency a lot, you may want a special constructor for
-     * that currency.
-     */
-    public static Money dollars(final double amount) {
-        return new Money(amount, Currency.getInstance("USD"));
-    }
-
-    /**
-     * If you use one currency a lot, you may want a special constructor for
-     * that currency.
-     */
-    public static Money euros(final double amount) {
-        return new Money(amount, Currency.getInstance("EUR"));
-    }
-
-    /**
      * Constructs a new Money object.
      *
      * You'll notice there are no setters. Money is a Value Object and is thus
@@ -74,9 +58,25 @@ public class Money implements Comparable<Money>, Serializable, ValueObject {
     private Money(BigInteger amountInPennies, Currency currency, boolean privacyMarker) {
         // Assert.notNull(amountInPennies);
         // Assert.notNull(currency);
-        // FIX do validations
+        // FIXME do validations
         this.amount = amountInPennies;
         this.currency = currency;
+    }
+
+    /**
+     * If you use one currency a lot, you may want a special constructor for
+     * that currency.
+     */
+    public static Money dollars(final double amount) {
+        return new Money(amount, Currency.getInstance("USD"));
+    }
+
+    /**
+     * If you use one currency a lot, you may want a special constructor for
+     * that currency.
+     */
+    public static Money euros(final double amount) {
+        return new Money(amount, Currency.getInstance("EUR"));
     }
 
     /**
