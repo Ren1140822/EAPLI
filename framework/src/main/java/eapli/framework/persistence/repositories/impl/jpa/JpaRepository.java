@@ -4,14 +4,11 @@
  */
 package eapli.framework.persistence.repositories.impl.jpa;
 
-import eapli.framework.persistence.DataIntegrityViolationException;
-import eapli.framework.persistence.repositories.DeleteableRepository;
-import eapli.framework.persistence.repositories.IterableRepository;
-import eapli.framework.persistence.repositories.Repository;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.Iterator;
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -21,30 +18,46 @@ import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 import javax.persistence.RollbackException;
 
+import eapli.framework.persistence.DataIntegrityViolationException;
+import eapli.framework.persistence.repositories.DeleteableRepository;
+import eapli.framework.persistence.repositories.IterableRepository;
+import eapli.framework.persistence.repositories.Repository;
+
 /**
  * An utility abstract class for implementing JPA repositories.
  *
  * @author Paulo Gandra Sousa
  *
- * <p>
- * based on <a href=
+ *         <p>
+ *         based on <a href=
  *         "http://stackoverflow.com/questions/3888575/single-dao-generic-crud-methods-jpa-hibernate-spring">
- * stackoverflow</a> and on
- * <a href="https://burtbeckwith.com/blog/?p=40">burtbeckwith</a>.
- * <p>
- * also have a look at
- * <a href="http://blog.xebia.com/tag/jpa-implementation-patterns/">JPA
- * implementation patterns</a>
+ *         stackoverflow</a> and on
+ *         <a href="https://burtbeckwith.com/blog/?p=40">burtbeckwith</a>.
+ *         <p>
+ *         also have a look at
+ *         <a href="http://blog.xebia.com/tag/jpa-implementation-patterns/">JPA
+ *         implementation patterns</a>
  *
- * @param <T> the entity type that we want to build a repository for
- * @param <K> the key type of the entity
+ * @param <T>
+ *            the entity type that we want to build a repository for
+ * @param <K>
+ *            the key type of the entity
  */
 public abstract class JpaRepository<T, K extends Serializable>
         implements Repository<T, K>, IterableRepository<T, K>, DeleteableRepository<T, K> {
 
     @PersistenceUnit
     private static EntityManagerFactory emFactory;
-    private static int DEFAULT_PAGESIZE = 20;
+    private static final int DEFAULT_PAGESIZE = 20;
+
+    private final Class<T> entityClass;
+    private EntityManager entityManager;
+
+    @SuppressWarnings("unchecked")
+    public JpaRepository() {
+        final ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
+        this.entityClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
+    }
 
     protected EntityManagerFactory entityManagerFactory() {
         if (emFactory == null) {
@@ -53,20 +66,11 @@ public abstract class JpaRepository<T, K extends Serializable>
         return emFactory;
     }
 
-    private final Class<T> entityClass;
-    private EntityManager _entityManager;
-
-    @SuppressWarnings("unchecked")
-    public JpaRepository() {
-        final ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
-        this.entityClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
-    }
-
     protected EntityManager entityManager() {
-        if (this._entityManager == null || !this._entityManager.isOpen()) {
-            this._entityManager = entityManagerFactory().createEntityManager();
+        if (this.entityManager == null || !this.entityManager.isOpen()) {
+            this.entityManager = entityManagerFactory().createEntityManager();
         }
-        return this._entityManager;
+        return this.entityManager;
     }
 
     /**
@@ -121,8 +125,8 @@ public abstract class JpaRepository<T, K extends Serializable>
      * Removes the entity with the specified ID from the repository.
      *
      * @param entityId
-     * @throws UnsuportedOperationException if the delete operation makes no
-     * sense for this repository
+     * @throws UnsuportedOperationException
+     *             if the delete operation makes no sense for this repository
      */
     @Override
     public void deleteById(K entityId) {
@@ -208,7 +212,7 @@ public abstract class JpaRepository<T, K extends Serializable>
      *
      * @param entity
      * @return the persisted entity - might be a different object than the
-     * parameter
+     *         parameter
      */
     @Override
     public T save(T entity) {
@@ -266,7 +270,7 @@ public abstract class JpaRepository<T, K extends Serializable>
 
     public T first() {
         final List<T> r = first(1);
-        return (r.isEmpty() ? null : r.get(0));
+        return r.isEmpty() ? null : r.get(0);
     }
 
     public T last() {
@@ -329,7 +333,7 @@ public abstract class JpaRepository<T, K extends Serializable>
         private boolean needsToLoadPage() {
             // either we do not have an iterator yet or we have reached the end
             // of the (current) iterator
-            return (this.currentPage == null || !this.currentPage.hasNext());
+            return this.currentPage == null || !this.currentPage.hasNext();
         }
     }
 
@@ -363,10 +367,9 @@ public abstract class JpaRepository<T, K extends Serializable>
      */
     @SuppressWarnings("unchecked")
     protected List<T> match(String where) {
-        final String className = this.entityClass.getSimpleName(); // entityClass.getAnnotation(Table.class).name();
+        final String className = this.entityClass.getSimpleName();
         final Query q = entityManager().createQuery("SELECT e FROM " + className + " e WHERE " + where);
-        final List<T> some = q.getResultList();
-        return some;
+        return q.getResultList();
     }
 
     /**

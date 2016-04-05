@@ -25,6 +25,32 @@ public class Range<T extends Comparable<T>> implements ValueObject {
     private final boolean openEnd;
 
     /**
+     * constructs a range
+     *
+     * @param start
+     *            start of the range
+     * @param end
+     *            end of the range
+     * @param openStart
+     *            indicates if the range is open at the start
+     * @param openEnd
+     *            indicates if the range is open at the end
+     */
+    public Range(T start, T end, boolean openStart, boolean openEnd) {
+        if (end.compareTo(start) < 0) {
+            throw new IllegalStateException("The end value of a range must be bigger than its start");
+        }
+        if (end.compareTo(start) == 0 && (openEnd || openStart)) {
+            throw new IllegalStateException("An empty range is not allowed");
+        }
+
+        this.start = start;
+        this.end = end;
+        this.openStart = openStart;
+        this.openEnd = openEnd;
+    }
+
+    /**
      * a factory method for open ranges
      *
      * @param start
@@ -56,32 +82,6 @@ public class Range<T extends Comparable<T>> implements ValueObject {
      */
     public static <T extends Comparable<T>> Range<T> openEnded(T start, T end) {
         return new Range<>(start, end, false, true);
-    }
-
-    /**
-     * constructs a range
-     *
-     * @param start
-     *            start of the range
-     * @param end
-     *            end of the range
-     * @param openStart
-     *            indicates if the range is open at the start
-     * @param openEnd
-     *            indicates if the range is open at the end
-     */
-    public Range(T start, T end, boolean openStart, boolean openEnd) {
-        if (end.compareTo(start) < 0) {
-            throw new IllegalStateException("The end value of a range must be bigger than its start");
-        }
-        if (end.compareTo(start) == 0 && (openEnd || openStart)) {
-            throw new IllegalStateException("An empty range is not allowed");
-        }
-
-        this.start = start;
-        this.end = end;
-        this.openStart = openStart;
-        this.openEnd = openEnd;
     }
 
     /**

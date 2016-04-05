@@ -53,7 +53,8 @@ public class SystemUser
     @Temporal(TemporalType.DATE)
     private Calendar deactivatedOn;
 
-	//TODO: Why are there two constructors for SystemUser? createdOn shouldn't only be assigned when approved?
+    // TODO: Why are there two constructors for SystemUser? createdOn shouldn't
+    // only be assigned when approved?
     public SystemUser(final String username, final String password, final String firstName, final String lastName,
             final String email, final List<RoleType> roles) {
         this(username, password, firstName, lastName, email, roles, DateTime.now());
@@ -71,37 +72,38 @@ public class SystemUser
         this.email = new EmailAddress(email);
         this.roles = new RoleSet();
 
-        /*
-         * The line bellow does exacly the same thing for (final RoleType rt :
-         * roles) { this.roles.add(new Role(rt, this.createdOn)); }
-         */
         this.roles.addAll(roles.stream().map(rt -> new Role(rt, this.createdOn)).collect(Collectors.toList()));
 
         this.active = true;
     }
 
-    // for ORM
     protected SystemUser() {
+        // for ORM
     }
 
-    public boolean sameAs(final SystemUser user) {
-        if (this == user) {
-            return true;
-        }
-        if (!this.username.equals(user.username)) {
+    @Override
+    public boolean sameAs(Object other) {
+        if (!(other instanceof SystemUser)) {
             return false;
         }
 
-        if (!this.password.equals(user.password)) {
+        final SystemUser that = (SystemUser) other;
+        if (this == that) {
+            return true;
+        }
+        if (!this.username.equals(that.username)) {
             return false;
         }
-        if (!this.name.equals(user.name)) {
+        if (!this.password.equals(that.password)) {
             return false;
         }
-        if (!this.email.equals(user.email)) {
+        if (!this.name.equals(that.name)) {
             return false;
         }
-        return this.roles.equals(user.roles);
+        if (!this.email.equals(that.email)) {
+            return false;
+        }
+        return this.roles.equals(that.roles);
     }
 
     @Override

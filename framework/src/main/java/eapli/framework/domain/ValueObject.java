@@ -28,23 +28,33 @@ import java.io.Serializable;
  */
 public interface ValueObject extends Serializable {
 
-	/**
-	 * returns a representation of this value object as a String.
-	 *
-	 * @return
-	 */
-	@Override
-	String toString();
+    /**
+     * returns a representation of this value object as a String.
+     *
+     * @return
+     */
+    @Override
+    String toString();
 
-	/**
-	 * Value objects are compared by the values of its properties
-	 *
-	 * @param other
-	 * @return
-	 */
-	@Override
-	public boolean equals(Object other);
+    /**
+     * Value objects are compared by the values of its properties
+     *
+     * @param other
+     * @return
+     */
+    @Override
+    public boolean equals(Object other);
 
-	@Override
-	public int hashCode();
+    /**
+     * hash code of this object according to java rules. i.e., the same fields
+     * used in equals() should be used in hashCode().
+     *
+     * see <a href=
+     * "http://stackoverflow.com/questions/113511/best-implementation-for-hashcode-method">
+     * stack overflow</a> for a nice discussion about hashCode() and equals()
+     *
+     * @return
+     */
+    @Override
+    public int hashCode();
 }
