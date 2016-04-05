@@ -1,12 +1,14 @@
 package eapli.ecafeteria.domain;
 
-import eapli.framework.domain.AggregateRoot;
-import eapli.util.Strings;
 import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+
+import eapli.framework.domain.AggregateRoot;
+import eapli.util.Strings;
 
 /**
  * a dish type, e.g., vegetarian or fish or meat.
@@ -79,5 +81,13 @@ public class DishType implements AggregateRoot<String>, Serializable {
     @Override
     public boolean is(String id) {
         return id.equalsIgnoreCase(this.acronym);
+    }
+
+    // FIXME implement equals() and hashCode()
+
+    @Override
+    public boolean sameAs(Object other) {
+        // TODO Auto-generated method stub
+        return false;
     }
 }

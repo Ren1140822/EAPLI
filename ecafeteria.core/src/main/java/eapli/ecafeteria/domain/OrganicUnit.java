@@ -71,5 +71,12 @@ public class OrganicUnit implements AggregateRoot<String>, Serializable {
     public String description() {
         return this.description;
     }
+
     // FIXME implement equals() and hashCode()
+
+    @Override
+    public boolean sameAs(Object other) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 }

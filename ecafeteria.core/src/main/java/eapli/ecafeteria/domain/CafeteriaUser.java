@@ -1,9 +1,7 @@
 package eapli.ecafeteria.domain;
 
-import eapli.ecafeteria.domain.authz.SystemUser;
-import eapli.framework.domain.AggregateRoot;
-import eapli.util.Strings;
 import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,6 +9,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+
+import eapli.ecafeteria.domain.authz.SystemUser;
+import eapli.framework.domain.AggregateRoot;
+import eapli.util.Strings;
 
 /**
  * An Cafeteria User.
@@ -46,9 +48,10 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Serial
     @Enumerated(EnumType.ORDINAL)
     private Status status;
 
-    //TODO check if the string account parameter is really needed
+    // TODO check if the string account parameter is really needed
     public CafeteriaUser(SystemUser user, String account, OrganicUnit organicUnit, String mecanographicNumber) {
-        if (mecanographicNumber == null || user == null || organicUnit == null || Strings.isNullOrEmpty(mecanographicNumber)) {
+        if (mecanographicNumber == null || user == null || organicUnit == null
+                || Strings.isNullOrEmpty(mecanographicNumber)) {
             throw new IllegalStateException();
         }
         this.systemUser = user;
@@ -85,22 +88,28 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Serial
         return this.mecanographicNumber.hashCode();
     }
 
-    public boolean sameAs(CafeteriaUser cafeteriaUser) {
-        if (this == cafeteriaUser) {
+    @Override
+    public boolean sameAs(Object other) {
+        if (!(other instanceof CafeteriaUser)) {
+            return false;
+        }
+
+        final CafeteriaUser that = (CafeteriaUser) other;
+        if (this == that) {
             return true;
         }
-        if (!this.mecanographicNumber.equals(cafeteriaUser.mecanographicNumber)) {
+        if (!this.mecanographicNumber.equals(that.mecanographicNumber)) {
             return false;
         }
 
-        if (!this.systemUser.equals(cafeteriaUser.systemUser)) {
+        if (!this.systemUser.equals(that.systemUser)) {
             return false;
         }
 
-        if (!this.account.equals(cafeteriaUser.account)) {
+        if (!this.account.equals(that.account)) {
             return false;
         }
-        if (!this.organicUnit.equals(cafeteriaUser.organicUnit)) {
+        if (!this.organicUnit.equals(that.organicUnit)) {
             return false;
         }
 
