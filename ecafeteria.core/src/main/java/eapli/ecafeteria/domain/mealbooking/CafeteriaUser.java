@@ -1,4 +1,4 @@
-package eapli.ecafeteria.domain;
+package eapli.ecafeteria.domain.mealbooking;
 
 import java.io.Serializable;
 
@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import eapli.ecafeteria.domain.authz.SystemUser;
+import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
 import eapli.framework.domain.AggregateRoot;
 import eapli.util.Strings;
 

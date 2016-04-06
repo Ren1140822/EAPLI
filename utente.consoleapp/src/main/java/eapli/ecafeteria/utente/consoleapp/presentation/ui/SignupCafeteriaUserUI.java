@@ -7,9 +7,9 @@ import java.util.logging.Logger;
 
 import eapli.ecafeteria.application.AddUserController;
 import eapli.ecafeteria.application.SignupCafeteriaUserController;
-import eapli.ecafeteria.domain.OrganicUnit;
 import eapli.ecafeteria.domain.authz.RoleType;
 import eapli.ecafeteria.domain.authz.SystemUser;
+import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
 import eapli.ecafeteria.utente.consoleapp.visitors.OrganicUnitUIVisitor;
 import eapli.framework.application.Controller;
 import eapli.framework.persistence.DataIntegrityViolationException;

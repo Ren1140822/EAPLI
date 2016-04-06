@@ -1,6 +1,7 @@
-package eapli.ecafeteria.domain;
+package eapli.ecafeteria.domain.mealbooking;
 
 import eapli.ecafeteria.domain.authz.SystemUser;
+import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
 import eapli.framework.domain.Factory;
 
 /**

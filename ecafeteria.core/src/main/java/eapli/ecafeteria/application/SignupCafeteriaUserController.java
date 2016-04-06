@@ -1,11 +1,11 @@
 package eapli.ecafeteria.application;
 
 import eapli.ecafeteria.AppSettings;
-import eapli.ecafeteria.domain.CafeteriaUser;
-import eapli.ecafeteria.domain.CafeteriaUserBuilder;
-import eapli.ecafeteria.domain.OrganicUnit;
 import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.ecafeteria.domain.authz.SystemUser;
+import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
+import eapli.ecafeteria.domain.mealbooking.CafeteriaUser;
+import eapli.ecafeteria.domain.mealbooking.CafeteriaUserBuilder;
 import eapli.ecafeteria.persistence.CafeteriaUserRepository;
 import eapli.ecafeteria.persistence.OrganicUnitRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;

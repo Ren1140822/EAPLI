@@ -1,6 +1,6 @@
 package eapli.ecafeteria.persistence.jpa;
 
-import eapli.ecafeteria.domain.DishType;
+import eapli.ecafeteria.domain.meals.DishType;
 import eapli.ecafeteria.persistence.DishTypeRepository;
 import eapli.framework.persistence.repositories.impl.jpa.JpaRepository;
 

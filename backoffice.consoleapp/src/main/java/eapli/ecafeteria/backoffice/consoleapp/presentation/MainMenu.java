@@ -18,8 +18,8 @@ import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.ListDishTypeA
 import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.ListUsersAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.RegisterDishTypeAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.ui.OrganicUnitPrinter;
-import eapli.ecafeteria.domain.OrganicUnit;
 import eapli.ecafeteria.domain.authz.ActionRight;
+import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
 import eapli.framework.actions.ReturnAction;
 import eapli.framework.actions.ShowMessageAction;
 import eapli.framework.presentation.console.AbstractUI;

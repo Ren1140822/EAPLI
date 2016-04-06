@@ -3,7 +3,7 @@
  */
 package eapli.ecafeteria.backoffice.consoleapp.presentation.ui;
 
-import eapli.ecafeteria.domain.OrganicUnit;
+import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
 import eapli.framework.visitor.Visitor;
 
 /**
