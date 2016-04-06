@@ -26,7 +26,6 @@ public class SignupCafeteriaUserUI extends AbstractUI {
 
     private final SignupCafeteriaUserController theController = new SignupCafeteriaUserController();
 
-    @Override
     protected Controller controller() {
         return this.theController;
     }
@@ -71,5 +70,4 @@ public class SignupCafeteriaUserUI extends AbstractUI {
     public String headline() {
         return "Sign Up";
     }
-
 }

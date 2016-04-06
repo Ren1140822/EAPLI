@@ -8,6 +8,7 @@ package eapli.ecafeteria.backoffice.consoleapp.presentation;
 import eapli.cafeteria.consoleapp.presentation.MyUserMenu;
 import eapli.cafeteria.consoleapp.presentation.actions.ExitWithMessageAction;
 import eapli.ecafeteria.AppSettings;
+import eapli.ecafeteria.application.ListOrganicUnitsController;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.ActivateDeactivateDishTypeAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.AddOrganicUnitAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.AddUserAction;
@@ -16,12 +17,14 @@ import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.DeactivateUse
 import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.ListDishTypeAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.ListUsersAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.RegisterDishTypeAction;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.ui.OrganicUnitPrinter;
+import eapli.ecafeteria.domain.OrganicUnit;
 import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.framework.actions.ReturnAction;
 import eapli.framework.actions.ShowMessageAction;
-import eapli.framework.application.Controller;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.HorizontalMenuRenderer;
+import eapli.framework.presentation.console.ListUI;
 import eapli.framework.presentation.console.Menu;
 import eapli.framework.presentation.console.MenuItem;
 import eapli.framework.presentation.console.MenuRenderer;
@@ -44,6 +47,7 @@ public class MainMenu extends AbstractUI {
 
     // ORGANIC UNITS
     private static final int ADD_ORGANIC_UNIT_OPTION = 1;
+    private static final int LIST_ORGANIC_UNIT_OPTION = 2;
 
     // SETTINGS
     private static final int SET_KITCHEN_ALERT_LIMIT_OPTION = 1;
@@ -142,6 +146,12 @@ public class MainMenu extends AbstractUI {
         final Menu menu = new Menu("Organic units >");
 
         menu.add(new MenuItem(ADD_ORGANIC_UNIT_OPTION, "Add Organic Unit", new AddOrganicUnitAction()));
+        // example of using anonymous action class
+        menu.add(new MenuItem(LIST_ORGANIC_UNIT_OPTION, "List Organic Unit", () -> {
+            new ListUI<OrganicUnit>(new ListOrganicUnitsController().listOrganicUnits(), new OrganicUnitPrinter(),
+                    "Organic Unit").show();
+            return false;
+        }));
         // TODO add other options for Organic Unit management
         menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
 
@@ -170,10 +180,5 @@ public class MainMenu extends AbstractUI {
         menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
 
         return menu;
-    }
-
-    @Override
-    protected Controller controller() {
-        throw new UnsupportedOperationException("Menus don't have a controller");
     }
 }

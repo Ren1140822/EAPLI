@@ -8,7 +8,6 @@ package eapli.ecafeteria.utente.consoleapp.presentation;
 import eapli.cafeteria.consoleapp.presentation.MyUserMenu;
 import eapli.cafeteria.consoleapp.presentation.actions.ExitWithMessageAction;
 import eapli.ecafeteria.AppSettings;
-import eapli.framework.application.Controller;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.Menu;
 import eapli.framework.presentation.console.MenuItem;
@@ -70,10 +69,5 @@ public class MainMenu extends AbstractUI {
         mainMenu.add(new MenuItem(EXIT_OPTION, "Exit", new ExitWithMessageAction()));
 
         return mainMenu;
-    }
-
-    @Override
-    protected Controller controller() {
-        throw new UnsupportedOperationException("Menus don't have a controller");
     }
 }

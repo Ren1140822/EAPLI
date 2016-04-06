@@ -20,7 +20,6 @@ public class ChangeDishTypeUI extends AbstractUI {
 
     private final ChangeDishTypeController theController = new ChangeDishTypeController();
 
-    @Override
     protected Controller controller() {
         return this.theController;
     }

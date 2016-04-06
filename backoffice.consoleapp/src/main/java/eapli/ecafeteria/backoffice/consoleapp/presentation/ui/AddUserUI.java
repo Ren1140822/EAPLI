@@ -26,7 +26,6 @@ import eapli.util.Console;
 public class AddUserUI extends AbstractUI {
     private final AddUserController theController = new AddUserController();
 
-    @Override
     protected Controller controller() {
         return this.theController;
     }
