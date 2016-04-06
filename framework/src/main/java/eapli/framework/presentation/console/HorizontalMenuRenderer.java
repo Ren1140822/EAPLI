@@ -4,7 +4,7 @@
 package eapli.framework.presentation.console;
 
 /**
- * @author pgsou_000
+ * @author Paulo Gandra Sousa
  *
  */
 public class HorizontalMenuRenderer extends MenuRenderer {

@@ -17,7 +17,7 @@ import java.util.Set;
  * A generic DTO that implements the Map interface. This class can be used when
  * you don't want to build your own custom DTO classes.
  *
- * @author pgsou_000
+ * @author Paulo Gandra Sousa
  *
  */
 public class GenericDTO implements DTO, Map<String, Object> {

@@ -16,7 +16,7 @@ import eapli.util.Strings;
  * it must be at least 6 characters long, with at least one capital letter and a
  * digit.
  *
- * @author pgsou_000
+ * @author Paulo Gandra Sousa
  */
 @Embeddable
 public class Username implements ValueObject, Serializable {

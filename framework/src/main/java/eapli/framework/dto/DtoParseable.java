@@ -6,7 +6,7 @@ package eapli.framework.dto;
 /**
  * a class that can build an instance of a domain object based on a GenericDTO
  *
- * @author pgsou_000
+ * @author Paulo Gandra Sousa
  *
  */
 @FunctionalInterface

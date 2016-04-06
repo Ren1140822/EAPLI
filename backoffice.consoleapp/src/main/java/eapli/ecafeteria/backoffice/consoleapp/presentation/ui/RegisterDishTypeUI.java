@@ -18,7 +18,6 @@ import eapli.util.Console;
 public class RegisterDishTypeUI extends AbstractUI {
     private final RegisterDishTypeController theController = new RegisterDishTypeController();
 
-    @Override
     protected Controller controller() {
         return this.theController;
     }

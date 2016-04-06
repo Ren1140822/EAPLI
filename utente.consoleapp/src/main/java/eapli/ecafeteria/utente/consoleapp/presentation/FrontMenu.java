@@ -9,7 +9,6 @@ import eapli.cafeteria.consoleapp.presentation.actions.ExitWithMessageAction;
 import eapli.cafeteria.consoleapp.presentation.actions.LoginAction;
 import eapli.ecafeteria.utente.consoleapp.presentation.actions.SignupCafeteriaUserAction;
 import eapli.framework.actions.IfThenAction;
-import eapli.framework.application.Controller;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.Menu;
 import eapli.framework.presentation.console.MenuItem;
@@ -54,10 +53,5 @@ public class FrontMenu extends AbstractUI {
     @Override
     public String headline() {
         return "eCAFETERIA";
-    }
-
-    @Override
-    protected Controller controller() {
-        throw new UnsupportedOperationException("Menus don't have a controller");
     }
 }

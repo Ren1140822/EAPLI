@@ -8,7 +8,7 @@ import java.util.Arrays;
 /**
  * An immutable vector.
  *
- * @author pgsou_000
+ * @author Paulo Gandra Sousa
  *
  */
 public class Vector {

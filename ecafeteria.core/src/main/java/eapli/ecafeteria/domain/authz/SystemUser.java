@@ -29,7 +29,7 @@ import eapli.util.DateTime;
  * native type attributes but provides for real semantic of the domain and
  * follows the Single Responsibility Pattern
  *
- * @author pgsou_000
+ * @author Paulo Gandra Sousa
  *
  */
 @Entity

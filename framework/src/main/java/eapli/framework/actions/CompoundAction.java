@@ -7,7 +7,7 @@ package eapli.framework.actions;
  * A compound action. it implements the Composite (GoF) pattern. subclasses must
  * override execute() AND call next() in the end
  *
- * @author pgsou_000
+ * @author Paulo Gandra Sousa
  *
  */
 public abstract class CompoundAction implements Action {

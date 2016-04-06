@@ -13,7 +13,7 @@ import eapli.ecafeteria.domain.authz.RoleType;
 import eapli.framework.actions.Action;
 
 /**
- * @author pgsou_000
+ * @author Paulo Gandra Sousa
  */
 public class UsersBootstrap implements Action {
 

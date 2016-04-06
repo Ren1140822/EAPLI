@@ -18,7 +18,6 @@ import eapli.util.Console;
 public class AddOrganicUnitUI extends AbstractUI {
     private final AddOrganicUnitController theController = new AddOrganicUnitController();
 
-    @Override
     protected Controller controller() {
         return this.theController;
     }

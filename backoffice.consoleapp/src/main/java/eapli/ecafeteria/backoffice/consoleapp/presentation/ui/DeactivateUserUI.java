@@ -22,7 +22,6 @@ public class DeactivateUserUI extends AbstractUI {
 
     private final DeactivateUserController theController = new DeactivateUserController();
 
-    @Override
     protected Controller controller() {
         return this.theController;
     }

@@ -17,7 +17,6 @@ import eapli.framework.presentation.console.AbstractUI;
 public class ListUsersUI extends AbstractUI {
     private final ListUsersController theController = new ListUsersController();
 
-    @Override
     protected Controller controller() {
         return this.theController;
     }

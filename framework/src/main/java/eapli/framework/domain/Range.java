@@ -10,7 +10,7 @@ import javax.persistence.Embeddable;
 /**
  * a generic range class.
  *
- * @author pgsou_000
+ * @author Paulo Gandra Sousa
  */
 @Embeddable
 public class Range<T extends Comparable<T>> implements ValueObject {

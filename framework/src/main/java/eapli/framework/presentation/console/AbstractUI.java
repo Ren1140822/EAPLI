@@ -4,8 +4,6 @@
  */
 package eapli.framework.presentation.console;
 
-import eapli.framework.application.Controller;
-
 /**
  *
  * @author Paulo Gandra Sousa
@@ -14,14 +12,6 @@ public abstract class AbstractUI {
 
     public static final String SEPARATOR = "+------------------------------------------------------------------------------+";
     public static final String BORDER = "+==============================================================================+";
-
-    /**
-     * derived classes should provide the Controller object. an example of the
-     * Factory Method and Template Method patterns
-     *
-     * @return the controller of the derived UI
-     */
-    protected abstract Controller controller();
 
     /**
      * derived classes should override this method to perform the actual
@@ -43,9 +33,9 @@ public abstract class AbstractUI {
      *
      */
     public void mainLoop() {
-            boolean wantsToExit;
-            do {
-                wantsToExit = show();
+        boolean wantsToExit;
+        do {
+            wantsToExit = show();
         } while (!wantsToExit);
     }
 

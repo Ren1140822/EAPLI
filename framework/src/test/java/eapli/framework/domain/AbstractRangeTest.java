@@ -7,7 +7,7 @@ package eapli.framework.domain;
 
 /**
  *
- * @author pgsou_000
+ * @author Paulo Gandra Sousa
  */
 public class AbstractRangeTest {
 

@@ -289,7 +289,7 @@ public abstract class JpaRepository<T, K extends Serializable>
     /**
      * an iterator over JPA
      *
-     * @author pgsou_000
+     * @author Paulo Gandra Sousa
      *
      */
     private class JpaPagedIterator implements Iterator<T> {

@@ -4,7 +4,7 @@
 package eapli.framework.actions;
 
 /**
- * @author pgsou_000
+ * @author Paulo Gandra Sousa
  *
  */
 public class IfThenAction extends CompoundAction {

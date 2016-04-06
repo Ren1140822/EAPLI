@@ -13,7 +13,6 @@ public class ActivateDeactivateDishTypeUI extends AbstractUI {
 
     private final ActivateDeactivateDishTypeController theController = new ActivateDeactivateDishTypeController();
 
-    @Override
     protected Controller controller() {
         return this.theController;
     }
