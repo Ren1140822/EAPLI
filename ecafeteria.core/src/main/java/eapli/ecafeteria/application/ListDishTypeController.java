@@ -1,6 +1,6 @@
 package eapli.ecafeteria.application;
 
-import eapli.ecafeteria.domain.DishType;
+import eapli.ecafeteria.domain.meals.DishType;
 import eapli.framework.application.Controller;
 
 /**

@@ -1,8 +1,9 @@
 package eapli.ecafeteria.application;
 
 import static eapli.ecafeteria.AppSettings.ensurePermissionOfLoggedInUser;
-import eapli.ecafeteria.domain.DishType;
+
 import eapli.ecafeteria.domain.authz.ActionRight;
+import eapli.ecafeteria.domain.meals.DishType;
 import eapli.ecafeteria.persistence.DishTypeRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 

@@ -1,4 +1,4 @@
-package eapli.ecafeteria.domain;
+package eapli.ecafeteria.domain.meals;
 
 import java.io.Serializable;
 

@@ -1,6 +1,6 @@
 package eapli.ecafeteria.utente.consoleapp.visitors;
 
-import eapli.ecafeteria.domain.OrganicUnit;
+import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
 import eapli.framework.visitor.Visitor;
 
 /**

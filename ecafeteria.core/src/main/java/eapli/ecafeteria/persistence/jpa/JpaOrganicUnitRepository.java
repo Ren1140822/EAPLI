@@ -5,7 +5,7 @@
  */
 package eapli.ecafeteria.persistence.jpa;
 
-import eapli.ecafeteria.domain.OrganicUnit;
+import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
 import eapli.ecafeteria.persistence.OrganicUnitRepository;
 import eapli.framework.persistence.repositories.impl.jpa.JpaRepository;
 

@@ -5,7 +5,7 @@
  */
 package eapli.ecafeteria.persistence;
 
-import eapli.ecafeteria.domain.OrganicUnit;
+import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
 import eapli.framework.persistence.repositories.Repository;
 
 /**

@@ -6,7 +6,7 @@
 package eapli.ecafeteria.backoffice.consoleapp.presentation.ui;
 
 import eapli.ecafeteria.application.ChangeDishTypeController;
-import eapli.ecafeteria.domain.DishType;
+import eapli.ecafeteria.domain.meals.DishType;
 import eapli.framework.application.Controller;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;

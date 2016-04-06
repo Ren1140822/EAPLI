@@ -1,6 +1,6 @@
 package eapli.ecafeteria.persistence;
 
-import eapli.ecafeteria.domain.DishType;
+import eapli.ecafeteria.domain.meals.DishType;
 import eapli.framework.persistence.repositories.Repository;
 
 /**

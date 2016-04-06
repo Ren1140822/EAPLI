@@ -18,8 +18,8 @@ import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.ListDishTypeA
 import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.ListUsersAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.RegisterDishTypeAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.ui.OrganicUnitPrinter;
-import eapli.ecafeteria.domain.OrganicUnit;
 import eapli.ecafeteria.domain.authz.ActionRight;
+import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
 import eapli.framework.actions.ReturnAction;
 import eapli.framework.actions.ShowMessageAction;
 import eapli.framework.presentation.console.AbstractUI;
@@ -148,6 +148,7 @@ public class MainMenu extends AbstractUI {
         menu.add(new MenuItem(ADD_ORGANIC_UNIT_OPTION, "Add Organic Unit", new AddOrganicUnitAction()));
         // example of using anonymous action class
         menu.add(new MenuItem(LIST_ORGANIC_UNIT_OPTION, "List Organic Unit", () -> {
+            // example of using the generic list ui from the framework
             new ListUI<OrganicUnit>(new ListOrganicUnitsController().listOrganicUnits(), new OrganicUnitPrinter(),
                     "Organic Unit").show();
             return false;

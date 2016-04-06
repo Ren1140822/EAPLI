@@ -1,4 +1,4 @@
-package eapli.ecafeteria.domain;
+package eapli.ecafeteria.domain.mealbooking;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -9,6 +9,8 @@ import org.junit.Test;
 
 import eapli.ecafeteria.domain.authz.RoleType;
 import eapli.ecafeteria.domain.authz.SystemUser;
+import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
+import eapli.ecafeteria.domain.mealbooking.CafeteriaUser;
 
 /**
  * Created by Nuno Bettencourt [NMB] on 03/04/16.

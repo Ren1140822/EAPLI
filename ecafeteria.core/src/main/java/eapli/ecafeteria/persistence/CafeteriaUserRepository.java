@@ -1,7 +1,7 @@
 package eapli.ecafeteria.persistence;
 
-import eapli.ecafeteria.domain.CafeteriaUser;
-import eapli.ecafeteria.domain.MecanographicNumber;
+import eapli.ecafeteria.domain.mealbooking.CafeteriaUser;
+import eapli.ecafeteria.domain.mealbooking.MecanographicNumber;
 import eapli.framework.persistence.repositories.Repository;
 
 /**

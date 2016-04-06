@@ -3,6 +3,9 @@ package eapli.framework.presentation.console;
 import eapli.framework.visitor.Visitor;
 
 /**
+ * an abstract generic List UI to avoid code duplication since most of the List
+ * UIs are quite similar.
+ *
  * Created by Paulo Gandra Sousa
  */
 public abstract class AbstractListUI<T> extends AbstractUI {
