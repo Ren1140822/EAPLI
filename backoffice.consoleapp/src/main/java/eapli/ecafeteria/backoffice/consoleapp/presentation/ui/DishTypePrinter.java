@@ -7,16 +7,10 @@ import eapli.ecafeteria.domain.DishType;
 import eapli.framework.visitor.Visitor;
 
 /**
- * @author pgsou_000
+ * @author Paulo Gandra Sousa
  *
  */
 class DishTypePrinter implements Visitor<DishType> {
-
-    /**
-     *
-     */
-    public DishTypePrinter() {
-    }
 
     @Override
     public void visit(DishType visitee) {
@@ -25,9 +19,11 @@ class DishTypePrinter implements Visitor<DishType> {
 
     @Override
     public void beforeVisiting(DishType visitee) {
+        // nothing to do
     }
 
     @Override
     public void afterVisiting(DishType visitee) {
+        // nothing to do
     }
 }

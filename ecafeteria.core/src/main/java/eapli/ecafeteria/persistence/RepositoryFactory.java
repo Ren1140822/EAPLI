@@ -4,7 +4,7 @@
 package eapli.ecafeteria.persistence;
 
 /**
- * @author pgsou_000
+ * @author Paulo Gandra Sousa
  *
  */
 public interface RepositoryFactory {

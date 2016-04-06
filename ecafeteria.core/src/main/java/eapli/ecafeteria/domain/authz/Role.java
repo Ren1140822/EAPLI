@@ -13,7 +13,7 @@ import eapli.framework.domain.ValueObject;
 import eapli.util.DateTime;
 
 /**
- * @author pgsou_000
+ * @author Paulo Gandra Sousa
  */
 
 public class Role implements ValueObject, Serializable {

@@ -13,7 +13,7 @@ import eapli.util.Strings;
 /**
  * TODO passwords should never be stored in plain format
  *
- * @author pgsou_000
+ * @author Paulo Gandra Sousa
  */
 @Embeddable
 public class Password implements ValueObject, Serializable {

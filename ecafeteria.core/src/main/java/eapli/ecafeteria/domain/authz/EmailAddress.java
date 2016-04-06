@@ -13,7 +13,7 @@ import eapli.framework.domain.ValueObject;
 import eapli.util.Strings;
 
 /**
- * @author pgsou_000
+ * @author Paulo Gandra Sousa
  */
 @Embeddable
 public class EmailAddress implements ValueObject, Serializable {

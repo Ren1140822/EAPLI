@@ -2,7 +2,7 @@
  * 
  */
 /**
- * @author pgsou_000
+ * @author Paulo Gandra Sousa
  *
  */
 package eapli.ecafeteria.domain.authz;

@@ -8,7 +8,7 @@ package eapli.framework.domain;
  * consistent aggregate, or a large value object, becomes complicated or reveals
  * too much of the internal structure, factories provide encapsulation.
  *
- * @author pgsou_000
+ * @author Paulo Gandra Sousa
  *
  */
 public interface Factory<T extends DomainEntity<?>> {

@@ -4,7 +4,7 @@
 package eapli.ecafeteria.domain.authz;
 
 /**
- * @author pgsou_000
+ * @author Paulo Gandra Sousa
  *
  */
 public class UnauthorizedException extends RuntimeException {

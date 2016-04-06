@@ -6,7 +6,7 @@ package eapli.ecafeteria.domain.authz;
 import java.util.Collection;
 
 /**
- * @author pgsou_000
+ * @author Paulo Gandra Sousa
  *
  */
 public enum ActionRight {

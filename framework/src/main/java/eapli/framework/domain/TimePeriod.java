@@ -9,7 +9,7 @@ import javax.persistence.Embeddable;
 
 /**
  *
- * @author pgsou_000
+ * @author Paulo Gandra Sousa
  *
  */
 @Embeddable

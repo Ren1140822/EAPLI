@@ -6,7 +6,7 @@ package eapli.framework.persistence;
 /**
  * An exception that violates a data integrity constraint like a duplicate key
  *
- * @author pgsou_000
+ * @author Paulo Gandra Sousa
  *
  */
 public class DataIntegrityViolationException extends Exception {

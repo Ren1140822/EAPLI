@@ -8,7 +8,7 @@ import java.util.UUID;
 import eapli.framework.domain.ValueObject;
 
 /**
- * @author pgsou_000
+ * @author Paulo Gandra Sousa
  *
  */
 public class Session implements ValueObject {

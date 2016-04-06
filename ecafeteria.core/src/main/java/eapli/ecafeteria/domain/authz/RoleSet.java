@@ -14,7 +14,7 @@ import java.util.Set;
 /**
  * a set of roles
  *
- * @author pgsou_000
+ * @author Paulo Gandra Sousa
  */
 public class RoleSet implements Set<Role>, Serializable {
 

@@ -6,7 +6,7 @@ package eapli.util.math;
 /**
  * An immutable matrix.
  *
- * @author pgsou_000
+ * @author Paulo Gandra Sousa
  *
  */
 public class Matrix {

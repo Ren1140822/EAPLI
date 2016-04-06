@@ -13,7 +13,7 @@ import org.junit.Test;
 
 /**
  *
- * @author pgsou_000
+ * @author Paulo Gandra Sousa
  */
 public class GenericDTOTest {
 

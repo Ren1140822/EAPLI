@@ -6,7 +6,7 @@ package eapli.framework.dto;
 /**
  * a domain object that can be transformed to a GenericDTO
  *
- * @author pgsou_000
+ * @author Paulo Gandra Sousa
  *
  */
 @FunctionalInterface

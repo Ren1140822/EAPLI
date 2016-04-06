@@ -13,7 +13,7 @@ import eapli.framework.actions.CompoundAction;
 
 /**
  *
- * @author pgsou_000
+ * @author Paulo Gandra Sousa
  */
 public class ValidateLoginAction extends CompoundAction {
 
