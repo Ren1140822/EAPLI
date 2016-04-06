@@ -1,7 +1,7 @@
 package eapli.ecafeteria.utente.consoleapp.presentation.ui;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -34,7 +34,7 @@ public class SignupCafeteriaUserUI extends AbstractUI {
         final UserDataWidget userData = new UserDataWidget();
 
         // FIXME do it in the right place ajs
-        final List<RoleType> roles = new ArrayList<>();
+        final Set<RoleType> roles = new HashSet<RoleType>();
 
         SystemUser user = null;
         try {

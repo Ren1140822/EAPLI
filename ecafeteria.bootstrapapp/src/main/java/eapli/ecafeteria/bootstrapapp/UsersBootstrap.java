@@ -5,8 +5,8 @@
  */
 package eapli.ecafeteria.bootstrapapp;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import eapli.ecafeteria.application.AddUserController;
 import eapli.ecafeteria.domain.authz.RoleType;
@@ -39,7 +39,7 @@ public class UsersBootstrap implements Action {
 
         final String email = "mary.doe@emai.l.com";
 
-        final List<RoleType> roles = new ArrayList<RoleType>();
+        final Set<RoleType> roles = new HashSet<RoleType>();
         roles.add(RoleType.Admin);
 
         final AddUserController userController = new AddUserController();
@@ -60,7 +60,7 @@ public class UsersBootstrap implements Action {
 
         final String email = "johny.doe@emai.l.com";
 
-        final List<RoleType> roles = new ArrayList<RoleType>();
+        final Set<RoleType> roles = new HashSet<RoleType>();
         roles.add(RoleType.Cashier);
 
         final AddUserController userController = new AddUserController();
@@ -81,7 +81,7 @@ public class UsersBootstrap implements Action {
 
         final String email = "the.user@emai.l.com";
 
-        final List<RoleType> roles = new ArrayList<RoleType>();
+        final Set<RoleType> roles = new HashSet<RoleType>();
         roles.add(RoleType.User);
 
         final AddUserController userController = new AddUserController();
@@ -102,7 +102,7 @@ public class UsersBootstrap implements Action {
 
         final String email = "Oven.and.stove@emai.l.com";
 
-        final List<RoleType> roles = new ArrayList<RoleType>();
+        final Set<RoleType> roles = new HashSet<RoleType>();
         roles.add(RoleType.KitchenManager);
 
         final AddUserController userController = new AddUserController();
@@ -123,7 +123,7 @@ public class UsersBootstrap implements Action {
 
         final String email = "master.chef@emai.l.com";
 
-        final List<RoleType> roles = new ArrayList<RoleType>();
+        final Set<RoleType> roles = new HashSet<RoleType>();
         roles.add(RoleType.MenuManager);
 
         final AddUserController userController = new AddUserController();

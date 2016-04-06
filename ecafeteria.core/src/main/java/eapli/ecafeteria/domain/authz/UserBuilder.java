@@ -1,8 +1,8 @@
 package eapli.ecafeteria.domain.authz;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import eapli.framework.domain.Factory;
 
@@ -19,7 +19,7 @@ public class UserBuilder implements Factory<SystemUser> {
     private String firstName;
     private String lastName;
     private String email;
-    private final List<RoleType> roles = new ArrayList<>();
+    private final Set<RoleType> roles = new HashSet<>();
     private Calendar createdOn;
 
     public UserBuilder withUsername(String username) {
@@ -69,7 +69,7 @@ public class UserBuilder implements Factory<SystemUser> {
         }
     }
 
-    public UserBuilder withRoles(List<RoleType> roles) {
+    public UserBuilder withRoles(Set<RoleType> roles) {
         this.roles.addAll(roles);
         return this;
     }

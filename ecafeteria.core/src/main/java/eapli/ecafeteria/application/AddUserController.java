@@ -3,7 +3,7 @@ package eapli.ecafeteria.application;
 import static eapli.ecafeteria.AppSettings.ensurePermissionOfLoggedInUser;
 
 import java.util.Calendar;
-import java.util.List;
+import java.util.Set;
 
 import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.ecafeteria.domain.authz.RoleType;
@@ -22,7 +22,7 @@ import eapli.util.DateTime;
 public class AddUserController implements Controller {
 
     public SystemUser addUser(String username, String password, String firstName, String lastName, String email,
-            List<RoleType> roles, Calendar createdOn) throws DataIntegrityViolationException {
+            Set<RoleType> roles, Calendar createdOn) throws DataIntegrityViolationException {
         ensurePermissionOfLoggedInUser(ActionRight.Administer);
 
         final UserBuilder userBuilder = new UserBuilder();
@@ -38,7 +38,7 @@ public class AddUserController implements Controller {
     }
 
     public SystemUser addUser(String username, String password, String firstName, String lastName, String email,
-            List<RoleType> roles) throws DataIntegrityViolationException {
+            Set<RoleType> roles) throws DataIntegrityViolationException {
         return addUser(username, password, firstName, lastName, email, roles, DateTime.now());
     }
 }

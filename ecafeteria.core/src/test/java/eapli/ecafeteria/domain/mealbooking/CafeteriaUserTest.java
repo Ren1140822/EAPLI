@@ -3,14 +3,14 @@ package eapli.ecafeteria.domain.mealbooking;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.Test;
 
 import eapli.ecafeteria.domain.authz.RoleType;
 import eapli.ecafeteria.domain.authz.SystemUser;
 import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
-import eapli.ecafeteria.domain.mealbooking.CafeteriaUser;
 
 /**
  * Created by Nuno Bettencourt [NMB] on 03/04/16.
@@ -27,7 +27,7 @@ public class CafeteriaUserTest {
         final String aMecanographicNumber = new String("abc");
         final String anotherMecanographicNumber = new String("abc");
 
-        final ArrayList<RoleType> roles = new ArrayList<>();
+        final Set<RoleType> roles = new HashSet<RoleType>();
         roles.add(RoleType.Admin);
 
         final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", this.anEmail,
@@ -53,7 +53,7 @@ public class CafeteriaUserTest {
         final String aMecanographicNumber = new String("abc");
         final String anotherMecanographicNumber = new String("qwe");
 
-        final ArrayList<RoleType> roles = new ArrayList<>();
+        final Set<RoleType> roles = new HashSet<RoleType>();
         roles.add(RoleType.Admin);
 
         final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", this.anEmail,
@@ -90,7 +90,7 @@ public class CafeteriaUserTest {
 
         final String aMecanographicNumber = new String("abc");
 
-        final ArrayList<RoleType> roles = new ArrayList<>();
+        final Set<RoleType> roles = new HashSet<RoleType>();
         roles.add(RoleType.Admin);
 
         final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", this.anEmail,
@@ -103,7 +103,7 @@ public class CafeteriaUserTest {
         final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anAccount, anOrganicUnit,
                 aMecanographicNumber);
 
-        final ArrayList<RoleType> systemUserRoles = new ArrayList<>();
+        final Set<RoleType> systemUserRoles = new HashSet<RoleType>();
         systemUserRoles.add(RoleType.Admin);
 
         final SystemUser systemUser = new SystemUser("userName", "password", "firsName", "lastName", this.anEmail,
@@ -120,7 +120,7 @@ public class CafeteriaUserTest {
 
         final String aMecanographicNumber = new String("abc");
 
-        final ArrayList<RoleType> roles = new ArrayList<>();
+        final Set<RoleType> roles = new HashSet<RoleType>();
         roles.add(RoleType.Admin);
 
         final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", this.anEmail,
@@ -145,7 +145,7 @@ public class CafeteriaUserTest {
         final String aMecanographicNumber = new String("abc");
         final String anotherMecanographicNumber = new String("qwe");
 
-        final ArrayList<RoleType> roles = new ArrayList<>();
+        final Set<RoleType> roles = new HashSet<RoleType>();
         roles.add(RoleType.Admin);
 
         final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", this.anEmail,
@@ -170,7 +170,7 @@ public class CafeteriaUserTest {
     public void ensureTwoCafeteriaUsersWithDifferentSystemUsersAreNotTheSame() throws Exception {
         boolean expected = false;
 
-        final ArrayList<RoleType> roles = new ArrayList<>();
+        final Set<RoleType> roles = new HashSet<RoleType>();
         roles.add(RoleType.Admin);
 
         final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", this.anEmail,
@@ -199,7 +199,7 @@ public class CafeteriaUserTest {
     public void ensureTwoCafeteriaUsersWithDifferentAccountsAreNotTheSame() throws Exception {
         boolean expected = false;
 
-        final ArrayList<RoleType> roles = new ArrayList<>();
+        final Set<RoleType> roles = new HashSet<RoleType>();
         roles.add(RoleType.Admin);
 
         final SystemUser aSystemUser = new SystemUser("userName", "password", "firsName", "lastName", this.anEmail,
@@ -226,7 +226,7 @@ public class CafeteriaUserTest {
     public void ensureTwoCafeteriaUsersWithDifferentOrganicUnitsAreNotTheSame() throws Exception {
         boolean expected = false;
 
-        final ArrayList<RoleType> roles = new ArrayList<>();
+        final Set<RoleType> roles = new HashSet<RoleType>();
         roles.add(RoleType.Admin);
 
         final SystemUser aSystemUser = new SystemUser("userName", "password", "firsName", "lastName", this.anEmail,

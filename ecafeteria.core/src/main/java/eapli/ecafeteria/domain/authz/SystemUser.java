@@ -2,7 +2,7 @@ package eapli.ecafeteria.domain.authz;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
@@ -56,12 +56,12 @@ public class SystemUser
     // TODO: Why are there two constructors for SystemUser? createdOn shouldn't
     // only be assigned when approved?
     public SystemUser(final String username, final String password, final String firstName, final String lastName,
-            final String email, final List<RoleType> roles) {
+            final String email, final Set<RoleType> roles) {
         this(username, password, firstName, lastName, email, roles, DateTime.now());
     }
 
     public SystemUser(final String username, final String password, final String firstName, final String lastName,
-            final String email, final List<RoleType> roles, final Calendar createdOn) {
+            final String email, final Set<RoleType> roles, final Calendar createdOn) {
         if (roles == null) {
             throw new IllegalArgumentException("roles cannot be null");
         }

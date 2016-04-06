@@ -1,7 +1,7 @@
 package eapli.ecafeteria.bootstrapapp;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import eapli.ecafeteria.AppSettings;
 import eapli.ecafeteria.domain.authz.RoleType;
@@ -31,7 +31,7 @@ public class ECafeteriaBootstrap implements Action {
         // AuthenticationService authz = new AuthenticationService();
         // Session adminSession = authz.authenticate(new Username("admin"), new
         // Password("admin"));
-        final List<RoleType> roles = new ArrayList<RoleType>();
+        final Set<RoleType> roles = new HashSet<RoleType>();
         roles.add(RoleType.Admin);
         roles.add(RoleType.MenuManager);
         final Session adminSession = new Session(

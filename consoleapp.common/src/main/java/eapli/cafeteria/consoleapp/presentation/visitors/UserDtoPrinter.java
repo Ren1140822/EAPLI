@@ -4,6 +4,8 @@ import eapli.framework.dto.GenericDTO;
 import eapli.framework.visitor.Visitor;
 
 /**
+ * a visitor (GoF) for User DTOs.
+ *
  * Created by Nuno Bettencourt [NMB] on 26/03/16.
  */
 public class UserDtoPrinter implements Visitor<GenericDTO> {
