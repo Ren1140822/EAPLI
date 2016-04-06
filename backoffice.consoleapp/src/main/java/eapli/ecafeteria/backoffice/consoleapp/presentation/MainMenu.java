@@ -148,6 +148,7 @@ public class MainMenu extends AbstractUI {
         menu.add(new MenuItem(ADD_ORGANIC_UNIT_OPTION, "Add Organic Unit", new AddOrganicUnitAction()));
         // example of using anonymous action class
         menu.add(new MenuItem(LIST_ORGANIC_UNIT_OPTION, "List Organic Unit", () -> {
+            // example of using the generic list ui from the framework
             new ListUI<OrganicUnit>(new ListOrganicUnitsController().listOrganicUnits(), new OrganicUnitPrinter(),
                     "Organic Unit").show();
             return false;

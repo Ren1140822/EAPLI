@@ -11,6 +11,7 @@ import eapli.framework.application.Controller;
 import eapli.framework.presentation.console.AbstractUI;
 
 /**
+ * TODO avoid duplicate code by using AbstractListUI from the framework
  *
  * @author losa
  */
