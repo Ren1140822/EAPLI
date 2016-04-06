@@ -17,7 +17,6 @@ public class CafeteriaUserBuilder implements Factory<CafeteriaUser> {
     private String account;
     private OrganicUnit organicUnit;
     private String mecanographicNumber;
-    private Status status;
 
     public CafeteriaUserBuilder withSystemUser(SystemUser systemUser) {
         this.systemUser = systemUser;
@@ -36,11 +35,6 @@ public class CafeteriaUserBuilder implements Factory<CafeteriaUser> {
 
     public CafeteriaUserBuilder withMecanographicNumber(String mecanographicNumber) {
         this.mecanographicNumber = mecanographicNumber;
-        return this;
-    }
-
-    public CafeteriaUserBuilder withStatus(Status status) {
-        this.status = status;
         return this;
     }
 

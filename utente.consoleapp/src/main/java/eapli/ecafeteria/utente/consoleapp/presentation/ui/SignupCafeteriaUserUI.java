@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 import eapli.ecafeteria.application.AddUserController;
 import eapli.ecafeteria.application.SignupCafeteriaUserController;
 import eapli.ecafeteria.domain.OrganicUnit;
-import eapli.ecafeteria.domain.Status;
 import eapli.ecafeteria.domain.authz.RoleType;
 import eapli.ecafeteria.domain.authz.SystemUser;
 import eapli.ecafeteria.utente.consoleapp.visitors.OrganicUnitUIVisitor;
@@ -47,7 +46,7 @@ public class SignupCafeteriaUserUI extends AbstractUI {
 
         final String account = Console.readLine("Account");
 
-        final SelectWidget<OrganicUnit> selector = new SelectWidget<OrganicUnit>(this.theController.getAllOrganicUnit(),
+        final SelectWidget<OrganicUnit> selector = new SelectWidget<>(this.theController.getAllOrganicUnit(),
                 new OrganicUnitUIVisitor());
         selector.show();
 
@@ -57,7 +56,7 @@ public class SignupCafeteriaUserUI extends AbstractUI {
 
         if (user != null) {
             try {
-                this.theController.addUser(user, account, organicUnit, mecanographicNumber, Status.APPROVAL_PENDING);
+                this.theController.addUser(user, account, organicUnit, mecanographicNumber);
             } catch (final DataIntegrityViolationException ex) {
                 Logger.getLogger(SignupCafeteriaUserUI.class.getName()).log(Level.SEVERE, null, ex);
             }
