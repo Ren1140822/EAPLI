@@ -14,9 +14,9 @@ import javax.persistence.Embeddable;
 
 //TODO: To check, I think Enum objects do not need to to be embeddable
 @Embeddable
-public enum Status {
-    ACTIVE, 
-    APPROVAL_PENDING, 
-    INACTIVE;
+public enum ApprovalStatus {
+    REQUESTED,
+    ACCEPTED, 
+    REFUSED;
 }
 
