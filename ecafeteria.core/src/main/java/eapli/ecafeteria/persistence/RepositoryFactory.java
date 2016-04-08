@@ -13,4 +13,5 @@ public interface RepositoryFactory {
 	DishTypeRepository dishTypes();
         OrganicUnitRepository organicUnits();
         CafeteriaUserRepository cafeteriaUsers();
+        SignupRequestRepository signupRequests();
 }

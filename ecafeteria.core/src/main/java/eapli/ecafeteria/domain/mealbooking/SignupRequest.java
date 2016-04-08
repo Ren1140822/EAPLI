@@ -17,7 +17,9 @@ import eapli.ecafeteria.domain.authz.SystemUser;
 import eapli.ecafeteria.domain.authz.Username;
 import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
 import eapli.framework.domain.AggregateRoot;
+import eapli.util.DateTime;
 import eapli.util.Strings;
+import java.util.Calendar;
 
 /**
  * An Signup Request
@@ -53,9 +55,15 @@ public class SignupRequest implements AggregateRoot<Username>, Serializable {
     private MecanographicNumber mecanographicNumber;
     @Enumerated(EnumType.ORDINAL)
     private ApprovalStatus approvalStatus;
+    private Calendar createdOn;
 
     public SignupRequest(final String username, final String password, final String firstName, final String lastName,
             final String email, OrganicUnit organicUnit, String mecanographicNumber) {
+        this(username, password, firstName, lastName, email, organicUnit, mecanographicNumber, DateTime.now());
+    }
+
+    public SignupRequest(final String username, final String password, final String firstName, final String lastName,
+            final String email, OrganicUnit organicUnit, String mecanographicNumber, final Calendar createdOn) {
         if (Strings.isNullOrEmpty(username) || Strings.isNullOrEmpty(password) || Strings.isNullOrEmpty(firstName)
                 || Strings.isNullOrEmpty(lastName) || Strings.isNullOrEmpty(email)
                 || Strings.isNullOrEmpty(mecanographicNumber)) {
@@ -69,7 +77,17 @@ public class SignupRequest implements AggregateRoot<Username>, Serializable {
         this.organicUnit = organicUnit;
         this.mecanographicNumber = new MecanographicNumber(mecanographicNumber);
         // by default
-        this.approvalStatus = ApprovalStatus.REQUESTED;
+        this.approvalStatus = ApprovalStatus.PENDING;
+        this.createdOn = createdOn;
+
+    }
+
+    public void changeToAcceptedStatus() {
+        this.approvalStatus = ApprovalStatus.ACCEPTED;
+    }
+
+    public void changeToRefusedStatus() {
+        this.approvalStatus = ApprovalStatus.REFUSED;
     }
 
     protected SignupRequest() {
