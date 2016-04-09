@@ -7,8 +7,7 @@ import eapli.framework.persistence.repositories.impl.jpa.JpaRepository;
 
 /**
  *
- * @author Jorge Santos ajs@isep.ipp.pt
- * 02/04/2016
+ * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
 class JpaSignupRequestRepository extends JpaRepository<SignupRequest, Username> implements SignupRequestRepository {
 
@@ -19,9 +18,8 @@ class JpaSignupRequestRepository extends JpaRepository<SignupRequest, Username> 
 
     @Override
     public Iterable<SignupRequest> listSignupRequestsPending() {
-      //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-      //FIXME filter just pending SignupRequests
-      return this.all();
+        //FIXME filter just pending SignupRequests
+        return this.all();
     }
 
 }

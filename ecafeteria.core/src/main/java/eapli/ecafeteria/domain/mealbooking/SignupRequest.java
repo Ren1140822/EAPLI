@@ -11,15 +11,14 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-
-import eapli.ecafeteria.domain.authz.SystemUser;
 import eapli.ecafeteria.domain.authz.Username;
 import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
 import eapli.framework.domain.AggregateRoot;
 import eapli.util.DateTime;
 import eapli.util.Strings;
 import java.util.Calendar;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * An Signup Request
@@ -55,6 +54,7 @@ public class SignupRequest implements AggregateRoot<Username>, Serializable {
     private MecanographicNumber mecanographicNumber;
     @Enumerated(EnumType.ORDINAL)
     private ApprovalStatus approvalStatus;
+    @Temporal(TemporalType.DATE)
     private Calendar createdOn;
 
     public SignupRequest(final String username, final String password, final String firstName, final String lastName,
