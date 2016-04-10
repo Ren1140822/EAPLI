@@ -4,12 +4,9 @@ import java.io.Serializable;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-
 import eapli.ecafeteria.domain.authz.SystemUser;
 import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
 import eapli.framework.domain.AggregateRoot;
@@ -39,7 +36,6 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Serial
 
     @OneToOne(cascade = CascadeType.PERSIST)
     private SystemUser systemUser;
-    private Account account;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     private OrganicUnit organicUnit;
@@ -53,21 +49,17 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Serial
             throw new IllegalStateException();
         }
         this.systemUser = user;
-        //TODO add account
-        this.account = new Account();
         this.organicUnit = organicUnit;
         this.mecanographicNumber = new MecanographicNumber(mecanographicNumber);
 
     }
 
-    public CafeteriaUser(SystemUser user,  OrganicUnit organicUnit, MecanographicNumber mecanographicNumber) {
+    public CafeteriaUser(SystemUser user, OrganicUnit organicUnit, MecanographicNumber mecanographicNumber) {
         if (mecanographicNumber == null || user == null || organicUnit == null
                 || mecanographicNumber == null) {
             throw new IllegalStateException();
         }
         this.systemUser = user;
-        //TODO add account
-        this.account = new Account();
         this.organicUnit = organicUnit;
         this.mecanographicNumber = mecanographicNumber;
 
@@ -117,9 +109,6 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Serial
             return false;
         }
 
-        if (!this.account.equals(that.account)) {
-            return false;
-        }
         if (!this.organicUnit.equals(that.organicUnit)) {
             return false;
         }
@@ -139,10 +128,6 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Serial
     @Override
     public MecanographicNumber id() {
         return this.mecanographicNumber;
-    }
-
-    public Account account() {
-        return this.account;
     }
 
     public OrganicUnit organicUnit() {
