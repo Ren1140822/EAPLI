@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import eapli.framework.domain.Factory;
+import eapli.util.Strings;
 import java.util.stream.Collectors;
 
 /**
@@ -54,13 +55,17 @@ public class UserBuilder implements Factory<SystemUser> {
 
     public UserBuilder withFirstName(String firstName) {
         this.firstName = firstName;
-        this.name = new Name(this.firstName, this.lastName);
+        if (!Strings.isNullOrEmpty(lastName)) {
+            this.name = new Name(this.firstName, this.lastName);
+        }
         return this;
     }
 
     public UserBuilder withLastName(String lastName) {
         this.lastName = lastName;
-        this.name = new Name(this.firstName, this.lastName);
+        if (!Strings.isNullOrEmpty(firstName)) {
+            this.name = new Name(this.firstName, this.lastName);
+        }
         return this;
     }
 

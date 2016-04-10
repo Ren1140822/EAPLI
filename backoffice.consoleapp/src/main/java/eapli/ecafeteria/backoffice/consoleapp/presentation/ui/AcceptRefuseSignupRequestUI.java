@@ -29,17 +29,28 @@ public class AcceptRefuseSignupRequestUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
+        int option = -1;
         final Iterable<SignupRequest> signupRequests = this.theController.listSignupRequestsPending();
         final SelectWidget<SignupRequest> selector = new SelectWidget<>(signupRequests, new SignupRequestPrinter());
         selector.show();
         final SignupRequest theSignupRequest = selector.selectedElement();
         if (theSignupRequest != null) {
-            //FIXME accept SignupRequest 
-            this.theController.acceptSignupRequest(theSignupRequest);
+            System.out.println("1. Accept Signup Request");
+            System.out.println("2. Refuse Signup Request");
+            System.out.println("0. Exit");
+    
+            option = Console.readOption(1, 2, 0);
+            //System.out.println("No valid option selected");
 
-            //FIXME refuse SignupRequest 
-            this.theController.refuseSignupRequest(theSignupRequest);
-
+            if (option == 1) //FIXME accept SignupRequest 
+            {
+                this.theController.acceptSignupRequest(theSignupRequest);
+            } else if (option == 2) //FIXME refuse SignupRequest 
+            {
+                this.theController.refuseSignupRequest(theSignupRequest);
+            } else {
+                System.out.println("No valid option selected");
+            }
         }
         return false;
     }

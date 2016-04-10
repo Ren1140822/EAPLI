@@ -15,16 +15,16 @@ import eapli.framework.domain.Factory;
 public class CafeteriaUserBuilder implements Factory<CafeteriaUser> {
 
     private SystemUser systemUser;
-    private String account;
+    private Account account;
     private OrganicUnit organicUnit;
-    private String mecanographicNumber;
+    private MecanographicNumber mecanographicNumber;
 
     public CafeteriaUserBuilder withSystemUser(SystemUser systemUser) {
         this.systemUser = systemUser;
         return this;
     }
 
-    public CafeteriaUserBuilder withAccount(String account) {
+    public CafeteriaUserBuilder withAccount(Account account) {
         this.account = account;
         return this;
     }
@@ -34,8 +34,13 @@ public class CafeteriaUserBuilder implements Factory<CafeteriaUser> {
         return this;
     }
 
-    public CafeteriaUserBuilder withMecanographicNumber(String mecanographicNumber) {
+    public CafeteriaUserBuilder withMecanographicNumber(MecanographicNumber mecanographicNumber) {
         this.mecanographicNumber = mecanographicNumber;
+        return this;
+    }
+
+    public CafeteriaUserBuilder withMecanographicNumber(String mecanographicNumber) {
+        this.mecanographicNumber = new MecanographicNumber(mecanographicNumber);
         return this;
     }
 
@@ -44,6 +49,6 @@ public class CafeteriaUserBuilder implements Factory<CafeteriaUser> {
         // since the factory knows that all the parts are needed it could throw
         // an exception. however, we will leave that to the constructor
 
-        return new CafeteriaUser(this.systemUser, this.account, this.organicUnit, this.mecanographicNumber);
+        return new CafeteriaUser(this.systemUser, this.organicUnit, this.mecanographicNumber);
     }
 }

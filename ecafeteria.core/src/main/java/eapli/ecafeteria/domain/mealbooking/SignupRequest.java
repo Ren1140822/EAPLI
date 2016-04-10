@@ -178,4 +178,17 @@ public class SignupRequest implements AggregateRoot<Username>, Serializable {
         return this.name;
     }
 
+    public boolean isPending() {
+        return this.approvalStatus == ApprovalStatus.PENDING;
+    }
+
+    public EmailAddress email() {
+        return this.email;
+    }
+
+    public Password password() {
+        return this.password;
+
+    }
+
 }

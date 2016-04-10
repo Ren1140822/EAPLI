@@ -46,21 +46,31 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Serial
 
     @Id
     private MecanographicNumber mecanographicNumber;
-    @Enumerated(EnumType.ORDINAL)
-    private Status status;
 
-    // TODO check if the string account parameter is really needed
-    public CafeteriaUser(SystemUser user, String account, OrganicUnit organicUnit, String mecanographicNumber) {
+    public CafeteriaUser(SystemUser user, OrganicUnit organicUnit, String mecanographicNumber) {
         if (mecanographicNumber == null || user == null || organicUnit == null
                 || Strings.isNullOrEmpty(mecanographicNumber)) {
             throw new IllegalStateException();
         }
         this.systemUser = user;
-        this.account = new Account(account);
+        //TODO add account
+        this.account = new Account();
         this.organicUnit = organicUnit;
         this.mecanographicNumber = new MecanographicNumber(mecanographicNumber);
-        // by default
-        this.status = Status.APPROVAL_PENDING;
+
+    }
+
+    public CafeteriaUser(SystemUser user,  OrganicUnit organicUnit, MecanographicNumber mecanographicNumber) {
+        if (mecanographicNumber == null || user == null || organicUnit == null
+                || mecanographicNumber == null) {
+            throw new IllegalStateException();
+        }
+        this.systemUser = user;
+        //TODO add account
+        this.account = new Account();
+        this.organicUnit = organicUnit;
+        this.mecanographicNumber = mecanographicNumber;
+
     }
 
     protected CafeteriaUser() {

@@ -37,9 +37,9 @@ public class CafeteriaUserTest {
 
         final OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
 
-        final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anAccount, anOrganicUnit,
+        final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
                 aMecanographicNumber);
-        final CafeteriaUser anotherCafeteriaUser = new CafeteriaUser(aSystemUser, anAccount, anOrganicUnit,
+        final CafeteriaUser anotherCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
                 anotherMecanographicNumber);
         expected = aCafeteriaUser.equals(anotherCafeteriaUser);
 
@@ -63,9 +63,9 @@ public class CafeteriaUserTest {
 
         final OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
 
-        final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anAccount, anOrganicUnit,
+        final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
                 aMecanographicNumber);
-        final CafeteriaUser anotherCafeteriaUser = new CafeteriaUser(aSystemUser, anAccount, anOrganicUnit,
+        final CafeteriaUser anotherCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
                 anotherMecanographicNumber);
 
         expected = aCafeteriaUser.equals(anotherCafeteriaUser);
@@ -100,7 +100,7 @@ public class CafeteriaUserTest {
 
         final OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
 
-        final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anAccount, anOrganicUnit,
+        final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
                 aMecanographicNumber);
 
         final Set<RoleType> systemUserRoles = new HashSet<RoleType>();
@@ -130,7 +130,7 @@ public class CafeteriaUserTest {
 
         final OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
 
-        final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anAccount, anOrganicUnit,
+        final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
                 aMecanographicNumber);
 
         expected = aCafeteriaUser.sameAs(aCafeteriaUser);
@@ -155,10 +155,10 @@ public class CafeteriaUserTest {
 
         final OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
 
-        final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anAccount, anOrganicUnit,
+        final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
                 aMecanographicNumber);
 
-        final CafeteriaUser anotherCafeteriaUser = new CafeteriaUser(aSystemUser, anAccount, anOrganicUnit,
+        final CafeteriaUser anotherCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
                 anotherMecanographicNumber);
 
         expected = aCafeteriaUser.sameAs(anotherCafeteriaUser);
@@ -184,10 +184,10 @@ public class CafeteriaUserTest {
         final String anAccount = new String("newAccount");
         final OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
 
-        final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anAccount, anOrganicUnit,
+        final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
                 aMecanographicNumber);
 
-        final CafeteriaUser anotherCafeteriaUser = new CafeteriaUser(anotherSystemUser, anAccount, anOrganicUnit,
+        final CafeteriaUser anotherCafeteriaUser = new CafeteriaUser(anotherSystemUser, anOrganicUnit,
                 aMecanographicNumber);
 
         expected = aCafeteriaUser.sameAs(anotherCafeteriaUser);
@@ -211,10 +211,10 @@ public class CafeteriaUserTest {
         final String anotherAccount = new String("accountB");
         final OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
 
-        final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anAccount, anOrganicUnit,
+        final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
                 aMecanographicNumber);
 
-        final CafeteriaUser anotherCafeteriaUser = new CafeteriaUser(aSystemUser, anotherAccount, anOrganicUnit,
+        final CafeteriaUser anotherCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
                 aMecanographicNumber);
 
         expected = aCafeteriaUser.sameAs(anotherCafeteriaUser);
@@ -238,10 +238,10 @@ public class CafeteriaUserTest {
         final OrganicUnit anOrganicUnit = new OrganicUnit("acronymA", "nameA", "descriptionA");
         final OrganicUnit anotherOrganicUnit = new OrganicUnit("acronymB", "nameB", "descriptionB");
 
-        final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anAccount, anOrganicUnit,
+        final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
                 aMecanographicNumber);
 
-        final CafeteriaUser anotherCafeteriaUser = new CafeteriaUser(aSystemUser, anAccount, anotherOrganicUnit,
+        final CafeteriaUser anotherCafeteriaUser = new CafeteriaUser(aSystemUser, anotherOrganicUnit,
                 aMecanographicNumber);
 
         expected = aCafeteriaUser.sameAs(anotherCafeteriaUser);

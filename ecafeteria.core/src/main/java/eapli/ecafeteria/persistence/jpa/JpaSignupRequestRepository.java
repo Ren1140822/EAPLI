@@ -4,6 +4,8 @@ import eapli.ecafeteria.domain.authz.Username;
 import eapli.ecafeteria.domain.mealbooking.SignupRequest;
 import eapli.ecafeteria.persistence.SignupRequestRepository;
 import eapli.framework.persistence.repositories.impl.jpa.JpaRepository;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -18,8 +20,15 @@ class JpaSignupRequestRepository extends JpaRepository<SignupRequest, Username> 
 
     @Override
     public Iterable<SignupRequest> listSignupRequestsPending() {
-        //FIXME filter just pending SignupRequests
-        return this.all();
+        
+      ArrayList listOfPending = new ArrayList();
+      
+        for (SignupRequest obj : this.all()) {
+            if (obj.isPending())
+                listOfPending.add(obj);
+        }
+
+            return listOfPending;
     }
 
 }
