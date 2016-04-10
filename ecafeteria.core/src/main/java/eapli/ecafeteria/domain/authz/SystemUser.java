@@ -77,6 +77,26 @@ public class SystemUser
         this.active = true;
     }
 
+    public SystemUser(final Username username, final Password password, final Name name,
+            final EmailAddress email, final RoleSet roles) {
+        this(username, password, name, email, roles, DateTime.now());
+    }
+
+    public SystemUser(final Username username, final Password password, final Name name,
+            final EmailAddress email, final RoleSet roles, final Calendar createdOn) {
+        if (roles == null) {
+            throw new IllegalArgumentException("roles cannot be null");
+        }
+        this.createdOn = createdOn;
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.email = email;
+        this.roles = roles;
+
+        this.active = true;
+    }
+
     protected SystemUser() {
         // for ORM
     }
@@ -114,8 +134,7 @@ public class SystemUser
     /**
      * Add role to user.
      *
-     * @param role
-     *            Role to assing to SystemUser.
+     * @param role Role to assign to SystemUser.
      */
     public void addRole(final Role role) {
         this.roles.add(role);
@@ -142,8 +161,7 @@ public class SystemUser
     /**
      * Remove role from user.
      *
-     * @param role
-     *            Role to remove from SystemUser.
+     * @param role Role to remove from SystemUser.
      */
     public void removeRole(final Role role) {
         // TODO should the role be removed or marked as "expired"?
