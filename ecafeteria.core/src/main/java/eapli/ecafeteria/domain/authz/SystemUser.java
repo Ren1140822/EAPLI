@@ -2,7 +2,7 @@ package eapli.ecafeteria.domain.authz;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
@@ -56,12 +56,12 @@ public class SystemUser
     // TODO: Why are there two constructors for SystemUser? createdOn shouldn't
     // only be assigned when approved?
     public SystemUser(final String username, final String password, final String firstName, final String lastName,
-            final String email, final List<RoleType> roles) {
+            final String email, final Set<RoleType> roles) {
         this(username, password, firstName, lastName, email, roles, DateTime.now());
     }
 
     public SystemUser(final String username, final String password, final String firstName, final String lastName,
-            final String email, final List<RoleType> roles, final Calendar createdOn) {
+            final String email, final Set<RoleType> roles, final Calendar createdOn) {
         if (roles == null) {
             throw new IllegalArgumentException("roles cannot be null");
         }
@@ -73,6 +73,26 @@ public class SystemUser
         this.roles = new RoleSet();
 
         this.roles.addAll(roles.stream().map(rt -> new Role(rt, this.createdOn)).collect(Collectors.toList()));
+
+        this.active = true;
+    }
+
+    public SystemUser(final Username username, final Password password, final Name name,
+            final EmailAddress email, final RoleSet roles) {
+        this(username, password, name, email, roles, DateTime.now());
+    }
+
+    public SystemUser(final Username username, final Password password, final Name name,
+            final EmailAddress email, final RoleSet roles, final Calendar createdOn) {
+        if (roles == null) {
+            throw new IllegalArgumentException("roles cannot be null");
+        }
+        this.createdOn = createdOn;
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.email = email;
+        this.roles = roles;
 
         this.active = true;
     }
@@ -114,8 +134,7 @@ public class SystemUser
     /**
      * Add role to user.
      *
-     * @param role
-     *            Role to assing to SystemUser.
+     * @param role Role to assign to SystemUser.
      */
     public void addRole(final Role role) {
         this.roles.add(role);
@@ -142,8 +161,7 @@ public class SystemUser
     /**
      * Remove role from user.
      *
-     * @param role
-     *            Role to remove from SystemUser.
+     * @param role Role to remove from SystemUser.
      */
     public void removeRole(final Role role) {
         // TODO should the role be removed or marked as "expired"?

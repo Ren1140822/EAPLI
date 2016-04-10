@@ -1,13 +1,10 @@
 package eapli.ecafeteria.backoffice.consoleapp.presentation.ui;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-import eapli.cafeteria.consoleapp.presentation.visitors.UserDtoPrinter;
 import eapli.ecafeteria.application.AddUserController;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.util.AddRoleType2List;
 import eapli.ecafeteria.domain.authz.RoleType;
-import eapli.ecafeteria.domain.authz.SystemUser;
 import eapli.framework.actions.ReturnAction;
 import eapli.framework.application.Controller;
 import eapli.framework.persistence.DataIntegrityViolationException;
@@ -32,28 +29,20 @@ public class AddUserUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
-
         final String username = Console.readLine("Username");
         final String password = Console.readLine("Password");
         final String firstName = Console.readLine("First Name");
         final String lastName = Console.readLine("Last Name");
         final String email = Console.readLine("E-Mail");
-        final List<RoleType> roleTypes = new ArrayList<>();
 
+        final Set<RoleType> roleTypes = new HashSet<>();
         boolean show;
         do {
             show = showRoles(roleTypes);
         } while (!show);
 
         try {
-            final SystemUser user = this.theController.addUser(username, password, firstName, lastName, email,
-                    roleTypes);
-            // TODO talvez seja demasiado complexo para apresentar aos alunos.
-            // nos slides da TP dizemos que usamos os objetos de dominio na UI
-            // pelo que podemos aqui apenas fazer uso direto dos "getter" para
-            // output
-            final UserDtoPrinter visitor = new UserDtoPrinter();
-            user.accept(visitor);
+            this.theController.addUser(username, password, firstName, lastName, email, roleTypes);
         } catch (final DataIntegrityViolationException e) {
             System.out.println("That username is already in use.");
         }
@@ -61,23 +50,19 @@ public class AddUserUI extends AbstractUI {
         return false;
     }
 
-    private boolean showRoles(final List<RoleType> roleTypes) {
+    private boolean showRoles(final Set<RoleType> roleTypes) {
         // TODO we could also use the "widget" classes from the framework...
         final Menu rolesMenu = buildRolesMenu(roleTypes);
         final MenuRenderer renderer = new VerticalMenuRenderer(rolesMenu);
         return renderer.show();
     }
 
-    private Menu buildRolesMenu(List<RoleType> roleTypes) {
+    private Menu buildRolesMenu(final Set<RoleType> roleTypes) {
         final Menu rolesMenu = new Menu();
-
         int counter = 0;
-
         rolesMenu.add(new MenuItem(counter++, "No Role", new ReturnAction()));
-
         for (final RoleType roleType : getRoleTypes()) {
-            // System.out.println(roleType);
-            rolesMenu.add(new MenuItem(counter++, roleType.name(), new AddRoleType2List(roleTypes, roleType)));
+            rolesMenu.add(new MenuItem(counter++, roleType.name(), () -> roleTypes.add(roleType)));
         }
         return rolesMenu;
     }
@@ -96,5 +81,4 @@ public class AddUserUI extends AbstractUI {
     public String headline() {
         return "Add User";
     }
-
 }

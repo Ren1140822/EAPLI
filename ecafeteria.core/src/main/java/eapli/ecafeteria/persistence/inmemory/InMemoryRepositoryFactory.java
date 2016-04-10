@@ -5,6 +5,7 @@ import eapli.ecafeteria.persistence.RepositoryFactory;
 import eapli.ecafeteria.persistence.UserRepository;
 import eapli.ecafeteria.persistence.DishTypeRepository;
 import eapli.ecafeteria.persistence.OrganicUnitRepository;
+import eapli.ecafeteria.persistence.SignupRequestRepository;
 
 /**
  *
@@ -16,6 +17,7 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     private static DishTypeRepository dishTypeRepository = null;
     private static OrganicUnitRepository organicUnitRepository = null;
     private static CafeteriaUserRepository cafeteriaUserRepository = null;
+    private static SignupRequestRepository signupRequestRepository = null;
 
     @Override
     public UserRepository users() {
@@ -48,5 +50,14 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
             cafeteriaUserRepository = new InMemoryCafeteriaUserRepository();
         }
         return cafeteriaUserRepository;
+    }
+    
+        @Override
+    public SignupRequestRepository signupRequests() {
+
+        if (signupRequestRepository == null) {
+            signupRequestRepository = new InMemorySignupRequestRepository();
+        }
+        return signupRequestRepository;
     }
 }

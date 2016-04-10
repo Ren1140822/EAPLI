@@ -3,9 +3,9 @@ package eapli.ecafeteria.application;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -28,7 +28,7 @@ public class AddUserControllerTest {
         // AuthenticationService authz = new AuthenticationService();
         // Session adminSession = authz.authenticate(new Username("admin"), new
         // Password("admin"));
-        final List<RoleType> roles = new ArrayList<RoleType>();
+        final Set<RoleType> roles = new HashSet<RoleType>();
         roles.add(RoleType.Admin);
         final Session adminSession = new Session(
                 new SystemUser("admin", "admin", "joe", "doe", "joe@email.org", roles));
@@ -43,7 +43,7 @@ public class AddUserControllerTest {
         final String firstName = "John";
         final String lastName = "Doe";
         final String email = "johndoe@email.com";
-        final List<RoleType> roles = new ArrayList<>();
+        final Set<RoleType> roles = new HashSet<RoleType>();
         roles.add(RoleType.Admin);
         roles.add(RoleType.Cashier);
 
@@ -64,7 +64,7 @@ public class AddUserControllerTest {
         final String firstName = "John";
         final String lastName = "Doe";
         final String email = "johndoe@email.com";
-        final List<RoleType> roles = null;
+        final Set<RoleType> roles = null;
 
         final SystemUser expected = new SystemUser(userName, password, firstName, lastName, email, roles);
 
@@ -76,16 +76,16 @@ public class AddUserControllerTest {
     /*
      * @Test(expected=IllegalArgumentException.class) public void
      * ensureRoleTypeListIsNotEmpty() throws Exception {
-     * 
+     *
      * String userName = "john"; String password = "johndoe"; String firstName =
      * "John"; String lastName = "Doe"; String email = "johndoe@email.com";
      * List<RoleType> roles = new ArrayList<>();
-     * 
+     *
      * User expected = new User(userName, password, firstName, lastName, email,
      * roles);
-     * 
+     *
      * AddUserController controller = new AddUserController();
-     * 
+     *
      * User result = controller.addUser(userName, password, firstName, lastName,
      * email, roles); assertEquals(expected, result); }
      */

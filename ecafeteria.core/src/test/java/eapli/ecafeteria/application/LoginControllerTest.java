@@ -2,8 +2,8 @@ package eapli.ecafeteria.application;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.After;
 import org.junit.Test;
@@ -31,7 +31,7 @@ public class LoginControllerTest {
         final String lastName = "Doe";
         final String email = "john.doe@emai.l.com";
 
-        final List<RoleType> roles = new ArrayList<RoleType>();
+        final Set<RoleType> roles = new HashSet<RoleType>();
         roles.add(RoleType.Admin);
 
         final AddUserController userController = new AddUserController();
@@ -53,7 +53,7 @@ public class LoginControllerTest {
         final String lastName = "Doe";
         final String email = "john.doe@emai.l.com";
 
-        final List<RoleType> roles = new ArrayList<RoleType>();
+        final Set<RoleType> roles = new HashSet<RoleType>();
         roles.add(RoleType.Admin);
 
         final AddUserController userController = new AddUserController();
@@ -78,7 +78,7 @@ public class LoginControllerTest {
         final String lastName = "Doe";
         final String email = "john.doe@emai.l.com";
 
-        final List<RoleType> roles = new ArrayList<RoleType>();
+        final Set<RoleType> roles = new HashSet<>();
         roles.add(RoleType.Admin);
 
         final AddUserController userController = new AddUserController();

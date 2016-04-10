@@ -1,6 +1,7 @@
 package eapli.ecafeteria.persistence.jpa;
 
 import eapli.ecafeteria.persistence.RepositoryFactory;
+import eapli.ecafeteria.persistence.SignupRequestRepository;
 import eapli.ecafeteria.persistence.UserRepository;
 
 /**
@@ -27,5 +28,10 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     @Override
     public JpaCafeteriaUserRepository cafeteriaUsers() {
         return new JpaCafeteriaUserRepository();
+    }
+    
+        @Override
+    public SignupRequestRepository signupRequests() {
+        return new JpaSignupRequestRepository();
     }
 }

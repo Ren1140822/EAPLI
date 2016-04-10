@@ -5,17 +5,17 @@
  */
 package eapli.ecafeteria.utente.consoleapp.presentation.actions;
 
-import eapli.ecafeteria.utente.consoleapp.presentation.ui.SignupCafeteriaUserUI;
+import eapli.ecafeteria.utente.consoleapp.presentation.ui.SignupRequestUI;
 import eapli.framework.actions.Action;
 
 /**
  *
  * @author Jorge Santos ajs@isep.ipp.pt
  */
-public class SignupCafeteriaUserAction implements Action {
+public class SignupRequestAction implements Action {
     @Override
     public boolean execute() {
-        return new SignupCafeteriaUserUI().show();
+        return new SignupRequestUI().show();
         //return new AddUserUI().show();
     }
 }
