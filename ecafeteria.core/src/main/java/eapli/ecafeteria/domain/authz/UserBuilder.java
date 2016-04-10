@@ -1,12 +1,11 @@
 package eapli.ecafeteria.domain.authz;
 
 import java.util.Calendar;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import eapli.framework.domain.Factory;
 import eapli.util.Strings;
-import java.util.stream.Collectors;
 
 /**
  * A factory for User entities.
@@ -30,7 +29,7 @@ public class UserBuilder implements Factory<SystemUser> {
     private Calendar createdOn;
 
     public UserBuilder() {
-        roles = new RoleSet();
+        this.roles = new RoleSet();
     }
 
     public UserBuilder withUsername(String username) {
@@ -55,7 +54,7 @@ public class UserBuilder implements Factory<SystemUser> {
 
     public UserBuilder withFirstName(String firstName) {
         this.firstName = firstName;
-        if (!Strings.isNullOrEmpty(lastName)) {
+        if (!Strings.isNullOrEmpty(this.lastName)) {
             this.name = new Name(this.firstName, this.lastName);
         }
         return this;
@@ -63,7 +62,7 @@ public class UserBuilder implements Factory<SystemUser> {
 
     public UserBuilder withLastName(String lastName) {
         this.lastName = lastName;
-        if (!Strings.isNullOrEmpty(firstName)) {
+        if (!Strings.isNullOrEmpty(this.firstName)) {
             this.name = new Name(this.firstName, this.lastName);
         }
         return this;
@@ -104,14 +103,16 @@ public class UserBuilder implements Factory<SystemUser> {
         // since the factory knows that all the parts are needed it could throw
         // an exception. however, we will leave that to the constructor
         if (this.createdOn != null) {
-            return new SystemUser(this.username, this.password, this.name, this.email, this.roles,
-                    this.createdOn);
+            return new SystemUser(this.username, this.password, this.name, this.email, this.roles, this.createdOn);
         } else {
             return new SystemUser(this.username, this.password, this.name, this.email, this.roles);
         }
     }
 
     public UserBuilder withRoles(Set<RoleType> roles) {
+        if (this.createdOn == null) {
+            throw new IllegalStateException();
+        }
         this.roles.addAll(roles.stream().map(rt -> new Role(rt, this.createdOn)).collect(Collectors.toList()));
         return this;
     }
@@ -120,5 +121,4 @@ public class UserBuilder implements Factory<SystemUser> {
         this.roles.addAll(roles);
         return this;
     }
-
 }

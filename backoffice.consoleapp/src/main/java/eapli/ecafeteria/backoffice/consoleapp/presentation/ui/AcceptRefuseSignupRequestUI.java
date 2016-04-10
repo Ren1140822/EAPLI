@@ -8,6 +8,7 @@ package eapli.ecafeteria.backoffice.consoleapp.presentation.ui;
 import eapli.ecafeteria.application.AcceptRefuseSignupRequestController;
 import eapli.ecafeteria.domain.mealbooking.SignupRequest;
 import eapli.framework.application.Controller;
+import eapli.framework.persistence.DataIntegrityViolationException;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
 import eapli.util.Console;
@@ -40,7 +41,12 @@ public class AcceptRefuseSignupRequestUI extends AbstractUI {
 
             if (option == 1) // FIXME accept SignupRequest
             {
-                this.theController.acceptSignupRequest(theSignupRequest);
+                try {
+                    this.theController.acceptSignupRequest(theSignupRequest);
+                } catch (final DataIntegrityViolationException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             } else if (option == 2) // FIXME refuse SignupRequest
             {
                 this.theController.refuseSignupRequest(theSignupRequest);

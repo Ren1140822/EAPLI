@@ -27,7 +27,7 @@ public class AddUserController implements Controller {
 
         final UserBuilder userBuilder = new UserBuilder();
         userBuilder.withUsername(username).withPassword(password).withFirstName(firstName).withLastName(lastName)
-                .withEmail(email).withRoles(roles).withCreatedOn(createdOn);
+                .withEmail(email).withCreatedOn(createdOn).withRoles(roles);
 
         final SystemUser newUser = userBuilder.build();
         final UserRepository userRepository = PersistenceContext.repositories().users();

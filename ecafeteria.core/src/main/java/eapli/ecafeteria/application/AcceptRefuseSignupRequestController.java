@@ -9,13 +9,13 @@ import static eapli.ecafeteria.AppSettings.ensurePermissionOfLoggedInUser;
 
 import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.ecafeteria.domain.authz.SystemUser;
+import eapli.ecafeteria.domain.authz.UserBuilder;
+import eapli.ecafeteria.domain.mealbooking.CafeteriaUserBuilder;
 import eapli.ecafeteria.domain.mealbooking.SignupRequest;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.ecafeteria.persistence.SignupRequestRepository;
-import eapli.framework.application.Controller;
-import eapli.ecafeteria.domain.authz.UserBuilder;
-import eapli.ecafeteria.domain.mealbooking.CafeteriaUserBuilder;
 import eapli.ecafeteria.persistence.UserRepository;
+import eapli.framework.application.Controller;
 import eapli.framework.persistence.DataIntegrityViolationException;
 
 /**
@@ -31,7 +31,7 @@ public class AcceptRefuseSignupRequestController implements Controller {
             throw new IllegalStateException();
         }
 
-        //add system user
+        // add system user
         final UserBuilder userBuilder = new UserBuilder();
 
         userBuilder.withUsername(theSignupRequest.username());
@@ -47,20 +47,20 @@ public class AcceptRefuseSignupRequestController implements Controller {
 
         userRepository.add(newUser);
 
-        //add cafeteria user
+        // add cafeteria user
         final CafeteriaUserBuilder cafeteriaUserBuilder = new CafeteriaUserBuilder();
         cafeteriaUserBuilder.withSystemUser(newUser);
-        //TODO add acount
-        //cafeteriaUserBuilder.withAccount(theSignupRequest.account());
+        // TODO add acount
+        // cafeteriaUserBuilder.withAccount(theSignupRequest.account());
         cafeteriaUserBuilder.withOrganicUnit(theSignupRequest.organicUnit());
         cafeteriaUserBuilder.withMecanographicNumber(theSignupRequest.mecanographicNumber());
 
-        
-        //modify Signup Request to accepted
+        // modify Signup Request to accepted
         theSignupRequest.changeToAcceptedStatus();
 
         final SignupRequestRepository repo = PersistenceContext.repositories().signupRequests();
-        return repo.save(theSignupRequest);
+        repo.add(theSignupRequest);
+        return theSignupRequest;
     }
 
     public SignupRequest refuseSignupRequest(SignupRequest theSignupRequest) {
