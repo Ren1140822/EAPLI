@@ -80,7 +80,7 @@ public class AcceptRefuseSignupRequestController implements Controller {
      *
      * @return
      */
-    public Iterable<SignupRequest> listSignupRequestsPending() {
+    public Iterable<SignupRequest> listPendingSignupRequests() {
         final SignupRequestRepository repo = PersistenceContext.repositories().signupRequests();
         return repo.listSignupRequestsPending();
     }

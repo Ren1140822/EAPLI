@@ -6,10 +6,7 @@
 package eapli.ecafeteria.backoffice.consoleapp.presentation.ui;
 
 import eapli.ecafeteria.application.AcceptRefuseSignupRequestController;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.ui.*;
-import eapli.ecafeteria.application.ChangeDishTypeController;
 import eapli.ecafeteria.domain.mealbooking.SignupRequest;
-import eapli.ecafeteria.domain.meals.DishType;
 import eapli.framework.application.Controller;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
@@ -29,23 +26,22 @@ public class AcceptRefuseSignupRequestUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
-        int option = -1;
-        final Iterable<SignupRequest> signupRequests = this.theController.listSignupRequestsPending();
-        final SelectWidget<SignupRequest> selector = new SelectWidget<>(signupRequests, new SignupRequestPrinter());
+        final SelectWidget<SignupRequest> selector = new SelectWidget<>(this.theController.listPendingSignupRequests(),
+                new SignupRequestPrinter());
         selector.show();
         final SignupRequest theSignupRequest = selector.selectedElement();
         if (theSignupRequest != null) {
             System.out.println("1. Accept Signup Request");
             System.out.println("2. Refuse Signup Request");
             System.out.println("0. Exit");
-    
-            option = Console.readOption(1, 2, 0);
-            //System.out.println("No valid option selected");
 
-            if (option == 1) //FIXME accept SignupRequest 
+            final int option = Console.readOption(1, 2, 0);
+            // System.out.println("No valid option selected");
+
+            if (option == 1) // FIXME accept SignupRequest
             {
                 this.theController.acceptSignupRequest(theSignupRequest);
-            } else if (option == 2) //FIXME refuse SignupRequest 
+            } else if (option == 2) // FIXME refuse SignupRequest
             {
                 this.theController.refuseSignupRequest(theSignupRequest);
             } else {
