@@ -1,6 +1,7 @@
 package eapli.ecafeteria.domain.authz;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -17,15 +18,11 @@ public class UserBuilder implements Factory<SystemUser> {
 
     private Username username;
     private Password password;
-
     private String firstName;
     private String lastName;
-
     private Name name;
     private EmailAddress email;
-
     private final RoleSet roles;
-
     private Calendar createdOn;
 
     public UserBuilder() {
@@ -109,11 +106,14 @@ public class UserBuilder implements Factory<SystemUser> {
         }
     }
 
-    public UserBuilder withRoles(Set<RoleType> roles) {
+    public UserBuilder withRoles(Set<RoleType> someRoles) {
+        List<Role> theRoles;
         if (this.createdOn == null) {
-            throw new IllegalStateException();
+            theRoles = someRoles.stream().map(rt -> new Role(rt)).collect(Collectors.toList());
+        } else {
+            theRoles = someRoles.stream().map(rt -> new Role(rt, this.createdOn)).collect(Collectors.toList());
         }
-        this.roles.addAll(roles.stream().map(rt -> new Role(rt, this.createdOn)).collect(Collectors.toList()));
+        this.roles.addAll(theRoles);
         return this;
     }
 
