@@ -17,7 +17,7 @@ public class InMemorySignupRequestRepository extends InMemoryRepository<SignupRe
     }
 
     @Override
-    public Iterable<SignupRequest> listSignupRequestsPending() {
+    public Iterable<SignupRequest> listPendingSignupRequests() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

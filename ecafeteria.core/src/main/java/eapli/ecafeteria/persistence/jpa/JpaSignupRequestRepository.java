@@ -19,7 +19,7 @@ class JpaSignupRequestRepository extends JpaRepository<SignupRequest, Username> 
     }
 
     @Override
-    public Iterable<SignupRequest> listSignupRequestsPending() {
+    public Iterable<SignupRequest> listPendingSignupRequests() {
         
       ArrayList listOfPending = new ArrayList();
       

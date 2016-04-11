@@ -31,31 +31,34 @@ public class AcceptRefuseSignupRequestController implements Controller {
             throw new IllegalStateException();
         }
 
+        //
         // add system user
+        //
         final UserBuilder userBuilder = new UserBuilder();
-
         userBuilder.withUsername(theSignupRequest.username());
         userBuilder.withPassword(theSignupRequest.password());
-
         userBuilder.withName(theSignupRequest.name());
         userBuilder.withEmail(theSignupRequest.email());
-
         final SystemUser newUser = userBuilder.build();
+
         final UserRepository userRepository = PersistenceContext.repositories().users();
         // TODO error checking if the username is already in the persistence
         // store
-
         userRepository.add(newUser);
 
+        //
         // add cafeteria user
+        //
         final CafeteriaUserBuilder cafeteriaUserBuilder = new CafeteriaUserBuilder();
         cafeteriaUserBuilder.withSystemUser(newUser);
-        // TODO add acount
-        // cafeteriaUserBuilder.withAccount(theSignupRequest.account());
         cafeteriaUserBuilder.withOrganicUnit(theSignupRequest.organicUnit());
         cafeteriaUserBuilder.withMecanographicNumber(theSignupRequest.mecanographicNumber());
 
+        // FIXME add the cafeteria user to the repository
+
+        //
         // modify Signup Request to accepted
+        //
         theSignupRequest.changeToAcceptedStatus();
 
         final SignupRequestRepository repo = PersistenceContext.repositories().signupRequests();
@@ -82,6 +85,6 @@ public class AcceptRefuseSignupRequestController implements Controller {
      */
     public Iterable<SignupRequest> listPendingSignupRequests() {
         final SignupRequestRepository repo = PersistenceContext.repositories().signupRequests();
-        return repo.listSignupRequestsPending();
+        return repo.listPendingSignupRequests();
     }
 }
