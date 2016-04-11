@@ -5,16 +5,10 @@
  */
 package eapli.ecafeteria.domain.mealbooking;
 
-import javax.persistence.Embeddable;
-
 /**
  *
  * @author Jorge Santos ajs@isep.ipp.pt
  */
-
 public enum ApprovalStatus {
-    PENDING,
-    ACCEPTED, 
-    REFUSED;
+    PENDING, ACCEPTED, REFUSED;
 }
-

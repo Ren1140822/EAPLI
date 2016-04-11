@@ -10,8 +10,10 @@ import static eapli.ecafeteria.AppSettings.ensurePermissionOfLoggedInUser;
 import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.ecafeteria.domain.authz.SystemUser;
 import eapli.ecafeteria.domain.authz.UserBuilder;
+import eapli.ecafeteria.domain.mealbooking.CafeteriaUser;
 import eapli.ecafeteria.domain.mealbooking.CafeteriaUserBuilder;
 import eapli.ecafeteria.domain.mealbooking.SignupRequest;
+import eapli.ecafeteria.persistence.CafeteriaUserRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.ecafeteria.persistence.SignupRequestRepository;
 import eapli.ecafeteria.persistence.UserRepository;
@@ -41,12 +43,9 @@ public class AcceptRefuseSignupRequestController implements Controller {
         // add system user
         //
         final UserBuilder userBuilder = new UserBuilder();
-        userBuilder.withUsername(theSignupRequest.username());
-        userBuilder.withPassword(theSignupRequest.password());
-        userBuilder.withName(theSignupRequest.name());
-        userBuilder.withEmail(theSignupRequest.email());
+        userBuilder.withUsername(theSignupRequest.username()).withPassword(theSignupRequest.password())
+                .withName(theSignupRequest.name()).withEmail(theSignupRequest.email());
         final SystemUser newUser = userBuilder.build();
-
         final UserRepository userRepository = PersistenceContext.repositories().users();
         // TODO error checking if the username is already in the persistence
         // store
@@ -56,19 +55,18 @@ public class AcceptRefuseSignupRequestController implements Controller {
         // add cafeteria user
         //
         final CafeteriaUserBuilder cafeteriaUserBuilder = new CafeteriaUserBuilder();
-        cafeteriaUserBuilder.withMecanographicNumber(theSignupRequest.mecanographicNumber());
-        cafeteriaUserBuilder.withOrganicUnit(theSignupRequest.organicUnit());
-        cafeteriaUserBuilder.withSystemUser(newUser);
-
-        // FIXME add the cafeteria user to the repository
+        cafeteriaUserBuilder.withMecanographicNumber(theSignupRequest.mecanographicNumber())
+                .withOrganicUnit(theSignupRequest.organicUnit()).withSystemUser(newUser);
+        final CafeteriaUser cafeteriaUser = cafeteriaUserBuilder.build();
+        final CafeteriaUserRepository cafeteriaUserRepository = PersistenceContext.repositories().cafeteriaUsers();
+        cafeteriaUserRepository.add(cafeteriaUser);
 
         //
         // modify Signup Request to accepted
         //
         theSignupRequest.changeToAcceptedStatus();
-
         final SignupRequestRepository repo = PersistenceContext.repositories().signupRequests();
-        repo.add(theSignupRequest);
+        repo.save(theSignupRequest);
         return theSignupRequest;
     }
 

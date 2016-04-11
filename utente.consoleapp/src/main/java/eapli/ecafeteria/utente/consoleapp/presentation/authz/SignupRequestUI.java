@@ -1,8 +1,5 @@
 package eapli.ecafeteria.utente.consoleapp.presentation.authz;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import eapli.ecafeteria.application.SignupRequestController;
 import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
 import eapli.framework.application.Controller;
@@ -38,10 +35,11 @@ public class SignupRequestUI extends AbstractUI {
         final String mecanographicNumber = Console.readLine("Mecanographic Number");
 
         try {
-            this.theController.addSignupRequest(userData.username, userData.password, userData.firstName,
-                    userData.lastName, userData.email, organicUnit, mecanographicNumber);
-        } catch (final DataIntegrityViolationException ex) {
-            Logger.getLogger(SignupRequestUI.class.getName()).log(Level.SEVERE, null, ex);
+            this.theController.addSignupRequest(userData.username(), userData.password(), userData.firstName(),
+                    userData.lastName(), userData.email(), organicUnit, mecanographicNumber);
+        } catch (final DataIntegrityViolationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
 
         return false;
