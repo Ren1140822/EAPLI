@@ -15,5 +15,4 @@ class JpaUserRepository extends JpaRepository<SystemUser, Username> implements U
     protected String persistenceUnitName() {
         return PersistenceSettings.PERSISTENCE_UNIT_NAME;
     }
-
 }

@@ -66,7 +66,7 @@ public class AcceptRefuseSignupRequestController implements Controller {
         //
         theSignupRequest.changeToAcceptedStatus();
         final SignupRequestRepository repo = PersistenceContext.repositories().signupRequests();
-        repo.add(theSignupRequest);
+        repo.save(theSignupRequest);
         return theSignupRequest;
     }
 

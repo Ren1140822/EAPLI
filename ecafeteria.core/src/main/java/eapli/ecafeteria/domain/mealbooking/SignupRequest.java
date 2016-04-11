@@ -1,9 +1,7 @@
 package eapli.ecafeteria.domain.mealbooking;
 
-import eapli.ecafeteria.domain.authz.EmailAddress;
-import eapli.ecafeteria.domain.authz.Name;
-import eapli.ecafeteria.domain.authz.Password;
 import java.io.Serializable;
+import java.util.Calendar;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -11,14 +9,17 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import eapli.ecafeteria.domain.authz.EmailAddress;
+import eapli.ecafeteria.domain.authz.Name;
+import eapli.ecafeteria.domain.authz.Password;
 import eapli.ecafeteria.domain.authz.Username;
 import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
 import eapli.framework.domain.AggregateRoot;
 import eapli.util.DateTime;
 import eapli.util.Strings;
-import java.util.Calendar;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * An Signup Request
@@ -52,7 +53,7 @@ public class SignupRequest implements AggregateRoot<Username>, Serializable {
     @ManyToOne(cascade = CascadeType.MERGE)
     private OrganicUnit organicUnit;
     private MecanographicNumber mecanographicNumber;
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private ApprovalStatus approvalStatus;
     @Temporal(TemporalType.DATE)
     private Calendar createdOn;
@@ -79,7 +80,6 @@ public class SignupRequest implements AggregateRoot<Username>, Serializable {
         // by default
         this.approvalStatus = ApprovalStatus.PENDING;
         this.createdOn = createdOn;
-
     }
 
     public void changeToAcceptedStatus() {
@@ -188,7 +188,5 @@ public class SignupRequest implements AggregateRoot<Username>, Serializable {
 
     public Password password() {
         return this.password;
-
     }
-
 }

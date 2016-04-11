@@ -30,7 +30,6 @@ public class SignupRequestController implements Controller {
         }
 
         final SignupRequestBuilder signupRequestBuilder = new SignupRequestBuilder();
-
         signupRequestBuilder.withUsername(username).withPassword(password).withFirstName(firstName)
                 .withLastName(lastName).withEmail(email).withCreatedOn(createdOn).withOrganicUnit(organicUnit)
                 .withMecanographicNumber(mecanographicNumber);
