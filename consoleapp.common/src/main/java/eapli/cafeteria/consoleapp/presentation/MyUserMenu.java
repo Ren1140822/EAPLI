@@ -1,7 +1,7 @@
 package eapli.cafeteria.consoleapp.presentation;
 
-import eapli.cafeteria.consoleapp.presentation.actions.LoginAction;
-import eapli.cafeteria.consoleapp.presentation.actions.LogoutAction;
+import eapli.cafeteria.consoleapp.presentation.authz.LoginAction;
+import eapli.cafeteria.consoleapp.presentation.authz.LogoutAction;
 import eapli.framework.actions.ReturnAction;
 import eapli.framework.actions.ShowMessageAction;
 import eapli.framework.presentation.console.Menu;

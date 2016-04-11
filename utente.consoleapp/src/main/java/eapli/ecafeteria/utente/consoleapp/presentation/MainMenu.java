@@ -5,8 +5,8 @@
  */
 package eapli.ecafeteria.utente.consoleapp.presentation;
 
+import eapli.cafeteria.consoleapp.presentation.ExitWithMessageAction;
 import eapli.cafeteria.consoleapp.presentation.MyUserMenu;
-import eapli.cafeteria.consoleapp.presentation.actions.ExitWithMessageAction;
 import eapli.ecafeteria.AppSettings;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.Menu;
