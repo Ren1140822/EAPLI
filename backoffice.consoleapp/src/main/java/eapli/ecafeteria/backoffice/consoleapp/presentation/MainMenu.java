@@ -5,20 +5,20 @@
  */
 package eapli.ecafeteria.backoffice.consoleapp.presentation;
 
+import eapli.cafeteria.consoleapp.presentation.ExitWithMessageAction;
 import eapli.cafeteria.consoleapp.presentation.MyUserMenu;
-import eapli.cafeteria.consoleapp.presentation.actions.ExitWithMessageAction;
 import eapli.ecafeteria.AppSettings;
 import eapli.ecafeteria.application.ListOrganicUnitsController;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.AcceptRefuseSignupRequestAction;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.ActivateDeactivateDishTypeAction;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.AddOrganicUnitAction;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.AddUserAction;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.ChangeDishTypeAction;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.DeactivateUserAction;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.ListDishTypeAction;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.ListUsersAction;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.RegisterDishTypeAction;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.ui.OrganicUnitPrinter;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.authz.AcceptRefuseSignupRequestAction;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.authz.AddUserAction;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.authz.DeactivateUserAction;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.authz.ListUsersAction;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.cafeteria.AddOrganicUnitAction;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.cafeteria.OrganicUnitPrinter;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.ActivateDeactivateDishTypeAction;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.ChangeDishTypeAction;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.ListDishTypeAction;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.RegisterDishTypeAction;
 import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
 import eapli.framework.actions.ReturnAction;

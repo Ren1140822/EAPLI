@@ -5,9 +5,9 @@
  */
 package eapli.ecafeteria.utente.consoleapp.presentation;
 
-import eapli.cafeteria.consoleapp.presentation.actions.ExitWithMessageAction;
-import eapli.cafeteria.consoleapp.presentation.actions.LoginAction;
-import eapli.ecafeteria.utente.consoleapp.presentation.actions.SignupRequestAction;
+import eapli.cafeteria.consoleapp.presentation.ExitWithMessageAction;
+import eapli.cafeteria.consoleapp.presentation.authz.LoginAction;
+import eapli.ecafeteria.utente.consoleapp.presentation.authz.SignupRequestAction;
 import eapli.framework.actions.IfThenAction;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.Menu;
