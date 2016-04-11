@@ -29,11 +29,19 @@ public class SignupRequestController implements Controller {
         }
 
         final SignupRequestBuilder signupRequestBuilder = new SignupRequestBuilder();
-        signupRequestBuilder.withUsername(username).withPassword(password).withFirstName(firstName).withLastName(lastName)
-                .withEmail(email).withCreatedOn(createdOn).withOrganicUnit(organicUnit).withMecanographicNumber(mecanographicNumber);
+
+        signupRequestBuilder.withUsername(username);
+        signupRequestBuilder.withPassword(password);
+        signupRequestBuilder.withFirstName(firstName);
+        signupRequestBuilder.withLastName(lastName);
+        signupRequestBuilder.withEmail(email);
+        signupRequestBuilder.withCreatedOn(createdOn);
+        signupRequestBuilder.withOrganicUnit(organicUnit);
+        signupRequestBuilder.withMecanographicNumber(mecanographicNumber);
 
         final SignupRequest newSignupRequest = signupRequestBuilder.build();
-        final SignupRequestRepository signupRequestRepository = PersistenceContext.repositories().signupRequests();
+        final SignupRequestRepository signupRequestRepository;
+        signupRequestRepository = PersistenceContext.repositories().signupRequests();
         // TODO error checking if the username is already in the persistence
         // store
         signupRequestRepository.add(newSignupRequest);

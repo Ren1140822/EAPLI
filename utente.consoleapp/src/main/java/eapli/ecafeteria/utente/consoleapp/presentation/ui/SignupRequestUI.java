@@ -39,8 +39,8 @@ public class SignupRequestUI extends AbstractUI {
         final String mecanographicNumber = Console.readLine("Mecanographic Number");
 
         try {
-            this.theController.addSignupRequest(userData.username, userData.password, userData.firstName,
-                    userData.lastName, userData.email, organicUnit, mecanographicNumber);
+            this.theController.addSignupRequest(userData.username(), userData.password(), userData.firstName(),
+                    userData.lastName(), userData.email(), organicUnit, mecanographicNumber);
         } catch (final DataIntegrityViolationException ex) {
             Logger.getLogger(SignupRequestUI.class.getName()).log(Level.SEVERE, null, ex);
         }
