@@ -1,4 +1,4 @@
-package eapli.ecafeteria.utente.consoleapp.presentation.ui;
+package eapli.ecafeteria.utente.consoleapp.presentation.authz;
 
 import eapli.util.Console;
 
@@ -42,5 +42,4 @@ class UserDataWidget {
     public String email() {
         return this.email;
     }
-
 }
