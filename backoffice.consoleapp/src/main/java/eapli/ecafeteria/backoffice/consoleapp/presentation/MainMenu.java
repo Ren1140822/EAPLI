@@ -5,20 +5,20 @@
  */
 package eapli.ecafeteria.backoffice.consoleapp.presentation;
 
+import eapli.cafeteria.consoleapp.presentation.ExitWithMessageAction;
 import eapli.cafeteria.consoleapp.presentation.MyUserMenu;
-import eapli.cafeteria.consoleapp.presentation.actions.ExitWithMessageAction;
 import eapli.ecafeteria.AppSettings;
 import eapli.ecafeteria.application.ListOrganicUnitsController;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.AcceptRefuseSignupRequestAction;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.ActivateDeactivateDishTypeAction;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.AddOrganicUnitAction;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.AddUserAction;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.ChangeDishTypeAction;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.DeactivateUserAction;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.ListDishTypeAction;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.ListUsersAction;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.actions.RegisterDishTypeAction;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.ui.OrganicUnitPrinter;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.authz.AcceptRefuseSignupRequestAction;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.authz.AddUserUI;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.authz.DeactivateUserAction;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.authz.ListUsersAction;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.cafeteria.AddOrganicUnitUI;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.cafeteria.OrganicUnitPrinter;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.ActivateDeactivateDishTypeAction;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.ChangeDishTypeAction;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.ListDishTypeAction;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.RegisterDishTypeAction;
 import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
 import eapli.framework.actions.ReturnAction;
@@ -35,6 +35,8 @@ import eapli.framework.presentation.console.VerticalMenuRenderer;
 import eapli.framework.presentation.console.VerticalSeparator;
 
 /**
+ * TODO split this class in more specialized classes for each menu
+ *
  * @author Paulo Gandra Sousa
  */
 public class MainMenu extends AbstractUI {
@@ -45,7 +47,7 @@ public class MainMenu extends AbstractUI {
     private static final int ADD_USER_OPTION = 1;
     private static final int LIST_USERS_OPTION = 2;
     private static final int DEACTIVATE_USER_OPTION = 3;
-        private static final int ACCEPT_REFUSE_SIGNUP_REQUEST_OPTION = 4;
+    private static final int ACCEPT_REFUSE_SIGNUP_REQUEST_OPTION = 4;
 
     // ORGANIC UNITS
     private static final int ADD_ORGANIC_UNIT_OPTION = 1;
@@ -147,8 +149,9 @@ public class MainMenu extends AbstractUI {
     private Menu buildOrganicUnitsMenu() {
         final Menu menu = new Menu("Organic units >");
 
-        menu.add(new MenuItem(ADD_ORGANIC_UNIT_OPTION, "Add Organic Unit", new AddOrganicUnitAction()));
-        // example of using anonymous action class
+        menu.add(new MenuItem(ADD_ORGANIC_UNIT_OPTION, "Add Organic Unit", () -> {
+            return new AddOrganicUnitUI().show();
+        }));
         menu.add(new MenuItem(LIST_ORGANIC_UNIT_OPTION, "List Organic Unit", () -> {
             // example of using the generic list ui from the framework
             new ListUI<OrganicUnit>(new ListOrganicUnitsController().listOrganicUnits(), new OrganicUnitPrinter(),
@@ -164,11 +167,13 @@ public class MainMenu extends AbstractUI {
     private Menu buildUsersMenu() {
         final Menu menu = new Menu("Users >");
 
-        menu.add(new MenuItem(ADD_USER_OPTION, "Add User", new AddUserAction()));
+        menu.add(new MenuItem(ADD_USER_OPTION, "Add User", () -> {
+            return new AddUserUI().show();
+        }));
         menu.add(new MenuItem(LIST_USERS_OPTION, "List all Users", new ListUsersAction()));
         menu.add(new MenuItem(DEACTIVATE_USER_OPTION, "Deactivate User", new DeactivateUserAction()));
-        menu.add(new MenuItem(ACCEPT_REFUSE_SIGNUP_REQUEST_OPTION, "Accept/Refuse Signup Request", new AcceptRefuseSignupRequestAction()));
-        
+        menu.add(new MenuItem(ACCEPT_REFUSE_SIGNUP_REQUEST_OPTION, "Accept/Refuse Signup Request",
+                new AcceptRefuseSignupRequestAction()));
         menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
 
         return menu;

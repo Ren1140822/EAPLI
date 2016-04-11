@@ -10,8 +10,10 @@ import static eapli.ecafeteria.AppSettings.ensurePermissionOfLoggedInUser;
 import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.ecafeteria.domain.authz.SystemUser;
 import eapli.ecafeteria.domain.authz.UserBuilder;
+import eapli.ecafeteria.domain.mealbooking.CafeteriaUser;
 import eapli.ecafeteria.domain.mealbooking.CafeteriaUserBuilder;
 import eapli.ecafeteria.domain.mealbooking.SignupRequest;
+import eapli.ecafeteria.persistence.CafeteriaUserRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.ecafeteria.persistence.SignupRequestRepository;
 import eapli.ecafeteria.persistence.UserRepository;
@@ -33,10 +35,8 @@ public class AcceptRefuseSignupRequestController implements Controller {
 
         // TODO this controller has some logic that could be moved to a domain
         // service
-
         // TODO there are some code duplication to create and add the system
         // user
-
         //
         // add system user
         //
@@ -61,6 +61,13 @@ public class AcceptRefuseSignupRequestController implements Controller {
         cafeteriaUserBuilder.withSystemUser(newUser);
 
         // FIXME add the cafeteria user to the repository
+        final CafeteriaUser cafeteriaUser = cafeteriaUserBuilder.build();
+
+        final CafeteriaUserRepository cafeteriaUserRepository = PersistenceContext.repositories().cafeteriaUsers();
+        // 
+        // add cafeteria User to reposository
+        //
+        cafeteriaUserRepository.add(cafeteriaUser);
 
         //
         // modify Signup Request to accepted
