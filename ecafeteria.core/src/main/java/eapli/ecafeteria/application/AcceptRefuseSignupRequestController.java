@@ -31,6 +31,12 @@ public class AcceptRefuseSignupRequestController implements Controller {
             throw new IllegalStateException();
         }
 
+        // TODO this controller has some logic that could be moved to a domain
+        // service
+
+        // TODO there are some code duplication to create and add the system
+        // user
+
         //
         // add system user
         //
@@ -50,9 +56,9 @@ public class AcceptRefuseSignupRequestController implements Controller {
         // add cafeteria user
         //
         final CafeteriaUserBuilder cafeteriaUserBuilder = new CafeteriaUserBuilder();
-        cafeteriaUserBuilder.withSystemUser(newUser);
-        cafeteriaUserBuilder.withOrganicUnit(theSignupRequest.organicUnit());
         cafeteriaUserBuilder.withMecanographicNumber(theSignupRequest.mecanographicNumber());
+        cafeteriaUserBuilder.withOrganicUnit(theSignupRequest.organicUnit());
+        cafeteriaUserBuilder.withSystemUser(newUser);
 
         // FIXME add the cafeteria user to the repository
 
