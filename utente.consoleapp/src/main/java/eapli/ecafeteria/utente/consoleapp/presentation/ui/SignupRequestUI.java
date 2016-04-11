@@ -28,6 +28,8 @@ public class SignupRequestUI extends AbstractUI {
     protected boolean doShow() {
         final UserDataWidget userData = new UserDataWidget();
 
+        userData.show();
+
         final SelectWidget<OrganicUnit> selector = new SelectWidget<>(this.theController.getAllOrganicUnit(),
                 new OrganicUnitUIVisitor());
         selector.show();
@@ -37,8 +39,9 @@ public class SignupRequestUI extends AbstractUI {
         final String mecanographicNumber = Console.readLine("Mecanographic Number");
 
         try {
-            this.theController.addSignupRequest(userData.username, userData.password, userData.firstName, userData.lastName, userData.email, organicUnit, mecanographicNumber);
-        } catch (DataIntegrityViolationException ex) {
+            this.theController.addSignupRequest(userData.username, userData.password, userData.firstName,
+                    userData.lastName, userData.email, organicUnit, mecanographicNumber);
+        } catch (final DataIntegrityViolationException ex) {
             Logger.getLogger(SignupRequestUI.class.getName()).log(Level.SEVERE, null, ex);
         }
 

@@ -3,22 +3,24 @@ package eapli.ecafeteria.utente.consoleapp.presentation.ui;
 import eapli.util.Console;
 
 /**
+ * TODO move to console.common to allow reuse from both backoffice and UtenteApp
+ *
  * widget for reading user data Jorge Santos ajs@isp.ipp.pt
  */
-public class UserDataWidget {
+class UserDataWidget {
 
-    final String username;
-    final String password;
-    final String firstName;
-    final String lastName;
-    final String email;
+    // FIXME attributes should be private
+    String username;
+    String password;
+    String firstName;
+    String lastName;
+    String email;
 
-    protected UserDataWidget() {
-
-        username = Console.readLine("Username");
-        password = Console.readLine("Password");
-        firstName = Console.readLine("First Name");
-        lastName = Console.readLine("Last Name");
-        email = Console.readLine("E-Mail");
+    public void show() {
+        this.username = Console.readLine("Username");
+        this.password = Console.readLine("Password");
+        this.firstName = Console.readLine("First Name");
+        this.lastName = Console.readLine("Last Name");
+        this.email = Console.readLine("E-Mail");
     }
 }
