@@ -1,7 +1,7 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template file, choose Tools | Templates and open the template
+ * in the editor.
  */
 package eapli.ecafeteria.backoffice.consoleapp.presentation.meals;
 
@@ -17,5 +17,4 @@ public class RegisterDishTypeAction implements Action {
     public boolean execute() {
         return new RegisterDishTypeUI().show();
     }
-
 }
