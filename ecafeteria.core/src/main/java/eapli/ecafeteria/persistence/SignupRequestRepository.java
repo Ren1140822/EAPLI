@@ -10,5 +10,5 @@ import eapli.framework.persistence.repositories.Repository;
  */
 public interface SignupRequestRepository extends Repository<SignupRequest, Username> {
 
-    Iterable<SignupRequest> listSignupRequestsPending();
+    Iterable<SignupRequest> listPendingSignupRequests();
 }
