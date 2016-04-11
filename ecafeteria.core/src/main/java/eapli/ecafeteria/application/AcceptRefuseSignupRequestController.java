@@ -35,18 +35,17 @@ public class AcceptRefuseSignupRequestController implements Controller {
 
         // TODO this controller has some logic that could be moved to a domain
         // service
+
         // TODO there are some code duplication to create and add the system
         // user
+
         //
         // add system user
         //
         final UserBuilder userBuilder = new UserBuilder();
-        userBuilder.withUsername(theSignupRequest.username());
-        userBuilder.withPassword(theSignupRequest.password());
-        userBuilder.withName(theSignupRequest.name());
-        userBuilder.withEmail(theSignupRequest.email());
+        userBuilder.withUsername(theSignupRequest.username()).withPassword(theSignupRequest.password())
+                .withName(theSignupRequest.name()).withEmail(theSignupRequest.email());
         final SystemUser newUser = userBuilder.build();
-
         final UserRepository userRepository = PersistenceContext.repositories().users();
         // TODO error checking if the username is already in the persistence
         // store
@@ -56,24 +55,16 @@ public class AcceptRefuseSignupRequestController implements Controller {
         // add cafeteria user
         //
         final CafeteriaUserBuilder cafeteriaUserBuilder = new CafeteriaUserBuilder();
-        cafeteriaUserBuilder.withMecanographicNumber(theSignupRequest.mecanographicNumber());
-        cafeteriaUserBuilder.withOrganicUnit(theSignupRequest.organicUnit());
-        cafeteriaUserBuilder.withSystemUser(newUser);
-
-        // FIXME add the cafeteria user to the repository
+        cafeteriaUserBuilder.withMecanographicNumber(theSignupRequest.mecanographicNumber())
+                .withOrganicUnit(theSignupRequest.organicUnit()).withSystemUser(newUser);
         final CafeteriaUser cafeteriaUser = cafeteriaUserBuilder.build();
-
         final CafeteriaUserRepository cafeteriaUserRepository = PersistenceContext.repositories().cafeteriaUsers();
-        // 
-        // add cafeteria User to reposository
-        //
         cafeteriaUserRepository.add(cafeteriaUser);
 
         //
         // modify Signup Request to accepted
         //
         theSignupRequest.changeToAcceptedStatus();
-
         final SignupRequestRepository repo = PersistenceContext.repositories().signupRequests();
         repo.add(theSignupRequest);
         return theSignupRequest;
