@@ -33,8 +33,6 @@ public class CafeteriaUserTest {
         final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", this.anEmail,
                 roles);
 
-        final String anAccount = new String("acountA");
-
         final OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
 
         final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
@@ -58,8 +56,6 @@ public class CafeteriaUserTest {
 
         final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", this.anEmail,
                 roles);
-
-        final String anAccount = new String("acountA");
 
         final OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
 
@@ -96,8 +92,6 @@ public class CafeteriaUserTest {
         final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", this.anEmail,
                 roles);
 
-        final String anAccount = new String("acountA");
-
         final OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
 
         final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
@@ -126,7 +120,6 @@ public class CafeteriaUserTest {
         final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", this.anEmail,
                 roles);
 
-        final String anAccount = new String("acountA");
 
         final OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
 
@@ -151,8 +144,7 @@ public class CafeteriaUserTest {
         final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", this.anEmail,
                 roles);
 
-        final String anAccount = new String("acountA");
-
+      
         final OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
 
         final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
@@ -181,7 +173,7 @@ public class CafeteriaUserTest {
 
         final String aMecanographicNumber = new String("abc");
 
-        final String anAccount = new String("newAccount");
+
         final OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
 
         final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
@@ -195,32 +187,32 @@ public class CafeteriaUserTest {
         assertFalse(expected);
     }
 
-    @Test
-    public void ensureTwoCafeteriaUsersWithDifferentAccountsAreNotTheSame() throws Exception {
-        boolean expected = false;
-
-        final Set<RoleType> roles = new HashSet<RoleType>();
-        roles.add(RoleType.Admin);
-
-        final SystemUser aSystemUser = new SystemUser("userName", "password", "firsName", "lastName", this.anEmail,
-                roles);
-
-        final String aMecanographicNumber = new String("abc");
-
-        final String anAccount = new String("accountA");
-        final String anotherAccount = new String("accountB");
-        final OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
-
-        final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
-                aMecanographicNumber);
-
-        final CafeteriaUser anotherCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
-                aMecanographicNumber);
-
-        expected = aCafeteriaUser.sameAs(anotherCafeteriaUser);
-
-        assertFalse(expected);
-    }
+//    @Test
+//    public void ensureTwoCafeteriaUsersWithDifferentAccountsAreNotTheSame() throws Exception {
+//        boolean expected = false;
+//
+//        final Set<RoleType> roles = new HashSet<RoleType>();
+//        roles.add(RoleType.Admin);
+//
+//        final SystemUser aSystemUser = new SystemUser("userName", "password", "firsName", "lastName", this.anEmail,
+//                roles);
+//
+//        final String aMecanographicNumber = new String("abc");
+//
+//        final String anAccount = new String("accountA");
+//        final String anotherAccount = new String("accountB");
+//        final OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
+//
+//        final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
+//                aMecanographicNumber);
+//
+//        final CafeteriaUser anotherCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
+//                aMecanographicNumber);
+//
+//        expected = aCafeteriaUser.sameAs(anotherCafeteriaUser);
+//
+//        assertFalse(expected);
+//    }
 
     @Test
     public void ensureTwoCafeteriaUsersWithDifferentOrganicUnitsAreNotTheSame() throws Exception {
@@ -234,7 +226,6 @@ public class CafeteriaUserTest {
 
         final String aMecanographicNumber = new String("abc");
 
-        final String anAccount = new String("accountA");
         final OrganicUnit anOrganicUnit = new OrganicUnit("acronymA", "nameA", "descriptionA");
         final OrganicUnit anotherOrganicUnit = new OrganicUnit("acronymB", "nameB", "descriptionB");
 
