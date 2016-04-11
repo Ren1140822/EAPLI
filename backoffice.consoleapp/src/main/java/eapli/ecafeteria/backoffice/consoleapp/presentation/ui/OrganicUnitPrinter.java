@@ -7,6 +7,8 @@ import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
 import eapli.framework.visitor.Visitor;
 
 /**
+ * TODO move to console.common to allow reuse in both backoffice and utenteapp
+ *
  * @author Paulo Gandra Sousa
  *
  */

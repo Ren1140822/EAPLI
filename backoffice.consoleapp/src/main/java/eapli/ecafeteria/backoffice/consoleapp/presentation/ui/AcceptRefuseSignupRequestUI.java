@@ -39,16 +39,14 @@ public class AcceptRefuseSignupRequestUI extends AbstractUI {
             final int option = Console.readOption(1, 2, 0);
             // System.out.println("No valid option selected");
 
-            if (option == 1) // FIXME accept SignupRequest
-            {
+            if (option == 1) {
                 try {
                     this.theController.acceptSignupRequest(theSignupRequest);
                 } catch (final DataIntegrityViolationException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-            } else if (option == 2) // FIXME refuse SignupRequest
-            {
+            } else if (option == 2) {
                 this.theController.refuseSignupRequest(theSignupRequest);
             } else {
                 System.out.println("No valid option selected");
