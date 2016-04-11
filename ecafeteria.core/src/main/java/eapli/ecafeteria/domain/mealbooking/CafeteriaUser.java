@@ -34,10 +34,10 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Serial
      */
     private static final long serialVersionUID = 1L;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.MERGE)
     private SystemUser systemUser;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private OrganicUnit organicUnit;
 
     @Id
