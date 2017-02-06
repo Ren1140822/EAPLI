@@ -1,6 +1,6 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template, choose Tools | Templates and open the template in
+ * the editor.
  */
 package eapli.util;
 
@@ -24,16 +24,19 @@ import java.util.logging.Logger;
  */
 public final class Console {
 
+    private Console() {
+        // to make sure this is an utility class
+    }
+
     public static String readLine(String prompt) {
         try {
             System.out.println(prompt);
-            InputStreamReader converter = new InputStreamReader(System.in);
-            BufferedReader in = new BufferedReader(converter);
+            final InputStreamReader converter = new InputStreamReader(System.in);
+            final BufferedReader in = new BufferedReader(converter);
 
             return in.readLine();
-        } catch (IOException ex) {
-            Logger.getLogger(Console.class.getName()).log(Level.WARNING,
-                    null, ex);
+        } catch (final IOException ex) {
+            Logger.getLogger(Console.class.getName()).log(Level.WARNING, null, ex);
             return null;
         }
     }
@@ -41,13 +44,13 @@ public final class Console {
     public static int readInteger(String prompt) {
         do {
             try {
-                String strInt = readLine(prompt);
-                int valor = Integer.parseInt(strInt);
-
+                final String strInt = readLine(prompt);
+                final int valor = Integer.parseInt(strInt);
                 return valor;
-            } catch (NumberFormatException ex) {
-                Logger.getLogger(Console.class.getName()).log(Level.WARNING,
-                        null, ex);
+            } catch (final NumberFormatException ex) {
+                // nothing to do
+                // Logger.getLogger(Console.class.getName()).log(Level.WARNING,
+                // "", ex);
             }
         } while (true);
     }
@@ -55,15 +58,16 @@ public final class Console {
     public static boolean readBoolean(String prompt) {
         do {
             try {
-                String strBool = readLine(prompt).toLowerCase();
+                final String strBool = readLine(prompt).toLowerCase();
                 if ("y".equals(strBool) || "s".equals(strBool)) {
                     return true;
                 } else if ("n".equals(strBool)) {
                     return false;
                 }
-            } catch (NumberFormatException ex) {
-                Logger.getLogger(Console.class.getName()).log(Level.WARNING,
-                        null, ex);
+            } catch (final NumberFormatException ex) {
+                // nothing to do
+                // Logger.getLogger(Console.class.getName()).log(Level.WARNING,
+                // null, ex);
             }
         } while (true);
     }
@@ -71,7 +75,7 @@ public final class Console {
     public static int readOption(int low, int high, int exit) {
         int option;
         do {
-            option = Console.readInteger("Introduza opção: ");
+            option = Console.readInteger("Select an option: ");
             if (option == exit) {
                 break;
             }
@@ -80,20 +84,21 @@ public final class Console {
     }
 
     public static Date readDate(String prompt) {
-        return readDate(prompt, "dd-MM-yyyy");
+        return readDate(prompt, "yyyy/MM/dd");
     }
 
     public static Date readDate(String prompt, String dateFormat) {
         do {
             try {
-                String strDate = readLine(prompt);
-                SimpleDateFormat df = new SimpleDateFormat(dateFormat);
-                Date date = df.parse(strDate);
+                final String strDate = readLine(prompt);
+                final SimpleDateFormat df = new SimpleDateFormat(dateFormat);
+                final Date date = df.parse(strDate);
 
                 return date;
-            } catch (ParseException ex) {
-                Logger.getLogger(Console.class.getName()).log(Level.WARNING,
-                        null, ex);
+            } catch (final ParseException ex) {
+                // nothing to do
+                // Logger.getLogger(Console.class.getName()).log(Level.WARNING,
+                // null, ex);
             }
         } while (true);
     }
@@ -105,14 +110,14 @@ public final class Console {
     public static Calendar readCalendar(String prompt, String dateFormat) {
         do {
             try {
-                String strDate = readLine(prompt);
-                SimpleDateFormat df = new SimpleDateFormat(dateFormat);
-                Calendar date = DateTime.dateToCalendar(df.parse(strDate));
-
+                final String strDate = readLine(prompt);
+                final SimpleDateFormat df = new SimpleDateFormat(dateFormat);
+                final Calendar date = DateTime.dateToCalendar(df.parse(strDate));
                 return date;
-            } catch (ParseException ex) {
-                Logger.getLogger(Console.class.getName()).log(Level.WARNING,
-                        null, ex);
+            } catch (final ParseException ex) {
+                // nothing to do
+                // Logger.getLogger(Console.class.getName()).log(Level.WARNING,
+                // null, ex);
             }
         } while (true);
     }
@@ -120,13 +125,14 @@ public final class Console {
     public static double readDouble(String prompt) {
         do {
             try {
-                String input = readLine(prompt);
-                double valor = Double.parseDouble(input);
+                final String input = readLine(prompt);
+                final double valor = Double.parseDouble(input);
 
                 return valor;
-            } catch (NumberFormatException ex) {
-                Logger.getLogger(Console.class.getName()).log(Level.WARNING,
-                        null, ex);
+            } catch (final NumberFormatException ex) {
+                // nothing to do
+                // Logger.getLogger(Console.class.getName()).log(Level.WARNING,
+                // null, ex);
             }
         } while (true);
     }
@@ -135,13 +141,10 @@ public final class Console {
         System.out.println(prompt);
         try {
             System.in.read();
-        } catch (IOException ex) {
-            Logger.getLogger(Console.class.getName()).log(Level.WARNING, null,
-                    ex);
+        } catch (final IOException ex) {
+            // nothing to do
+            // Logger.getLogger(Console.class.getName()).log(Level.WARNING,
+            // null, ex);
         }
-    }
-
-    private Console() {
-        // to make sure this is an utility class
     }
 }

@@ -22,6 +22,14 @@ public class SelectWidget<T> extends ListWidget<T> {
 
     private int option = -1;
 
+    public SelectWidget(Collection<T> source) {
+        super(source);
+    }
+
+    public SelectWidget(Iterable<T> source) {
+        super(source);
+    }
+
     public SelectWidget(Collection<T> source, Visitor<T> visitor) {
         super(source, visitor);
     }

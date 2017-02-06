@@ -11,24 +11,29 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 /**
- * a set of roles
+ * a set of roles.
+ *
+ * part of the SystemUser aggregate
  *
  * @author Paulo Gandra Sousa
  */
-public class RoleSet implements Set<Role>, Serializable {
+@Entity
+class RoleSet implements Set<Role>, Serializable {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
-    private final Set<Role> data = new HashSet<>();
+    @Id
+    @GeneratedValue
+    private Long pk;
 
-    /**
-     *
-     */
-    public RoleSet() {
-    }
+    @OneToMany(cascade = CascadeType.ALL)
+    private final Set<Role> data = new HashSet<>();
 
     @Override
     public boolean add(Role arg0) {
@@ -149,5 +154,4 @@ public class RoleSet implements Set<Role>, Serializable {
         this.data.forEach(role -> ret.add(role.type()));
         return ret;
     }
-
 }

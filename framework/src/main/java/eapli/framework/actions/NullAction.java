@@ -10,18 +10,18 @@ package eapli.framework.actions;
  */
 public final class NullAction implements Action {
 
-	// FIXME use lazy holder idiom
-	private static final NullAction theInstance = new NullAction();
+    // FIXME use lazy holder idiom
+    private static final NullAction theInstance = new NullAction();
 
-	public static NullAction instance() {
-		return theInstance;
-	}
+    public static NullAction instance() {
+        return theInstance;
+    }
 
-	private NullAction() {
-	}
+    private NullAction() {
+    }
 
-	@Override
-	public boolean execute() {
-		return false;
-	}
+    @Override
+    public boolean execute() {
+        return false;
+    }
 }

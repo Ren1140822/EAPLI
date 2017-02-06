@@ -19,55 +19,55 @@ import org.junit.Test;
  */
 public class StringsTest {
 
-	@BeforeClass
-	public static void setUpClass() {
-	}
+    @BeforeClass
+    public static void setUpClass() {
+    }
 
-	@AfterClass
-	public static void tearDownClass() {
-	}
+    @AfterClass
+    public static void tearDownClass() {
+    }
 
-	@Before
-	public void setUp() {
-	}
+    @Before
+    public void setUp() {
+    }
 
-	@After
-	public void tearDown() {
-	}
+    @After
+    public void tearDown() {
+    }
 
-	/**
-	 * Test of isNullOrEmpty method, of class Validations.
-	 */
-	@Test
-	public void testStringWithContentIsNotNullNorEmpty() {
-		System.out.println("isNullOrEmpty");
-		final String text = "abcdef";
-		final boolean expResult = false;
-		final boolean result = Strings.isNullOrEmpty(text);
-		assertEquals(expResult, result);
-	}
+    /**
+     * Test of isNullOrEmpty method, of class Validations.
+     */
+    @Test
+    public void testStringWithContentIsNotNullNorEmpty() {
+        System.out.println("isNullOrEmpty");
+        final String text = "abcdef";
+        final boolean expResult = false;
+        final boolean result = Strings.isNullOrEmpty(text);
+        assertEquals(expResult, result);
+    }
 
-	/**
-	 * Test of isNullOrEmpty method, of class Validations.
-	 */
-	@Test
-	public void testNullIsNullOrEmpty() {
-		System.out.println("isNullOrEmpty");
-		final String text = null;
-		final boolean expResult = true;
-		final boolean result = Strings.isNullOrEmpty(text);
-		assertEquals(expResult, result);
-	}
+    /**
+     * Test of isNullOrEmpty method, of class Validations.
+     */
+    @Test
+    public void testNullIsNullOrEmpty() {
+        System.out.println("isNullOrEmpty");
+        final String text = null;
+        final boolean expResult = true;
+        final boolean result = Strings.isNullOrEmpty(text);
+        assertEquals(expResult, result);
+    }
 
-	/**
-	 * Test of isNullOrEmpty method, of class Validations.
-	 */
-	@Test
-	public void testEmptyStringIsNullOrEmpty() {
-		System.out.println("isNullOrEmpty");
-		final String text = "";
-		final boolean expResult = true;
-		final boolean result = Strings.isNullOrEmpty(text);
-		assertEquals(expResult, result);
-	}
+    /**
+     * Test of isNullOrEmpty method, of class Validations.
+     */
+    @Test
+    public void testEmptyStringIsNullOrEmpty() {
+        System.out.println("isNullOrEmpty");
+        final String text = "";
+        final boolean expResult = true;
+        final boolean result = Strings.isNullOrEmpty(text);
+        assertEquals(expResult, result);
+    }
 }

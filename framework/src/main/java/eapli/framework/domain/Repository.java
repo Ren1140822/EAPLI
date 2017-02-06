@@ -6,7 +6,9 @@
 package eapli.framework.domain;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Optional;
+
+import eapli.framework.persistence.DataIntegrityViolationException;
 
 /**
  * A repository is a domain-driven design pattern to abstract the details of
@@ -17,10 +19,10 @@ import java.util.List;
  * @author Paulo Gandra Sousa
  * @param <T>
  *            the type of the entity
- * @param <ID>
+ * @param <I>
  *            the type of the entity's identity
  */
-public interface Repository<T extends AggregateRoot<?>, ID extends Serializable> extends List<T> {
+public interface Repository<T extends AggregateRoot<?>, I extends Serializable> extends Iterable<T> {
 
     /**
      * returns the first n entities according to its "natural" order
@@ -42,10 +44,10 @@ public interface Repository<T extends AggregateRoot<?>, ID extends Serializable>
     /**
      * reads an entity given its ID
      *
-     * @param id
+     * @param identity
      * @return
      */
-    T read(ID id);
+    Optional<T> read(I identity);
 
     /**
      * inserts or updates an entity
@@ -55,6 +57,21 @@ public interface Repository<T extends AggregateRoot<?>, ID extends Serializable>
      *         parameter
      */
     T save(T entity);
+
+    /**
+     * adds a new entity to the repository. if the entity already exists it will
+     * throw an exception. formally, the exception will be throw if there is
+     * already an entity with the same business identity.
+     *
+     * i.e., Any x such that x.equals(e) is true
+     *
+     * FIXME check which exception to throw. it should not be a persistence
+     * layer exception.
+     *
+     * @param entity
+     * @return
+     */
+    boolean add(T entity) throws DataIntegrityViolationException;
 
     /**
      * updates an existing entity in the repository
@@ -67,8 +84,8 @@ public interface Repository<T extends AggregateRoot<?>, ID extends Serializable>
     /**
      * checks for the existence of an entity with the provided ID.
      *
-     * @param key
+     * @param identity
      * @return
      */
-    boolean containsEntity(ID key);
+    boolean contains(I identity);
 }

@@ -7,8 +7,8 @@ package eapli.ecafeteria.backoffice.consoleapp.presentation;
 
 import eapli.cafeteria.consoleapp.presentation.ExitWithMessageAction;
 import eapli.cafeteria.consoleapp.presentation.MyUserMenu;
-import eapli.ecafeteria.AppSettings;
-import eapli.ecafeteria.application.ListOrganicUnitsController;
+import eapli.ecafeteria.Application;
+import eapli.ecafeteria.application.cafeteria.ListOrganicUnitsController;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.authz.AcceptRefuseSignupRequestAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.authz.AddUserUI;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.authz.DeactivateUserAction;
@@ -83,7 +83,7 @@ public class MainMenu extends AbstractUI {
     public boolean doShow() {
         final Menu menu = buildMainMenu();
         final MenuRenderer renderer;
-        if (AppSettings.instance().isMenuLayoutHorizontal()) {
+        if (Application.settings().isMenuLayoutHorizontal()) {
             renderer = new HorizontalMenuRenderer(menu);
         } else {
             renderer = new VerticalMenuRenderer(menu);
@@ -93,7 +93,7 @@ public class MainMenu extends AbstractUI {
 
     @Override
     public String headline() {
-        return "eCAFETERIA [@" + AppSettings.instance().session().authenticatedUser().id() + "]";
+        return "eCAFETERIA [@" + Application.session().session().authenticatedUser().id() + "]";
     }
 
     private Menu buildMainMenu() {
@@ -102,11 +102,11 @@ public class MainMenu extends AbstractUI {
         final Menu myUserMenu = new MyUserMenu();
         mainMenu.add(new SubMenu(MY_USER_OPTION, myUserMenu, new ShowVerticalSubMenuAction(myUserMenu)));
 
-        if (!AppSettings.instance().isMenuLayoutHorizontal()) {
+        if (!Application.settings().isMenuLayoutHorizontal()) {
             mainMenu.add(VerticalSeparator.separator());
         }
 
-        if (AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.Administer)) {
+        if (Application.session().session().authenticatedUser().isAuthorizedTo(ActionRight.ADMINISTER)) {
             final Menu usersMenu = buildUsersMenu();
             mainMenu.add(new SubMenu(USERS_OPTION, usersMenu, new ShowVerticalSubMenuAction(usersMenu)));
             final Menu organicUnitsMenu = buildOrganicUnitsMenu();
@@ -114,18 +114,18 @@ public class MainMenu extends AbstractUI {
                     new ShowVerticalSubMenuAction(organicUnitsMenu)));
             final Menu settingsMenu = buildAdminSettingsMenu();
             mainMenu.add(new SubMenu(SETTINGS_OPTION, settingsMenu, new ShowVerticalSubMenuAction(settingsMenu)));
-        } else if (AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.ManageKitchen)) {
+        } else if (Application.session().session().authenticatedUser().isAuthorizedTo(ActionRight.MANAGE_KITCHEN)) {
             // TODO
             throw new UnsupportedOperationException();
-        } else if (AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.ManageMenus)) {
+        } else if (Application.session().session().authenticatedUser().isAuthorizedTo(ActionRight.MANAGE_MENUS)) {
             final Menu myDishTypeMenu = buildDishTypeMenu();
             mainMenu.add(new SubMenu(DISH_TYPES_OPTION, myDishTypeMenu, new ShowVerticalSubMenuAction(myDishTypeMenu)));
-        } else if (AppSettings.instance().session().authenticatedUser().isAuthorizedTo(ActionRight.Sale)) {
+        } else if (Application.session().session().authenticatedUser().isAuthorizedTo(ActionRight.SALE)) {
             // TODO
             throw new UnsupportedOperationException();
         }
 
-        if (!AppSettings.instance().isMenuLayoutHorizontal()) {
+        if (!Application.settings().isMenuLayoutHorizontal()) {
             mainMenu.add(VerticalSeparator.separator());
         }
 

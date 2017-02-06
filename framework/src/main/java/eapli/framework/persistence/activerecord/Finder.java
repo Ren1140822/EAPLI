@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface Finder<T extends ActiveRecord<T>, ID> {
 
-	T findById(ID id);
+    T findById(ID id);
 
-	List<T> all();
+    List<T> all();
 }

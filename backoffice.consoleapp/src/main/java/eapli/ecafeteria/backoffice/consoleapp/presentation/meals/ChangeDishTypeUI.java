@@ -5,12 +5,16 @@
  */
 package eapli.ecafeteria.backoffice.consoleapp.presentation.meals;
 
-import eapli.ecafeteria.application.ChangeDishTypeController;
+import eapli.ecafeteria.application.meals.ChangeDishTypeController;
 import eapli.ecafeteria.domain.meals.DishType;
 import eapli.framework.application.Controller;
+import eapli.framework.persistence.DataConcurrencyException;
+import eapli.framework.persistence.DataIntegrityViolationException;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
 import eapli.util.Console;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -33,7 +37,13 @@ public class ChangeDishTypeUI extends AbstractUI {
         if (theDishType != null) {
             final String newDescription = Console
                     .readLine("Enter new description for " + theDishType.description() + ": ");
-            this.theController.changeDishType(theDishType, newDescription);
+            try {
+                this.theController.changeDishType(theDishType, newDescription);
+            } catch (DataConcurrencyException ex) {
+                Logger.getLogger(ChangeDishTypeUI.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (DataIntegrityViolationException ex) {
+                Logger.getLogger(ChangeDishTypeUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return false;
     }

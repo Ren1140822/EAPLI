@@ -16,10 +16,16 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 /**
+ * utility class for string manipulation
+ *
  * @author Paulo Gandra Sousa
  *
  */
 public final class Strings {
+
+    private Strings() {
+        // to make sure this is an utility class
+    }
 
     /**
      * checks whether a String is empty (zero length or all spaces) or null
@@ -67,9 +73,7 @@ public final class Strings {
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.transform(xmlInput, xmlOutput);
             return xmlOutput.getWriter().toString();
-        } catch (final IllegalArgumentException e) {
-            throw new RuntimeException(e); // TODO review it
-        } catch (final TransformerException e) {
+        } catch (final IllegalArgumentException | TransformerException e) {
             throw new RuntimeException(e); // TODO review it
         }
     }
@@ -90,7 +94,7 @@ public final class Strings {
         return sb.toString();
     }
 
-    public static String Truncate(String org, int len) {
+    public static String truncate(String org, int len) {
         if (len < org.length()) {
             return org.substring(0, len);
         } else {
@@ -98,15 +102,11 @@ public final class Strings {
         }
     }
 
-    public static String Left(String org, int len) {
+    public static String left(String org, int len) {
         return org.substring(0, len);
     }
 
-    public static String Right(String org, int len) {
+    public static String right(String org, int len) {
         return org.substring(org.length() - len);
-    }
-
-    private Strings() {
-        // to make sure this is an utility class
     }
 }

@@ -5,8 +5,9 @@
  */
 package eapli.ecafeteria.backoffice.consoleapp.presentation.cafeteria;
 
-import eapli.ecafeteria.application.AddOrganicUnitController;
+import eapli.ecafeteria.application.cafeteria.AddOrganicUnitController;
 import eapli.framework.application.Controller;
+import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.util.Console;
@@ -16,6 +17,7 @@ import eapli.util.Console;
  * @author arocha
  */
 public class AddOrganicUnitUI extends AbstractUI {
+
     private final AddOrganicUnitController theController = new AddOrganicUnitController();
 
     protected Controller controller() {
@@ -30,10 +32,9 @@ public class AddOrganicUnitUI extends AbstractUI {
 
         try {
             this.theController.addOrganicUnit(acronym, name, description);
-        } catch (final DataIntegrityViolationException e) {
+        } catch (final DataIntegrityViolationException | DataConcurrencyException e) {
             System.out.println("That acronym is already in use.");
         }
-
         return false;
     }
 

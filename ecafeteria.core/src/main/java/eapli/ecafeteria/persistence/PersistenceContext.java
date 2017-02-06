@@ -3,10 +3,9 @@
  */
 package eapli.ecafeteria.persistence;
 
+import eapli.ecafeteria.Application;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import eapli.ecafeteria.AppSettings;
 
 /**
  * provides easy access to the persistence layer. works as a factory of
@@ -20,7 +19,7 @@ public final class PersistenceContext {
         // return new InMemoryRepositoryFactory();
         // return new JpaRepositoryFactory();
 
-        final String factoryClassName = AppSettings.instance().getRepositoryFactory();
+        final String factoryClassName = Application.settings().getRepositoryFactory();
         try {
             return (RepositoryFactory) Class.forName(factoryClassName).newInstance();
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException ex) {

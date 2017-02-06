@@ -11,23 +11,25 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Version;
 
 import eapli.framework.domain.AggregateRoot;
 
 /**
+ * TODO javadoc
  *
  * @author arocha
  */
 @Entity
 public class OrganicUnit implements AggregateRoot<String>, Serializable {
-    /**
-     *
-     */
+
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue
     private Long id;
+    @Version
+    private Long version;
 
     @Column(unique = true)
     private String acronym;
@@ -72,11 +74,43 @@ public class OrganicUnit implements AggregateRoot<String>, Serializable {
         return this.description;
     }
 
-    // FIXME implement equals() and hashCode()
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof OrganicUnit)) {
+            return false;
+        }
+
+        final OrganicUnit other = (OrganicUnit) o;
+        if (!this.id.equals(other.id)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.acronym.hashCode();
+    }
 
     @Override
     public boolean sameAs(Object other) {
-        // TODO Auto-generated method stub
-        return false;
+        if (!(other instanceof OrganicUnit)) {
+            return false;
+        }
+
+        final OrganicUnit that = (OrganicUnit) other;
+        if (this == that) {
+            return true;
+        }
+
+        if (!this.id.equals(that.id)) {
+            return false;
+        }
+
+        return true;
     }
 }

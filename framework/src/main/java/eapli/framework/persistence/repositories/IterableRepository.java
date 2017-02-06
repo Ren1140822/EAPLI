@@ -1,6 +1,6 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template, choose Tools | Templates and open the template in
+ * the editor.
  */
 package eapli.framework.persistence.repositories;
 
@@ -20,4 +20,19 @@ import java.util.Iterator;
 public interface IterableRepository<T, K> extends Repository<T, K>, Iterable<T> {
 
     Iterator<T> iterator(int pagesize);
+
+    /**
+     * returns the first entity according to its "natural" order
+     *
+     * @return
+     */
+    T first();
+
+    /**
+     * returns the first n entities according to its "natural" order
+     *
+     * @param n
+     * @return
+     */
+    Iterable<T> first(int n);
 }

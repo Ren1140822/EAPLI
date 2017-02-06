@@ -5,7 +5,7 @@
  */
 package eapli.ecafeteria.bootstrapapp;
 
-import eapli.ecafeteria.application.RegisterDishTypeController;
+import eapli.ecafeteria.application.meals.RegisterDishTypeController;
 import eapli.framework.actions.Action;
 
 /**

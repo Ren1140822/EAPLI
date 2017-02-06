@@ -5,12 +5,11 @@
  */
 package eapli.ecafeteria.bootstrapapp;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import eapli.ecafeteria.application.AddUserController;
+import eapli.ecafeteria.application.authz.AddUserController;
 import eapli.ecafeteria.domain.authz.RoleType;
 import eapli.framework.actions.Action;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Paulo Gandra Sousa

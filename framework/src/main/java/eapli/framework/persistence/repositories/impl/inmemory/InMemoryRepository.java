@@ -3,9 +3,15 @@ package eapli.framework.persistence.repositories.impl.inmemory;
 import eapli.framework.persistence.repositories.DeleteableRepository;
 import eapli.framework.persistence.repositories.IterableRepository;
 import eapli.framework.persistence.repositories.Repository;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * Created by nuno on 20/03/16.
@@ -16,13 +22,34 @@ public abstract class InMemoryRepository<T, K>
     protected final Map<K, T> repository = new HashMap<>();
 
     @Override
-    public void delete(T entity) {
-        this.repository.remove(entity);
+    public T first() {
+        final Iterator<T> it = this.repository.values().iterator();
+        return it.hasNext() ? it.next() : null;
     }
 
     @Override
-    public void deleteById(K entityId) {
-        throw new UnsupportedOperationException();
+    public Iterable<T> first(int n) {
+        final List<T> ret = new ArrayList<>();
+        final Iterator<T> it = this.repository.values().iterator();
+        while (n > 0 && it.hasNext()) {
+            ret.add(it.next());
+        }
+        return ret;
+    }
+
+    @Override
+    public void delete(T entity) {
+        for (Entry<K, T> each : this.repository.entrySet()) {
+            if (each.getValue().equals(entity)) {
+                this.repository.remove(each.getKey());
+                break;
+            }
+        }
+    }
+
+    @Override
+    public void deleteByPK(K entityId) {
+        this.repository.remove(entityId);
     }
 
     @Override
@@ -37,7 +64,7 @@ public abstract class InMemoryRepository<T, K>
     }
 
     @Override
-    public Iterable<T> all() {
+    public Iterable<T> findAll() {
         return this.repository.values();
     }
 
@@ -49,8 +76,8 @@ public abstract class InMemoryRepository<T, K>
      * @return T if object identified by K is found, otherwise returns null.
      */
     @Override
-    public T findById(K id) {
-        return this.repository.get(id);
+    public Optional<T> findOne(K id) {
+        return Optional.ofNullable(this.repository.get(id));
     }
 
     /**
@@ -67,7 +94,7 @@ public abstract class InMemoryRepository<T, K>
      * value.get(); return t; }
      */
     @Override
-    public long size() {
+    public long count() {
         return this.repository.size();
     }
 
@@ -76,11 +103,15 @@ public abstract class InMemoryRepository<T, K>
         return this.repository.values().iterator();
     }
 
-    @Override
-    public boolean add(T entity) {
-        this.repository.put(newPK(entity), entity);
-        return true;
+    protected abstract K newPK(T entity);
+
+    protected Iterable<T> match(Predicate<T> filterFunc) {
+        return this.repository.values().stream().filter(filterFunc).collect(Collectors.toList());
     }
 
-    protected abstract K newPK(T entity);
+    protected T matchOne(Predicate<T> filterFunc) {
+        // TODO if there is no element an IndexOutOfBounds exception will be
+        // thrown. most likely we should return null
+        return this.repository.values().stream().filter(filterFunc).collect(Collectors.toList()).get(0);
+    }
 }

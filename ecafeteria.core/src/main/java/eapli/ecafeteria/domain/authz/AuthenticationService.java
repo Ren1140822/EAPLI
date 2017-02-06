@@ -1,38 +1,45 @@
 package eapli.ecafeteria.domain.authz;
 
 import eapli.ecafeteria.persistence.PersistenceContext;
+import eapli.ecafeteria.persistence.UserRepository;
+import java.util.Optional;
 
+/**
+ *
+ * @author Paulo Gandra Sousa
+ *
+ */
 public class AuthenticationService {
+
+    private UserRepository repo = PersistenceContext.repositories().users();
 
     /**
      * Checks if a user can be authenticated with the username/password pair
-     *
-     * FIXME we are using exceptions for logic behaviour handling...
      *
      * @param username
      * @param pass
      * @return the authenticated user or null otherwise
      */
-    public Session authenticate(Username username, Password pass) throws UnableToAuthenticateException {
+    public Optional<UserSession> authenticate(Username username, Password pass) {
         if (username == null) {
             throw new IllegalStateException("a username must be provided");
         }
-        final SystemUser user = retrieveUser(username);
-        if (null == user) {
-            throw new UnableToAuthenticateException("Invalid User");
+        final Optional<SystemUser> user = retrieveUser(username);
+        if (!user.isPresent()) {
+            return Optional.empty();
         }
-        if (user.passwordMatches(pass) && user.isActive()) {
-            return createSessionForUser(user);
+        if (user.get().passwordMatches(pass) && user.get().isActive()) {
+            return Optional.of(createSessionForUser(user.get()));
         } else {
-            throw new UnableToAuthenticateException("Invalid User");
+            return Optional.empty();
         }
     }
 
-    private Session createSessionForUser(SystemUser user) {
-        return new Session(user);
+    private UserSession createSessionForUser(SystemUser user) {
+        return new UserSession(user);
     }
 
-    private SystemUser retrieveUser(Username userName) {
-        return PersistenceContext.repositories().users().findById(userName);
+    private Optional<SystemUser> retrieveUser(Username userName) {
+        return this.repo.findOne(userName);
     }
 }

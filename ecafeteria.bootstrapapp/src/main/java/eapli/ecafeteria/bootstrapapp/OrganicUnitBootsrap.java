@@ -5,7 +5,7 @@
  */
 package eapli.ecafeteria.bootstrapapp;
 
-import eapli.ecafeteria.application.AddOrganicUnitController;
+import eapli.ecafeteria.application.cafeteria.AddOrganicUnitController;
 import eapli.framework.actions.Action;
 
 /**

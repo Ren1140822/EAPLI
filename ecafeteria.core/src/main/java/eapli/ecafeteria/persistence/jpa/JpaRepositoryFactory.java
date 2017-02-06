@@ -1,5 +1,7 @@
 package eapli.ecafeteria.persistence.jpa;
 
+import eapli.ecafeteria.persistence.DishTypeRepository;
+import eapli.ecafeteria.persistence.OrganicUnitRepository;
 import eapli.ecafeteria.persistence.RepositoryFactory;
 import eapli.ecafeteria.persistence.SignupRequestRepository;
 import eapli.ecafeteria.persistence.UserRepository;
@@ -16,12 +18,12 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     }
 
     @Override
-    public JpaDishTypeRepository dishTypes() {
+    public DishTypeRepository dishTypes() {
         return new JpaDishTypeRepository();
     }
 
     @Override
-    public JpaOrganicUnitRepository organicUnits() {
+    public OrganicUnitRepository organicUnits() {
         return new JpaOrganicUnitRepository();
     }
 
@@ -29,8 +31,8 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     public JpaCafeteriaUserRepository cafeteriaUsers() {
         return new JpaCafeteriaUserRepository();
     }
-    
-        @Override
+
+    @Override
     public SignupRequestRepository signupRequests() {
         return new JpaSignupRequestRepository();
     }

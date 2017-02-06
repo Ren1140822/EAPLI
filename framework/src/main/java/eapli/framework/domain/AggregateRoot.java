@@ -1,7 +1,7 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template file, choose Tools | Templates and open the template
+ * in the editor.
  */
 package eapli.framework.domain;
 
@@ -25,7 +25,8 @@ package eapli.framework.domain;
  * </ol>
  *
  * @author Paulo Gandra Sousa
- * @param <ID> the type of the primary <b>business</b> id of the entity
+ * @param <ID>
+ *            the type of the primary <b>business</b> id of the entity
  */
 public interface AggregateRoot<ID> extends DomainEntity<ID> {
 

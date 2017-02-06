@@ -28,6 +28,18 @@ public class ListWidget<T> {
     protected final Collection<T> source;
     private final Visitor<T> visitor;
 
+    public ListWidget(Collection<T> source) {
+        this(source, (e) -> {
+            System.out.println(e);
+        });
+    }
+
+    public ListWidget(Iterable<T> source) {
+        this(source, (e) -> {
+            System.out.println(e);
+        });
+    }
+
     public ListWidget(Collection<T> source, Visitor<T> visitor) {
         this.source = source;
         this.visitor = visitor;

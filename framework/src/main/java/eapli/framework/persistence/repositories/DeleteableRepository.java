@@ -1,6 +1,6 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template, choose Tools | Templates and open the template in
+ * the editor.
  */
 package eapli.framework.persistence.repositories;
 
@@ -14,17 +14,17 @@ public interface DeleteableRepository<T, K> extends Repository<T, K> {
      * removes the specified entity from the repository.
      *
      * @param entity
-     * @throws UnsuportedOperationException if the delete operation makes no
-     * sense for this repository
+     * @throws UnsuportedOperationException
+     *             if the delete operation makes no sense for this repository
      */
     void delete(T entity);
 
     /**
-     * Removes the entity with the specified ID from the repository.
+     * Removes the entity with the specified primary key from the repository.
      *
      * @param entity
-     * @throws UnsuportedOperationException if the delete operation makes no
-     * sense for this repository
+     * @throws UnsuportedOperationException
+     *             if the delete operation makes no sense for this repository
      */
-    void deleteById(K entityId);
+    void deleteByPK(K entityId);
 }
