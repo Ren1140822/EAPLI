@@ -22,10 +22,10 @@ public class CafeteriaUserTest {
     public void ensureCafeteriaUserEqualsPassesForTheSameMecanographicNumber() throws Exception {
         boolean expected = true;
 
-        final String aMecanographicNumber = new String("abc");
-        final String anotherMecanographicNumber = new String("abc");
+        final String aMecanographicNumber = "abc";
+        final String anotherMecanographicNumber = "abc";
 
-        final Set<RoleType> roles = new HashSet<RoleType>();
+        final Set<RoleType> roles = new HashSet<>();
         roles.add(RoleType.Admin);
 
         final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", this.anEmail,
@@ -46,10 +46,10 @@ public class CafeteriaUserTest {
     public void ensureCafeteriaUserEqualsFailsForDifferenteMecanographicNumber() throws Exception {
         boolean expected = false;
 
-        final String aMecanographicNumber = new String("abc");
-        final String anotherMecanographicNumber = new String("qwe");
+        final String aMecanographicNumber = "abc";
+        final String anotherMecanographicNumber = "qwe";
 
-        final Set<RoleType> roles = new HashSet<RoleType>();
+        final Set<RoleType> roles = new HashSet<>();
         roles.add(RoleType.Admin);
 
         final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", this.anEmail,
@@ -216,5 +216,4 @@ public class CafeteriaUserTest {
 
         assertFalse(expected);
     }
-
 }

@@ -5,15 +5,13 @@
  */
 package eapli.ecafeteria.domain.cafeteria;
 
+import eapli.framework.domain.AggregateRoot;
 import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Version;
-
-import eapli.framework.domain.AggregateRoot;
 
 /**
  * TODO javadoc
@@ -27,7 +25,7 @@ public class OrganicUnit implements AggregateRoot<String>, Serializable {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Long pk;
     @Version
     private Long version;
 
@@ -58,8 +56,8 @@ public class OrganicUnit implements AggregateRoot<String>, Serializable {
     }
 
     @Override
-    public boolean is(String id) {
-        return id.equalsIgnoreCase(this.acronym);
+    public boolean is(String acronym) {
+        return acronym.equalsIgnoreCase(this.acronym);
     }
 
     public boolean isActive() {
@@ -84,7 +82,7 @@ public class OrganicUnit implements AggregateRoot<String>, Serializable {
         }
 
         final OrganicUnit other = (OrganicUnit) o;
-        if (!this.id.equals(other.id)) {
+        if (!this.id().equals(other.id())) {
             return false;
         }
 
@@ -107,7 +105,7 @@ public class OrganicUnit implements AggregateRoot<String>, Serializable {
             return true;
         }
 
-        if (!this.id.equals(that.id)) {
+        if (!this.pk.equals(that.pk)) {
             return false;
         }
 
