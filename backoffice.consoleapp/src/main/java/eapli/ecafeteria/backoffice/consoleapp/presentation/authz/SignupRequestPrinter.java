@@ -3,7 +3,7 @@
  */
 package eapli.ecafeteria.backoffice.consoleapp.presentation.authz;
 
-import eapli.ecafeteria.domain.mealbooking.SignupRequest;
+import eapli.ecafeteria.domain.cafeteria.SignupRequest;
 import eapli.framework.visitor.Visitor;
 
 /**

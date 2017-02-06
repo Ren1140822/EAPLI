@@ -1,19 +1,26 @@
 package eapli.ecafeteria.persistence.jpa;
 
-import eapli.ecafeteria.domain.mealbooking.CafeteriaUser;
-import eapli.ecafeteria.domain.mealbooking.MecanographicNumber;
+import eapli.ecafeteria.domain.authz.Username;
+import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
+import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
 import eapli.ecafeteria.persistence.CafeteriaUserRepository;
-import eapli.framework.persistence.repositories.impl.jpa.JpaRepository;
 
 /**
  *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
-class JpaCafeteriaUserRepository extends JpaRepository<CafeteriaUser, MecanographicNumber>
+class JpaCafeteriaUserRepository extends CafeteriaJpaRepositoryBase<CafeteriaUser, MecanographicNumber>
         implements CafeteriaUserRepository {
 
     @Override
-    protected String persistenceUnitName() {
-        return PersistenceSettings.PERSISTENCE_UNIT_NAME;
+    public CafeteriaUser findByUsername(Username name) {
+        // TODO use parameters instead of string concatenation
+        return matchOne("e.systemUser.username.name='" + name + "'");
+    }
+
+    @Override
+    public CafeteriaUser findByMecanographicNumber(MecanographicNumber number) {
+        // TODO use parameters instead of string concatenation
+        return matchOne("e.mecanographicNumber.number='" + number + "'");
     }
 }

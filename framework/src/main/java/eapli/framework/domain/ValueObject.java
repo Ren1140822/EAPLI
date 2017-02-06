@@ -10,9 +10,9 @@ import java.io.Serializable;
 /**
  * A value object is a Domain-Driven Design pattern for domain concepts which do
  * not have a thread of continuity neither need to be tracked by their identity
- * but for the value of its attributes. these are immutable objects which can be
- * freely shared and discarded and replaced by another instance. equality is
- * done thru comparison of the attributes' values.
+ * but for the value of its attributes. These are <b>immutable</b> objects which
+ * can be freely shared and discarded and replaced by another instance. Equality
+ * is done thru comparison of the attributes values.
  *
  * Typical examples are:
  * <p>

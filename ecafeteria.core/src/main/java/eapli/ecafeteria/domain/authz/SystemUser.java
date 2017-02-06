@@ -5,10 +5,13 @@ import java.util.Calendar;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.persistence.CascadeType;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 
 import eapli.framework.authz.Authorisable;
 import eapli.framework.domain.AggregateRoot;
@@ -36,16 +39,17 @@ import eapli.util.DateTime;
 public class SystemUser
         implements AggregateRoot<Username>, Authorisable<ActionRight>, DTOable, Visitable<GenericDTO>, Serializable {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
-    // TODO probably we should have a db ID (long) different from the domain ID.
-    @Id
+
+    @Version
+    private Long version;
+
+    @EmbeddedId
     private Username username;
     private Password password;
     private Name name;
     private EmailAddress email;
+    @OneToOne(cascade = CascadeType.ALL)
     private RoleSet roles;
     @Temporal(TemporalType.DATE)
     private Calendar createdOn;
@@ -77,13 +81,13 @@ public class SystemUser
         this.active = true;
     }
 
-    public SystemUser(final Username username, final Password password, final Name name,
-            final EmailAddress email, final RoleSet roles) {
+    public SystemUser(final Username username, final Password password, final Name name, final EmailAddress email,
+            final RoleSet roles) {
         this(username, password, name, email, roles, DateTime.now());
     }
 
-    public SystemUser(final Username username, final Password password, final Name name,
-            final EmailAddress email, final RoleSet roles, final Calendar createdOn) {
+    public SystemUser(final Username username, final Password password, final Name name, final EmailAddress email,
+            final RoleSet roles, final Calendar createdOn) {
         if (roles == null) {
             throw new IllegalArgumentException("roles cannot be null");
         }
@@ -134,7 +138,8 @@ public class SystemUser
     /**
      * Add role to user.
      *
-     * @param role Role to assign to SystemUser.
+     * @param role
+     *            Role to assign to SystemUser.
      */
     public void addRole(final Role role) {
         this.roles.add(role);
@@ -161,7 +166,8 @@ public class SystemUser
     /**
      * Remove role from user.
      *
-     * @param role Role to remove from SystemUser.
+     * @param role
+     *            Role to remove from SystemUser.
      */
     public void removeRole(final Role role) {
         // TODO should the role be removed or marked as "expired"?

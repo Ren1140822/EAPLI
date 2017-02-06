@@ -7,44 +7,27 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import eapli.ecafeteria.domain.authz.ActionRight;
-import eapli.ecafeteria.domain.authz.Session;
-import eapli.ecafeteria.domain.authz.UnauthorizedException;
-
 /**
- * A "global" (singleton) class with the application settings.
+ * the application settings.
  *
  * @author Paulo Gandra Sousa
  */
 public final class AppSettings {
 
     private final Properties applicationProperties = new Properties();
-    // private final static String PROPERTIES_RESOURCE =
-    // "eapli/ecafeteria/ecafeteria.properties";
     private final static String PROPERTIES_RESOURCE = "ecafeteria.properties";
     private final static String REPOSITORY_FACTORY_KEY = "persistence.repositoryFactory";
     private final static String UI_MENU_LAYOUT_KEY = "ui.menu.layout";
+    private final static String PERSISTENCE_UNIT_KEY = "persistence.persistenceUnit";
 
-    // use lazy holder idiom
-    // https://en.wikipedia.org/wiki/Initialization-on-demand_holder_idiom
-    private static class LazyHolder {
-
-        public static final AppSettings INSTANCE = new AppSettings();
-    }
-
-    public static AppSettings instance() {
-        return LazyHolder.INSTANCE;
-    }
-
-    private AppSettings() {
+    public AppSettings() {
         loadProperties();
     }
 
     private void loadProperties() {
         InputStream propertiesStream = null;
         try {
-            // propertiesStream = new FileInputStream(PROPERTIES_FILENAME);
-            propertiesStream = AppSettings.class.getClassLoader().getResourceAsStream(PROPERTIES_RESOURCE);
+            propertiesStream = this.getClass().getClassLoader().getResourceAsStream(PROPERTIES_RESOURCE);
             if (propertiesStream != null) {
                 this.applicationProperties.load(propertiesStream);
             } else {
@@ -70,44 +53,18 @@ public final class AppSettings {
         this.applicationProperties.setProperty(REPOSITORY_FACTORY_KEY,
                 "eapli.ecafeteria.persistence.jpa.JpaRepositoryFactory");
         this.applicationProperties.setProperty(UI_MENU_LAYOUT_KEY, "horizontal");
-    }
-
-    public String getRepositoryFactory() {
-        return this.applicationProperties.getProperty(REPOSITORY_FACTORY_KEY);
+        this.applicationProperties.setProperty(PERSISTENCE_UNIT_KEY, "eapli.eCafeteriaPU");
     }
 
     public Boolean isMenuLayoutHorizontal() {
         return "horizontal".equalsIgnoreCase(this.applicationProperties.getProperty(UI_MENU_LAYOUT_KEY));
     }
 
-    //
-    // session
-    //
-    // TODO move this part to other class? e.g., AppContext
-    //
-    private Session theSession = null;
-
-    // in a real life situation this method should not exist! anyone could
-    // circunvent the authentication
-    public void setSession(Session session) {
-        this.theSession = session;
+    public String getPersistenceUnitName() {
+        return this.applicationProperties.getProperty(PERSISTENCE_UNIT_KEY);
     }
 
-    public void removeSession() {
-        this.theSession = null;
-    }
-
-    public Session session() {
-        return this.theSession;
-    }
-
-    /**
-     * helper method to check the permission of the currently logged in user
-     */
-    public static void ensurePermissionOfLoggedInUser(ActionRight action) {
-        if (!AppSettings.instance().session().authenticatedUser().isAuthorizedTo(action)) {
-            throw new UnauthorizedException("User is not authorized to perform this action",
-                    AppSettings.instance().session().authenticatedUser(), action);
-        }
+    public String getRepositoryFactory() {
+        return this.applicationProperties.getProperty(REPOSITORY_FACTORY_KEY);
     }
 }

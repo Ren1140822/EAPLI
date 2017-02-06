@@ -5,14 +5,17 @@
  */
 package eapli.ecafeteria.backoffice.consoleapp.presentation.authz;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import eapli.ecafeteria.application.DeactivateUserController;
+import eapli.ecafeteria.application.authz.DeactivateUserController;
 import eapli.ecafeteria.domain.authz.SystemUser;
 import eapli.framework.application.Controller;
+import eapli.framework.persistence.DataConcurrencyException;
+import eapli.framework.persistence.DataIntegrityViolationException;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.util.Console;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -29,7 +32,7 @@ public class DeactivateUserUI extends AbstractUI {
     @Override
     protected boolean doShow() {
         final List<SystemUser> list = new ArrayList<>();
-        final Iterable<SystemUser> iterable = this.theController.listUsers();
+        final Iterable<SystemUser> iterable = this.theController.activeUsers();
         if (!iterable.iterator().hasNext()) {
             System.out.println("There is no registered User");
         } else {
@@ -47,7 +50,11 @@ public class DeactivateUserUI extends AbstractUI {
             if (option == 0) {
                 System.out.println("No user selected");
             } else {
-                this.theController.deactivateUser(list.get(option - 1));
+                try {
+                    this.theController.deactivateUser(list.get(option - 1));
+                } catch (DataIntegrityViolationException | DataConcurrencyException ex) {
+                    Logger.getLogger(DeactivateUserUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
         return true;

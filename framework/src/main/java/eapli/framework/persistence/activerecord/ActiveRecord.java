@@ -16,9 +16,9 @@ import eapli.framework.domain.Identifiable;
  */
 public interface ActiveRecord<ID> extends Identifiable<ID> {
 
-	/*
-	 * save the current object to the persistence store either by creating it or
-	 * updating it
-	 */
-	void save();
+    /*
+     * save the current object to the persistence store either by creating it or
+     * updating it
+     */
+    void save();
 }

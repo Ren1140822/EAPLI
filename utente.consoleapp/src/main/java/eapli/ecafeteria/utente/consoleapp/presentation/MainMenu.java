@@ -7,7 +7,7 @@ package eapli.ecafeteria.utente.consoleapp.presentation;
 
 import eapli.cafeteria.consoleapp.presentation.ExitWithMessageAction;
 import eapli.cafeteria.consoleapp.presentation.MyUserMenu;
-import eapli.ecafeteria.AppSettings;
+import eapli.ecafeteria.Application;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.Menu;
 import eapli.framework.presentation.console.MenuItem;
@@ -51,7 +51,7 @@ public class MainMenu extends AbstractUI {
 
     @Override
     public String headline() {
-        return "eCAFETERIA [@" + AppSettings.instance().session().authenticatedUser().id() + "]";
+        return "eCAFETERIA [@" + Application.session().session().authenticatedUser().id() + "]";
     }
 
     private Menu buildMainMenu() {
@@ -63,7 +63,6 @@ public class MainMenu extends AbstractUI {
         mainMenu.add(VerticalSeparator.separator());
 
         // TODO add menu options
-
         mainMenu.add(VerticalSeparator.separator());
 
         mainMenu.add(new MenuItem(EXIT_OPTION, "Exit", new ExitWithMessageAction()));

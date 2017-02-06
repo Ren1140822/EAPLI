@@ -5,7 +5,7 @@
  */
 package eapli.ecafeteria.backoffice.consoleapp.presentation.authz;
 
-import eapli.ecafeteria.application.ListUsersController;
+import eapli.ecafeteria.application.authz.ListUsersController;
 import eapli.ecafeteria.domain.authz.SystemUser;
 import eapli.framework.application.Controller;
 import eapli.framework.presentation.console.AbstractUI;
@@ -16,6 +16,7 @@ import eapli.framework.presentation.console.AbstractUI;
  * @author losa
  */
 public class ListUsersUI extends AbstractUI {
+
     private final ListUsersController theController = new ListUsersController();
 
     protected Controller controller() {
@@ -24,7 +25,7 @@ public class ListUsersUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
-        final Iterable<SystemUser> iterable = this.theController.listUsers();
+        final Iterable<SystemUser> iterable = this.theController.allUsers();
         if (!iterable.iterator().hasNext()) {
             System.out.println("There is no registered User");
         } else {

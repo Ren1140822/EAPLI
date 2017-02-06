@@ -1,16 +1,14 @@
 package eapli.ecafeteria.domain.mealbooking;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.util.HashSet;
-import java.util.Set;
-
-import org.junit.Test;
-
 import eapli.ecafeteria.domain.authz.RoleType;
 import eapli.ecafeteria.domain.authz.SystemUser;
+import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
+import java.util.HashSet;
+import java.util.Set;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 
 /**
  * Created by Nuno Bettencourt [NMB] on 03/04/16.
@@ -70,30 +68,15 @@ public class CafeteriaUserTest {
     }
 
     @Test
-    public void ensureCafeteriaUserEqualsAreTheSameForTheSameInstance() throws Exception {
-        boolean expected = true;
-
-        final CafeteriaUser aCafeteriaUser = new CafeteriaUser();
-
-        expected = aCafeteriaUser.equals(aCafeteriaUser);
-
-        assertTrue(expected);
-    }
-
-    @Test
     public void ensureCafeteriaUserEqualsFailsForDifferenteObjectTypes() throws Exception {
         boolean expected = false;
-
         final String aMecanographicNumber = new String("abc");
-
         final Set<RoleType> roles = new HashSet<RoleType>();
         roles.add(RoleType.Admin);
-
         final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", this.anEmail,
                 roles);
 
         final OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
-
         final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
                 aMecanographicNumber);
 
@@ -111,15 +94,12 @@ public class CafeteriaUserTest {
     @Test
     public void ensureCafeteriaUserIsTheSameAsItsInstance() throws Exception {
         boolean expected = true;
-
         final String aMecanographicNumber = new String("abc");
-
         final Set<RoleType> roles = new HashSet<RoleType>();
         roles.add(RoleType.Admin);
 
         final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", this.anEmail,
                 roles);
-
 
         final OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
 
@@ -144,7 +124,6 @@ public class CafeteriaUserTest {
         final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", this.anEmail,
                 roles);
 
-      
         final OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
 
         final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
@@ -172,7 +151,6 @@ public class CafeteriaUserTest {
                 this.anotherEmail, roles);
 
         final String aMecanographicNumber = new String("abc");
-
 
         final OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
 
@@ -213,7 +191,6 @@ public class CafeteriaUserTest {
 //
 //        assertFalse(expected);
 //    }
-
     @Test
     public void ensureTwoCafeteriaUsersWithDifferentOrganicUnitsAreNotTheSame() throws Exception {
         boolean expected = false;

@@ -1,12 +1,15 @@
 package eapli.ecafeteria.utente.consoleapp.presentation.authz;
 
-import eapli.ecafeteria.application.SignupRequestController;
+import eapli.ecafeteria.application.cafeteria.SignupController;
 import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
 import eapli.framework.application.Controller;
+import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
 import eapli.util.Console;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -14,7 +17,7 @@ import eapli.util.Console;
  */
 public class SignupRequestUI extends AbstractUI {
 
-    private final SignupRequestController theController = new SignupRequestController();
+    private final SignupController theController = new SignupController();
 
     protected Controller controller() {
         return this.theController;
@@ -26,7 +29,7 @@ public class SignupRequestUI extends AbstractUI {
 
         userData.show();
 
-        final SelectWidget<OrganicUnit> selector = new SelectWidget<>(this.theController.getAllOrganicUnit(),
+        final SelectWidget<OrganicUnit> selector = new SelectWidget<>(this.theController.organicUnits(),
                 new OrganicUnitUIVisitor());
         selector.show();
 
@@ -35,11 +38,11 @@ public class SignupRequestUI extends AbstractUI {
         final String mecanographicNumber = Console.readLine("Mecanographic Number");
 
         try {
-            this.theController.addSignupRequest(userData.username(), userData.password(), userData.firstName(),
+            this.theController.signup(userData.username(), userData.password(), userData.firstName(),
                     userData.lastName(), userData.email(), organicUnit, mecanographicNumber);
-        } catch (final DataIntegrityViolationException e) {
+        } catch (final DataIntegrityViolationException | DataConcurrencyException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            Logger.getLogger(SignupRequestUI.class.getName()).log(Level.SEVERE, null, e);
         }
 
         return false;

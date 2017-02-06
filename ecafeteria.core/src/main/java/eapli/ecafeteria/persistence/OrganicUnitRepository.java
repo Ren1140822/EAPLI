@@ -1,7 +1,7 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template file, choose Tools | Templates and open the template
+ * in the editor.
  */
 package eapli.ecafeteria.persistence;
 
@@ -12,7 +12,7 @@ import eapli.framework.persistence.repositories.Repository;
  *
  * @author arocha
  */
-    
 public interface OrganicUnitRepository extends Repository<OrganicUnit, Long> {
-}
 
+    OrganicUnit findByAcronym(String acronym);
+}

@@ -10,31 +10,34 @@ import java.util.Collection;
  *
  */
 public enum ActionRight {
-	Administer, SelectMeal, ManageKitchen, ManageMenus, Sale,;
+    ADMINISTER, SELECT_MEAL, MANAGE_KITCHEN, MANAGE_MENUS, SALE, MANAGE_DELIVERY,;
 
-	/**
-	 * checks if this action right can be performed by a user with the specified
-	 * role types
-	 * 
-	 * @param roles
-	 * @return
-	 */
-	public boolean canBePerformedBy(Collection<RoleType> roles) {
-		if (this == Administer && roles.contains(RoleType.Admin)) {
-			return true;
-		}
-		if (this == SelectMeal && roles.contains(RoleType.User)) {
-			return true;
-		}
-		if (this == ManageKitchen && roles.contains(RoleType.KitchenManager)) {
-			return true;
-		}
-		if (this == ManageMenus && roles.contains(RoleType.MenuManager)) {
-			return true;
-		}
-		if (this == Sale && roles.contains(RoleType.Cashier)) {
-			return true;
-		}
-		return false;
-	}
+    /**
+     * checks if this action right can be performed by a user with the specified
+     * role types
+     * 
+     * @param roles
+     * @return
+     */
+    public boolean canBePerformedBy(Collection<RoleType> roles) {
+        if (this == ADMINISTER && roles.contains(RoleType.Admin)) {
+            return true;
+        }
+        if (this == SELECT_MEAL && roles.contains(RoleType.User)) {
+            return true;
+        }
+        if (this == MANAGE_KITCHEN && roles.contains(RoleType.KitchenManager)) {
+            return true;
+        }
+        if (this == MANAGE_MENUS && roles.contains(RoleType.MenuManager)) {
+            return true;
+        }
+        if (this == SALE && roles.contains(RoleType.Cashier)) {
+            return true;
+        }
+        if (this == MANAGE_DELIVERY && roles.contains(RoleType.Cashier)) {
+            return true;
+        }
+        return false;
+    }
 }

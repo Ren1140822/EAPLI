@@ -1,7 +1,7 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template file, choose Tools | Templates and open the template
+ * in the editor.
  */
 package eapli.util;
 
@@ -41,7 +41,7 @@ public class DateTimeTest {
     @Test
     public void testJanuaryFirst2014IsWeekOne() {
         System.out.println("weekNumber");
-        //TODO do not use own methods whcih have not been tested yet
+        // TODO do not use own methods whcih have not been tested yet
         Calendar date = DateTime.newCalendar(2014, 01, 01);
         int expResult = 1;
         int result = DateTime.weekNumber(date);
@@ -54,7 +54,7 @@ public class DateTimeTest {
     @Test
     public void testMarch21st2014IsWeek12() {
         System.out.println("weekNumber");
-        //TODO do not use own methods whcih have not been tested yet
+        // TODO do not use own methods whcih have not been tested yet
         Calendar date = DateTime.newCalendar(2014, 03, 21);
         int expResult = 12;
         int result = DateTime.weekNumber(date);
@@ -64,27 +64,28 @@ public class DateTimeTest {
     /**
      * Test of beginningOfWeek method, of class DateTime.
      */
-//	@Test
-//	public void testFirstDayOfWeek13Of2014Is16() {
-//		System.out.println("beginningOfWeek");
-//		int year = 2014;
-//		int week = 13;
-//		Calendar expResult = DateTime.newCalendar(2014, 03, 16);
-//		Calendar result = DateTime.beginningOfWeek(year, week);
-//		assertEquals(expResult, result);
-//	}
+    // @Test
+    // public void testFirstDayOfWeek13Of2014Is16() {
+    // System.out.println("beginningOfWeek");
+    // int year = 2014;
+    // int week = 13;
+    // Calendar expResult = DateTime.newCalendar(2014, 03, 16);
+    // Calendar result = DateTime.beginningOfWeek(year, week);
+    // assertEquals(expResult, result);
+    // }
     /**
      * Test of endOfWeek method, of class DateTime.
      */
-//	@Test
-//	public void testLastDayOfWeek13Of2014Is22() {
-//		System.out.println("endOfWeek");
-//		int year = 2014;
-//		int week = 13;
-//		Calendar expResult = DateTime.newCalendar(2014, 03, 22);
-//		Calendar result = DateTime.endOfWeek(year, week);
-//		assertEquals(expResult, result);
-//	}
+
+    // @Test
+    // public void testLastDayOfWeek13Of2014Is22() {
+    // System.out.println("endOfWeek");
+    // int year = 2014;
+    // int week = 13;
+    // Calendar expResult = DateTime.newCalendar(2014, 03, 22);
+    // Calendar result = DateTime.endOfWeek(year, week);
+    // assertEquals(expResult, result);
+    // }
     /**
      * Test of endOfMonth method, of class DateTime.
      */
@@ -124,13 +125,13 @@ public class DateTimeTest {
     /**
      * Test of parseDate method, of class DateTime.
      */
-//	@Test
-//	public void testParseDate_String_String() {
-//		System.out.println("parseDate");
-//		String aDateString = "2014-03-21";
-//		String format = "YYYY-MM-DD";
-//		Calendar expResult = DateTime.newCalendar(2014, 03, 21);
-//		Calendar result = DateTime.parseDate(aDateString, format);
-//		assertEquals(expResult, result);
-//	}
+    // @Test
+    // public void testParseDate_String_String() {
+    // System.out.println("parseDate");
+    // String aDateString = "2014-03-21";
+    // String format = "YYYY-MM-DD";
+    // Calendar expResult = DateTime.newCalendar(2014, 03, 21);
+    // Calendar result = DateTime.parseDate(aDateString, format);
+    // assertEquals(expResult, result);
+    // }
 }

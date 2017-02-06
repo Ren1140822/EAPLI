@@ -3,12 +3,10 @@
  */
 package eapli.ecafeteria.domain.authz;
 
-import java.io.Serializable;
-
-import javax.persistence.Embeddable;
-
 import eapli.framework.domain.ValueObject;
 import eapli.util.Strings;
+import java.io.Serializable;
+import javax.persistence.Embeddable;
 
 /**
  * a username.
@@ -21,21 +19,19 @@ import eapli.util.Strings;
 @Embeddable
 public class Username implements ValueObject, Serializable {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
-    private String username;
+    private String name;
 
     public Username(String username) {
         if (Strings.isNullOrEmpty(username)) {
             throw new IllegalStateException("username should neither be null nor empty");
         }
         // FIXME validate other invariants, e.g., regular expression
-        this.username = username;
+        this.name = username;
     }
 
     protected Username() {
+        // for ORM
     }
 
     @Override
@@ -48,18 +44,16 @@ public class Username implements ValueObject, Serializable {
         }
 
         final Username other = (Username) o;
-
-        return this.username.equals(other.username);
-
+        return this.name.equals(other.name);
     }
 
     @Override
     public String toString() {
-        return this.username;
+        return this.name;
     }
 
     @Override
     public int hashCode() {
-        return this.username.hashCode();
+        return this.name.hashCode();
     }
 }

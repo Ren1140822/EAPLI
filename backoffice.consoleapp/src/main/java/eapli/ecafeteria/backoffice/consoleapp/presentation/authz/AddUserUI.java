@@ -1,12 +1,13 @@
 package eapli.ecafeteria.backoffice.consoleapp.presentation.authz;
 
+import eapli.ecafeteria.application.authz.AddUserController;
 import java.util.HashSet;
 import java.util.Set;
 
-import eapli.ecafeteria.application.AddUserController;
 import eapli.ecafeteria.domain.authz.RoleType;
 import eapli.framework.actions.ReturnAction;
 import eapli.framework.application.Controller;
+import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.Menu;
@@ -21,6 +22,7 @@ import eapli.util.Console;
  * Created by nuno on 22/03/16.
  */
 public class AddUserUI extends AbstractUI {
+
     private final AddUserController theController = new AddUserController();
 
     protected Controller controller() {
@@ -45,7 +47,7 @@ public class AddUserUI extends AbstractUI {
 
         try {
             this.theController.addUser(username, password, firstName, lastName, email, roleTypes);
-        } catch (final DataIntegrityViolationException e) {
+        } catch (final DataIntegrityViolationException | DataConcurrencyException e) {
             System.out.println("That username is already in use.");
         }
 

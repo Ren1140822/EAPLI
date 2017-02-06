@@ -1,27 +1,42 @@
 package eapli.ecafeteria.domain.authz;
 
 import java.io.Serializable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.persistence.Embeddable;
 
 import eapli.framework.domain.ValueObject;
 import eapli.util.Strings;
 
+/**
+ * Person name
+ *
+ */
 @Embeddable
 public class Name implements ValueObject, Serializable {
-    /**
-     *
-    
-     */
+
     private static final long serialVersionUID = 1L;
     private String firstName;
     private String lastName;
+
+    public static final Pattern VALID_NAME_REGEX = Pattern.compile("^[A-Z]+$", Pattern.CASE_INSENSITIVE);
 
     public Name(String firstName, String lastName) {
         if (Strings.isNullOrEmpty(firstName) || Strings.isNullOrEmpty(lastName)) {
             throw new IllegalStateException("first name and last name should neither be null nor empty");
         }
-        // FIXME validate other invariants, e.g., regular expression
+
+        Matcher matcher = VALID_NAME_REGEX.matcher(firstName);
+        if (!matcher.find()) {
+            throw new IllegalStateException("Invalid First Name");
+        }
+
+        matcher = VALID_NAME_REGEX.matcher(lastName);
+        if (!matcher.find()) {
+            throw new IllegalStateException("Invalid Last Name");
+        }
+
         this.firstName = firstName;
         this.lastName = lastName;
     }

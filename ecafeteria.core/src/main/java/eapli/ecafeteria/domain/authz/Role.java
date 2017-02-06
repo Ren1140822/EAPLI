@@ -6,6 +6,9 @@ package eapli.ecafeteria.domain.authz;
 import java.io.Serializable;
 import java.util.Calendar;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -15,12 +18,15 @@ import eapli.util.DateTime;
 /**
  * @author Paulo Gandra Sousa
  */
-
+@Entity
 public class Role implements ValueObject, Serializable {
-    /**
-     *
-     */
+
     private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue
+    private Long pk;
+
     private RoleType type;
     @Temporal(TemporalType.DATE)
     private Calendar assignedOn;

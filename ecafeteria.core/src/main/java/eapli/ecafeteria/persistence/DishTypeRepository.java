@@ -4,14 +4,18 @@ import eapli.ecafeteria.domain.meals.DishType;
 import eapli.framework.persistence.repositories.Repository;
 
 /**
- * Created by MCN on 29/03/2016.
+ * the repository for Dish Types.
+ *
+ * It uses spring Data to automatically generate the implementation class.
  */
 public interface DishTypeRepository extends Repository<DishType, Long> {
 
     /**
-     * returns only the active dish types
+     * returns the active dish types
      *
      * @return
      */
-    public Iterable<DishType> activeDishTypes();
+    Iterable<DishType> activeDishTypes();
+
+    DishType findByAcronym(String acronym);
 }

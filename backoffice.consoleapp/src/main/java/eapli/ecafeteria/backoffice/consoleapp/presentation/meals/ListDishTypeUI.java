@@ -1,6 +1,6 @@
 package eapli.ecafeteria.backoffice.consoleapp.presentation.meals;
 
-import eapli.ecafeteria.application.ListDishTypeController;
+import eapli.ecafeteria.application.meals.ListDishTypeController;
 import eapli.ecafeteria.domain.meals.DishType;
 import eapli.framework.application.Controller;
 import eapli.framework.presentation.console.AbstractListUI;

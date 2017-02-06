@@ -1,20 +1,20 @@
 package eapli.ecafeteria.application;
 
-import static org.junit.Assert.assertTrue;
-
-import java.util.HashSet;
-import java.util.Set;
-
-import org.junit.After;
-import org.junit.Test;
-
+import eapli.ecafeteria.application.authz.AddUserController;
+import eapli.ecafeteria.application.authz.LoginController;
 import eapli.ecafeteria.domain.authz.RoleType;
 import eapli.ecafeteria.domain.authz.UnableToAuthenticateException;
+import java.util.HashSet;
+import java.util.Set;
+import org.junit.After;
+import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 
 /**
  * Created by Nuno Bettencourt [NMB] on 24/03/16.
  */
 public class LoginControllerTest {
+
     @After
     public void tearDown() throws Exception {
         System.getProperties().remove("persistence.repositoryFactory");

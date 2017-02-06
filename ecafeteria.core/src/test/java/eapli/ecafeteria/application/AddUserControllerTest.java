@@ -1,21 +1,19 @@
 package eapli.ecafeteria.application;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
+import eapli.ecafeteria.Application;
+import eapli.ecafeteria.application.authz.AddUserController;
+import eapli.ecafeteria.domain.authz.RoleType;
+import eapli.ecafeteria.domain.authz.SystemUser;
+import eapli.ecafeteria.domain.authz.UnableToAuthenticateException;
+import eapli.ecafeteria.domain.authz.UserSession;
+import eapli.util.DateTime;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import eapli.ecafeteria.AppSettings;
-import eapli.ecafeteria.domain.authz.RoleType;
-import eapli.ecafeteria.domain.authz.Session;
-import eapli.ecafeteria.domain.authz.SystemUser;
-import eapli.ecafeteria.domain.authz.UnableToAuthenticateException;
-import eapli.util.DateTime;
 
 /**
  * Created by Nuno Bettencourt [NMB] on 24/03/16.
@@ -30,9 +28,9 @@ public class AddUserControllerTest {
         // Password("admin"));
         final Set<RoleType> roles = new HashSet<RoleType>();
         roles.add(RoleType.Admin);
-        final Session adminSession = new Session(
+        final UserSession adminSession = new UserSession(
                 new SystemUser("admin", "admin", "joe", "doe", "joe@email.org", roles));
-        AppSettings.instance().setSession(adminSession);
+        Application.session().setSession(adminSession);
     }
 
     @Test

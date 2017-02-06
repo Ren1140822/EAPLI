@@ -1,13 +1,12 @@
 package eapli.ecafeteria.bootstrapapp;
 
+import eapli.ecafeteria.Application;
+import eapli.ecafeteria.domain.authz.RoleType;
+import eapli.ecafeteria.domain.authz.SystemUser;
+import eapli.ecafeteria.domain.authz.UserSession;
+import eapli.framework.actions.Action;
 import java.util.HashSet;
 import java.util.Set;
-
-import eapli.ecafeteria.AppSettings;
-import eapli.ecafeteria.domain.authz.RoleType;
-import eapli.ecafeteria.domain.authz.Session;
-import eapli.ecafeteria.domain.authz.SystemUser;
-import eapli.framework.actions.Action;
 
 /**
  * eCafeteria Bootstrapping data app
@@ -24,7 +23,7 @@ public class ECafeteriaBootstrap implements Action {
     @Override
     public boolean execute() {
         // declare bootstrap actions
-        final Action[] actions = { new UsersBootstrap(), new DishTypesBootstrap(), new OrganicUnitBootsrap() };
+        final Action[] actions = {new UsersBootstrap(), new DishTypesBootstrap(), new OrganicUnitBootsrap()};
 
         // authenticate a super user to be able to register new users, ...
         // in this case we will inject the session but we shouldn't do this
@@ -34,9 +33,9 @@ public class ECafeteriaBootstrap implements Action {
         final Set<RoleType> roles = new HashSet<RoleType>();
         roles.add(RoleType.Admin);
         roles.add(RoleType.MenuManager);
-        final Session adminSession = new Session(
+        final UserSession adminSession = new UserSession(
                 new SystemUser("poweruser", "poweruser", "joe", "doe", "joe@email.org", roles));
-        AppSettings.instance().setSession(adminSession);
+        Application.session().setSession(adminSession);
 
         // execute all bootstrapping returning true if any of the bootstraping
         // actions returns true
