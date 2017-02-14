@@ -20,7 +20,7 @@ import java.util.Set;
  */
 public class AddUserController implements Controller {
 
-    private UserRepository userRepository = PersistenceContext.repositories().users();
+    private final UserRepository userRepository = PersistenceContext.repositories().users();
 
     public SystemUser addUser(String username, String password, String firstName, String lastName, String email,
             Set<RoleType> roles, Calendar createdOn) throws DataIntegrityViolationException, DataConcurrencyException {

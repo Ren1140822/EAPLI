@@ -1,13 +1,11 @@
 package eapli.ecafeteria.domain.authz;
 
+import eapli.framework.domain.ValueObject;
+import eapli.util.Strings;
 import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.persistence.Embeddable;
-
-import eapli.framework.domain.ValueObject;
-import eapli.util.Strings;
 
 /**
  * Person name
@@ -17,10 +15,10 @@ import eapli.util.Strings;
 public class Name implements ValueObject, Serializable {
 
     private static final long serialVersionUID = 1L;
+    public static final Pattern VALID_NAME_REGEX = Pattern.compile("^[A-Z]+$", Pattern.CASE_INSENSITIVE);
     private String firstName;
     private String lastName;
 
-    public static final Pattern VALID_NAME_REGEX = Pattern.compile("^[A-Z]+$", Pattern.CASE_INSENSITIVE);
 
     public Name(String firstName, String lastName) {
         if (Strings.isNullOrEmpty(firstName) || Strings.isNullOrEmpty(lastName)) {

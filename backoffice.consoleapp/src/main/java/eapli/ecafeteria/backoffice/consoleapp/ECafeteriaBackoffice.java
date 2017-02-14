@@ -14,11 +14,6 @@ import eapli.ecafeteria.bootstrapapp.ECafeteriaBootstrap;
  * @author Paulo Gandra Sousa
  */
 public final class ECafeteriaBackoffice {
-    /**
-     * Empty constructor is private to avoid instantiation of this class.
-     */
-    private ECafeteriaBackoffice() {
-    }
 
     /**
      * @param args
@@ -35,5 +30,10 @@ public final class ECafeteriaBackoffice {
             final MainMenu menu = new MainMenu();
             menu.mainLoop();
         }
+    }
+    /**
+     * Empty constructor is private to avoid instantiation of this class.
+     */
+    private ECafeteriaBackoffice() {
     }
 }

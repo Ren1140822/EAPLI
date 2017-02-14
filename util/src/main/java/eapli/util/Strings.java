@@ -6,7 +6,6 @@ package eapli.util;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Random;
-
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
@@ -21,11 +20,9 @@ import javax.xml.transform.stream.StreamSource;
  * @author Paulo Gandra Sousa
  *
  */
-public final class Strings {
+public class Strings {
 
-    private Strings() {
-        // to make sure this is an utility class
-    }
+    private static final String CHARSET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
     /**
      * checks whether a String is empty (zero length or all spaces) or null
@@ -78,7 +75,6 @@ public final class Strings {
         }
     }
 
-    private static final String CHARSET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
     public static String randomString(int len) {
         return randomString(len, CHARSET);
@@ -108,5 +104,8 @@ public final class Strings {
 
     public static String right(String org, int len) {
         return org.substring(org.length() - len);
+    }
+    private Strings() {
+        // to make sure this is an utility class
     }
 }

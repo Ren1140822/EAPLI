@@ -26,9 +26,9 @@ import eapli.framework.persistence.DataIntegrityViolationException;
  */
 public class AcceptRefuseSignupRequestController implements Controller {
 
-    private UserRepository userRepository = PersistenceContext.repositories().users();
-    private CafeteriaUserRepository cafeteriaUserRepository = PersistenceContext.repositories().cafeteriaUsers();
-    private SignupRequestRepository signupRequestsRepository = PersistenceContext.repositories().signupRequests();
+    private final UserRepository userRepository = PersistenceContext.repositories().users();
+    private final CafeteriaUserRepository cafeteriaUserRepository = PersistenceContext.repositories().cafeteriaUsers();
+    private final SignupRequestRepository signupRequestsRepository = PersistenceContext.repositories().signupRequests();
 
     public SignupRequest acceptSignupRequest(SignupRequest theSignupRequest)
             throws DataIntegrityViolationException, DataConcurrencyException {

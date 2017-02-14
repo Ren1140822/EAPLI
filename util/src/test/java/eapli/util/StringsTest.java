@@ -5,10 +5,9 @@
  */
 package eapli.util;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -40,7 +39,6 @@ public class StringsTest {
      */
     @Test
     public void testStringWithContentIsNotNullNorEmpty() {
-        System.out.println("isNullOrEmpty");
         final String text = "abcdef";
         final boolean expResult = false;
         final boolean result = Strings.isNullOrEmpty(text);
@@ -52,7 +50,6 @@ public class StringsTest {
      */
     @Test
     public void testNullIsNullOrEmpty() {
-        System.out.println("isNullOrEmpty");
         final String text = null;
         final boolean expResult = true;
         final boolean result = Strings.isNullOrEmpty(text);
@@ -64,7 +61,6 @@ public class StringsTest {
      */
     @Test
     public void testEmptyStringIsNullOrEmpty() {
-        System.out.println("isNullOrEmpty");
         final String text = "";
         final boolean expResult = true;
         final boolean result = Strings.isNullOrEmpty(text);

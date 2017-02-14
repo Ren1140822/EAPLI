@@ -18,8 +18,6 @@ import org.junit.Test;
  */
 public class ClosedRangeTest extends AbstractRangeTest {
 
-    public ClosedRangeTest() {
-    }
 
     @BeforeClass
     public static void setUpClass() {
@@ -29,6 +27,8 @@ public class ClosedRangeTest extends AbstractRangeTest {
 
     @AfterClass
     public static void tearDownClass() {
+    }
+    public ClosedRangeTest() {
     }
 
     @Before

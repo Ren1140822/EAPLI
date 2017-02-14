@@ -6,4 +6,7 @@ package eapli.ecafeteria.persistence.jpa;
  */
 class PersistenceSettings {
     public static final String PERSISTENCE_UNIT_NAME = "eapli.eCafeteriaPU";
+
+    private PersistenceSettings() {
+    }
 }

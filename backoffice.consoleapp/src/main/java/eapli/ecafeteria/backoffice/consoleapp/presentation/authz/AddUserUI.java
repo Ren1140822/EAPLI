@@ -1,9 +1,6 @@
 package eapli.ecafeteria.backoffice.consoleapp.presentation.authz;
 
 import eapli.ecafeteria.application.authz.AddUserController;
-import java.util.HashSet;
-import java.util.Set;
-
 import eapli.ecafeteria.domain.authz.RoleType;
 import eapli.framework.actions.ReturnAction;
 import eapli.framework.application.Controller;
@@ -15,6 +12,8 @@ import eapli.framework.presentation.console.MenuItem;
 import eapli.framework.presentation.console.MenuRenderer;
 import eapli.framework.presentation.console.VerticalMenuRenderer;
 import eapli.util.Console;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * UI for adding a user to the application.

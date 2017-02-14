@@ -8,7 +8,7 @@ import eapli.framework.application.Controller;
  */
 public class ListDishTypeController implements Controller {
 
-    private ListDishTypeService svc = new ListDishTypeService();
+    private final ListDishTypeService svc = new ListDishTypeService();
 
     public Iterable<DishType> listDishTypes() {
         // TODO check if this use case should list all dish types or only active

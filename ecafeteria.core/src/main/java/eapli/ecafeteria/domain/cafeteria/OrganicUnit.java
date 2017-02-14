@@ -82,11 +82,7 @@ public class OrganicUnit implements AggregateRoot<String>, Serializable {
         }
 
         final OrganicUnit other = (OrganicUnit) o;
-        if (!this.id().equals(other.id())) {
-            return false;
-        }
-
-        return true;
+        return this.id().equals(other.id());
     }
 
     @Override
@@ -105,10 +101,6 @@ public class OrganicUnit implements AggregateRoot<String>, Serializable {
             return true;
         }
 
-        if (!this.pk.equals(that.pk)) {
-            return false;
-        }
-
-        return true;
+        return this.pk.equals(that.pk);
     }
 }

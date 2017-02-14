@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  *
  * @author Paulo Gandra Sousa
  */
-public final class PersistenceContext {
+public class PersistenceContext {
 
     public static RepositoryFactory repositories() {
         // return new InMemoryRepositoryFactory();

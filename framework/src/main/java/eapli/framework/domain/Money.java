@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Currency;
-
 import javax.persistence.Embeddable;
 
 /**
@@ -21,6 +20,20 @@ public class Money implements Comparable<Money>, Serializable, ValueObject {
      */
     private static final long serialVersionUID = 1L;
     private static final transient int HUNDRED = 100;
+    /**
+     * If you use one currency a lot, you may want a special constructor for
+     * that currency.
+     */
+    public static Money dollars(final double amount) {
+        return new Money(amount, Currency.getInstance("USD"));
+    }
+    /**
+     * If you use one currency a lot, you may want a special constructor for
+     * that currency.
+     */
+    public static Money euros(final double amount) {
+        return new Money(amount, Currency.getInstance("EUR"));
+    }
 
     private final BigInteger amount;
     private final Currency currency;
@@ -63,21 +76,6 @@ public class Money implements Comparable<Money>, Serializable, ValueObject {
         this.currency = currency;
     }
 
-    /**
-     * If you use one currency a lot, you may want a special constructor for
-     * that currency.
-     */
-    public static Money dollars(final double amount) {
-        return new Money(amount, Currency.getInstance("USD"));
-    }
-
-    /**
-     * If you use one currency a lot, you may want a special constructor for
-     * that currency.
-     */
-    public static Money euros(final double amount) {
-        return new Money(amount, Currency.getInstance("EUR"));
-    }
 
     /**
      * Returns the amount portion of this Money object.

@@ -1,8 +1,14 @@
 package eapli.ecafeteria.domain.cafeteria;
 
+import eapli.ecafeteria.domain.authz.EmailAddress;
+import eapli.ecafeteria.domain.authz.Name;
+import eapli.ecafeteria.domain.authz.Password;
+import eapli.ecafeteria.domain.authz.Username;
+import eapli.framework.domain.AggregateRoot;
+import eapli.util.DateTime;
+import eapli.util.Strings;
 import java.io.Serializable;
 import java.util.Calendar;
-
 import javax.persistence.CascadeType;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -12,14 +18,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
-
-import eapli.ecafeteria.domain.authz.EmailAddress;
-import eapli.ecafeteria.domain.authz.Name;
-import eapli.ecafeteria.domain.authz.Password;
-import eapli.ecafeteria.domain.authz.Username;
-import eapli.framework.domain.AggregateRoot;
-import eapli.util.DateTime;
-import eapli.util.Strings;
 
 /**
  * A Signup Request
@@ -81,6 +79,9 @@ public class SignupRequest implements AggregateRoot<Username>, Serializable {
         this.approvalStatus = ApprovalStatus.PENDING;
         this.createdOn = createdOn;
     }
+    protected SignupRequest() {
+        // for ORM only
+    }
 
     public void changeToAcceptedStatus() {
         this.approvalStatus = ApprovalStatus.ACCEPTED;
@@ -90,9 +91,6 @@ public class SignupRequest implements AggregateRoot<Username>, Serializable {
         this.approvalStatus = ApprovalStatus.REFUSED;
     }
 
-    protected SignupRequest() {
-        // for ORM only
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -105,11 +103,7 @@ public class SignupRequest implements AggregateRoot<Username>, Serializable {
 
         final SignupRequest other = (SignupRequest) o;
 
-        if (!this.username.equals(other.username)) {
-            return false;
-        }
-
-        return true;
+        return this.username.equals(other.username);
     }
 
     @Override
@@ -145,11 +139,7 @@ public class SignupRequest implements AggregateRoot<Username>, Serializable {
             return false;
         }
 
-        if (!this.organicUnit.equals(that.organicUnit)) {
-            return false;
-        }
-
-        return true;
+        return this.organicUnit.equals(that.organicUnit);
     }
 
     @Override

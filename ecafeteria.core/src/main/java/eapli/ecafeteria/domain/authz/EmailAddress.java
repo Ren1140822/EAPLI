@@ -3,14 +3,12 @@
  */
 package eapli.ecafeteria.domain.authz;
 
+import eapli.framework.domain.ValueObject;
+import eapli.util.Strings;
 import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.persistence.Embeddable;
-
-import eapli.framework.domain.ValueObject;
-import eapli.util.Strings;
 
 /**
  * @author Paulo Gandra Sousa

@@ -35,9 +35,6 @@ public enum ActionRight {
         if (this == SALE && roles.contains(RoleType.Cashier)) {
             return true;
         }
-        if (this == MANAGE_DELIVERY && roles.contains(RoleType.Cashier)) {
-            return true;
-        }
-        return false;
+        return this == MANAGE_DELIVERY && roles.contains(RoleType.Cashier);
     }
 }

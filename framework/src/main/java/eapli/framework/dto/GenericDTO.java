@@ -22,15 +22,6 @@ import java.util.Set;
  */
 public class GenericDTO implements DTO, Map<String, Object> {
 
-    private final Map<String, Object> data = new HashMap<>();
-    private final String type;
-
-    public GenericDTO(String type) {
-        if (type == null || type.trim().length() == 0) {
-            throw new IllegalArgumentException();
-        }
-        this.type = type;
-    }
 
     /**
      * Builds a DTO from an object using reflection.
@@ -121,6 +112,14 @@ public class GenericDTO implements DTO, Map<String, Object> {
             fields.addAll(Arrays.asList(c.getDeclaredFields()));
         }
         return fields;
+    }
+    private final Map<String, Object> data = new HashMap<>();
+    private final String type;
+    public GenericDTO(String type) {
+        if (type == null || type.trim().length() == 0) {
+            throw new IllegalArgumentException();
+        }
+        this.type = type;
     }
 
     /**

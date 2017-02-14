@@ -20,8 +20,8 @@ import eapli.framework.persistence.DataIntegrityViolationException;
  */
 public class ActivateDeactivateDishTypeController implements Controller {
 
-    private ListDishTypeService svc = new ListDishTypeService();
-    private DishTypeRepository dishTypeRepository = PersistenceContext.repositories().dishTypes();
+    private final ListDishTypeService svc = new ListDishTypeService();
+    private final DishTypeRepository dishTypeRepository = PersistenceContext.repositories().dishTypes();
 
     public Iterable<DishType> allDishTypes() {
         return this.svc.allDishTypes();

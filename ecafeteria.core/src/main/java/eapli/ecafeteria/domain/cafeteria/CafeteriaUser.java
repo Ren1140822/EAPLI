@@ -72,11 +72,7 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Serial
         }
 
         final CafeteriaUser other = (CafeteriaUser) o;
-        if (!this.mecanographicNumber.equals(other.mecanographicNumber)) {
-            return false;
-        }
-
-        return true;
+        return this.mecanographicNumber.equals(other.mecanographicNumber);
     }
 
     @Override

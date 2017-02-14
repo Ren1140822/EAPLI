@@ -18,6 +18,62 @@ public class Range<T extends Comparable<T>> implements ValueObject {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * a factory method for open ranges
+     *
+     * @param start
+     * @param end
+     * @return
+     */
+    public static <T extends Comparable<T>> Range<T> openRange(T start, T end) {
+        return new Range<>(start, end, true, true);
+    }
+
+    /**
+     * a factory method for closed ranges
+     *
+     * @param start
+     * @param end
+     * @return
+     */
+    public static <T extends Comparable<T>> Range<T> closedRange(T start, T end) {
+        return new Range<>(start, end, false, false);
+
+    }
+
+    /**
+     * A factory method for ranges that go until "positive infinity"
+     *
+     * @param start
+     * @param openStart
+     * @return
+     */
+    public static <T extends Comparable<T>> Range<T> toInfinity(T start, boolean openStart) {
+        return new Range<>(start, openStart, RangeInfinityType.TO_INFINITY);
+    }
+
+    /**
+     * A factory method for ranges that start at "negative infinity"
+     *
+     * @param end
+     * @param openEnd
+     * @return
+     */
+    public static <T extends Comparable<T>> Range<T> fromInfinity(T end, boolean openEnd) {
+        return new Range<>(end, openEnd, RangeInfinityType.FROM_INFINITY);
+    }
+
+    /**
+     * a factory method for open ended ranges
+     *
+     * @param start
+     * @param end
+     * @return
+     */
+    public static <T extends Comparable<T>> Range<T> openEnded(T start, T end) {
+        return new Range<>(start, end, false, true);
+    }
+
     private T start;
     private T end;
     private boolean openStart;
@@ -84,75 +140,20 @@ public class Range<T extends Comparable<T>> implements ValueObject {
     }
 
     /**
-     * a factory method for open ranges
-     *
-     * @param start
-     * @param end
-     * @return
-     */
-    public static <T extends Comparable<T>> Range<T> openRange(T start, T end) {
-        return new Range<>(start, end, true, true);
-    }
-
-    /**
-     * a factory method for closed ranges
-     *
-     * @param start
-     * @param end
-     * @return
-     */
-    public static <T extends Comparable<T>> Range<T> closedRange(T start, T end) {
-        return new Range<>(start, end, false, false);
-
-    }
-
-    /**
-     * A factory method for ranges that go until "positive infinity"
-     *
-     * @param start
-     * @param openStart
-     * @return
-     */
-    public static <T extends Comparable<T>> Range<T> toInfinity(T start, boolean openStart) {
-        return new Range<>(start, openStart, RangeInfinityType.TO_INFINITY);
-    }
-
-    /**
-     * A factory method for ranges that start at "negative infinity"
-     *
-     * @param end
-     * @param openEnd
-     * @return
-     */
-    public static <T extends Comparable<T>> Range<T> fromInfinity(T end, boolean openEnd) {
-        return new Range<>(end, openEnd, RangeInfinityType.FROM_INFINITY);
-    }
-
-    /**
-     * a factory method for open ended ranges
-     *
-     * @param start
-     * @param end
-     * @return
-     */
-    public static <T extends Comparable<T>> Range<T> openEnded(T start, T end) {
-        return new Range<>(start, end, false, true);
-    }
-
-    /**
      * checks if a value belongs in this range
      *
      * @param target
      * @return
      */
     public boolean includes(T target) {
-        if (this.infinityType == RangeInfinityType.NONE) {
-            return includesOfNormalRanges(target);
-        } else if (this.infinityType == RangeInfinityType.TO_INFINITY) {
-            return includesOfToInfinityRanges(target);
-        } else {
-            assert this.infinityType == RangeInfinityType.FROM_INFINITY;
-            return includesOfFromInfinityRanges(target);
+        switch (this.infinityType) {
+            case NONE:
+                return includesOfNormalRanges(target);
+            case TO_INFINITY:
+                return includesOfToInfinityRanges(target);
+            default:
+                assert this.infinityType == RangeInfinityType.FROM_INFINITY;
+                return includesOfFromInfinityRanges(target);
         }
     }
 
@@ -160,20 +161,14 @@ public class Range<T extends Comparable<T>> implements ValueObject {
         if (target.compareTo(this.end) > 0) {
             return false;
         }
-        if (this.openEnd && target.compareTo(this.end) == 0) {
-            return false;
-        }
-        return true;
+        return !(this.openEnd && target.compareTo(this.end) == 0);
     }
 
     private boolean includesOfToInfinityRanges(T target) {
         if (target.compareTo(this.start) < 0) {
             return false;
         }
-        if (this.openStart && target.compareTo(this.start) == 0) {
-            return false;
-        }
-        return true;
+        return !(this.openStart && target.compareTo(this.start) == 0);
     }
 
     private boolean includesOfNormalRanges(T target) {
@@ -183,10 +178,7 @@ public class Range<T extends Comparable<T>> implements ValueObject {
         if (this.openStart && target.compareTo(this.start) == 0) {
             return false;
         }
-        if (this.openEnd && target.compareTo(this.end) == 0) {
-            return false;
-        }
-        return true;
+        return !(this.openEnd && target.compareTo(this.end) == 0);
     }
 
     @Override

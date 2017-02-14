@@ -5,15 +5,12 @@
  */
 package eapli.ecafeteria.domain.cafeteria;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
 
 /**
  *
@@ -21,8 +18,6 @@ import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
  */
 public class OrganicUnitTest {
 
-    public OrganicUnitTest() {
-    }
 
     @BeforeClass
     public static void setUpClass() {
@@ -30,6 +25,8 @@ public class OrganicUnitTest {
 
     @AfterClass
     public static void tearDownClass() {
+    }
+    public OrganicUnitTest() {
     }
 
     @Before

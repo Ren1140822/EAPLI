@@ -20,9 +20,9 @@ import eapli.framework.persistence.DataIntegrityViolationException;
  */
 public class ChangeDishTypeController implements Controller {
 
-    private ListDishTypeService svc = new ListDishTypeService();
+    private final ListDishTypeService svc = new ListDishTypeService();
 
-    private DishTypeRepository repo = PersistenceContext.repositories().dishTypes();
+    private final DishTypeRepository repo = PersistenceContext.repositories().dishTypes();
 
     public DishType changeDishType(DishType theDishType, String newDescription)
             throws DataConcurrencyException, DataIntegrityViolationException {

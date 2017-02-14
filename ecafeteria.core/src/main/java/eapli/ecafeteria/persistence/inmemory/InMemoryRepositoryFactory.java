@@ -1,11 +1,11 @@
 package eapli.ecafeteria.persistence.inmemory;
 
 import eapli.ecafeteria.persistence.CafeteriaUserRepository;
-import eapli.ecafeteria.persistence.RepositoryFactory;
-import eapli.ecafeteria.persistence.UserRepository;
 import eapli.ecafeteria.persistence.DishTypeRepository;
 import eapli.ecafeteria.persistence.OrganicUnitRepository;
+import eapli.ecafeteria.persistence.RepositoryFactory;
 import eapli.ecafeteria.persistence.SignupRequestRepository;
+import eapli.ecafeteria.persistence.UserRepository;
 
 /**
  *

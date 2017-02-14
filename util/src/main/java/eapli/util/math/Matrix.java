@@ -10,6 +10,38 @@ package eapli.util.math;
  *
  */
 public class Matrix {
+    /* creates a square identity matrix */
+    public static Matrix identity(int n) {
+        final Matrix id = zero(n, n);
+        for (int i = 0; i < n; i++) {
+            // for (int j = 0; j < n; j++)
+            // id.putAt(i, j, 0.0);
+            id.putAt(i, i, 1.0);
+        }
+        return id;
+    }
+    /* creates a square zero matrix */
+    public static Matrix zero(int n) {
+        return zero(n, n);
+    }
+    /* creates a zero matrix */
+    public static Matrix zero(int r, int c) {
+        return new Matrix(r, c);
+    }
+    /* creates a "zero" matrix with the same given value */
+    public static Matrix zero(int r, int c, double zero) {
+        final Matrix z = new Matrix(r, c);
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                z.putAt(i, j, zero);
+            }
+        }
+        return z;
+    }
+    private int iDF = 0; // determinant factor
+    private final int rows;
+    private final int cols;
+    private final double[][] data;
 
     public Matrix(double[][] elems) {
         this.rows = elems.length + 1;
@@ -24,6 +56,11 @@ public class Matrix {
         this.data = new double[this.rows][this.cols];
         copyData(other.data, this.data);
     }
+    private Matrix(int rows, int cols) {
+        this.rows = rows;
+        this.cols = cols;
+        this.data = new double[rows][cols];
+    }
 
     // indexes are 1-based
     public double elementAt(int i, int j) {
@@ -34,21 +71,6 @@ public class Matrix {
         return this.rows * this.cols;
     }
 
-    /* creates a square identity matrix */
-    public static Matrix identity(int n) {
-        final Matrix id = zero(n, n);
-        for (int i = 0; i < n; i++) {
-            // for (int j = 0; j < n; j++)
-            // id.putAt(i, j, 0.0);
-            id.putAt(i, i, 1.0);
-        }
-        return id;
-    }
-
-    /* creates a square zero matrix */
-    public static Matrix zero(int n) {
-        return zero(n, n);
-    }
 
     public Vector row(int index) {
         if (index < 0 || index >= this.rows) {
@@ -72,21 +94,6 @@ public class Matrix {
         return vec;
     }
 
-    /* creates a zero matrix */
-    public static Matrix zero(int r, int c) {
-        return new Matrix(r, c);
-    }
-
-    /* creates a "zero" matrix with the same given value */
-    public static Matrix zero(int r, int c, double zero) {
-        final Matrix z = new Matrix(r, c);
-        for (int i = 0; i < r; i++) {
-            for (int j = 0; j < c; j++) {
-                z.putAt(i, j, zero);
-            }
-        }
-        return z;
-    }
 
     // return a new matrix obtained by multiplying a matrix by a scalar
     public Matrix scale(double k) {
@@ -406,7 +413,6 @@ public class Matrix {
                     // check if switched all rows
                     if (col + v >= tms) {
                         this.iDF = 0;
-                        continue;
                     } else {
                         for (int c = 0; c < tms; c++) {
                             // switch rows
@@ -417,7 +423,7 @@ public class Matrix {
                         // count row switchs
                         v++;
                         // each switch changes determinant factor
-                        this.iDF = this.iDF * -1;
+                        this.iDF *= -1;
                     }
                 }
 
@@ -450,7 +456,6 @@ public class Matrix {
         return det;
     }
 
-    private int iDF = 0; // determinant factor
 
     public int columnCount() {
         return this.cols;
@@ -645,11 +650,6 @@ public class Matrix {
         return dest;
     }
 
-    private Matrix(int rows, int cols) {
-        this.rows = rows;
-        this.cols = cols;
-        this.data = new double[rows][cols];
-    }
 
     // removes a row or column from the matrix
     // indexes are 1-based
@@ -750,8 +750,5 @@ public class Matrix {
         }
     }
 
-    private final int rows;
-    private final int cols;
-    private final double[][] data;
 
 }

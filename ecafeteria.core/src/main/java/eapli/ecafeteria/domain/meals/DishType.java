@@ -1,14 +1,12 @@
 package eapli.ecafeteria.domain.meals;
 
+import eapli.framework.domain.AggregateRoot;
+import eapli.util.Strings;
 import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
-import eapli.framework.domain.AggregateRoot;
-import eapli.util.Strings;
 
 /**
  * a dish type, e.g., vegetarian or fish or meat.

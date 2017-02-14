@@ -3,11 +3,10 @@
  */
 package eapli.ecafeteria.domain.cafeteria;
 
+import eapli.framework.domain.AggregateRoot;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Version;
-
-import eapli.framework.domain.AggregateRoot;
 
 /**
  * A Cafeteria.

@@ -20,7 +20,7 @@ import eapli.framework.persistence.DataIntegrityViolationException;
  */
 public class AddOrganicUnitController implements Controller {
 
-    private OrganicUnitRepository organicUnitRepository = PersistenceContext.repositories().organicUnits();
+    private final OrganicUnitRepository organicUnitRepository = PersistenceContext.repositories().organicUnits();
 
     public OrganicUnit addOrganicUnit(String acronym, String name, String description)
             throws DataIntegrityViolationException, DataConcurrencyException {

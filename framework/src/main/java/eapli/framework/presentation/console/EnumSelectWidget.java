@@ -4,9 +4,8 @@
  */
 package eapli.framework.presentation.console;
 
-import java.util.EnumSet;
-
 import eapli.framework.visitor.Visitor;
+import java.util.EnumSet;
 
 /**
  * A simple widget that lists the items of a enum and allows the user to select

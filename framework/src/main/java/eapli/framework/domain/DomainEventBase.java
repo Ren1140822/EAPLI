@@ -5,9 +5,8 @@
  */
 package eapli.framework.domain;
 
-import java.util.Calendar;
-
 import eapli.util.DateTime;
+import java.util.Calendar;
 
 /**
  *

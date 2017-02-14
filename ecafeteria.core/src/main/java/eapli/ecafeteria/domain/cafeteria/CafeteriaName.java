@@ -3,10 +3,9 @@
  */
 package eapli.ecafeteria.domain.cafeteria;
 
-import javax.persistence.Embeddable;
-
 import eapli.framework.domain.ValueObject;
 import eapli.util.Strings;
+import javax.persistence.Embeddable;
 
 /**
  * @author SOU03408

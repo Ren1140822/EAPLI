@@ -22,15 +22,11 @@ import java.util.logging.Logger;
  * @author Paulo Gandra Sousa
  *
  */
-public final class Console {
+public class Console {
 
-    private Console() {
-        // to make sure this is an utility class
-    }
 
     public static String readLine(String prompt) {
         try {
-            System.out.println(prompt);
             final InputStreamReader converter = new InputStreamReader(System.in);
             final BufferedReader in = new BufferedReader(converter);
 
@@ -138,7 +134,6 @@ public final class Console {
     }
 
     public static void waitForKey(String prompt) {
-        System.out.println(prompt);
         try {
             System.in.read();
         } catch (final IOException ex) {
@@ -146,5 +141,8 @@ public final class Console {
             // Logger.getLogger(Console.class.getName()).log(Level.WARNING,
             // null, ex);
         }
+    }
+    private Console() {
+        // to make sure this is an utility class
     }
 }

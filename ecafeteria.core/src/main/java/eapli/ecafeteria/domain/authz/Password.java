@@ -3,12 +3,10 @@
  */
 package eapli.ecafeteria.domain.authz;
 
-import java.io.Serializable;
-
-import javax.persistence.Embeddable;
-
 import eapli.framework.domain.ValueObject;
 import eapli.util.Strings;
+import java.io.Serializable;
+import javax.persistence.Embeddable;
 
 /**
  * TODO passwords should never be stored in plain format

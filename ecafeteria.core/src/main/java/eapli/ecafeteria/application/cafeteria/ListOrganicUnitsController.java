@@ -18,7 +18,7 @@ import eapli.framework.application.Controller;
  */
 public class ListOrganicUnitsController implements Controller {
 
-    private OrganicUnitRepository repo = PersistenceContext.repositories().organicUnits();
+    private final OrganicUnitRepository repo = PersistenceContext.repositories().organicUnits();
 
     public Iterable<OrganicUnit> listOrganicUnits() {
         Application.ensurePermissionOfLoggedInUser(ActionRight.ADMINISTER);

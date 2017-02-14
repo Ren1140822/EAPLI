@@ -48,11 +48,11 @@ import javax.persistence.TypedQuery;
  */
 public class JpaTxlessRepository<T, K extends Serializable>
         implements Repository<T, K>, IterableRepository<T, K>, DeleteableRepository<T, K> {
+    private static final int DEFAULT_PAGESIZE = 20;
 
     private final String persistenceUnitName;
 
     protected final Class<T> entityClass;
-    private static final int DEFAULT_PAGESIZE = 20;
 
     // will be injected by Spring
     @PersistenceUnit
@@ -286,9 +286,9 @@ public class JpaTxlessRepository<T, K extends Serializable>
         assert params != null && params.size() > 0 : "Params must not be null or empty";
 
         final TypedQuery<T> q = query(where);
-        for (final Entry<String, Object> e : params.entrySet()) {
+        params.entrySet().stream().forEach((e) -> {
             q.setParameter(e.getKey(), e.getValue());
-        }
+        });
         return q;
     }
 
@@ -334,56 +334,6 @@ public class JpaTxlessRepository<T, K extends Serializable>
         return q.getResultList();
     }
 
-    /**
-     * an iterator over JPA
-     *
-     * @author Paulo Gandra Sousa
-     *
-     */
-    private class JpaPagedIterator implements Iterator<T> {
-
-        private final JpaTxlessRepository<T, K> repository;
-        private final int pageSize;
-        private int currentPageNumber;
-        private Iterator<T> currentPage;
-
-        private JpaPagedIterator(JpaTxlessRepository<T, K> repository, int pagesize) {
-            this.repository = repository;
-            this.pageSize = pagesize;
-        }
-
-        @Override
-        public boolean hasNext() {
-            if (needsToLoadPage()) {
-                loadNextPage();
-            }
-            return this.currentPage.hasNext();
-        }
-
-        @Override
-        public T next() {
-            if (needsToLoadPage()) {
-                loadNextPage();
-            }
-            return this.currentPage.next();
-        }
-
-        @Override
-        public void remove() {
-            throw new UnsupportedOperationException("Not supported yet.");
-        }
-
-        private void loadNextPage() {
-            final List<T> page = this.repository.page(++this.currentPageNumber, this.pageSize);
-            this.currentPage = page.iterator();
-        }
-
-        private boolean needsToLoadPage() {
-            // either we do not have an iterator yet or we have reached the end
-            // of the (current) iterator
-            return this.currentPage == null || !this.currentPage.hasNext();
-        }
-    }
 
     /**
      * returns a paged iterator
@@ -468,5 +418,55 @@ public class JpaTxlessRepository<T, K extends Serializable>
         // TODO should we allow to throw NoResultException? it will expose a JPA
         // specific exception to domain layer. most likely we should return null
         return q.getSingleResult();
+    }
+    /**
+     * an iterator over JPA
+     *
+     * @author Paulo Gandra Sousa
+     *
+     */
+    private class JpaPagedIterator implements Iterator<T> {
+        
+        private final JpaTxlessRepository<T, K> repository;
+        private final int pageSize;
+        private int currentPageNumber;
+        private Iterator<T> currentPage;
+        
+        private JpaPagedIterator(JpaTxlessRepository<T, K> repository, int pagesize) {
+            this.repository = repository;
+            this.pageSize = pagesize;
+        }
+        
+        @Override
+        public boolean hasNext() {
+            if (needsToLoadPage()) {
+                loadNextPage();
+            }
+            return this.currentPage.hasNext();
+        }
+        
+        @Override
+        public T next() {
+            if (needsToLoadPage()) {
+                loadNextPage();
+            }
+            return this.currentPage.next();
+        }
+        
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+        
+        private void loadNextPage() {
+            final List<T> page = this.repository.page(++this.currentPageNumber, this.pageSize);
+            this.currentPage = page.iterator();
+        }
+        
+        private boolean needsToLoadPage() {
+            // either we do not have an iterator yet or we have reached the end
+            // of the (current) iterator
+            return this.currentPage == null || !this.currentPage.hasNext();
+        }
     }
 }

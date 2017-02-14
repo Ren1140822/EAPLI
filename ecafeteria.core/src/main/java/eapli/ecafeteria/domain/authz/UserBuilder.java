@@ -1,12 +1,11 @@
 package eapli.ecafeteria.domain.authz;
 
+import eapli.framework.domain.Factory;
+import eapli.util.Strings;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import eapli.framework.domain.Factory;
-import eapli.util.Strings;
 
 /**
  * A factory for User entities.

@@ -14,7 +14,7 @@ import java.util.Optional;
  */
 public class LoginController implements Controller {
 
-    private AuthenticationService authenticationService = new AuthenticationService();
+    private final AuthenticationService authenticationService = new AuthenticationService();
 
     /**
      * This method allows a user to perform login and creates the session.

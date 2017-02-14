@@ -3,9 +3,8 @@
  */
 package eapli.ecafeteria.domain.authz;
 
-import java.util.UUID;
-
 import eapli.framework.domain.ValueObject;
+import java.util.UUID;
 
 /**
  * @author Paulo Gandra Sousa
@@ -19,9 +18,6 @@ public class UserSession implements ValueObject {
     private final SystemUser user;
     private final UUID token;
 
-    public SystemUser authenticatedUser() {
-        return this.user;
-    }
 
     public UserSession(SystemUser user) {
         if (user == null) {
@@ -29,6 +25,9 @@ public class UserSession implements ValueObject {
         }
         this.user = user;
         this.token = UUID.randomUUID();
+    }
+    public SystemUser authenticatedUser() {
+        return this.user;
     }
 
     @Override

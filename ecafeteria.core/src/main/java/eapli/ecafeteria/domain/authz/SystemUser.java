@@ -1,18 +1,5 @@
 package eapli.ecafeteria.domain.authz;
 
-import java.io.Serializable;
-import java.util.Calendar;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import javax.persistence.CascadeType;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Version;
-
 import eapli.framework.authz.Authorisable;
 import eapli.framework.domain.AggregateRoot;
 import eapli.framework.dto.DTOable;
@@ -20,6 +7,17 @@ import eapli.framework.dto.GenericDTO;
 import eapli.framework.visitor.Visitable;
 import eapli.framework.visitor.Visitor;
 import eapli.util.DateTime;
+import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Set;
+import java.util.stream.Collectors;
+import javax.persistence.CascadeType;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Version;
 
 /**
  * An application user.

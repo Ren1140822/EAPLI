@@ -40,7 +40,6 @@ public class DateTimeTest {
      */
     @Test
     public void testJanuaryFirst2014IsWeekOne() {
-        System.out.println("weekNumber");
         // TODO do not use own methods whcih have not been tested yet
         Calendar date = DateTime.newCalendar(2014, 01, 01);
         int expResult = 1;
@@ -53,7 +52,6 @@ public class DateTimeTest {
      */
     @Test
     public void testMarch21st2014IsWeek12() {
-        System.out.println("weekNumber");
         // TODO do not use own methods whcih have not been tested yet
         Calendar date = DateTime.newCalendar(2014, 03, 21);
         int expResult = 12;
@@ -91,7 +89,6 @@ public class DateTimeTest {
      */
     @Test
     public void testLastDayOfMarch2014is31() {
-        System.out.println("endOfMonth");
         Calendar reference = DateTime.newCalendar(2014, 03, 21);
         Calendar expResult = DateTime.newCalendar(2014, 03, 31);
         Calendar result = DateTime.endOfMonth(reference);
@@ -103,7 +100,6 @@ public class DateTimeTest {
      */
     @Test
     public void testLastDayOfFebruary2014is28() {
-        System.out.println("endOfMonth");
         Calendar reference = DateTime.newCalendar(2014, 02, 21);
         Calendar expResult = DateTime.newCalendar(2014, 02, 28);
         Calendar result = DateTime.endOfMonth(reference);
@@ -115,7 +111,6 @@ public class DateTimeTest {
      */
     @Test
     public void testLastDayOfFebruary2012is29() {
-        System.out.println("endOfMonth");
         Calendar reference = DateTime.newCalendar(2012, 02, 21);
         Calendar expResult = DateTime.newCalendar(2012, 02, 29);
         Calendar result = DateTime.endOfMonth(reference);

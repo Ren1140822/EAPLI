@@ -20,7 +20,7 @@ import eapli.framework.persistence.DataIntegrityViolationException;
  */
 public class RegisterDishTypeController implements Controller {
 
-    private DishTypeRepository repository = PersistenceContext.repositories().dishTypes();
+    private final DishTypeRepository repository = PersistenceContext.repositories().dishTypes();
 
     public DishType registerDishType(String acronym, String description)
             throws DataIntegrityViolationException, DataConcurrencyException {

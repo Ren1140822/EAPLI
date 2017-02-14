@@ -8,7 +8,7 @@ package eapli.framework.actions;
  *
  * @author Paulo Gandra Sousa
  */
-public final class NullAction implements Action {
+public class NullAction implements Action {
 
     // FIXME use lazy holder idiom
     private static final NullAction theInstance = new NullAction();

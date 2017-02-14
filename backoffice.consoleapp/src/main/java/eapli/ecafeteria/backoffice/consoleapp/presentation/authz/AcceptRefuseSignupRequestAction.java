@@ -1,6 +1,5 @@
 package eapli.ecafeteria.backoffice.consoleapp.presentation.authz;
 
-import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.ActivateDeactivateDishTypeUI;
 import eapli.framework.actions.Action;
 
 /**

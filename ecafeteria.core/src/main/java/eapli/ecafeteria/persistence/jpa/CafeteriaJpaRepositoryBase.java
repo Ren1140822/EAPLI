@@ -6,11 +6,11 @@ import java.io.Serializable;
 
 abstract class CafeteriaJpaRepositoryBase<T, K extends Serializable> extends JpaTxRepository<T, K> {
 
-    public CafeteriaJpaRepositoryBase(String persistenceUnitName) {
+    CafeteriaJpaRepositoryBase(String persistenceUnitName) {
         super(persistenceUnitName);
     }
 
-    public CafeteriaJpaRepositoryBase() {
+    CafeteriaJpaRepositoryBase() {
         super(Application.settings().getPersistenceUnitName());
     }
 }

@@ -3,17 +3,15 @@
  */
 package eapli.ecafeteria.domain.authz;
 
+import eapli.framework.domain.ValueObject;
+import eapli.util.DateTime;
 import java.io.Serializable;
 import java.util.Calendar;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import eapli.framework.domain.ValueObject;
-import eapli.util.DateTime;
 
 /**
  * @author Paulo Gandra Sousa

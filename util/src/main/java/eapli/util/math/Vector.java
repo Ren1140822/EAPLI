@@ -12,9 +12,17 @@ import java.util.Arrays;
  *
  */
 public class Vector {
-    public enum VectorType {
-        Row, Column
-    };
+    /* creates a "zero" vector with the same given value */
+    public static Vector zero(int n, VectorType type, double zero) {
+        final Vector z = new Vector(n, type);
+        for (int i = 0; i < n; i++) {
+            z.putAt(i, zero);
+        }
+        return z;
+    }
+    private final int numElems;
+    private final double[] data;
+    private final VectorType type;
 
     public Vector(double[] src, VectorType type) {
         numElems = src.length;
@@ -39,14 +47,6 @@ public class Vector {
         return getAt(i - 1);
     }
 
-    /* creates a "zero" vector with the same given value */
-    public static Vector zero(int n, VectorType type, double zero) {
-        final Vector z = new Vector(n, type);
-        for (int i = 0; i < n; i++) {
-            z.putAt(i, zero);
-        }
-        return z;
-    }
 
     public Vector normalize() {
         double sum = 0;
@@ -147,7 +147,7 @@ public class Vector {
         data[i] = v;
     }
 
-    private final int numElems;
-    private final double[] data;
-    private final VectorType type;
+    public enum VectorType {
+        Row, Column
+    }
 }

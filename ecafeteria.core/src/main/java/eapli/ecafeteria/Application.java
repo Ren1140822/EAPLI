@@ -11,14 +11,11 @@ import eapli.ecafeteria.domain.authz.ActionRight;
  * @author Paulo Gandra Sousa
  *
  */
-public final class Application {
+public class Application {
 
     private static final AppSession SESSION = new AppSession();
     private static final AppSettings SETTINGS = new AppSettings();
 
-    private Application() {
-        // private visibility to ensure singleton & utility
-    }
 
     public static AppSession session() {
         return SESSION;
@@ -33,5 +30,8 @@ public final class Application {
      */
     public static void ensurePermissionOfLoggedInUser(ActionRight action) {
         session().ensurePermissionOfLoggedInUser(action);
+    }
+    private Application() {
+        // private visibility to ensure singleton & utility
     }
 }

@@ -16,7 +16,7 @@ import eapli.framework.actions.CompoundAction;
  */
 public class ValidateLoginAction extends CompoundAction {
 
-    private ActionRight expectedActionRight;
+    private final ActionRight expectedActionRight;
 
     public ValidateLoginAction(ActionRight permission, Action next) {
         super(next);

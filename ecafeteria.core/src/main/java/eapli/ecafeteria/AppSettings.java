@@ -12,13 +12,13 @@ import java.util.logging.Logger;
  *
  * @author Paulo Gandra Sousa
  */
-public final class AppSettings {
+public class AppSettings {
 
-    private final Properties applicationProperties = new Properties();
     private final static String PROPERTIES_RESOURCE = "ecafeteria.properties";
     private final static String REPOSITORY_FACTORY_KEY = "persistence.repositoryFactory";
     private final static String UI_MENU_LAYOUT_KEY = "ui.menu.layout";
     private final static String PERSISTENCE_UNIT_KEY = "persistence.persistenceUnit";
+    private final Properties applicationProperties = new Properties();
 
     public AppSettings() {
         loadProperties();

@@ -5,10 +5,9 @@
  */
 package eapli.framework.domain;
 
+import eapli.framework.persistence.DataIntegrityViolationException;
 import java.io.Serializable;
 import java.util.Optional;
-
-import eapli.framework.persistence.DataIntegrityViolationException;
 
 /**
  * A repository is a domain-driven design pattern to abstract the details of

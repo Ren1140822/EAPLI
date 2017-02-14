@@ -19,13 +19,10 @@ import java.util.logging.Logger;
  *
  * @author Paulo Gandra Sousa
  */
-public final class DateTime {
+public class DateTime {
 
     private static final int DAYS_TILL_END_OF_WEEK = 6;
 
-    private DateTime() {
-        // to make sure this is an utility class
-    }
 
     /**
      * checks if the two calendar instances represent dates of the same year.
@@ -214,5 +211,8 @@ public final class DateTime {
        String dayNames[] = new DateFormatSymbols().getWeekdays();
        
        return dayNames[calendar.get(Calendar.DAY_OF_WEEK)];
+    }
+    private DateTime() {
+        // to make sure this is an utility class
     }
 }

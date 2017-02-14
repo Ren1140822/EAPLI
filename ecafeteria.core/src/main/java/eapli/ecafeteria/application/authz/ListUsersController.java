@@ -18,7 +18,7 @@ import eapli.framework.application.Controller;
  */
 public class ListUsersController implements Controller {
 
-    private UserRepository userRepository = PersistenceContext.repositories().users();
+    private final UserRepository userRepository = PersistenceContext.repositories().users();
 
     public Iterable<SystemUser> allUsers() {
         Application.ensurePermissionOfLoggedInUser(ActionRight.ADMINISTER);

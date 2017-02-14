@@ -1,8 +1,8 @@
 package eapli.ecafeteria;
 
 import eapli.ecafeteria.domain.authz.ActionRight;
-import eapli.ecafeteria.domain.authz.UserSession;
 import eapli.ecafeteria.domain.authz.UnauthorizedException;
+import eapli.ecafeteria.domain.authz.UserSession;
 import eapli.ecafeteria.domain.authz.UserSessionNotInitiatedException;
 
 /**
@@ -10,7 +10,7 @@ import eapli.ecafeteria.domain.authz.UserSessionNotInitiatedException;
  *
  * @author Paulo Gandra Sousa
  */
-public final class AppSession {
+public class AppSession {
     private UserSession theSession = null;
 
     // in a real life situation this method should not exist! anyone could

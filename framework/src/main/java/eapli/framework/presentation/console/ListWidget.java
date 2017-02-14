@@ -4,10 +4,9 @@
  */
 package eapli.framework.presentation.console;
 
+import eapli.framework.visitor.Visitor;
 import java.util.ArrayList;
 import java.util.Collection;
-
-import eapli.framework.visitor.Visitor;
 
 /**
  * A simple widget to list the items of a collection

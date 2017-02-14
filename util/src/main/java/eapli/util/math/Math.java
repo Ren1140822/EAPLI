@@ -4,16 +4,15 @@
  */
 package eapli.util.math;
 
+import eapli.util.RomanNumeral;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-
-import eapli.util.RomanNumeral;
 
 /**
  *
  * @author Paulo Gandra Sousa
  */
-public final class Math {
+public class Math {
 
     /**
      * Checks if a number is positive (greater than zero)

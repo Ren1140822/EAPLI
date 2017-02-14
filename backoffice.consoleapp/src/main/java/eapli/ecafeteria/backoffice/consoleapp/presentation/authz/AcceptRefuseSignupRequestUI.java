@@ -42,14 +42,16 @@ public class AcceptRefuseSignupRequestUI extends AbstractUI {
             final int option = Console.readOption(1, 2, 0);
             // System.out.println("No valid option selected");
             try {
-                if (option == 1) {
-
-                    this.theController.acceptSignupRequest(theSignupRequest);
-
-                } else if (option == 2) {
-                    this.theController.refuseSignupRequest(theSignupRequest);
-                } else {
-                    System.out.println("No valid option selected");
+                switch (option) {
+                    case 1:
+                        this.theController.acceptSignupRequest(theSignupRequest);
+                        break;
+                    case 2:
+                        this.theController.refuseSignupRequest(theSignupRequest);
+                        break;
+                    default:
+                        System.out.println("No valid option selected");
+                        break;
                 }
             } catch (DataIntegrityViolationException | DataConcurrencyException ex) {
                 Logger.getLogger(AcceptRefuseSignupRequestUI.class.getName()).log(Level.SEVERE, null, ex);
