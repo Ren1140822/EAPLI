@@ -4,6 +4,12 @@
  */
 package eapli.framework.persistence.repositories.impl.jpa;
 
+import eapli.framework.persistence.DataConcurrencyException;
+import eapli.framework.persistence.DataIntegrityViolationException;
+import eapli.framework.persistence.repositories.DeleteableRepository;
+import eapli.framework.persistence.repositories.IterableRepository;
+import eapli.framework.persistence.repositories.Repository;
+import eapli.util.Strings;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.Iterator;
@@ -12,7 +18,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.logging.Logger;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.OptimisticLockException;
@@ -20,13 +25,6 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.TypedQuery;
-
-import eapli.framework.persistence.DataConcurrencyException;
-import eapli.framework.persistence.DataIntegrityViolationException;
-import eapli.framework.persistence.repositories.DeleteableRepository;
-import eapli.framework.persistence.repositories.IterableRepository;
-import eapli.framework.persistence.repositories.Repository;
-import eapli.util.Strings;
 
 /**
  * An utility class for implementing JPA repositories. This class' methods don't
@@ -45,10 +43,8 @@ import eapli.util.Strings;
  * implementation patterns</a>
  *
  * @author Paulo Gandra Sousa
- * @param <T>
- *            the entity type that we want to build a repository for
- * @param <K>
- *            the key type of the entity
+ * @param <T> the entity type that we want to build a repository for
+ * @param <K> the key type of the entity
  */
 public class JpaTxlessRepository<T, K extends Serializable>
         implements Repository<T, K>, IterableRepository<T, K>, DeleteableRepository<T, K> {
@@ -65,13 +61,15 @@ public class JpaTxlessRepository<T, K extends Serializable>
 
     /**
      *
-     * @param persistenceUnitName
-     *            the name of the persistence unit to use if the repository is
-     *            not running in a container that will inject a dully configured
-     *            EntityManagerFactory
+     * @param persistenceUnitName the name of the persistence unit to use if the
+     * repository is not running in a container that will inject a dully
+     * configured EntityManagerFactory
      */
     @SuppressWarnings("unchecked")
     public JpaTxlessRepository(String persistenceUnitName) {
+        if (persistenceUnitName == null) {
+            throw new IllegalArgumentException("Must provide the persistence unit name");
+        }
         this.persistenceUnitName = persistenceUnitName;
         final ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
         this.entityClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
@@ -162,8 +160,8 @@ public class JpaTxlessRepository<T, K extends Serializable>
      * Removes the entity with the specified ID from the repository.
      *
      * @param entityId
-     * @throws UnsuportedOperationException
-     *             if the delete operation makes no sense for this repository
+     * @throws UnsuportedOperationException if the delete operation makes no
+     * sense for this repository
      */
     @Override
     public void deleteByPK(K entityId) {
@@ -229,7 +227,7 @@ public class JpaTxlessRepository<T, K extends Serializable>
      *
      * @param entity
      * @return the persisted entity - might be a different object than the
-     *         parameter
+     * parameter
      * @throws eapli.framework.persistence.DataConcurrencyException
      * @throws DataIntegrityViolationException
      */
