@@ -13,11 +13,6 @@ public class LoginUI extends AbstractUI {
 
     private final LoginController theController = new LoginController();
 
-    /*
-     * private final Logger logger = LoggerFactory.getLogger(LoginUI.class);
-     *
-     * public Logger getLogger() { return logger; }
-     */
     protected Controller controller() {
         return this.theController;
     }
