@@ -19,10 +19,9 @@ import java.util.logging.Logger;
  *
  * @author Paulo Gandra Sousa
  */
-public class DateTime {
+public final class DateTime {
 
     private static final int DAYS_TILL_END_OF_WEEK = 6;
-
 
     /**
      * checks if the two calendar instances represent dates of the same year.
@@ -119,8 +118,7 @@ public class DateTime {
     /**
      * returns the date of the last day of a certain month
      *
-     * @param reference
-     *            a date to be used as reference month
+     * @param reference a date to be used as reference month
      * @return
      */
     public static Calendar endOfMonth(final Calendar reference) {
@@ -152,12 +150,9 @@ public class DateTime {
     /**
      * Creates a new Calendar object set to a specific date
      *
-     * @param year
-     *            the year
-     * @param month
-     *            the month (1 - 12)
-     * @param day
-     *            the day of the month
+     * @param year the year
+     * @param month the month (1 - 12)
+     * @param day the day of the month
      * @return a newly create Calendar object
      */
     public static Calendar newCalendar(final int year, final int month, final int day) {
@@ -206,12 +201,12 @@ public class DateTime {
 
     // FIXME nomes dos dias da semana
     // falta testar
-    public static String dayNameFromCalendar(Calendar calendar)
-    {
-       String dayNames[] = new DateFormatSymbols().getWeekdays();
-       
-       return dayNames[calendar.get(Calendar.DAY_OF_WEEK)];
+    public static String dayNameFromCalendar(Calendar calendar) {
+        String dayNames[] = new DateFormatSymbols().getWeekdays();
+
+        return dayNames[calendar.get(Calendar.DAY_OF_WEEK)];
     }
+
     private DateTime() {
         // to make sure this is an utility class
     }

@@ -24,9 +24,9 @@ import java.util.logging.Logger;
  */
 public class Console {
 
-
     public static String readLine(String prompt) {
         try {
+            System.out.println(prompt);
             final InputStreamReader converter = new InputStreamReader(System.in);
             final BufferedReader in = new BufferedReader(converter);
 
@@ -134,6 +134,7 @@ public class Console {
     }
 
     public static void waitForKey(String prompt) {
+        System.out.println(prompt);
         try {
             System.in.read();
         } catch (final IOException ex) {
@@ -142,6 +143,7 @@ public class Console {
             // null, ex);
         }
     }
+
     private Console() {
         // to make sure this is an utility class
     }
