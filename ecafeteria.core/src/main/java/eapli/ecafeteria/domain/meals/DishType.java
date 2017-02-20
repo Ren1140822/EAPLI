@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Version;
 
 /**
  * a dish type, e.g., vegetarian or fish or meat.
@@ -17,22 +18,22 @@ import javax.persistence.Id;
  * concept is used as an attribute in more than one class. however, the learning
  * curve is smoother when compared to full DDD.
  *
- * TODO implement equals() and hashCode()
  *
  * Created by MCN on 29/03/2016.
  */
 @Entity
 public class DishType implements AggregateRoot<String>, Serializable {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
+    // ORM primary key
     @Id
     @GeneratedValue
-    private Long id;
+    private Long pk;
+    @Version
+    private Long version;
 
+    // business ID
     @Column(unique = true)
     private String acronym;
     private String description;
@@ -81,11 +82,28 @@ public class DishType implements AggregateRoot<String>, Serializable {
         return id.equalsIgnoreCase(this.acronym);
     }
 
-    // FIXME implement equals() and hashCode()
-
     @Override
     public boolean sameAs(Object other) {
-        // TODO Auto-generated method stub
+        // FIXME implement this method
         return false;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof DishType)) {
+            return false;
+        }
+
+        final DishType other = (DishType) o;
+        return id().equals(other.id());
+    }
+
+    @Override
+    public int hashCode() {
+        return this.acronym.hashCode();
+    }
+
 }
