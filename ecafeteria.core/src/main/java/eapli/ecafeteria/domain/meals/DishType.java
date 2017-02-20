@@ -60,9 +60,16 @@ public class DishType implements AggregateRoot<String>, Serializable {
         return this.active;
     }
 
-    public void changeDishTypeState() {
+    /**
+     * toggles the state of the dishtype, activating it or deactivating it
+     * accordingly.
+     *
+     * @return whether the dishtype is active or not
+     */
+    public boolean toogleState() {
 
         this.active = !this.active;
+        return isActive();
     }
 
     public void changeDescriptionTo(String newDescription) {

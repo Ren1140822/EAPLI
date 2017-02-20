@@ -14,6 +14,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import eapli.ecafeteria.domain.meals.DishType;
+import static org.junit.Assert.assertEquals;
 
 /**
  *
@@ -80,13 +81,13 @@ public class DishTypeTest {
     }
 
     /**
-     * Test of changeDishTypeState method, of class DishType.
+     * Test of toogleState method, of class DishType.
      */
     @Test
     public void testChangeDishTypeState() {
         System.out.println("changeDishTypeState");
         final DishType instance = new DishType("vege005", "vegetarian dish");
-        instance.changeDishTypeState();
+        instance.toogleState();
         final boolean expResult = false;
         final boolean result = instance.isActive();
         assertEquals(expResult, result);

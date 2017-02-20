@@ -43,8 +43,8 @@ public class OrganicUnit implements AggregateRoot<String>, Serializable {
         if (acronym == null || name == null || description == null || acronym.trim().isEmpty()) {
             throw new IllegalArgumentException();
         }
-        // TODO name and description provably should not be empty
         this.acronym = acronym;
+        // TODO name and description provably should not be empty
         this.name = name;
         this.description = description;
         this.active = true;
