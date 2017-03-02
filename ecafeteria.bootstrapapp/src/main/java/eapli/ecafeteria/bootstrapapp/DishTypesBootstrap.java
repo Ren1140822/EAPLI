@@ -29,7 +29,7 @@ public class DishTypesBootstrap implements Action {
         final RegisterDishTypeController controller = new RegisterDishTypeController();
         try {
             controller.registerDishType(acronym, description);
-        } catch (final Exception e) {
+        } catch (final DataIntegrityViolationException | DataConcurrencyExceptione) {
             // ignoring exception. assuming it is just a primary key violation
             // due to the tentative of inserting a duplicated user
         }

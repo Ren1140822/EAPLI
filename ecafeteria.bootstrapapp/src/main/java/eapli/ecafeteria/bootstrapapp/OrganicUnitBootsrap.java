@@ -1,4 +1,4 @@
-/*
+﻿/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -29,7 +29,7 @@ public class OrganicUnitBootsrap implements Action {
         final AddOrganicUnitController controller = new AddOrganicUnitController();
         try {
             controller.addOrganicUnit(acronym, name, description);
-        } catch (final Exception e) {
+        } catch (final DataIntegrityViolationException | DataConcurrencyExceptione) {
             // ignoring exception. assuming it is just a primary key violation
             // due to the tentative of inserting a duplicated organic unit
         }
