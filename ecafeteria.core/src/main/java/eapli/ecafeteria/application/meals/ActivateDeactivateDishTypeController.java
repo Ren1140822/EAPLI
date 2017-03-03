@@ -29,7 +29,9 @@ public class ActivateDeactivateDishTypeController implements Controller {
 
     public void changeDishTypeState(DishType dType) throws DataConcurrencyException, DataIntegrityViolationException {
         Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_MENUS);
-
+        if (dType == null) {
+            throw new IllegalStateException();
+        }
         dType.toogleState();
         this.dishTypeRepository.save(dType);
     }
