@@ -86,8 +86,8 @@ public class SystemUser
 
     public SystemUser(final Username username, final Password password, final Name name, final EmailAddress email,
             final RoleSet roles, final Calendar createdOn) {
-        if (roles == null) {
-            throw new IllegalArgumentException("roles cannot be null");
+        if (roles == null || username == null || password == null || name == null || email == null) {
+            throw new IllegalArgumentException("Cannot be null");
         }
         this.createdOn = createdOn;
         this.username = username;
@@ -136,8 +136,7 @@ public class SystemUser
     /**
      * Add role to user.
      *
-     * @param role
-     *            Role to assign to SystemUser.
+     * @param role Role to assign to SystemUser.
      */
     public void addRole(final Role role) {
         this.roles.add(role);
@@ -164,8 +163,7 @@ public class SystemUser
     /**
      * Remove role from user.
      *
-     * @param role
-     *            Role to remove from SystemUser.
+     * @param role Role to remove from SystemUser.
      */
     public void removeRole(final Role role) {
         // TODO should the role be removed or marked as "expired"?
