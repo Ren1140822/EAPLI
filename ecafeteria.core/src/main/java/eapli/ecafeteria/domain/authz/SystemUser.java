@@ -55,8 +55,6 @@ public class SystemUser
     @Temporal(TemporalType.DATE)
     private Calendar deactivatedOn;
 
-    // TODO: Why are there two constructors for SystemUser? createdOn shouldn't
-    // only be assigned when approved?
     public SystemUser(final String username, final String password, final String firstName, final String lastName,
             final String email, final Set<RoleType> roles) {
         this(username, password, firstName, lastName, email, roles, DateTime.now());
@@ -64,7 +62,7 @@ public class SystemUser
 
     public SystemUser(final String username, final String password, final String firstName, final String lastName,
             final String email, final Set<RoleType> roles, final Calendar createdOn) {
-        if (roles == null) {
+        if (roles == null || createdOn == null) {
             throw new IllegalArgumentException("roles cannot be null");
         }
         this.createdOn = createdOn;

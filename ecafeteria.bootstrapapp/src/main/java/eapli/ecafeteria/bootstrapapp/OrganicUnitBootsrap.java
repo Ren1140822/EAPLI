@@ -1,12 +1,9 @@
-﻿/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package eapli.ecafeteria.bootstrapapp;
 
 import eapli.ecafeteria.application.cafeteria.AddOrganicUnitController;
 import eapli.framework.actions.Action;
+import eapli.framework.persistence.DataConcurrencyException;
+import eapli.framework.persistence.DataIntegrityViolationException;
 
 /**
  *
@@ -29,7 +26,7 @@ public class OrganicUnitBootsrap implements Action {
         final AddOrganicUnitController controller = new AddOrganicUnitController();
         try {
             controller.addOrganicUnit(acronym, name, description);
-        } catch (final DataIntegrityViolationException | DataConcurrencyExceptione) {
+        } catch (final DataIntegrityViolationException | DataConcurrencyException e) {
             // ignoring exception. assuming it is just a primary key violation
             // due to the tentative of inserting a duplicated organic unit
         }

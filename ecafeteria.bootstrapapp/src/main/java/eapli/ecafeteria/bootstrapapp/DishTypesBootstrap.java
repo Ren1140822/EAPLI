@@ -7,6 +7,8 @@ package eapli.ecafeteria.bootstrapapp;
 
 import eapli.ecafeteria.application.meals.RegisterDishTypeController;
 import eapli.framework.actions.Action;
+import eapli.framework.persistence.DataConcurrencyException;
+import eapli.framework.persistence.DataIntegrityViolationException;
 
 /**
  *
@@ -29,7 +31,7 @@ public class DishTypesBootstrap implements Action {
         final RegisterDishTypeController controller = new RegisterDishTypeController();
         try {
             controller.registerDishType(acronym, description);
-        } catch (final DataIntegrityViolationException | DataConcurrencyExceptione) {
+        } catch (final DataIntegrityViolationException | DataConcurrencyException e) {
             // ignoring exception. assuming it is just a primary key violation
             // due to the tentative of inserting a duplicated user
         }

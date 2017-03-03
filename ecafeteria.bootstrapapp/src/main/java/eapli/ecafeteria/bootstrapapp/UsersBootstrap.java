@@ -8,6 +8,8 @@ package eapli.ecafeteria.bootstrapapp;
 import eapli.ecafeteria.application.authz.AddUserController;
 import eapli.ecafeteria.domain.authz.RoleType;
 import eapli.framework.actions.Action;
+import eapli.framework.persistence.DataConcurrencyException;
+import eapli.framework.persistence.DataIntegrityViolationException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -128,7 +130,7 @@ public class UsersBootstrap implements Action {
         final AddUserController userController = new AddUserController();
         try {
             userController.addUser(username, password, firstName, lastName, email, roles);
-        } catch (final DataIntegrityViolationException | DataConcurrencyExceptione) {
+        } catch (final DataIntegrityViolationException | DataConcurrencyException e) {
             // ignoring exception. assuming it is just a primary key violation
             // due to the tentative of inserting a duplicated user
         }
