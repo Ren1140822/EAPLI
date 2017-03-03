@@ -114,15 +114,16 @@ public class MainMenu extends AbstractUI {
                     new ShowVerticalSubMenuAction(organicUnitsMenu)));
             final Menu settingsMenu = buildAdminSettingsMenu();
             mainMenu.add(new SubMenu(SETTINGS_OPTION, settingsMenu, new ShowVerticalSubMenuAction(settingsMenu)));
-        } else if (Application.session().session().authenticatedUser().isAuthorizedTo(ActionRight.MANAGE_KITCHEN)) {
+        }
+        if (Application.session().session().authenticatedUser().isAuthorizedTo(ActionRight.MANAGE_KITCHEN)) {
             // TODO
-            throw new UnsupportedOperationException();
-        } else if (Application.session().session().authenticatedUser().isAuthorizedTo(ActionRight.MANAGE_MENUS)) {
+        }
+        if (Application.session().session().authenticatedUser().isAuthorizedTo(ActionRight.MANAGE_MENUS)) {
             final Menu myDishTypeMenu = buildDishTypeMenu();
             mainMenu.add(new SubMenu(DISH_TYPES_OPTION, myDishTypeMenu, new ShowVerticalSubMenuAction(myDishTypeMenu)));
-        } else if (Application.session().session().authenticatedUser().isAuthorizedTo(ActionRight.SALE)) {
+        }
+        if (Application.session().session().authenticatedUser().isAuthorizedTo(ActionRight.SALE)) {
             // TODO
-            throw new UnsupportedOperationException();
         }
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
