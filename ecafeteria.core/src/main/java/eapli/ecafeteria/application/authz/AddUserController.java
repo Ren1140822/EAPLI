@@ -22,6 +22,15 @@ public class AddUserController implements Controller {
 
     private final UserRepository userRepository = PersistenceContext.repositories().users();
 
+    /**
+     * Get existing RoleTypes available to the user.
+     *
+     * @return a list of RoleTypes
+     */
+    public RoleType[] getRoleTypes() {
+        return RoleType.nonUserValues();
+    }
+
     public SystemUser addUser(String username, String password, String firstName, String lastName, String email,
             Set<RoleType> roles, Calendar createdOn) throws DataIntegrityViolationException, DataConcurrencyException {
         Application.ensurePermissionOfLoggedInUser(ActionRight.ADMINISTER);

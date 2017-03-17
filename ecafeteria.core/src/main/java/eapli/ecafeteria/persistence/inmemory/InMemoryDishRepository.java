@@ -1,4 +1,4 @@
-package eapli.ecafeteria.eapli.cafeteria.persistence.impl.inmemory;
+package eapli.ecafeteria.persistence.inmemory;
 
 import eapli.ecafeteria.domain.meals.Dish;
 import eapli.ecafeteria.persistence.DishRepository;

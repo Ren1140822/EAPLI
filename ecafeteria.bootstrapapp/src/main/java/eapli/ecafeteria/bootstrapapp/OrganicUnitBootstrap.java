@@ -9,7 +9,7 @@ import eapli.framework.persistence.DataIntegrityViolationException;
  *
  * @author arocha
  */
-public class OrganicUnitBootsrap implements Action {
+public class OrganicUnitBootstrap implements Action {
 
     @Override
     public boolean execute() {

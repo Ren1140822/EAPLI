@@ -28,7 +28,7 @@ public class CafeteriaUserTest {
         final Set<RoleType> roles = new HashSet<>();
         roles.add(RoleType.Admin);
 
-        final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", this.anEmail,
+        final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA1", "firsNameA", "lastNameA", this.anEmail,
                 roles);
 
         final OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
@@ -52,7 +52,7 @@ public class CafeteriaUserTest {
         final Set<RoleType> roles = new HashSet<>();
         roles.add(RoleType.Admin);
 
-        final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", this.anEmail,
+        final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA1", "firsNameA", "lastNameA", this.anEmail,
                 roles);
 
         final OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
@@ -73,7 +73,7 @@ public class CafeteriaUserTest {
         final String aMecanographicNumber = new String("abc");
         final Set<RoleType> roles = new HashSet<RoleType>();
         roles.add(RoleType.Admin);
-        final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", this.anEmail,
+        final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA1", "firsNameA", "lastNameA", this.anEmail,
                 roles);
 
         final OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
@@ -83,7 +83,7 @@ public class CafeteriaUserTest {
         final Set<RoleType> systemUserRoles = new HashSet<RoleType>();
         systemUserRoles.add(RoleType.Admin);
 
-        final SystemUser systemUser = new SystemUser("userName", "password", "firsName", "lastName", this.anEmail,
+        final SystemUser systemUser = new SystemUser("userName", "passwordB4", "firsName", "lastName", this.anEmail,
                 systemUserRoles);
 
         expected = aCafeteriaUser.equals(systemUser);
@@ -98,7 +98,7 @@ public class CafeteriaUserTest {
         final Set<RoleType> roles = new HashSet<RoleType>();
         roles.add(RoleType.Admin);
 
-        final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", this.anEmail,
+        final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA1", "firsNameA", "lastNameA", this.anEmail,
                 roles);
 
         final OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
@@ -121,7 +121,7 @@ public class CafeteriaUserTest {
         final Set<RoleType> roles = new HashSet<RoleType>();
         roles.add(RoleType.Admin);
 
-        final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", this.anEmail,
+        final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA1", "firsNameA", "lastNameA", this.anEmail,
                 roles);
 
         final OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
@@ -144,10 +144,10 @@ public class CafeteriaUserTest {
         final Set<RoleType> roles = new HashSet<RoleType>();
         roles.add(RoleType.Admin);
 
-        final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA", "firsNameA", "lastNameA", this.anEmail,
+        final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA1", "firsNameA", "lastNameA", this.anEmail,
                 roles);
 
-        final SystemUser anotherSystemUser = new SystemUser("userNameB", "passwordB", "firsNameB", "lastNameB",
+        final SystemUser anotherSystemUser = new SystemUser("userNameB", "passwordB1", "firsNameB", "lastNameB",
                 this.anotherEmail, roles);
 
         final String aMecanographicNumber = new String("abc");
@@ -198,7 +198,7 @@ public class CafeteriaUserTest {
         final Set<RoleType> roles = new HashSet<RoleType>();
         roles.add(RoleType.Admin);
 
-        final SystemUser aSystemUser = new SystemUser("userName", "password", "firsName", "lastName", this.anEmail,
+        final SystemUser aSystemUser = new SystemUser("userName", "passwordA1", "firsName", "lastName", this.anEmail,
                 roles);
 
         final String aMecanographicNumber = new String("abc");
