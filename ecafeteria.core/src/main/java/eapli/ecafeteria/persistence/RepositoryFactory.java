@@ -18,4 +18,6 @@ public interface RepositoryFactory {
     CafeteriaUserRepository cafeteriaUsers();
 
     SignupRequestRepository signupRequests();
+
+    public DishRepository dishes();
 }

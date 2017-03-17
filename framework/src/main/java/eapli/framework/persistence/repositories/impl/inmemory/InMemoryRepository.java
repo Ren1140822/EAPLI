@@ -19,18 +19,25 @@ import java.util.stream.Collectors;
 public abstract class InMemoryRepository<T, K>
         implements Repository<T, K>, IterableRepository<T, K>, DeleteableRepository<T, K> {
 
-    protected final Map<K, T> repository = new HashMap<>();
+    // Ideally this would be a typed generic Map but since it is a static member
+    // it cannot be generic. the solution is to use the old-style untyped Map
+    // and cast whenever needed
+    private static final Map DATA = new HashMap();
+
+    protected Map<K, T> data() {
+        return ((Map<K, T>) this.DATA);
+    }
 
     @Override
     public T first() {
-        final Iterator<T> it = this.repository.values().iterator();
+        final Iterator<T> it = data().values().iterator();
         return it.hasNext() ? it.next() : null;
     }
 
     @Override
     public Iterable<T> first(int n) {
         final List<T> ret = new ArrayList<>();
-        final Iterator<T> it = this.repository.values().iterator();
+        final Iterator<T> it = data().values().iterator();
         while (n > 0 && it.hasNext()) {
             ret.add(it.next());
         }
@@ -39,9 +46,9 @@ public abstract class InMemoryRepository<T, K>
 
     @Override
     public void delete(T entity) {
-        for (Entry<K, T> each : this.repository.entrySet()) {
+        for (Entry<K, T> each : data().entrySet()) {
             if (each.getValue().equals(entity)) {
-                this.repository.remove(each.getKey());
+                data().remove(each.getKey());
                 break;
             }
         }
@@ -49,7 +56,7 @@ public abstract class InMemoryRepository<T, K>
 
     @Override
     public void deleteByPK(K entityId) {
-        this.repository.remove(entityId);
+        data().remove(entityId);
     }
 
     @Override
@@ -59,13 +66,13 @@ public abstract class InMemoryRepository<T, K>
 
     @Override
     public T save(T entity) {
-        this.repository.put(newPK(entity), entity);
+        data().put(newPK(entity), entity);
         return entity;
     }
 
     @Override
     public Iterable<T> findAll() {
-        return this.repository.values();
+        return data().values();
     }
 
     /**
@@ -77,7 +84,7 @@ public abstract class InMemoryRepository<T, K>
      */
     @Override
     public Optional<T> findOne(K id) {
-        return Optional.ofNullable(this.repository.get(id));
+        return Optional.ofNullable(data().get(id));
     }
 
     /**
@@ -90,28 +97,28 @@ public abstract class InMemoryRepository<T, K>
      */
     /*
      * @Override public T findById(K id) { Optional<T> value =
-     * repository.stream().filter(a -> a.id().equals(id)).findFirst(); T t=
+     * DATA.stream().filter(a -> a.id().equals(id)).findFirst(); T t=
      * value.get(); return t; }
      */
     @Override
     public long count() {
-        return this.repository.size();
+        return data().size();
     }
 
     @Override
     public Iterator<T> iterator() {
-        return this.repository.values().iterator();
+        return data().values().iterator();
     }
 
     protected abstract K newPK(T entity);
 
     protected Iterable<T> match(Predicate<T> filterFunc) {
-        return this.repository.values().stream().filter(filterFunc).collect(Collectors.toList());
+        return data().values().stream().filter(filterFunc).collect(Collectors.toList());
     }
 
     protected T matchOne(Predicate<T> filterFunc) {
         // TODO if there is no element an IndexOutOfBounds exception will be
         // thrown. most likely we should return null
-        return this.repository.values().stream().filter(filterFunc).collect(Collectors.toList()).get(0);
+        return data().values().stream().filter(filterFunc).collect(Collectors.toList()).get(0);
     }
 }

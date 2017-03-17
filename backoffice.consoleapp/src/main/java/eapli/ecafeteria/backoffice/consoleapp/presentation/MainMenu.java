@@ -17,7 +17,9 @@ import eapli.ecafeteria.backoffice.consoleapp.presentation.cafeteria.AddOrganicU
 import eapli.ecafeteria.backoffice.consoleapp.presentation.cafeteria.OrganicUnitPrinter;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.ActivateDeactivateDishTypeAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.ChangeDishTypeAction;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.ListDishAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.ListDishTypeAction;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.RegisterDishAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.RegisterDishTypeAction;
 import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
@@ -62,6 +64,10 @@ public class MainMenu extends AbstractUI {
     private static final int DISH_TYPE_LIST_OPTION = 2;
     private static final int DISH_TYPE_CHANGE_OPTION = 3;
     private static final int DISH_TYPE_ACTIVATE_DEACTIVATE_OPTION = 4;
+
+    // DISHES
+    private static final int DISH_REGISTER_OPTION = 5;
+    private static final int DISH_LIST_OPTION = 6;
 
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
@@ -119,7 +125,7 @@ public class MainMenu extends AbstractUI {
             // TODO
         }
         if (Application.session().session().authenticatedUser().isAuthorizedTo(ActionRight.MANAGE_MENUS)) {
-            final Menu myDishTypeMenu = buildDishTypeMenu();
+            final Menu myDishTypeMenu = buildDishMenu();
             mainMenu.add(new SubMenu(DISH_TYPES_OPTION, myDishTypeMenu, new ShowVerticalSubMenuAction(myDishTypeMenu)));
         }
         if (Application.session().session().authenticatedUser().isAuthorizedTo(ActionRight.SALE)) {
@@ -180,7 +186,7 @@ public class MainMenu extends AbstractUI {
         return menu;
     }
 
-    private Menu buildDishTypeMenu() {
+    private Menu buildDishMenu() {
         final Menu menu = new Menu("Dish Type >");
 
         menu.add(new MenuItem(DISH_TYPE_REGISTER_OPTION, "Register new Dish Type", new RegisterDishTypeAction()));
@@ -188,6 +194,10 @@ public class MainMenu extends AbstractUI {
         menu.add(new MenuItem(DISH_TYPE_CHANGE_OPTION, "Change Dish Type description", new ChangeDishTypeAction()));
         menu.add(new MenuItem(DISH_TYPE_ACTIVATE_DEACTIVATE_OPTION, "Activate/Deactivate Dish Type",
                 new ActivateDeactivateDishTypeAction()));
+
+        menu.add(new MenuItem(DISH_REGISTER_OPTION, "Register new Dish", new RegisterDishAction()));
+        menu.add(new MenuItem(DISH_LIST_OPTION, "List all Dish", new ListDishAction()));
+
         menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
 
         return menu;

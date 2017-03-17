@@ -1,6 +1,7 @@
 package eapli.ecafeteria.persistence.inmemory;
 
 import eapli.ecafeteria.persistence.CafeteriaUserRepository;
+import eapli.ecafeteria.persistence.DishRepository;
 import eapli.ecafeteria.persistence.DishTypeRepository;
 import eapli.ecafeteria.persistence.OrganicUnitRepository;
 import eapli.ecafeteria.persistence.RepositoryFactory;
@@ -13,51 +14,34 @@ import eapli.ecafeteria.persistence.UserRepository;
  */
 public class InMemoryRepositoryFactory implements RepositoryFactory {
 
-    private static UserRepository userRepository = null;
-    private static DishTypeRepository dishTypeRepository = null;
-    private static OrganicUnitRepository organicUnitRepository = null;
-    private static CafeteriaUserRepository cafeteriaUserRepository = null;
-    private static SignupRequestRepository signupRequestRepository = null;
-
     @Override
     public UserRepository users() {
-        if (userRepository == null) {
-            userRepository = new InMemoryUserRepository();
-        }
-        return userRepository;
+        return new InMemoryUserRepository();
     }
 
     @Override
     public DishTypeRepository dishTypes() {
-        if (dishTypeRepository == null) {
-            dishTypeRepository = new InMemoryDishTypeRepository();
-        }
-        return dishTypeRepository;
+        return new InMemoryDishTypeRepository();
     }
 
     @Override
     public OrganicUnitRepository organicUnits() {
-        if (organicUnitRepository == null) {
-            organicUnitRepository = new InMemoryOrganicUnitRepository();
-        }
-        return organicUnitRepository;
+        return new InMemoryOrganicUnitRepository();
     }
 
     @Override
     public CafeteriaUserRepository cafeteriaUsers() {
 
-        if (cafeteriaUserRepository == null) {
-            cafeteriaUserRepository = new InMemoryCafeteriaUserRepository();
-        }
-        return cafeteriaUserRepository;
+        return new InMemoryCafeteriaUserRepository();
     }
-    
-        @Override
-    public SignupRequestRepository signupRequests() {
 
-        if (signupRequestRepository == null) {
-            signupRequestRepository = new InMemorySignupRequestRepository();
-        }
-        return signupRequestRepository;
+    @Override
+    public SignupRequestRepository signupRequests() {
+        return new InMemorySignupRequestRepository();
+    }
+
+    @Override
+    public DishRepository dishes() {
+        return new InMemoryDishRepository();
     }
 }

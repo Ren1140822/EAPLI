@@ -25,6 +25,6 @@ public class InMemoryCafeteriaUserRepository extends InMemoryRepository<Cafeteri
 
     @Override
     public CafeteriaUser findByMecanographicNumber(MecanographicNumber number) {
-        return this.repository.get(number);
+        return data().get(number);
     }
 }
