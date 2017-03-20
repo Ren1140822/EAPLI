@@ -40,8 +40,10 @@ public class ChangeDishTypeUI extends AbstractUI {
             try {
                 this.theController.changeDishType(theDishType, newDescription);
             } catch (DataConcurrencyException ex) {
+                System.out.println("That entity has already been changed or deleted since you last read it");
                 Logger.getLogger(ChangeDishTypeUI.class.getName()).log(Level.SEVERE, null, ex);
             } catch (DataIntegrityViolationException ex) {
+                System.out.println("That entity ID is already in use");
                 Logger.getLogger(ChangeDishTypeUI.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
