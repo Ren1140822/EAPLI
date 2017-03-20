@@ -147,14 +147,10 @@ public abstract class JpaTxRepository<T, K extends Serializable> extends JpaTxle
             tx.begin();
             entity = em.merge(entity);
             tx.commit();
-        } catch (final OptimisticLockException ex) {
-            throw new DataConcurrencyException(ex);
         } catch (final PersistenceException ex) {
-
-            // if (ex.getCause() instanceof
-            // org.hibernate.exception.ConstraintViolationException) {
-            //
-            // }
+            if (ex.getCause() instanceof OptimisticLockException) {
+                throw new DataConcurrencyException(ex);
+            }
             // TODO need to check and make sure we only throw
             // DataIntegrityViolationException if we get sql state 23505
             throw new DataIntegrityViolationException(ex);
