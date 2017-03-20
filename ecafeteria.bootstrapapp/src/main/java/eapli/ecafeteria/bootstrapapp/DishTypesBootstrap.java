@@ -9,6 +9,7 @@ import eapli.ecafeteria.application.meals.RegisterDishTypeController;
 import eapli.framework.actions.Action;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
+import java.util.logging.Logger;
 
 /**
  *
@@ -34,6 +35,8 @@ public class DishTypesBootstrap implements Action {
         } catch (final DataIntegrityViolationException | DataConcurrencyException e) {
             // ignoring exception. assuming it is just a primary key violation
             // due to the tentative of inserting a duplicated user
+            Logger.getLogger(ECafeteriaBootstrap.class.getSimpleName())
+                    .info("EAPLI-DI001: bootstrapping existing record");
         }
     }
 }

@@ -12,6 +12,7 @@ import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Logger;
 
 /**
  * @author Paulo Gandra Sousa
@@ -66,9 +67,11 @@ public class UsersBootstrap implements Action {
         final AddUserController userController = new AddUserController();
         try {
             userController.addUser(username, password, firstName, lastName, email, roles);
-        } catch (final Exception e) {
+        } catch (final DataIntegrityViolationException | DataConcurrencyException e) {
             // ignoring exception. assuming it is just a primary key violation
             // due to the tentative of inserting a duplicated user
+            Logger.getLogger(ECafeteriaBootstrap.class.getSimpleName())
+                    .info("EAPLI-DI001: bootstrapping existing record");
         }
     }
 
