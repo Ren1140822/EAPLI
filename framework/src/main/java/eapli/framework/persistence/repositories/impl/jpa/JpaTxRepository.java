@@ -99,7 +99,6 @@ public abstract class JpaTxRepository<T, K extends Serializable> extends JpaTxle
             em.persist(entity);
             tx.commit();
         } catch (final PersistenceException ex) {
-
             // if (ex.getCause() instanceof
             // org.hibernate.exception.ConstraintViolationException) {
             //

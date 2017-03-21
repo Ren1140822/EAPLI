@@ -15,7 +15,6 @@ import java.lang.reflect.ParameterizedType;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
@@ -29,7 +28,7 @@ import javax.persistence.TypedQuery;
 /**
  * An utility class for implementing JPA repositories. This class' methods don't
  * initiate an explicit transaction relying on an outside Transaction-enabled
- * container. check JpaTxRepositoryBase if you want to have transaction control
+ * container. check JpaTxRepository if you want to have transaction control
  * inside the base class
  *
  * <p>
@@ -48,6 +47,7 @@ import javax.persistence.TypedQuery;
  */
 public class JpaTxlessRepository<T, K extends Serializable>
         implements Repository<T, K>, IterableRepository<T, K>, DeleteableRepository<T, K> {
+
     private static final int DEFAULT_PAGESIZE = 20;
 
     private final String persistenceUnitName;
@@ -334,7 +334,6 @@ public class JpaTxlessRepository<T, K extends Serializable>
         return q.getResultList();
     }
 
-
     /**
      * returns a paged iterator
      *
@@ -419,6 +418,7 @@ public class JpaTxlessRepository<T, K extends Serializable>
         // specific exception to domain layer. most likely we should return null
         return q.getSingleResult();
     }
+
     /**
      * an iterator over JPA
      *
@@ -426,17 +426,17 @@ public class JpaTxlessRepository<T, K extends Serializable>
      *
      */
     private class JpaPagedIterator implements Iterator<T> {
-        
+
         private final JpaTxlessRepository<T, K> repository;
         private final int pageSize;
         private int currentPageNumber;
         private Iterator<T> currentPage;
-        
+
         private JpaPagedIterator(JpaTxlessRepository<T, K> repository, int pagesize) {
             this.repository = repository;
             this.pageSize = pagesize;
         }
-        
+
         @Override
         public boolean hasNext() {
             if (needsToLoadPage()) {
@@ -444,7 +444,7 @@ public class JpaTxlessRepository<T, K extends Serializable>
             }
             return this.currentPage.hasNext();
         }
-        
+
         @Override
         public T next() {
             if (needsToLoadPage()) {
@@ -452,17 +452,17 @@ public class JpaTxlessRepository<T, K extends Serializable>
             }
             return this.currentPage.next();
         }
-        
+
         @Override
         public void remove() {
             throw new UnsupportedOperationException("Not supported yet.");
         }
-        
+
         private void loadNextPage() {
             final List<T> page = this.repository.page(++this.currentPageNumber, this.pageSize);
             this.currentPage = page.iterator();
         }
-        
+
         private boolean needsToLoadPage() {
             // either we do not have an iterator yet or we have reached the end
             // of the (current) iterator
