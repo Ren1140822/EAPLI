@@ -1,7 +1,7 @@
 /**
  *
  */
-package eapli.ecafeteria.domain.authz;
+package eapli.framework.domain;
 
 import eapli.framework.domain.ValueObject;
 import eapli.util.Strings;

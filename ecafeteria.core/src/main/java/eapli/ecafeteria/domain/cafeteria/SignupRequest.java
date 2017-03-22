@@ -1,6 +1,6 @@
 package eapli.ecafeteria.domain.cafeteria;
 
-import eapli.ecafeteria.domain.authz.EmailAddress;
+import eapli.framework.domain.EmailAddress;
 import eapli.ecafeteria.domain.authz.Name;
 import eapli.ecafeteria.domain.authz.Password;
 import eapli.ecafeteria.domain.authz.Username;

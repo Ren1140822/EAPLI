@@ -1,5 +1,6 @@
 package eapli.ecafeteria.domain.authz;
 
+import eapli.framework.domain.EmailAddress;
 import eapli.framework.domain.Factory;
 import eapli.util.Strings;
 import java.util.Calendar;

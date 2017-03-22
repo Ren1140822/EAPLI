@@ -18,7 +18,6 @@ import org.junit.Test;
  */
 public class OrganicUnitTest {
 
-
     @BeforeClass
     public static void setUpClass() {
     }
@@ -26,6 +25,7 @@ public class OrganicUnitTest {
     @AfterClass
     public static void tearDownClass() {
     }
+
     public OrganicUnitTest() {
     }
 
@@ -61,5 +61,4 @@ public class OrganicUnitTest {
         final boolean result = instance.is(id);
         assertEquals(expResult, result);
     }
-
 }

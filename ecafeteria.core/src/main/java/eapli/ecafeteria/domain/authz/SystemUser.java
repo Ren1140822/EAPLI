@@ -1,5 +1,6 @@
 package eapli.ecafeteria.domain.authz;
 
+import eapli.framework.domain.EmailAddress;
 import eapli.framework.authz.Authorisable;
 import eapli.framework.domain.AggregateRoot;
 import eapli.framework.dto.DTOable;
