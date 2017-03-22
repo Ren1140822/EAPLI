@@ -3,7 +3,6 @@ package eapli.framework.persistence.repositories.impl.inmemory;
 import eapli.framework.persistence.repositories.DeleteableRepository;
 import eapli.framework.persistence.repositories.IterableRepository;
 import eapli.framework.persistence.repositories.Repository;
-import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -24,18 +23,9 @@ public abstract class InMemoryRepository<T, K>
     // it cannot be generic. the solution is to use the old-style untyped Map
     // and cast whenever needed
     private static final Map DATA = new HashMap();
-    private Class<T> entityClass;
-
-    public InMemoryRepository() {
-        final ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
-        this.entityClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
-    }
 
     protected Map<K, T> data() {
-        if (!this.DATA.containsKey(entityClass)) {
-            this.DATA.put(entityClass, new HashMap());
-        }
-        return ((Map<K, T>) this.DATA.get(entityClass));
+        return ((Map<K, T>) this.DATA);
     }
 
     @Override
