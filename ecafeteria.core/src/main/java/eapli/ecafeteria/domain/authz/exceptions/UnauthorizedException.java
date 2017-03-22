@@ -1,7 +1,10 @@
 /**
  *
  */
-package eapli.ecafeteria.domain.authz;
+package eapli.ecafeteria.domain.authz.exceptions;
+
+import eapli.ecafeteria.domain.authz.ActionRight;
+import eapli.ecafeteria.domain.authz.SystemUser;
 
 /**
  * @author Paulo Gandra Sousa

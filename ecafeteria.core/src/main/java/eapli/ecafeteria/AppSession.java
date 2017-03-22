@@ -1,9 +1,9 @@
 package eapli.ecafeteria;
 
 import eapli.ecafeteria.domain.authz.ActionRight;
-import eapli.ecafeteria.domain.authz.UnauthorizedException;
+import eapli.ecafeteria.domain.authz.exceptions.UnauthorizedException;
 import eapli.ecafeteria.domain.authz.UserSession;
-import eapli.ecafeteria.domain.authz.UserSessionNotInitiatedException;
+import eapli.ecafeteria.domain.authz.exceptions.UserSessionNotInitiatedException;
 
 /**
  * the application session.

@@ -1,4 +1,4 @@
-package eapli.ecafeteria.domain.authz;
+package eapli.ecafeteria.domain.authz.exceptions;
 
 /**
  * Created by nuno on 22/03/16.

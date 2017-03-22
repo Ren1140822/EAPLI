@@ -3,7 +3,6 @@ package eapli.ecafeteria.application.authz;
 import eapli.ecafeteria.Application;
 import eapli.ecafeteria.domain.authz.AuthenticationService;
 import eapli.ecafeteria.domain.authz.Password;
-import eapli.ecafeteria.domain.authz.UnableToAuthenticateException;
 import eapli.ecafeteria.domain.authz.UserSession;
 import eapli.ecafeteria.domain.authz.Username;
 import eapli.framework.application.Controller;
@@ -22,13 +21,12 @@ public class LoginController implements Controller {
      * @param userName
      * @param password
      */
-    public void login(String userName, String password) throws UnableToAuthenticateException {
+    public boolean login(String userName, String password) {
         final Optional<UserSession> newSession = this.authenticationService.authenticate(new Username(userName),
                 new Password(password));
         if (newSession.isPresent()) {
             Application.session().setSession(newSession.get());
-        } else {
-            throw new UnableToAuthenticateException("Invalid user/pass");
         }
+        return newSession.isPresent();
     }
 }

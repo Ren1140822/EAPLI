@@ -22,7 +22,7 @@ public class AuthenticationService {
      */
     public Optional<UserSession> authenticate(Username username, Password pass) {
         if (username == null) {
-            throw new IllegalStateException("a username must be provided");
+            throw new IllegalArgumentException("a username must be provided");
         }
         final Optional<SystemUser> user = retrieveUser(username);
         if (!user.isPresent()) {
