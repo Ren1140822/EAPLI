@@ -41,7 +41,7 @@ public class UsersBootstrap implements Action {
         final String email = "mary.doe@emai.l.com";
 
         final Set<RoleType> roles = new HashSet<RoleType>();
-        roles.add(RoleType.Admin);
+        roles.add(RoleType.ADMIN);
 
         final AddUserController userController = new AddUserController();
         try {
@@ -62,7 +62,7 @@ public class UsersBootstrap implements Action {
         final String email = "johny.doe@emai.l.com";
 
         final Set<RoleType> roles = new HashSet<RoleType>();
-        roles.add(RoleType.Cashier);
+        roles.add(RoleType.CASHIER);
 
         final AddUserController userController = new AddUserController();
         try {
@@ -85,7 +85,7 @@ public class UsersBootstrap implements Action {
         final String email = "Oven.and.stove@emai.l.com";
 
         final Set<RoleType> roles = new HashSet<RoleType>();
-        roles.add(RoleType.KitchenManager);
+        roles.add(RoleType.KITCHEN_MANAGER);
 
         final AddUserController userController = new AddUserController();
         try {
@@ -106,7 +106,7 @@ public class UsersBootstrap implements Action {
         final String email = "master.chef@emai.l.com";
 
         final Set<RoleType> roles = new HashSet<RoleType>();
-        roles.add(RoleType.MenuManager);
+        roles.add(RoleType.MENU_MANAGER);
 
         final AddUserController userController = new AddUserController();
         try {

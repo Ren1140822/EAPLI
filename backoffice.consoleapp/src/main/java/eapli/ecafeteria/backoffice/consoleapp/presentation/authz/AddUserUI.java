@@ -65,7 +65,7 @@ public class AddUserUI extends AbstractUI {
         int counter = 0;
         rolesMenu.add(new MenuItem(counter++, "No Role", new ReturnAction()));
         for (final RoleType roleType : getRoleTypes()) {
-            if (roleType != RoleType.User) {
+            if (roleType != RoleType.CAFETERIA_USER) {
                 rolesMenu.add(new MenuItem(counter++, roleType.name(), () -> roleTypes.add(roleType)));
             }
         }

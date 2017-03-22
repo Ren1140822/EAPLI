@@ -32,8 +32,8 @@ public class ECafeteriaBootstrap implements Action {
         // Session adminSession = authz.authenticate(new Username("admin"), new
         // Password("admin"));
         final Set<RoleType> roles = new HashSet<RoleType>();
-        roles.add(RoleType.Admin);
-        roles.add(RoleType.MenuManager);
+        roles.add(RoleType.ADMIN);
+        roles.add(RoleType.MENU_MANAGER);
         final UserSession adminSession = new UserSession(
                 new SystemUser("poweruser", "poweruserA1", "joe", "doe", "joe@email.org", roles));
         Application.session().setSession(adminSession);

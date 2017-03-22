@@ -50,7 +50,7 @@ public class AcceptRefuseSignupRequestController implements Controller {
         //
         final UserBuilder userBuilder = new UserBuilder();
         userBuilder.withUsername(theSignupRequest.username()).withPassword(theSignupRequest.password())
-                .withName(theSignupRequest.name()).withEmail(theSignupRequest.email()).withRole(RoleType.User);
+                .withName(theSignupRequest.name()).withEmail(theSignupRequest.email()).withRole(RoleType.CAFETERIA_USER);
         // TODO error checking if the username is already in the persistence
         // store
         final SystemUser newUser = this.userRepository.save(userBuilder.build());

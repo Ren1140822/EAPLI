@@ -9,6 +9,68 @@ import java.util.Set;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Nuno Bettencourt [NMB] on 03/04/16.
@@ -26,7 +88,7 @@ public class CafeteriaUserTest {
         final String anotherMecanographicNumber = "abc";
 
         final Set<RoleType> roles = new HashSet<>();
-        roles.add(RoleType.Admin);
+        roles.add(RoleType.ADMIN);
 
         final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA1", "firsNameA", "lastNameA", this.anEmail,
                 roles);
@@ -50,7 +112,7 @@ public class CafeteriaUserTest {
         final String anotherMecanographicNumber = "qwe";
 
         final Set<RoleType> roles = new HashSet<>();
-        roles.add(RoleType.Admin);
+        roles.add(RoleType.ADMIN);
 
         final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA1", "firsNameA", "lastNameA", this.anEmail,
                 roles);
@@ -72,7 +134,7 @@ public class CafeteriaUserTest {
         boolean expected = false;
         final String aMecanographicNumber = new String("abc");
         final Set<RoleType> roles = new HashSet<RoleType>();
-        roles.add(RoleType.Admin);
+        roles.add(RoleType.ADMIN);
         final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA1", "firsNameA", "lastNameA", this.anEmail,
                 roles);
 
@@ -81,7 +143,7 @@ public class CafeteriaUserTest {
                 aMecanographicNumber);
 
         final Set<RoleType> systemUserRoles = new HashSet<RoleType>();
-        systemUserRoles.add(RoleType.Admin);
+        systemUserRoles.add(RoleType.ADMIN);
 
         final SystemUser systemUser = new SystemUser("userName", "passwordB4", "firsName", "lastName", this.anEmail,
                 systemUserRoles);
@@ -96,7 +158,7 @@ public class CafeteriaUserTest {
         boolean expected = true;
         final String aMecanographicNumber = new String("abc");
         final Set<RoleType> roles = new HashSet<RoleType>();
-        roles.add(RoleType.Admin);
+        roles.add(RoleType.ADMIN);
 
         final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA1", "firsNameA", "lastNameA", this.anEmail,
                 roles);
@@ -119,7 +181,7 @@ public class CafeteriaUserTest {
         final String anotherMecanographicNumber = new String("qwe");
 
         final Set<RoleType> roles = new HashSet<RoleType>();
-        roles.add(RoleType.Admin);
+        roles.add(RoleType.ADMIN);
 
         final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA1", "firsNameA", "lastNameA", this.anEmail,
                 roles);
@@ -142,7 +204,7 @@ public class CafeteriaUserTest {
         boolean expected = false;
 
         final Set<RoleType> roles = new HashSet<RoleType>();
-        roles.add(RoleType.Admin);
+        roles.add(RoleType.ADMIN);
 
         final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA1", "firsNameA", "lastNameA", this.anEmail,
                 roles);
@@ -170,7 +232,7 @@ public class CafeteriaUserTest {
 //        boolean expected = false;
 //
 //        final Set<RoleType> roles = new HashSet<RoleType>();
-//        roles.add(RoleType.Admin);
+//        roles.add(RoleType.ADMIN);
 //
 //        final SystemUser aSystemUser = new SystemUser("userName", "password", "firsName", "lastName", this.anEmail,
 //                roles);
@@ -196,7 +258,7 @@ public class CafeteriaUserTest {
         boolean expected = false;
 
         final Set<RoleType> roles = new HashSet<RoleType>();
-        roles.add(RoleType.Admin);
+        roles.add(RoleType.ADMIN);
 
         final SystemUser aSystemUser = new SystemUser("userName", "passwordA1", "firsName", "lastName", this.anEmail,
                 roles);
