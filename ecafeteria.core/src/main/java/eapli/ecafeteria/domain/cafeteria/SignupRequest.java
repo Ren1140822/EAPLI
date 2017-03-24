@@ -83,11 +83,11 @@ public class SignupRequest implements AggregateRoot<Username>, Serializable {
         // for ORM only
     }
 
-    public void changeToAcceptedStatus() {
+    public void accept() {
         this.approvalStatus = ApprovalStatus.ACCEPTED;
     }
 
-    public void changeToRefusedStatus() {
+    public void refuse() {
         this.approvalStatus = ApprovalStatus.REFUSED;
     }
 

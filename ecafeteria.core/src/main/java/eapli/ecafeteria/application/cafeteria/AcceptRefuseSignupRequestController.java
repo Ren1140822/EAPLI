@@ -40,8 +40,10 @@ public class AcceptRefuseSignupRequestController implements Controller {
 
         // FIXME this controller has lots of logic that should be moved to a
         // domain service
+        //
         // TODO there is some code duplication to create and add the system
         // user
+        //
         // TODO following the guideline that a controller should only change one
         // Aggregate, we shouldn't be changing all these entities here, but
         // should instead use asynchronous events.
@@ -66,7 +68,7 @@ public class AcceptRefuseSignupRequestController implements Controller {
         //
         // modify Signup Request to accepted
         //
-        theSignupRequest.changeToAcceptedStatus();
+        theSignupRequest.accept();
         return this.signupRequestsRepository.save(theSignupRequest);
     }
 
@@ -78,8 +80,7 @@ public class AcceptRefuseSignupRequestController implements Controller {
             throw new IllegalStateException();
         }
 
-        theSignupRequest.changeToRefusedStatus();
-
+        theSignupRequest.refuse();
         return this.signupRequestsRepository.save(theSignupRequest);
     }
 
