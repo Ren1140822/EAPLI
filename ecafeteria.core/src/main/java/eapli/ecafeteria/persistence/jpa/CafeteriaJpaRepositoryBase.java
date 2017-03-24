@@ -1,10 +1,10 @@
 package eapli.ecafeteria.persistence.jpa;
 
 import eapli.ecafeteria.Application;
-import eapli.framework.persistence.repositories.impl.jpa.JpaTxRepository;
+import eapli.framework.persistence.repositories.impl.jpa.JpaNoContainerRepository;
 import java.io.Serializable;
 
-abstract class CafeteriaJpaRepositoryBase<T, K extends Serializable> extends JpaTxRepository<T, K> {
+abstract class CafeteriaJpaRepositoryBase<T, K extends Serializable> extends JpaNoContainerRepository<T, K> {
 
     CafeteriaJpaRepositoryBase(String persistenceUnitName) {
         super(persistenceUnitName);

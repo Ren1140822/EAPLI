@@ -6,19 +6,23 @@ package eapli.framework.persistence.repositories.impl.jpa;
 
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
+import eapli.util.Strings;
 import java.io.Serializable;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.OptimisticLockException;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 
 /**
  * An utility class for implementing JPA repositories. This class methods
- * initiate an explicit transaction and commit in the end of the method. check
- * JpaTxlessRepository if you want to have transaction control outside of the
- * base class (for instance, when using a JPA container)
- *
- * <p>
+ initiate an explicit transaction and commit in the end of the method. check
+ JpaContainerBaseRepository if you want to have transaction control outside of the
+ base class (for instance, when using a JPA container)
+
+ <p>
  * based on <a href=
  * "http://stackoverflow.com/questions/3888575/single-dao-generic-crud-methods-jpa-hibernate-spring"
  * > stackoverflow</a> and on
@@ -32,10 +36,32 @@ import javax.persistence.PersistenceException;
  * @param <T> the entity (table) managed by this repository
  * @param <K> the primary key of the table
  */
-public abstract class JpaTxRepository<T, K extends Serializable> extends JpaTxlessRepository<T, K> {
+public abstract class JpaNoContainerRepository<T, K extends Serializable> extends JpaContainerBaseRepository<T, K> {
 
-    public JpaTxRepository(String persistenceUnitName) {
-        super(persistenceUnitName);
+    /**
+     *
+     * @param persistenceUnitName the name of the persistence unit to use if the
+     * repository is not running in a container that will inject a dully
+     * configured EntityManagerFactory
+     */
+    @SuppressWarnings("unchecked")
+    public JpaNoContainerRepository(String persistenceUnitName) {
+        super();
+        this.persistenceUnitName = persistenceUnitName;
+    }
+
+    private final String persistenceUnitName;
+    private static EntityManagerFactory singletonEMF;
+
+    @Override
+    protected EntityManagerFactory entityManagerFactory() {
+        if (singletonEMF == null) {
+            assert !Strings.isNullOrEmpty(persistenceUnitName) : "the persistence unit name must be provided";
+            Logger.getLogger(this.getClass().getSimpleName())
+                    .info("EAPLI-F-PJ001: Not runing in container mode; creating entity manager factory by hand");
+            singletonEMF = Persistence.createEntityManagerFactory(persistenceUnitName);
+        }
+        return singletonEMF;
     }
 
     /**

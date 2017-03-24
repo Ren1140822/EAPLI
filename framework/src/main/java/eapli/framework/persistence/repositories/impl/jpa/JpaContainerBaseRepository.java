@@ -16,11 +16,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.OptimisticLockException;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.TypedQuery;
@@ -45,12 +43,10 @@ import javax.persistence.TypedQuery;
  * @param <T> the entity type that we want to build a repository for
  * @param <K> the key type of the entity
  */
-public class JpaTxlessRepository<T, K extends Serializable>
+public class JpaContainerBaseRepository<T, K extends Serializable>
         implements Repository<T, K>, IterableRepository<T, K>, DeleteableRepository<T, K> {
 
     private static final int DEFAULT_PAGESIZE = 20;
-
-    private final String persistenceUnitName;
 
     protected final Class<T> entityClass;
 
@@ -59,29 +55,12 @@ public class JpaTxlessRepository<T, K extends Serializable>
     private EntityManagerFactory emFactory;
     private EntityManager entityManager;
 
-    /**
-     *
-     * @param persistenceUnitName the name of the persistence unit to use if the
-     * repository is not running in a container that will inject a dully
-     * configured EntityManagerFactory
-     */
-    @SuppressWarnings("unchecked")
-    public JpaTxlessRepository(String persistenceUnitName) {
-        if (persistenceUnitName == null) {
-            throw new IllegalArgumentException("Must provide the persistence unit name");
-        }
-        this.persistenceUnitName = persistenceUnitName;
+    public JpaContainerBaseRepository() {
         final ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
-        this.entityClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
+        entityClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
     }
 
     protected EntityManagerFactory entityManagerFactory() {
-        if (this.emFactory == null) {
-            assert !Strings.isNullOrEmpty(this.persistenceUnitName) : "the persistence unit name must be provided";
-            Logger.getLogger(this.getClass().getSimpleName())
-                    .info("EAPLI-F-PJ001: Not runing in container mode; creating entity manager factory by hand");
-            this.emFactory = Persistence.createEntityManagerFactory(this.persistenceUnitName);
-        }
         return this.emFactory;
     }
 
@@ -427,12 +406,12 @@ public class JpaTxlessRepository<T, K extends Serializable>
      */
     private class JpaPagedIterator implements Iterator<T> {
 
-        private final JpaTxlessRepository<T, K> repository;
+        private final JpaContainerBaseRepository<T, K> repository;
         private final int pageSize;
         private int currentPageNumber;
         private Iterator<T> currentPage;
 
-        private JpaPagedIterator(JpaTxlessRepository<T, K> repository, int pagesize) {
+        private JpaPagedIterator(JpaContainerBaseRepository<T, K> repository, int pagesize) {
             this.repository = repository;
             this.pageSize = pagesize;
         }
