@@ -11,8 +11,9 @@ import java.util.Optional;
 /**
  * A generic interface for repositories.
  *
- * @param T the class we want to manage in the repository
- * @param K the class denoting the primary key of the entity
+ * @param T the class we want to manage in the repository (a table in the
+ * database)
+ * @param K the class denoting the primary key of the entity in the database
  * @author Paulo Gandra Sousa
  */
 public interface Repository<T, K> {

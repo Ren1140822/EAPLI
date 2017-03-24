@@ -13,7 +13,7 @@ import javax.persistence.OptimisticLockException;
 import javax.persistence.PersistenceException;
 
 /**
- * An utility class for implementing JPA repositories. This class' methods
+ * An utility class for implementing JPA repositories. This class methods
  * initiate an explicit transaction and commit in the end of the method. check
  * JpaTxlessRepository if you want to have transaction control outside of the
  * base class (for instance, when using a JPA container)
@@ -29,8 +29,8 @@ import javax.persistence.PersistenceException;
  * implementation patterns</a>
  *
  * @author Paulo Gandra Sousa
- * @param <T> the entity type that we want to build a repository for
- * @param <K> the key type of the entity
+ * @param <T> the entity (table) managed by this repository
+ * @param <K> the primary key of the table
  */
 public abstract class JpaTxRepository<T, K extends Serializable> extends JpaTxlessRepository<T, K> {
 
