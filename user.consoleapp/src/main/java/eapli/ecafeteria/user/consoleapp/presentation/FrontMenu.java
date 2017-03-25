@@ -3,11 +3,11 @@
  * Properties. To change this template file, choose Tools | Templates and open
  * the template in the editor.
  */
-package eapli.ecafeteria.utente.consoleapp.presentation;
+package eapli.ecafeteria.user.consoleapp.presentation;
 
 import eapli.cafeteria.consoleapp.presentation.ExitWithMessageAction;
 import eapli.cafeteria.consoleapp.presentation.authz.LoginAction;
-import eapli.ecafeteria.utente.consoleapp.presentation.authz.SignupRequestAction;
+import eapli.ecafeteria.user.consoleapp.presentation.authz.SignupRequestAction;
 import eapli.framework.actions.IfThenAction;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.Menu;

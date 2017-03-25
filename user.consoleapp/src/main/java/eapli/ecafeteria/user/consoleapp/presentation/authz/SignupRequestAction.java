@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eapli.ecafeteria.utente.consoleapp.presentation.authz;
+package eapli.ecafeteria.user.consoleapp.presentation.authz;
 
 import eapli.framework.actions.Action;
 

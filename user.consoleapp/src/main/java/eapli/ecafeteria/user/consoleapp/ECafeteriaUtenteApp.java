@@ -1,7 +1,7 @@
-package eapli.ecafeteria.utente.consoleapp;
+package eapli.ecafeteria.user.consoleapp;
 
 import eapli.ecafeteria.bootstrapapp.ECafeteriaBootstrap;
-import eapli.ecafeteria.utente.consoleapp.presentation.FrontMenu;
+import eapli.ecafeteria.user.consoleapp.presentation.FrontMenu;
 
 /**
  * eCafeteria User App.

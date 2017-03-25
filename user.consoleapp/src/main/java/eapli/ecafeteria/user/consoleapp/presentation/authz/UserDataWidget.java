@@ -1,4 +1,4 @@
-package eapli.ecafeteria.utente.consoleapp.presentation.authz;
+package eapli.ecafeteria.user.consoleapp.presentation.authz;
 
 import eapli.util.Console;
 
