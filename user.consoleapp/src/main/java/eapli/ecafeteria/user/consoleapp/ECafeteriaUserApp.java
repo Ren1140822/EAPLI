@@ -6,12 +6,12 @@ import eapli.ecafeteria.user.consoleapp.presentation.FrontMenu;
 /**
  * eCafeteria User App.
  */
-public final class ECafeteriaUtenteApp {
+public final class ECafeteriaUserApp {
 
 	/**
 	 * Empty constructor is private to avoid instantiation of this class.
 	 */
-	private ECafeteriaUtenteApp() {
+	private ECafeteriaUserApp() {
 	}
 
 	public static void main(final String[] args) {
