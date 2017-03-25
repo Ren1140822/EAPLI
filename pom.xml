@@ -19,7 +19,7 @@
     <modules>
         <module>ecafeteria.bootstrapapp</module>
         <module>backoffice.consoleapp</module>
-        <module>utente.consoleapp</module>
+        <module>user.consoleapp</module>
         <module>ecafeteria.core</module>
         <module>framework</module>
         <module>util</module>
