@@ -82,7 +82,6 @@ class MainMenu extends CafeteriaUserBaseUI {
         menu.add(new MenuItem(LIST_MOVEMENTS_OPTION, "List movements", new ShowMessageAction("Not implemented yet")));
         menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
         return menu;
-
     }
 
     private Menu buildBookingsMenu() {

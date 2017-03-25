@@ -13,14 +13,14 @@ import eapli.ecafeteria.domain.authz.SystemUser;
 public class UnauthorizedException extends RuntimeException {
 
     private final SystemUser user;
-    private final ActionRight action;
+    private final ActionRight[] actions;
 
     /**
      * @param message
      */
-    public UnauthorizedException(String message, SystemUser user, ActionRight action) {
+    public UnauthorizedException(String message, SystemUser user, ActionRight... actions) {
         super(message);
-        this.action = action;
+        this.actions = actions;
         this.user = user;
     }
 
@@ -28,7 +28,7 @@ public class UnauthorizedException extends RuntimeException {
         return this.user;
     }
 
-    public ActionRight intendedAction() {
-        return this.action;
+    public ActionRight[] intendedActions() {
+        return this.actions;
     }
 }

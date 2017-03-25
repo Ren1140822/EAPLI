@@ -11,8 +11,7 @@ import javax.persistence.Embeddable;
 /**
  * a username.
  *
- * it must be at least 6 characters long, with at least one capital letter and a
- * digit.
+ * it must not be empty
  *
  * @author Paulo Gandra Sousa
  */
@@ -26,7 +25,7 @@ public class Username implements ValueObject, Serializable {
         if (Strings.isNullOrEmpty(username)) {
             throw new IllegalStateException("username should neither be null nor empty");
         }
-        // FIXME validate other invariants, e.g., regular expression
+        // TODO validate other invariants, e.g., regular expression
         this.name = username;
     }
 

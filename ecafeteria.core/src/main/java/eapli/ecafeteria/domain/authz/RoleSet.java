@@ -140,7 +140,7 @@ class RoleSet implements Set<Role>, Serializable {
     }
 
     public Collection<RoleType> roleTypes() {
-        final List<RoleType> ret = new ArrayList<RoleType>();
+        final List<RoleType> ret = new ArrayList<>();
 
         //
         // taking advantage of java 8 iterators and lambda expressions to

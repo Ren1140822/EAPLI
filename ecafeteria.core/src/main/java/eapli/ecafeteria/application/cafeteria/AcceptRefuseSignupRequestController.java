@@ -9,7 +9,7 @@ import eapli.ecafeteria.Application;
 import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.ecafeteria.domain.authz.RoleType;
 import eapli.ecafeteria.domain.authz.SystemUser;
-import eapli.ecafeteria.domain.authz.UserBuilder;
+import eapli.ecafeteria.domain.authz.SystemUserBuilder;
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUserBuilder;
 import eapli.ecafeteria.domain.cafeteria.SignupRequest;
 import eapli.ecafeteria.persistence.CafeteriaUserRepository;
@@ -50,7 +50,7 @@ public class AcceptRefuseSignupRequestController implements Controller {
         //
         // add system user
         //
-        final UserBuilder userBuilder = new UserBuilder();
+        final SystemUserBuilder userBuilder = new SystemUserBuilder();
         userBuilder.withUsername(theSignupRequest.username()).withPassword(theSignupRequest.password())
                 .withName(theSignupRequest.name()).withEmail(theSignupRequest.email()).withRole(RoleType.CAFETERIA_USER);
         // TODO error checking if the username is already in the persistence

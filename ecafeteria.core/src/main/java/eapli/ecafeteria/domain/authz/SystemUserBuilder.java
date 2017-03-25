@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  * This class demonstrates the use of the factory (DDD) pattern using a fluent
  * interface. it acts as a Builder (GoF).
  */
-public class UserBuilder implements Factory<SystemUser> {
+public class SystemUserBuilder implements Factory<SystemUser> {
 
     private Username username;
     private Password password;
@@ -25,31 +25,31 @@ public class UserBuilder implements Factory<SystemUser> {
     private final RoleSet roles;
     private Calendar createdOn;
 
-    public UserBuilder() {
+    public SystemUserBuilder() {
         this.roles = new RoleSet();
     }
 
-    public UserBuilder withUsername(String username) {
+    public SystemUserBuilder withUsername(String username) {
         this.username = new Username(username);
         return this;
     }
 
-    public UserBuilder withUsername(Username username) {
+    public SystemUserBuilder withUsername(Username username) {
         this.username = username;
         return this;
     }
 
-    public UserBuilder withPassword(String password) {
+    public SystemUserBuilder withPassword(String password) {
         this.password = new Password(password);
         return this;
     }
 
-    public UserBuilder withPassword(Password password) {
+    public SystemUserBuilder withPassword(Password password) {
         this.password = password;
         return this;
     }
 
-    public UserBuilder withFirstName(String firstName) {
+    public SystemUserBuilder withFirstName(String firstName) {
         this.firstName = firstName;
         if (!Strings.isNullOrEmpty(this.lastName)) {
             this.name = new Name(this.firstName, this.lastName);
@@ -57,7 +57,7 @@ public class UserBuilder implements Factory<SystemUser> {
         return this;
     }
 
-    public UserBuilder withLastName(String lastName) {
+    public SystemUserBuilder withLastName(String lastName) {
         this.lastName = lastName;
         if (!Strings.isNullOrEmpty(this.firstName)) {
             this.name = new Name(this.firstName, this.lastName);
@@ -65,32 +65,32 @@ public class UserBuilder implements Factory<SystemUser> {
         return this;
     }
 
-    public UserBuilder withName(Name name) {
+    public SystemUserBuilder withName(Name name) {
         this.name = name;
         return this;
     }
 
-    public UserBuilder withEmail(String email) {
+    public SystemUserBuilder withEmail(String email) {
         this.email = new EmailAddress(email);
         return this;
     }
 
-    public UserBuilder withEmail(EmailAddress email) {
+    public SystemUserBuilder withEmail(EmailAddress email) {
         this.email = email;
         return this;
     }
 
-    public UserBuilder withRole(RoleType role) {
+    public SystemUserBuilder withRole(RoleType role) {
         this.roles.add(new Role(role));
         return this;
     }
 
-    public UserBuilder withRole(Role role) {
+    public SystemUserBuilder withRole(Role role) {
         this.roles.add(role);
         return this;
     }
 
-    public UserBuilder withCreatedOn(Calendar createdOn) {
+    public SystemUserBuilder withCreatedOn(Calendar createdOn) {
         this.createdOn = createdOn;
         return this;
     }
@@ -106,7 +106,7 @@ public class UserBuilder implements Factory<SystemUser> {
         }
     }
 
-    public UserBuilder withRoles(Set<RoleType> someRoles) {
+    public SystemUserBuilder withRoles(Set<RoleType> someRoles) {
         List<Role> theRoles;
         if (this.createdOn == null) {
             theRoles = someRoles.stream().map(rt -> new Role(rt)).collect(Collectors.toList());
@@ -117,7 +117,7 @@ public class UserBuilder implements Factory<SystemUser> {
         return this;
     }
 
-    public UserBuilder withRoles(RoleSet roles) {
+    public SystemUserBuilder withRoles(RoleSet roles) {
         this.roles.addAll(roles);
         return this;
     }

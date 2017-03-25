@@ -4,7 +4,7 @@ import eapli.ecafeteria.Application;
 import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.ecafeteria.domain.authz.RoleType;
 import eapli.ecafeteria.domain.authz.SystemUser;
-import eapli.ecafeteria.domain.authz.UserBuilder;
+import eapli.ecafeteria.domain.authz.SystemUserBuilder;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.ecafeteria.persistence.UserRepository;
 import eapli.framework.application.Controller;
@@ -35,7 +35,7 @@ public class AddUserController implements Controller {
             Set<RoleType> roles, Calendar createdOn) throws DataIntegrityViolationException, DataConcurrencyException {
         Application.ensurePermissionOfLoggedInUser(ActionRight.ADMINISTER);
 
-        final UserBuilder userBuilder = new UserBuilder();
+        final SystemUserBuilder userBuilder = new SystemUserBuilder();
         userBuilder.withUsername(username).withPassword(password).withFirstName(firstName).withLastName(lastName)
                 .withEmail(email).withCreatedOn(createdOn).withRoles(roles);
 

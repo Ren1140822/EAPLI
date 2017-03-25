@@ -1,8 +1,7 @@
 package eapli.ecafeteria.domain.authz;
 
-import eapli.framework.domain.EmailAddress;
-import eapli.framework.authz.Authorisable;
 import eapli.framework.domain.AggregateRoot;
+import eapli.framework.domain.EmailAddress;
 import eapli.framework.dto.DTOable;
 import eapli.framework.dto.GenericDTO;
 import eapli.framework.visitor.Visitable;
@@ -36,7 +35,7 @@ import javax.persistence.Version;
  */
 @Entity
 public class SystemUser
-        implements AggregateRoot<Username>, Authorisable<ActionRight>, DTOable, Visitable<GenericDTO>, Serializable {
+        implements AggregateRoot<Username>, DTOable, Visitable<GenericDTO>, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -169,9 +168,13 @@ public class SystemUser
         this.roles.remove(role);
     }
 
-    @Override
-    public boolean isAuthorizedTo(final ActionRight action) {
-        return action.canBePerformedBy(this.roles.roleTypes());
+    public boolean isAuthorizedTo(final ActionRight... actions) {
+        for (final ActionRight a : actions) {
+            if (a.canBePerformedBy(roles.roleTypes())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean passwordMatches(final Password password) {

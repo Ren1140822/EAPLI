@@ -1,9 +1,10 @@
 /**
  *
  */
-package eapli.framework.domain;
+package eapli.framework.domain.range;
 
 import java.util.Calendar;
+
 import javax.persistence.Embeddable;
 
 /**
@@ -24,7 +25,7 @@ public class TimePeriod extends Range<Calendar> {
      * @param end
      */
     public TimePeriod(Calendar begin, Calendar end) {
-        super(begin, end, true, true);
+	super(begin, BoundaryLimitType.OPEN, end, BoundaryLimitType.OPEN);
     }
 
     /**
@@ -34,7 +35,7 @@ public class TimePeriod extends Range<Calendar> {
      * @param end
      */
     public TimePeriod(Calendar begin) {
-        super(begin, false, RangeInfinityType.TO_INFINITY);
+	super(begin, BoundaryLimitType.CLOSED, null, BoundaryLimitType.OPEN);
     }
 
     protected TimePeriod() {

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates and open the template
  * in the editor.
  */
-package eapli.framework.domain;
+package eapli.framework.domain.range;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -25,8 +25,8 @@ public class ToInfinityOpenRangeTest extends AbstractRangeTest {
 
     @BeforeClass
     public static void setUpClass() {
-        System.out.println("ToInfinityOpenRange");
-        instance = Range.toInfinity(START, true);
+	System.out.println("ToInfinityOpenRange");
+	instance = Range.fromExcluding(START).toInfinity().build();
     }
 
     @AfterClass
@@ -43,24 +43,24 @@ public class ToInfinityOpenRangeTest extends AbstractRangeTest {
 
     @Test
     public void ensureStartIsNotInRange() {
-        System.out.println("ensureStartIsNotInRange");
-        final Long target = new Long(START_VALUE);
-        final boolean result = instance.includes(target);
-        assertFalse("start cannot be part of an open range", result);
+	System.out.println("ensureStartIsNotInRange");
+	final Long target = new Long(START_VALUE);
+	final boolean result = instance.includes(target);
+	assertFalse("start cannot be part of an open range", result);
     }
 
     @Test
     public void ensureBigValueIsIncluded() {
-        System.out.println("ensureBigValueIsIncluded");
-        final Long target = Long.MAX_VALUE;
-        final boolean result = instance.includes(target);
-        assertTrue("to infinity range must include any value bigger than start", result);
+	System.out.println("ensureBigValueIsIncluded");
+	final Long target = Long.MAX_VALUE;
+	final boolean result = instance.includes(target);
+	assertTrue("to infinity range must include any value bigger than start", result);
     }
 
     @Test
     public void ensureIsToInfinity() {
-        System.out.println("ensureIsToInfinity");
-        final boolean result = instance.isToInfinity();
-        assertTrue("to inifinity ranges must be to infinity", result);
+	System.out.println("ensureIsToInfinity");
+	final boolean result = instance.isToInfinity();
+	assertTrue("to inifinity ranges must be to infinity", result);
     }
 }
