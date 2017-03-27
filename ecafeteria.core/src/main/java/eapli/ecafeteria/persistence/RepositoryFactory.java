@@ -19,5 +19,7 @@ public interface RepositoryFactory {
 
     SignupRequestRepository signupRequests();
 
-    public DishRepository dishes();
+    DishRepository dishes();
+
+    MaterialRepository materials();
 }

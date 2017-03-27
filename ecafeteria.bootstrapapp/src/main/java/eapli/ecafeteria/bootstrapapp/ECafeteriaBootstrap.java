@@ -15,7 +15,7 @@ import java.util.Set;
 public class ECafeteriaBootstrap implements Action {
 
     public static void main(String[] args) {
-        System.out.println("Bootstrapping eCafeteria 2016(c) data");
+        System.out.println("Bootstrapping eCafeteria 2017(c) data");
 
         new ECafeteriaBootstrap().execute();
     }
@@ -27,7 +27,8 @@ public class ECafeteriaBootstrap implements Action {
             new DishTypesBootstraper(),
             new OrganicUnitBootstraper(),
             new CafeteriaUserBootstraper(),
-            new DishBootstraper(),};
+            new DishBootstraper(),
+            new MaterialsBootstraper(),};
 
         // authenticate a super user to be able to register new users, ...
         // in this case we will inject the session but we shouldn't do this
@@ -37,6 +38,7 @@ public class ECafeteriaBootstrap implements Action {
         final Set<RoleType> roles = new HashSet<RoleType>();
         roles.add(RoleType.ADMIN);
         roles.add(RoleType.MENU_MANAGER);
+        roles.add(RoleType.KITCHEN_MANAGER);
         final UserSession adminSession = new UserSession(
                 new SystemUser("poweruser", "poweruserA1", "joe", "doe", "joe@email.org", roles));
         Application.session().setSession(adminSession);
