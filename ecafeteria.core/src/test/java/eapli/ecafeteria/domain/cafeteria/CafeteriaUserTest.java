@@ -2,215 +2,151 @@ package eapli.ecafeteria.domain.cafeteria;
 
 import eapli.ecafeteria.domain.authz.RoleType;
 import eapli.ecafeteria.domain.authz.SystemUser;
-import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
-import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
 import java.util.HashSet;
 import java.util.Set;
-import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 
 /**
  * Created by Nuno Bettencourt [NMB] on 03/04/16.
  */
 public class CafeteriaUserTest {
 
-    private final String anEmail = new String("a@a.en");
-    private final String anotherEmail = new String("a@a.en");
+    private final String anEmail = "a@a.en";
+    private final String anotherEmail = "a@a.en";
+    private final String aMecanographicNumber = "abc";
+    private final String anotherMecanographicNumber = "xyz";
 
     @Test
     public void ensureCafeteriaUserEqualsPassesForTheSameMecanographicNumber() throws Exception {
-        boolean expected = true;
-
-        final String aMecanographicNumber = "abc";
-        final String anotherMecanographicNumber = "abc";
-
         final Set<RoleType> roles = new HashSet<>();
         roles.add(RoleType.ADMIN);
 
-        final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA1", "firsNameA", "lastNameA", this.anEmail,
-                roles);
+        final CafeteriaUser aCafeteriaUser = new CafeteriaUserBuilder()
+                .withOrganicUnit(new OrganicUnit("dummy", "dummy", "dummy")).withMecanographicNumber("DUMMY")
+                .withSystemUser(new SystemUser("dummy", "duMMy1", "dummy", "dummy", "a@b.ro", roles)).build();
 
-        final OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
+        final CafeteriaUser anotherCafeteriaUser = new CafeteriaUserBuilder()
+                .withOrganicUnit(new OrganicUnit("dummy", "dummy", "dummy")).withMecanographicNumber("DUMMY")
+                .withSystemUser(new SystemUser("dummy", "duMMy1", "dummy", "dummy", "a@b.ro", roles)).build();
 
-        final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
-                aMecanographicNumber);
-        final CafeteriaUser anotherCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
-                anotherMecanographicNumber);
-        expected = aCafeteriaUser.equals(anotherCafeteriaUser);
+        final boolean expected = aCafeteriaUser.equals(anotherCafeteriaUser);
 
         assertTrue(expected);
     }
 
     @Test
     public void ensureCafeteriaUserEqualsFailsForDifferenteMecanographicNumber() throws Exception {
-        boolean expected = false;
-
-        final String aMecanographicNumber = "abc";
-        final String anotherMecanographicNumber = "qwe";
-
         final Set<RoleType> roles = new HashSet<>();
         roles.add(RoleType.ADMIN);
 
-        final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA1", "firsNameA", "lastNameA", this.anEmail,
-                roles);
+        final CafeteriaUser aCafeteriaUser = new CafeteriaUserBuilder()
+                .withOrganicUnit(new OrganicUnit("dummy", "dummy", "dummy"))
+                .withMecanographicNumber(aMecanographicNumber)
+                .withSystemUser(new SystemUser("dummy", "duMMy1", "dummy", "dummy", "a@b.ro", roles)).build();
 
-        final OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
+        final CafeteriaUser anotherCafeteriaUser = new CafeteriaUserBuilder()
+                .withOrganicUnit(new OrganicUnit("dummy", "dummy", "dummy"))
+                .withMecanographicNumber(anotherMecanographicNumber)
+                .withSystemUser(new SystemUser("dummy", "duMMy1", "dummy", "dummy", "a@b.ro", roles)).build();
 
-        final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
-                aMecanographicNumber);
-        final CafeteriaUser anotherCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
-                anotherMecanographicNumber);
-
-        expected = aCafeteriaUser.equals(anotherCafeteriaUser);
+        final boolean expected = aCafeteriaUser.equals(anotherCafeteriaUser);
 
         assertFalse(expected);
     }
 
     @Test
+    public void ensureCafeteriaUserEqualsAreTheSameForTheSameInstance() throws Exception {
+        final CafeteriaUser aCafeteriaUser = new CafeteriaUser();
+
+        final boolean expected = aCafeteriaUser.equals(aCafeteriaUser);
+
+        assertTrue(expected);
+    }
+
+    @Test
     public void ensureCafeteriaUserEqualsFailsForDifferenteObjectTypes() throws Exception {
-        boolean expected = false;
-        final String aMecanographicNumber = new String("abc");
-        final Set<RoleType> roles = new HashSet<RoleType>();
+        final Set<RoleType> roles = new HashSet<>();
         roles.add(RoleType.ADMIN);
-        final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA1", "firsNameA", "lastNameA", this.anEmail,
-                roles);
 
-        final OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
-        final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
-                aMecanographicNumber);
+        final CafeteriaUser aCafeteriaUser = new CafeteriaUserBuilder()
+                .withOrganicUnit(new OrganicUnit("dummy", "dummy", "dummy")).withMecanographicNumber("DUMMY")
+                .withSystemUser(new SystemUser("dummy", "duMMy1", "dummy", "dummy", "a@b.ro", roles)).build();
 
-        final Set<RoleType> systemUserRoles = new HashSet<RoleType>();
+        final Set<RoleType> systemUserRoles = new HashSet<>();
         systemUserRoles.add(RoleType.ADMIN);
-
-        final SystemUser systemUser = new SystemUser("userName", "passwordB4", "firsName", "lastName", this.anEmail,
+        final SystemUser systemUser = new SystemUser("userName", "passwordB1", "firsName", "lastName", anEmail,
                 systemUserRoles);
 
-        expected = aCafeteriaUser.equals(systemUser);
+        final boolean expected = aCafeteriaUser.equals(systemUser);
 
         assertFalse(expected);
     }
 
     @Test
     public void ensureCafeteriaUserIsTheSameAsItsInstance() throws Exception {
-        boolean expected = true;
-        final String aMecanographicNumber = new String("abc");
-        final Set<RoleType> roles = new HashSet<RoleType>();
+        final Set<RoleType> roles = new HashSet<>();
         roles.add(RoleType.ADMIN);
+        final CafeteriaUser aCafeteriaUser = new CafeteriaUserBuilder()
+                .withOrganicUnit(new OrganicUnit("dummy", "dummy", "dummy")).withMecanographicNumber("DUMMY")
+                .withSystemUser(new SystemUser("dummy", "duMMy1", "dummy", "dummy", "a@b.ro", roles)).build();
 
-        final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA1", "firsNameA", "lastNameA", this.anEmail,
-                roles);
-
-        final OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
-
-        final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
-                aMecanographicNumber);
-
-        expected = aCafeteriaUser.sameAs(aCafeteriaUser);
+        final boolean expected = aCafeteriaUser.sameAs(aCafeteriaUser);
 
         assertTrue(expected);
     }
 
     @Test
     public void ensureTwoCafeteriaUserWithDifferentMecanographicNumbersAreNotTheSame() throws Exception {
-        boolean expected = true;
-
-        final String aMecanographicNumber = new String("abc");
-        final String anotherMecanographicNumber = new String("qwe");
-
-        final Set<RoleType> roles = new HashSet<RoleType>();
+        final Set<RoleType> roles = new HashSet<>();
         roles.add(RoleType.ADMIN);
+        final CafeteriaUser aCafeteriaUser = new CafeteriaUserBuilder()
+                .withOrganicUnit(new OrganicUnit("dummy", "dummy", "dummy"))
+                .withMecanographicNumber(aMecanographicNumber)
+                .withSystemUser(new SystemUser("dummy", "duMMy1", "dummy", "dummy", "a@b.ro", roles)).build();
 
-        final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA1", "firsNameA", "lastNameA", this.anEmail,
-                roles);
+        final CafeteriaUser anotherCafeteriaUser = new CafeteriaUserBuilder()
+                .withOrganicUnit(new OrganicUnit("dummy", "dummy", "dummy"))
+                .withMecanographicNumber(anotherMecanographicNumber)
+                .withSystemUser(new SystemUser("dummy", "duMMy1", "dummy", "dummy", "a@b.ro", roles)).build();
 
-        final OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
-
-        final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
-                aMecanographicNumber);
-
-        final CafeteriaUser anotherCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
-                anotherMecanographicNumber);
-
-        expected = aCafeteriaUser.sameAs(anotherCafeteriaUser);
+        final boolean expected = aCafeteriaUser.sameAs(anotherCafeteriaUser);
 
         assertFalse(expected);
     }
 
     @Test
     public void ensureTwoCafeteriaUsersWithDifferentSystemUsersAreNotTheSame() throws Exception {
-        boolean expected = false;
-
-        final Set<RoleType> roles = new HashSet<RoleType>();
+        final Set<RoleType> roles = new HashSet<>();
         roles.add(RoleType.ADMIN);
+        final CafeteriaUser aCafeteriaUser = new CafeteriaUserBuilder()
+                .withOrganicUnit(new OrganicUnit("dummy", "dummy", "dummy")).withMecanographicNumber("DUMMY")
+                .withSystemUser(new SystemUser("one-dummy", "duMMy1", "dummy", "dummy", "a@b.ro", roles)).build();
 
-        final SystemUser aSystemUser = new SystemUser("userNameA", "passwordA1", "firsNameA", "lastNameA", this.anEmail,
-                roles);
+        final CafeteriaUser anotherCafeteriaUser = new CafeteriaUserBuilder()
+                .withOrganicUnit(new OrganicUnit("dummy", "dummy", "dummy")).withMecanographicNumber("DUMMY")
+                .withSystemUser(new SystemUser("two-dummy", "duMMy1", "dummy", "dummy", "a@b.ro", roles)).build();
 
-        final SystemUser anotherSystemUser = new SystemUser("userNameB", "passwordB1", "firsNameB", "lastNameB",
-                this.anotherEmail, roles);
-
-        final String aMecanographicNumber = new String("abc");
-
-        final OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
-
-        final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
-                aMecanographicNumber);
-
-        final CafeteriaUser anotherCafeteriaUser = new CafeteriaUser(anotherSystemUser, anOrganicUnit,
-                aMecanographicNumber);
-
-        expected = aCafeteriaUser.sameAs(anotherCafeteriaUser);
+        final boolean expected = aCafeteriaUser.sameAs(anotherCafeteriaUser);
 
         assertFalse(expected);
     }
 
-//    @Test
-//    public void ensureTwoCafeteriaUsersWithDifferentAccountsAreNotTheSame() throws Exception {
-//        boolean expected = false;
-//
-//        final Set<RoleType> roles = new HashSet<RoleType>();
-//        roles.add(RoleType.ADMIN);
-//
-//        final SystemUser aSystemUser = new SystemUser("userName", "password", "firsName", "lastName", this.anEmail,
-//                roles);
-//
-//        final String aMecanographicNumber = new String("abc");
-//
-//        final String anAccount = new String("accountA");
-//        final String anotherAccount = new String("accountB");
-//        final OrganicUnit anOrganicUnit = new OrganicUnit("acronym", "name", "description");
-//
-//        final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
-//                aMecanographicNumber);
-//
-//        final CafeteriaUser anotherCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
-//                aMecanographicNumber);
-//
-//        expected = aCafeteriaUser.sameAs(anotherCafeteriaUser);
-//
-//        assertFalse(expected);
-//    }
     @Test
     public void ensureTwoCafeteriaUsersWithDifferentOrganicUnitsAreNotTheSame() throws Exception {
         boolean expected = false;
 
-        final Set<RoleType> roles = new HashSet<RoleType>();
+        final Set<RoleType> roles = new HashSet<>();
         roles.add(RoleType.ADMIN);
 
-        final SystemUser aSystemUser = new SystemUser("userName", "passwordA1", "firsName", "lastName", this.anEmail,
-                roles);
+        final CafeteriaUser aCafeteriaUser = new CafeteriaUserBuilder()
+                .withOrganicUnit(new OrganicUnit("one-dummy", "dummy", "dummy")).withMecanographicNumber("DUMMY")
+                .withSystemUser(new SystemUser("dummy", "duMMy1", "dummy", "dummy", "a@b.ro", roles)).build();
 
-        final String aMecanographicNumber = new String("abc");
-
-        final OrganicUnit anOrganicUnit = new OrganicUnit("acronymA", "nameA", "descriptionA");
-        final OrganicUnit anotherOrganicUnit = new OrganicUnit("acronymB", "nameB", "descriptionB");
-
-        final CafeteriaUser aCafeteriaUser = new CafeteriaUser(aSystemUser, anOrganicUnit,
-                aMecanographicNumber);
-
-        final CafeteriaUser anotherCafeteriaUser = new CafeteriaUser(aSystemUser, anotherOrganicUnit,
-                aMecanographicNumber);
+        final CafeteriaUser anotherCafeteriaUser = new CafeteriaUserBuilder()
+                .withOrganicUnit(new OrganicUnit("two-dummy", "dummy", "dummy")).withMecanographicNumber("DUMMY")
+                .withSystemUser(new SystemUser("dummy", "duMMy1", "dummy", "dummy", "a@b.ro", roles)).build();
 
         expected = aCafeteriaUser.sameAs(anotherCafeteriaUser);
 

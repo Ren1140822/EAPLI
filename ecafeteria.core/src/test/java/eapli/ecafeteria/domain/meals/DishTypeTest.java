@@ -5,16 +5,12 @@
  */
 package eapli.ecafeteria.domain.meals;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import eapli.ecafeteria.domain.meals.DishType;
-import static org.junit.Assert.assertEquals;
 
 /**
  *
@@ -41,25 +37,25 @@ public class DishTypeTest {
     public void tearDown() {
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = IllegalStateException.class)
     public void testAcronymMustNotBeEmpty() {
         System.out.println("must have non-empty acronym");
         new DishType("", "vegetarian dish");
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = IllegalStateException.class)
     public void testAcronymMustNotBeNull() {
         System.out.println("must have an acronym");
         new DishType(null, "vegetarian dish");
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = IllegalStateException.class)
     public void testDescriptionMustNotBeEmpty() {
         System.out.println("must have non-empty description");
         new DishType("veg1", "");
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = IllegalStateException.class)
     public void testDescriptionMustNotBeNull() {
         System.out.println("must have a description");
         new DishType("veg1", null);
@@ -96,7 +92,6 @@ public class DishTypeTest {
     /**
      * Test of changeDescriptionTo method, of class DishType.
      */
-
     @Test(expected = IllegalArgumentException.class)
     public void testchangeDescriptionToMustNotBeNull() {
         System.out.println("ChangeDescriptionTo -New description must not be null");
@@ -112,7 +107,7 @@ public class DishTypeTest {
     }
 
     @Test
-    public void testchangeDescriptionTo() {
+    public void testChangeDescriptionTo() {
         System.out.println("attest changeDescriptionTo");
         final DishType instance = new DishType("vege005", "vegetarian dish");
         final String newDescription = "new description";
@@ -149,5 +144,4 @@ public class DishTypeTest {
         final boolean result = instance.is(id);
         assertEquals(expResult, result);
     }
-
 }

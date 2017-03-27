@@ -41,10 +41,6 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Serial
     @ManyToOne(cascade = CascadeType.MERGE)
     private OrganicUnit organicUnit;
 
-    public CafeteriaUser(SystemUser user, OrganicUnit organicUnit, String mecanographicNumber) {
-        this(user, organicUnit, new MecanographicNumber(mecanographicNumber));
-    }
-
     public CafeteriaUser(SystemUser user, OrganicUnit organicUnit, MecanographicNumber mecanographicNumber) {
         if (mecanographicNumber == null || user == null || organicUnit == null) {
             throw new IllegalStateException();
@@ -90,8 +86,8 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Serial
         if (this == that) {
             return true;
         }
-        return (this.mecanographicNumber.equals(that.mecanographicNumber) && this.systemUser.equals(that.systemUser)
-                && this.organicUnit.equals(that.organicUnit));
+        return (this.mecanographicNumber.equals(that.mecanographicNumber) && this.systemUser.sameAs(that.systemUser)
+                && this.organicUnit.sameAs(that.organicUnit));
     }
 
     @Override

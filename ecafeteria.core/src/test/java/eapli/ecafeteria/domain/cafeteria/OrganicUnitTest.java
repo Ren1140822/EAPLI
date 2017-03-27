@@ -37,13 +37,13 @@ public class OrganicUnitTest {
     public void tearDown() {
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = IllegalStateException.class)
     public void testAcronymMustNotBeEmpty() {
         System.out.println("must have non-empty acronym");
         new OrganicUnit("", "Instituto", "Porto");
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = IllegalStateException.class)
     public void testAcronymMustNotBeNull() {
         System.out.println("must have an acronym");
         new OrganicUnit(null, "Instituto", "Porto");

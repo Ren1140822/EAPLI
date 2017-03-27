@@ -45,7 +45,7 @@ public class DishType implements AggregateRoot<String>, Serializable {
 
     public DishType(String name, String description) {
         if (Strings.isNullOrEmpty(name) || Strings.isNullOrEmpty(description)) {
-            throw new IllegalArgumentException();
+            throw new IllegalStateException();
         }
         this.acronym = name;
         this.description = description;

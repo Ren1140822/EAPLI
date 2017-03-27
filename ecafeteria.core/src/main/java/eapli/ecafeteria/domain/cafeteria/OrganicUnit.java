@@ -41,7 +41,7 @@ public class OrganicUnit implements AggregateRoot<String>, Serializable {
 
     public OrganicUnit(String acronym, String name, String description) {
         if (acronym == null || name == null || description == null || acronym.trim().isEmpty()) {
-            throw new IllegalArgumentException();
+            throw new IllegalStateException();
         }
         this.acronym = acronym;
         // TODO name and description provably should not be empty
@@ -101,6 +101,9 @@ public class OrganicUnit implements AggregateRoot<String>, Serializable {
             return true;
         }
 
-        return this.pk.equals(that.pk);
+        return this.acronym.equals(that.acronym)
+                && name.equals(that.name)
+                && description.equals(that.description)
+                && active == that.active;
     }
 }
