@@ -24,6 +24,7 @@
         <module>framework</module>
         <module>util</module>
         <module>consoleapp.common</module>
+        <module>ecafeteria.persistence.impl</module>
     </modules>
 
 

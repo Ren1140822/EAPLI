@@ -159,3 +159,5 @@ fabric.properties
 /backoffice.consoleapp/target/
 /backoffice.consoleapp/db/*.db
 /ecafeteria.core/nbproject/
+/ecafeteria.persistence.impl/nbproject/private/
+/ecafeteria.persistence.impl/target/
