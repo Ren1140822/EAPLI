@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 /**
  * @author Paulo Gandra Sousa
  */
-public class UsersBootstrap implements Action {
+public class UsersBootstraper implements Action {
 
     @Override
     public boolean execute() {

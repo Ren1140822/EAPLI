@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  *
  * @author mcn
  */
-public class DishBootstrap implements Action {
+public class DishBootstraper implements Action {
 
     @Override
     public boolean execute() {

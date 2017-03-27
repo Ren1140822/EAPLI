@@ -21,7 +21,7 @@ import eapli.framework.persistence.DataIntegrityViolationException;
  *
  * @author Paulo Sousa
  */
-public class CafeteriaUserBootstrap implements Action {
+public class CafeteriaUserBootstraper implements Action {
 
     @Override
     public boolean execute() {

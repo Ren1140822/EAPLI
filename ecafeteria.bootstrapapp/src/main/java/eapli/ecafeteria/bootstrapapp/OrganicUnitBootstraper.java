@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package eapli.ecafeteria.bootstrapapp;
 
-import eapli.ecafeteria.application.meals.RegisterDishTypeController;
+import eapli.ecafeteria.application.cafeteria.AddOrganicUnitController;
 import eapli.framework.actions.Action;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
@@ -13,25 +8,25 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author mcn
+ * @author arocha
  */
-public class DishTypesBootstrap implements Action {
+public class OrganicUnitBootstraper implements Action {
 
     @Override
     public boolean execute() {
-        register("vegie", "vegetarian dish");
-        register("fish", "fish dish");
-        register("meat", "meat dish");
+        register("ISEP", "Instituto Superior de Engenharia do PORTO", "Good school :)");
+        register("HSJ", "Hospital São João", "An hospital...");
+
         return false;
     }
 
     /**
      *
      */
-    private void register(String acronym, String description) {
-        final RegisterDishTypeController controller = new RegisterDishTypeController();
+    private void register(String acronym, String name, String description) {
+        final AddOrganicUnitController controller = new AddOrganicUnitController();
         try {
-            controller.registerDishType(acronym, description);
+            controller.addOrganicUnit(acronym, name, description);
         } catch (final DataIntegrityViolationException | DataConcurrencyException e) {
             // ignoring exception. assuming it is just a primary key violation
             // due to the tentative of inserting a duplicated user
