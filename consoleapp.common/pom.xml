@@ -2,9 +2,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>eapli.cafeteria</groupId>
+    <groupId>eapli.ecafeteria</groupId>
     <artifactId>consoleapp.common</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>consoleapp.common</name>
@@ -43,8 +43,8 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>eapli</groupId>
-            <artifactId>ecafeteria.core</artifactId>
+            <groupId>eapli.ecafeteria</groupId>
+            <artifactId>core</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

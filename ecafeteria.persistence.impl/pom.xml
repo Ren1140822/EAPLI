@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>eapli.ecafeteria</groupId>
-    <artifactId>backoffice.consoleapp</artifactId>
+    <artifactId>persistence.impl</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -14,8 +13,6 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
-    <name>ecafeteria.backoffice.consoleapp</name>
-
     <dependencies>
         <dependency>
             <groupId>eapli</groupId>
@@ -24,23 +21,13 @@
         </dependency>
         <dependency>
             <groupId>eapli.ecafeteria</groupId>
-            <artifactId>bootstrapapp</artifactId>
+            <artifactId>core</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>eapli.ecafeteria</groupId>
-            <artifactId>consoleapp.common</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>eapli.ecafeteria</groupId>
-            <artifactId>persistence.impl</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.persistence</groupId>
-            <artifactId>org.eclipse.persistence.jpa</artifactId>
-            <version>2.6.2</version>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
@@ -49,4 +36,3 @@
         </dependency>
     </dependencies>
 </project>
-
