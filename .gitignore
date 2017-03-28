@@ -161,3 +161,5 @@ fabric.properties
 /ecafeteria.core/nbproject/
 /ecafeteria.persistence.impl/nbproject/private/
 /ecafeteria.persistence.impl/target/
+*.classpath
+*.project
