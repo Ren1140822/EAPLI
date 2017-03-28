@@ -1,4 +1,4 @@
-﻿Personal Expenses
+﻿eCafeteria
 Polythecnic of Porto, School of Engineering
 #EAPLI [^1]
 =======================
@@ -124,16 +124,11 @@ See also http://www.martinfowler.com/articles/dblogic.html
 
 
 --------------------------------------------------------------------------
-##6) having the explicit concept of account or not
---------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------
-##7) can controllers call other controllers?
+##6) can controllers call other controllers?
 --------------------------------------------------------------------------
 
 --------------------------------------------------------------------------
-##8) should the UI/controller create domain objects directly
+##7) should the UI/controller create domain objects directly
 --------------------------------------------------------------------------
 
 Should the rules for the Creator pattern be fully enforced, e.g., the responsibility to 
@@ -142,13 +137,13 @@ to the Expense?
 
 
 --------------------------------------------------------------------------
-##13) how to reuse behavior betwen controllers
+##8) how to reuse behavior betwen controllers
 --------------------------------------------------------------------------
 
-
+application services like ListDishTypeService
 
 --------------------------------------------------------------------------
-##14) when showing movements gruped by type, who performs the sum operation? UI, Controller or Domain object?
+##9) when showing movements gruped by type, who performs the sum operation? UI, Controller or Domain object?
 --------------------------------------------------------------------------
 
 * the UI might not be smart enough to compute the total sum with enough precision, and would carry a burden for the computer running the interface
@@ -158,18 +153,18 @@ to the Expense?
 * the domain object might indeed be the very best resource to calculate the sum for each expense type, but it would not make sense to delegate the domain object to the interface. 
 
 --------------------------------------------------------------------------
-##15) when showing movements gruped by type, should types with no values also appear? 
+##10) when showing movements grouped by type, should types with no values also appear? 
 --------------------------------------------------------------------------
 this can be another strategy
 
 
 --------------------------------------------------------------------------
-##16) Should Controllers be specialized by other Use Cases?
+##11) Should Controllers be specialized by other Use Cases?
 --------------------------------------------------------------------------
 
 
 --------------------------------------------------------------------------
-##17) Should UI be specialized by other Use Cases?
+##12) Should UI be specialized by other Use Cases?
 --------------------------------------------------------------------------
 
 
