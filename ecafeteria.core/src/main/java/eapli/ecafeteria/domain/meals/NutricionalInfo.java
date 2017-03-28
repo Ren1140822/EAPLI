@@ -27,10 +27,11 @@ public class NutricionalInfo implements ValueObject, Serializable {
     private Integer salt;
 
     public NutricionalInfo(Integer calories, Integer salt) {
-        if (calories < 0) {
+
+        if (calories == null || calories < 0) {
             throw new IllegalStateException("Calories can't be negative");
         }
-        if (salt < 0) {
+        if ( salt == null || salt < 0) {
             throw new IllegalStateException("Salt can't be negative");
         }
 
