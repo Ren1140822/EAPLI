@@ -26,7 +26,7 @@ public class ActivateDeactivateDishTypeUI extends AbstractUI {
 
         final Iterable<DishType> allDishTypes = this.theController.allDishTypes();
         if (!allDishTypes.iterator().hasNext()) {
-            System.out.println("There is no registered Dish Type");
+            System.out.println("There are no registered Dish Types");
         } else {
             final SelectWidget<DishType> selector = new SelectWidget<>(allDishTypes, new DishTypePrinter());
             selector.show();
@@ -34,8 +34,9 @@ public class ActivateDeactivateDishTypeUI extends AbstractUI {
             try {
                 this.theController.changeDishTypeState(updtDishType);
             } catch (DataConcurrencyException ex) {
-                Logger.getLogger(ActivateDeactivateDishTypeUI.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("It is not possible to change the dish type state because it was changed by another user");
             } catch (DataIntegrityViolationException ex) {
+                //should not happen!
                 Logger.getLogger(ActivateDeactivateDishTypeUI.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

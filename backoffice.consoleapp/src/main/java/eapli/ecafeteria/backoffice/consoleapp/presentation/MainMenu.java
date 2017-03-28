@@ -197,7 +197,7 @@ public class MainMenu extends AbstractUI {
     }
 
     private Menu buildDishMenu() {
-        final Menu menu = new Menu("Dish Type >");
+        final Menu menu = new Menu("Dishes >");
 
         menu.add(new MenuItem(DISH_TYPE_REGISTER_OPTION, "Register new Dish Type", new RegisterDishTypeAction()));
         menu.add(new MenuItem(DISH_TYPE_LIST_OPTION, "List all Dish Type", new ListDishTypeAction()));

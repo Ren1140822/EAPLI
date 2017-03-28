@@ -26,14 +26,13 @@ public class ActivateDeactivateDishController implements Controller {
     public Iterable<Dish> allDishes() {
         return this.svc.allDishes();
     }
-    
+
     public void changeDishState(Dish dish) throws DataConcurrencyException, DataIntegrityViolationException {
         Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_MENUS);
         if (dish == null) {
-            throw new IllegalStateException();
+            throw new IllegalArgumentException();
         }
         dish.toogleState();
         this.dishRepository.save(dish);
     }
-    
 }
