@@ -17,6 +17,7 @@ import eapli.ecafeteria.backoffice.consoleapp.presentation.cafeteria.AddOrganicU
 import eapli.ecafeteria.backoffice.consoleapp.presentation.cafeteria.OrganicUnitPrinter;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen.ListMaterialAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen.RegisterMaterialAction;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.ActivateDeactivateDishAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.ActivateDeactivateDishTypeAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.ChangeDishTypeAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.ListDishAction;
@@ -70,6 +71,7 @@ public class MainMenu extends AbstractUI {
     // DISHES
     private static final int DISH_REGISTER_OPTION = 5;
     private static final int DISH_LIST_OPTION = 6;
+    private static final int DISH_ACTIVATE_DEACTIVATE_OPTION = 7;
 
     // MATERIALS
     private static final int MATERIAL_REGISTER_OPTION = 1;
@@ -205,7 +207,8 @@ public class MainMenu extends AbstractUI {
 
         menu.add(new MenuItem(DISH_REGISTER_OPTION, "Register new Dish", new RegisterDishAction()));
         menu.add(new MenuItem(DISH_LIST_OPTION, "List all Dish", new ListDishAction()));
-
+        menu.add(new MenuItem(DISH_ACTIVATE_DEACTIVATE_OPTION, "Activate/Deactivate Dish",
+                new ActivateDeactivateDishAction()));
         menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
 
         return menu;

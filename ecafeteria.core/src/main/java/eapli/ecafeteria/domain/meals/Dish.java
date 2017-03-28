@@ -31,6 +31,7 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
     private DishType dishType;
     private NutricionalInfo nutricionalInfo;
     private Money price;
+    private boolean active;
 
     public Dish(final DishType dishType, final Designation name, final NutricionalInfo nutricionalInfo, Money price) {
         if (dishType == null || name == null || nutricionalInfo == null || price == null) {
@@ -41,6 +42,7 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
         this.name = name;
         this.nutricionalInfo = nutricionalInfo;
         this.price = price;
+        this.active=true;
     }
 
     public Dish(final DishType dishType, final Designation name, Money price) {
@@ -52,6 +54,7 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
         this.name = name;
         this.nutricionalInfo = null;
         this.price = price;
+        this.active=true;
     }
 
     protected Dish() {
@@ -114,5 +117,24 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
 
     public Money currentPrice() {
         return this.price;
+    }
+    
+    /**
+     * 
+     * @return true or false whether is or not active
+     */
+    public boolean isActive() {
+        return this.active;
+    }
+
+    /**
+     * toggles the state of the dish, activating it or deactivating it
+     * accordingly.
+     *
+     * @return whether the dish is active or not
+     */
+    public boolean toogleState() {
+        this.active = !this.active;
+        return isActive();
     }
 }
