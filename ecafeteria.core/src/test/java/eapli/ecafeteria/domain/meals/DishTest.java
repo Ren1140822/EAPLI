@@ -19,7 +19,7 @@ import org.junit.Test;
  */
 public class DishTest {
 
-    DishType aDishType;
+    DishType peixe;
     NutricionalInfo aNutricionalInfo;
 
     public DishTest() {
@@ -27,7 +27,7 @@ public class DishTest {
 
     @Before
     public void setUp() {
-        aDishType = new DishType("Peixe", "Peixe");
+        peixe = new DishType("Peixe", "Peixe");
         aNutricionalInfo = new NutricionalInfo(10, 11);
     }
 
@@ -40,13 +40,13 @@ public class DishTest {
     @Test(expected = IllegalArgumentException.class)
     public void testNameMustNotBeNull() {
         System.out.println("must have an name");
-        Dish instance = new Dish(aDishType, null, aNutricionalInfo, Money.euros(5));
+        Dish instance = new Dish(peixe, null, aNutricionalInfo, Money.euros(5));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNutricionalInfoMustNotBeNull() {
         System.out.println("must have an Nutricional Info");
-        Dish instance = new Dish(aDishType, new Designation("Tosta"), null, Money.euros(7));
+        Dish instance = new Dish(peixe, new Designation("Tosta"), null, Money.euros(7));
     }
 
     /**
@@ -55,12 +55,10 @@ public class DishTest {
     @Test
     public void testIs() {
         System.out.println("Attest 'is' method - Normal Behaviour");
-        Designation id = new Designation("Tosta");
-        DishType dishtype = new DishType("Peixe", "Peixe");
-        NutricionalInfo nutricional = new NutricionalInfo(10, 11);
-        Dish instance = new Dish(dishtype, id, nutricional, Money.euros(5));
+        Designation tosta = new Designation("Tosta");
+        Dish instance = new Dish(peixe, tosta, aNutricionalInfo, Money.euros(5));
         boolean expResult = true;
-        boolean result = instance.is(id);
+        boolean result = instance.is(tosta);
         assertEquals(expResult, result);
     }
 }
