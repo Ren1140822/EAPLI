@@ -6,11 +6,11 @@
 
 	Reunião com o cliente  em 2017.03.27
 
-	* Um prato passa a ter um estado ativo ou desativo
+	* Um prato passa a ter um estado ativo ou inativo
 	* Esse estado vai ser importante no futuro para a possibilidade de inclusão numa ementa
 	* O utilizador que pode efetuar esta alteração é do tipo “menu manager”
 	* Não importa saber o historico de estado do prato
-	* Um prato pode se rdesativado mesmo que esteja atualmente em uso numa ementa
+	* Um prato pode ser desativado mesmo que esteja atualmente em uso numa ementa
 
 
 	______________________
