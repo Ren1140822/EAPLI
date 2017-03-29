@@ -43,7 +43,7 @@ public class ChangeDishController implements Controller {
         if (dish == null) {
             throw new IllegalArgumentException();
         }
-       dish.changeNutricionalInfoTo(newNutricionalInfo);
+        dish.changeNutricionalInfoTo(newNutricionalInfo);
         this.dishRepository.save(dish);
     }
     
