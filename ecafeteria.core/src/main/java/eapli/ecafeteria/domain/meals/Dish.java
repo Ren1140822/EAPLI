@@ -34,27 +34,27 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
     private boolean active;
 
     public Dish(final DishType dishType, final Designation name, final NutricionalInfo nutricionalInfo, Money price) {
-        if (dishType == null || name == null || nutricionalInfo == null || price == null) {
-            throw new IllegalArgumentException();
+        if (dishType == null || name == null || nutricionalInfo == null) {
+            throw new IllegalStateException();
         }
 
         this.dishType = dishType;
         this.name = name;
         this.nutricionalInfo = nutricionalInfo;
-        this.price = price;
-        this.active=true;
+        this.setPrice(price);
+        this.active = true;
     }
 
     public Dish(final DishType dishType, final Designation name, Money price) {
         if (dishType == null || name == null || price == null) {
-            throw new IllegalArgumentException();
+            throw new IllegalStateException();
         }
 
         this.dishType = dishType;
         this.name = name;
         this.nutricionalInfo = null;
         this.price = price;
-        this.active=true;
+        this.active = true;
     }
 
     protected Dish() {
@@ -118,9 +118,9 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
     public Money currentPrice() {
         return this.price;
     }
-    
+
     /**
-     * 
+     *
      * @return true or false whether is or not active
      */
     public boolean isActive() {
@@ -137,26 +137,28 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
         this.active = !this.active;
         return isActive();
     }
-    
+
     /**
-     * Change DIsh properties
-     
-     * PRP 29.mar.2017
-     * 
+     * Changes the nutritional info of the dish
+     *
      * @param newNutricionalInfo
      */
-    
-     public void changeNutricionalInfoTo(NutricionalInfo newNutricionalInfo) {
+    public void changeNutricionalInfoTo(NutricionalInfo newNutricionalInfo) {
         if (newNutricionalInfo == null) {
             throw new IllegalArgumentException();
         }
         this.nutricionalInfo = newNutricionalInfo;
     }
-     
+
     public void changePriceTo(Money newPrice) {
-        if (newPrice == null || newPrice.lessThanOrEqual(Money.euros(0))) {
+        //TODO extra business logic associated with changing the price of a dish, e.g., save price history
+        setPrice(newPrice);
+    }
+
+    private void setPrice(Money price) {
+        if (price == null || price.lessThanOrEqual(Money.euros(0))) {
             throw new IllegalArgumentException();
         }
-        this.price  = newPrice;
+        this.price = price;
     }
 }

@@ -9,13 +9,12 @@ import eapli.framework.actions.Action;
 
 /**
  *
- * @author PRP
- * 29.mar.2017
+ * @author PRP 29.mar.2017
  */
 public class ChangeDishPriceAction implements Action {
+
     @Override
     public boolean execute() {
         return new ChangeDishPriceUI().show();
     }
-    
 }

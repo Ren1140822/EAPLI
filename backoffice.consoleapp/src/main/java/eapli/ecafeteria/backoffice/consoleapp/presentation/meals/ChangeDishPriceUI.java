@@ -5,7 +5,6 @@
  */
 package eapli.ecafeteria.backoffice.consoleapp.presentation.meals;
 
-import eapli.ecafeteria.application.meals.ActivateDeactivateDishController;
 import eapli.ecafeteria.application.meals.ChangeDishController;
 import eapli.ecafeteria.domain.meals.Dish;
 import eapli.framework.application.Controller;
@@ -20,8 +19,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author PRP
- * 29.mar.2017
+ * @author PRP 29.mar.2017
  */
 class ChangeDishPriceUI extends AbstractUI {
 
@@ -41,9 +39,9 @@ class ChangeDishPriceUI extends AbstractUI {
             final SelectWidget<Dish> selector = new SelectWidget<>(allDishes, new DishPrinter());
             selector.show();
             final Dish selectedDish = selector.selectedElement();
-            System.out.println("Current  price: "+ selectedDish.currentPrice().toString());
+            System.out.println("Current  price: " + selectedDish.currentPrice().toString());
             try {
-                final double newPrice = Console.readDouble(" New price");    
+                final double newPrice = Console.readDouble(" New price");
                 this.theController.changeDishPrice(selectedDish, Money.euros(newPrice));
             } catch (DataConcurrencyException ex) {
                 System.out.println("It is not possible to change the dish state because it was changed by another user");
