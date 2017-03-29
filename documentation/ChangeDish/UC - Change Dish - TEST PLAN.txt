@@ -3,7 +3,7 @@
 	TEST PLAN
 
 	_______________________________
-	CASO #1: Change Dish
+	CASO #2: Change Dish
 	_______________________________
 
 	1. Fazer o login como chef/Password1

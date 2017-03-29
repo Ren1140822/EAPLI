@@ -93,8 +93,8 @@ public class DishTest {
     @Test(expected = IllegalArgumentException.class)
     public void testchangePriceToCanNotBeNegative() {
         System.out.println("ChangePriceTo -New price can nt be negativel");
-
-        final Dish Dishinstance=new Dish(peixe, new Designation("Tosta"), new NutricionalInfo(1,1), Money.euros(7));
-        Dishinstance.changePriceTo(Money.euros(-7));
+        
+        final Dish Dishinstance=new Dish(peixe, new Designation("Tosta"), new NutricionalInfo(1,1), Money.euros(1));
+        Dishinstance.changePriceTo(Money.euros(-1));
     }
 }
