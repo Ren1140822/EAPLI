@@ -31,19 +31,19 @@ public class DishTest {
         aNutricionalInfo = new NutricionalInfo(10, 11);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = IllegalStateException.class)
     public void testDishTypeMustNotBeNull() {
         System.out.println("must have an Dish type");
         Dish instance = new Dish(null, new Designation("Prego"), aNutricionalInfo, Money.euros(8));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = IllegalStateException.class)
     public void testNameMustNotBeNull() {
         System.out.println("must have an name");
         Dish instance = new Dish(peixe, null, aNutricionalInfo, Money.euros(5));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = IllegalStateException.class)
     public void testNutricionalInfoMustNotBeNull() {
         System.out.println("must have an Nutricional Info");
         Dish instance = new Dish(peixe, new Designation("Tosta"), null, Money.euros(7));
