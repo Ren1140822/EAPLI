@@ -137,4 +137,26 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
         this.active = !this.active;
         return isActive();
     }
+    
+    /**
+     * Change DIsh properties
+     
+     * PRP 29.mar.2017
+     * 
+     * @param newNutricionalInfo
+     */
+    
+     public void changeNutricionalInfoTo(NutricionalInfo newNutricionalInfo) {
+        if (newNutricionalInfo == null) {
+            throw new IllegalArgumentException();
+        }
+        this.nutricionalInfo = newNutricionalInfo;
+    }
+     
+    public void changePriceTo(Money newPrice) {
+        if (newPrice == null || newPrice.lessThanOrEqual(Money.euros(0))) {
+            throw new IllegalArgumentException();
+        }
+        this.price  = newPrice;
+    }
 }

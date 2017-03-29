@@ -6,9 +6,12 @@ build/
 nbbuild/
 dist/
 nbdist/
+.idea/
+codestyles/
 nbactions.xml
 nb-configuration.xml
 
+db/
 
 ### Eclipse ###
 *.pydevproject
