@@ -217,6 +217,7 @@ public class MainMenu extends AbstractUI {
                 new ActivateDeactivateDishAction()));
         final Menu changeDishMenu = buildChangeDishMenu();
         menu.add(new MenuItem(DISH_CHANGE_OPTION, "Change Dish Information", new ShowVerticalSubMenuAction(changeDishMenu)));
+
         menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
 
         return menu;
