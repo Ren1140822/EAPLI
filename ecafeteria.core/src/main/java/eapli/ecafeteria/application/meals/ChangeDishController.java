@@ -18,7 +18,7 @@ import eapli.framework.persistence.DataIntegrityViolationException;
 
 /**
  *
- * @author mcn
+ * @author PRP
  */
 public class ChangeDishController implements Controller {
 
@@ -34,20 +34,16 @@ public class ChangeDishController implements Controller {
         if (dish == null) {
             throw new IllegalArgumentException();
         }
-       dish.changePriceTo(newPrice);
+        dish.changePriceTo(newPrice);
         this.dishRepository.save(dish);
     }
-    
+
     public void changeDishNutricionalInfo(Dish dish, NutricionalInfo newNutricionalInfo) throws DataConcurrencyException, DataIntegrityViolationException {
         Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_MENUS);
         if (dish == null) {
             throw new IllegalArgumentException();
         }
-       dish.changeNutricionalInfoTo(newNutricionalInfo);
+        dish.changeNutricionalInfoTo(newNutricionalInfo);
         this.dishRepository.save(dish);
     }
-    
-    
-            
-            
 }

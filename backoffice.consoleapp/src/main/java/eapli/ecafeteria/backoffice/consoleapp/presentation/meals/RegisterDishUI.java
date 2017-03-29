@@ -51,5 +51,4 @@ public class RegisterDishUI extends AbstractUI {
     public String headline() {
         return "Register Dish";
     }
-
 }
