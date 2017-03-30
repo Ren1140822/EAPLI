@@ -18,11 +18,28 @@ public class Designation implements ValueObject, Serializable {
     private static final long serialVersionUID = 1L;
     private String designation;
 
-    public Designation(String name) {
+    /**
+     * protected constructor. to construct a new Designation instance use the
+     * valueOf() method
+     *
+     * @param name
+     */
+    protected Designation(String name) {
         if (Strings.isNullOrEmpty(name)) {
             throw new IllegalStateException("Name should neither be null nor empty");
         }
         this.designation = name;
+    }
+
+    /**
+     * factory method for obtaining Designation value objects.
+     *
+     *
+     * @param name
+     * @return
+     */
+    public static Designation valueOf(String name) {
+        return new Designation(name);
     }
 
     protected Designation() {

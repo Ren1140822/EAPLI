@@ -19,8 +19,9 @@ import org.junit.Test;
  */
 public class DishTest {
 
-    DishType peixe;
-    NutricionalInfo aNutricionalInfo;
+    private DishType peixe;
+    private NutricionalInfo aNutricionalInfo;
+    private Designation prego = Designation.valueOf("Prego");
 
     public DishTest() {
     }
@@ -34,7 +35,7 @@ public class DishTest {
     @Test(expected = IllegalStateException.class)
     public void testDishTypeMustNotBeNull() {
         System.out.println("must have an Dish type");
-        Dish instance = new Dish(null, new Designation("Prego"), aNutricionalInfo, Money.euros(8));
+        Dish instance = new Dish(null, prego, aNutricionalInfo, Money.euros(8));
     }
 
     @Test(expected = IllegalStateException.class)
@@ -46,7 +47,7 @@ public class DishTest {
     @Test(expected = IllegalStateException.class)
     public void testNutricionalInfoMustNotBeNull() {
         System.out.println("must have an Nutricional Info");
-        Dish instance = new Dish(peixe, new Designation("Tosta"), null, Money.euros(7));
+        Dish instance = new Dish(peixe, prego, null, Money.euros(7));
     }
 
     /**
@@ -55,10 +56,9 @@ public class DishTest {
     @Test
     public void testIs() {
         System.out.println("Attest 'is' method - Normal Behaviour");
-        Designation tosta = new Designation("Tosta");
-        Dish instance = new Dish(peixe, tosta, aNutricionalInfo, Money.euros(5));
+        Dish instance = new Dish(peixe, prego, aNutricionalInfo, Money.euros(5));
         boolean expResult = true;
-        boolean result = instance.is(tosta);
+        boolean result = instance.is(prego);
         assertEquals(expResult, result);
     }
 
@@ -71,7 +71,7 @@ public class DishTest {
     public void ensureCannotChangeNutricionalInfoToNull() {
         System.out.println("ChangeNutricionalInfoTo -New nutricional info must not be null");
 
-        final Dish Dishinstance = new Dish(peixe, new Designation("Tosta"), new NutricionalInfo(1, 1),
+        final Dish Dishinstance = new Dish(peixe, prego, new NutricionalInfo(1, 1),
                 Money.euros(7));
         Dishinstance.changeNutricionalInfoTo(null);
     }
@@ -85,7 +85,7 @@ public class DishTest {
     public void ensureCannotChangePriceToNull() {
         System.out.println("ChangePriceTo -New price info must not be null");
 
-        final Dish Dishinstance = new Dish(peixe, new Designation("Tosta"), new NutricionalInfo(1, 1),
+        final Dish Dishinstance = new Dish(peixe, prego, new NutricionalInfo(1, 1),
                 Money.euros(7));
         Dishinstance.changePriceTo(null);
     }
@@ -94,7 +94,7 @@ public class DishTest {
     public void ensureCannotChangePriceToNegative() {
         System.out.println("ChangePriceTo -New price can nt be negativel");
 
-        final Dish Dishinstance = new Dish(peixe, new Designation("Tosta"), new NutricionalInfo(1, 1),
+        final Dish Dishinstance = new Dish(peixe, prego, new NutricionalInfo(1, 1),
                 Money.euros(1));
         Dishinstance.changePriceTo(Money.euros(-1));
     }

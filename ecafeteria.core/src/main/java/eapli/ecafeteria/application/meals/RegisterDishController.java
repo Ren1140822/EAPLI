@@ -28,7 +28,7 @@ public class RegisterDishController implements Controller {
 
         Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_MENUS);
 
-        final Dish newDish = new Dish(dishType, new Designation(name), new NutricionalInfo(calories, salt),
+        final Dish newDish = new Dish(dishType, Designation.valueOf(name), new NutricionalInfo(calories, salt),
                 Money.euros(price));
         return this.dishRepository.save(newDish);
     }
