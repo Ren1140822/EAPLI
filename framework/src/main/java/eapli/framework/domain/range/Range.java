@@ -27,6 +27,13 @@ public class Range<T extends Comparable<T>> implements ValueObject {
     private BoundaryLimitType startBoundary;
     private BoundaryLimitType endBoundary;
 
+    /**
+     * The builder of ranges
+     *
+     * @author pgsou_000
+     *
+     * @param <R>
+     */
     public static class RangeBuilder<R extends Comparable<R>> {
 
         private final R start;
@@ -47,13 +54,13 @@ public class Range<T extends Comparable<T>> implements ValueObject {
             this.startBoundary = startBoundary;
         }
 
-        public RangeBuilder<R> toIncluding(R anchor) {
+        public RangeBuilder<R> closedTo(R anchor) {
             end = anchor;
             endBoundary = BoundaryLimitType.CLOSED;
             return this;
         }
 
-        public RangeBuilder<R> toExcluding(R anchor) {
+        public RangeBuilder<R> openTo(R anchor) {
             this.end = anchor;
             this.endBoundary = BoundaryLimitType.OPEN;
             return this;
@@ -107,17 +114,27 @@ public class Range<T extends Comparable<T>> implements ValueObject {
     /**
      * A factory method for ranges that start at "negative infinity"
      *
-     * @return
+     * @return a builder
      */
     public static <T extends Comparable<T>> RangeBuilder<T> fromInfinity() {
         return new RangeBuilder<>(null, BoundaryLimitType.INFINITY);
     }
 
-    public static <T extends Comparable<T>> RangeBuilder<T> fromIncluding(T start) {
+    /**
+     * A factory method for closed ranges that start at a specific anchor point
+     *
+     * @return a builder
+     */
+    public static <T extends Comparable<T>> RangeBuilder<T> closedFrom(T start) {
         return new RangeBuilder<>(start, BoundaryLimitType.CLOSED);
     }
 
-    public static <T extends Comparable<T>> RangeBuilder<T> fromExcluding(T start) {
+    /**
+     * A factory method for open ranges that start at a specific anchor point
+     *
+     * @return a builder
+     */
+    public static <T extends Comparable<T>> RangeBuilder<T> openFrom(T start) {
         return new RangeBuilder<>(start, BoundaryLimitType.OPEN);
     }
 
