@@ -1,8 +1,6 @@
 package eapli.framework.persistence.repositories.impl.inmemory;
 
-import eapli.framework.persistence.repositories.DeleteableRepository;
-import eapli.framework.persistence.repositories.IterableRepository;
-import eapli.framework.persistence.repositories.Repository;
+import eapli.framework.persistence.repositories.DataRepository;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +16,7 @@ import java.util.stream.Collectors;
  * Created by nuno on 20/03/16.
  */
 public abstract class InMemoryRepository<T, K>
-        implements Repository<T, K>, IterableRepository<T, K>, DeleteableRepository<T, K> {
+        implements DataRepository<T, K> {
 
     // Ideally this would be a typed generic Map but since it is a static member
     // it cannot be generic. the solution is to use the old-style untyped Map

@@ -6,13 +6,13 @@
 package eapli.ecafeteria.persistence;
 
 import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
-import eapli.framework.persistence.repositories.Repository;
+import eapli.framework.persistence.repositories.DataRepository;
 
 /**
  *
  * @author arocha
  */
-public interface OrganicUnitRepository extends Repository<OrganicUnit, Long> {
+public interface OrganicUnitRepository extends DataRepository<OrganicUnit, Long> {
 
     OrganicUnit findByAcronym(String acronym);
 }

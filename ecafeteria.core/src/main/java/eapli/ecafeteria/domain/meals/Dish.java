@@ -34,27 +34,27 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
     private boolean active;
 
     public Dish(final DishType dishType, final Designation name, final NutricionalInfo nutricionalInfo, Money price) {
-        if (dishType == null || name == null || nutricionalInfo == null || price == null) {
-            throw new IllegalArgumentException();
+        if (dishType == null || name == null || nutricionalInfo == null) {
+            throw new IllegalStateException();
         }
 
         this.dishType = dishType;
         this.name = name;
         this.nutricionalInfo = nutricionalInfo;
-        this.price = price;
-        this.active=true;
+        this.setPrice(price);
+        this.active = true;
     }
 
     public Dish(final DishType dishType, final Designation name, Money price) {
         if (dishType == null || name == null || price == null) {
-            throw new IllegalArgumentException();
+            throw new IllegalStateException();
         }
 
         this.dishType = dishType;
         this.name = name;
         this.nutricionalInfo = null;
         this.price = price;
-        this.active=true;
+        this.active = true;
     }
 
     protected Dish() {
@@ -90,7 +90,8 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
             return true;
         }
 
-        return id().equals(that.id());
+        return id().equals(that.id()) && dishType.equals(that.dishType) && nutricionalInfo.equals(that.nutricionalInfo)
+                && price.equals(that.price) && active == that.active;
     }
 
     @Override
@@ -118,9 +119,9 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
     public Money currentPrice() {
         return this.price;
     }
-    
+
     /**
-     * 
+     *
      * @return true or false whether is or not active
      */
     public boolean isActive() {
@@ -136,5 +137,29 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
     public boolean toogleState() {
         this.active = !this.active;
         return isActive();
+    }
+
+    /**
+     * Changes the nutritional info of the dish
+     *
+     * @param newNutricionalInfo
+     */
+    public void changeNutricionalInfoTo(NutricionalInfo newNutricionalInfo) {
+        if (newNutricionalInfo == null) {
+            throw new IllegalArgumentException();
+        }
+        this.nutricionalInfo = newNutricionalInfo;
+    }
+
+    public void changePriceTo(Money newPrice) {
+        //TODO extra business logic associated with changing the price of a dish, e.g., save price history
+        setPrice(newPrice);
+    }
+
+    private void setPrice(Money price) {
+        if (price == null || price.lessThanOrEqual(Money.euros(0))) {
+            throw new IllegalArgumentException();
+        }
+        this.price = price;
     }
 }

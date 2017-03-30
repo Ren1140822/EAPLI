@@ -17,12 +17,14 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 
 /**
- * An utility class for implementing JPA repositories. This class methods
- initiate an explicit transaction and commit in the end of the method. check
- JpaContainerBaseRepository if you want to have transaction control outside of the
- base class (for instance, when using a JPA container)
-
- <p>
+ * An utility class for implementing JPA repositories. This class' methods
+ * initiate an explicit transaction and commit in the end of the method. check
+ * JpaBaseRepository if you want to have transaction control outside of the base
+ * class (for instance, when using a JPA container). If you are not using a
+ * container use this class that explicitly opens and closes a transtion in each
+ * method.
+ *
+ * <p>
  * based on <a href=
  * "http://stackoverflow.com/questions/3888575/single-dao-generic-crud-methods-jpa-hibernate-spring"
  * > stackoverflow</a> and on
@@ -33,10 +35,14 @@ import javax.persistence.PersistenceException;
  * implementation patterns</a>
  *
  * @author Paulo Gandra Sousa
- * @param <T> the entity (table) managed by this repository
+ * @param <T> the entity type managed by this repository (a table in the
+ * database)
  * @param <K> the primary key of the table
  */
-public abstract class JpaNoContainerRepository<T, K extends Serializable> extends JpaContainerBaseRepository<T, K> {
+public class JpaNoContainerBaseRepository<T, K extends Serializable> extends JpaBaseRepository<T, K> {
+
+    private final String persistenceUnitName;
+    private static EntityManagerFactory singletonEMF;
 
     /**
      *
@@ -45,20 +51,18 @@ public abstract class JpaNoContainerRepository<T, K extends Serializable> extend
      * configured EntityManagerFactory
      */
     @SuppressWarnings("unchecked")
-    public JpaNoContainerRepository(String persistenceUnitName) {
+    public JpaNoContainerBaseRepository(String persistenceUnitName) {
         super();
         this.persistenceUnitName = persistenceUnitName;
     }
 
-    private final String persistenceUnitName;
-    private static EntityManagerFactory singletonEMF;
-
     @Override
+    @SuppressWarnings("squid:S3346")
     protected EntityManagerFactory entityManagerFactory() {
         if (singletonEMF == null) {
             assert !Strings.isNullOrEmpty(persistenceUnitName) : "the persistence unit name must be provided";
             Logger.getLogger(this.getClass().getSimpleName())
-                    .info("EAPLI-F-PJ001: Not runing in container mode; creating entity manager factory by hand");
+                    .info("Not running in container mode");
             singletonEMF = Persistence.createEntityManagerFactory(persistenceUnitName);
         }
         return singletonEMF;
@@ -69,51 +73,63 @@ public abstract class JpaNoContainerRepository<T, K extends Serializable> extend
      * still valid but the persisted entity is/will be deleted
      *
      * @param entity
+     * @throws DataIntegrityViolationException
      */
     @Override
-    public void delete(T entity) {
-        final EntityTransaction tx = entityManager().getTransaction();
-        tx.begin();
-        super.delete(entity);
-        tx.commit();
+    public void delete(T entity) throws DataIntegrityViolationException {
+        if (entity == null) {
+            throw new IllegalArgumentException();
+        }
+
+        final EntityManager em = entityManager();
+        try {
+            final EntityTransaction tx = em.getTransaction();
+            tx.begin();
+            super.delete(entity);
+            tx.commit();
+        } finally {
+            // we are closing the entity manager here because this code is
+            // running in a non-container managed way. if it was the case to be
+            // running under an application server with a JPA container and
+            // managed transactions/sessions, one should not be doing this
+            em.close();
+        }
     }
 
     /**
      * Removes the entity with the specified ID from the repository.
      *
      * @param entityId
+     * @throws DataIntegrityViolationException
      * @throws UnsuportedOperationException if the delete operation makes no
      * sense for this repository
      */
     @Override
-    public void deleteByPK(K entityId) {
-        final EntityTransaction tx = entityManager().getTransaction();
-        tx.begin();
-        super.deleteByPK(entityId);
-        tx.commit();
+    public void deleteByPK(K entityId) throws DataIntegrityViolationException {
+        final EntityManager em = entityManager();
+        try {
+            final EntityTransaction tx = em.getTransaction();
+            tx.begin();
+            super.deleteByPK(entityId);
+            tx.commit();
+        } finally {
+            // we are closing the entity manager here because this code is
+            // running in a non-container managed way. if it was the case to be
+            // running under an application server with a JPA container and
+            // managed transactions/sessions, one should not be doing this
+            em.close();
+        }
     }
 
     /**
      * adds <b>and commits</b> a new entity to the persistence store
-     *
-     * TODO it is controversial if the repository class should have explicit
-     * knowledge of when to start a transaction and end it as well as to know
-     * when to open a connection and close it. this is the kind of stuff that
-     * the container (e.g., web server) should handle declaratively
-     *
-     * the following methods open and commit a transaction: add() save()
-     * replace() remove()
-     *
-     * note that other methods in this class just work with the JPA unit of work
-     * and expect the container to begin/commit transactions. they are: create()
-     * update() delete()
      *
      * @param entity
      * @return the newly created persistent object
      * @throws DataIntegrityViolationException
      */
     @Override
-    public boolean add(T entity) throws DataIntegrityViolationException {
+    public T create(T entity) throws DataIntegrityViolationException {
         if (entity == null) {
             throw new IllegalArgumentException();
         }
@@ -125,17 +141,17 @@ public abstract class JpaNoContainerRepository<T, K extends Serializable> extend
             em.persist(entity);
             tx.commit();
         } catch (final PersistenceException ex) {
-            // if (ex.getCause() instanceof
-            // org.hibernate.exception.ConstraintViolationException) {
-            //
-            // }
             // TODO need to check and make sure we only throw
             // DataIntegrityViolationException if we get sql state 23505
             throw new DataIntegrityViolationException(ex);
         } finally {
+            // we are closing the entity manager here because this code is
+            // running in a non-container managed way. if it was the case to be
+            // running under an application server with a JPA container and
+            // managed transactions/sessions, one should not be doing this.
             em.close();
         }
-        return true;
+        return entity;
     }
 
     /**
@@ -157,6 +173,7 @@ public abstract class JpaNoContainerRepository<T, K extends Serializable> extend
      * @throws DataIntegrityViolationException
      */
     @Override
+    @SuppressWarnings("squid:S1226")
     public T save(T entity) throws DataConcurrencyException, DataIntegrityViolationException {
         if (entity == null) {
             throw new IllegalArgumentException();

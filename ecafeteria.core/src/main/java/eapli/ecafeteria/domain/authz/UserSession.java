@@ -11,13 +11,13 @@ import java.util.UUID;
  *
  */
 public class UserSession implements ValueObject {
+
     /**
      *
      */
     private static final long serialVersionUID = 1L;
     private final SystemUser user;
     private final UUID token;
-
 
     public UserSession(SystemUser user) {
         if (user == null) {
@@ -26,6 +26,7 @@ public class UserSession implements ValueObject {
         this.user = user;
         this.token = UUID.randomUUID();
     }
+
     public SystemUser authenticatedUser() {
         return this.user;
     }
