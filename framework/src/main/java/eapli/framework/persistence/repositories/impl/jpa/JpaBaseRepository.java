@@ -26,8 +26,8 @@ import javax.persistence.TypedQuery;
 /**
  * An utility class for implementing JPA repositories. This class' methods don't
  * initiate an explicit transaction relying on an outside Transaction-enabled
- * container. check JpaTxRepository if you want to have transaction control
- * inside the base class
+ * container. check JpaNocontainerRepositoryBase if you want to have transaction
+ * control inside the base class.
  *
  * <p>
  * based on <a href=
@@ -43,9 +43,10 @@ import javax.persistence.TypedQuery;
  * @param <T> the entity type that we want to build a repository for
  * @param <K> the key type of the entity
  */
-public class JpaContainerBaseRepository<T, K extends Serializable>
+public class JpaBaseRepository<T, K extends Serializable>
         implements Repository<T, K>, IterableRepository<T, K>, DeleteableRepository<T, K> {
 
+    private static final String QUERY_MUST_NOT_BE_NULL_OR_EMPTY = "query must not be null or empty";
     private static final int DEFAULT_PAGESIZE = 20;
 
     protected final Class<T> entityClass;
@@ -55,7 +56,7 @@ public class JpaContainerBaseRepository<T, K extends Serializable>
     private EntityManagerFactory emFactory;
     private EntityManager entityManager;
 
-    public JpaContainerBaseRepository() {
+    public JpaBaseRepository() {
         final ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
         entityClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
     }
@@ -77,12 +78,17 @@ public class JpaContainerBaseRepository<T, K extends Serializable>
      * @param entity
      * @return the newly created persistent object
      */
-    public T create(T entity) {
+    public T create(T entity) throws DataIntegrityViolationException {
         if (entity == null) {
             throw new IllegalArgumentException();
         }
-
-        this.entityManager().persist(entity);
+        try {
+            this.entityManager().persist(entity);
+        } catch (final PersistenceException ex) {
+            // TODO need to check and make sure we only throw
+            // DataIntegrityViolationException if we get sql state 23505
+            throw new DataIntegrityViolationException(ex);
+        }
         return entity;
     }
 
@@ -111,12 +117,8 @@ public class JpaContainerBaseRepository<T, K extends Serializable>
         return read(id);
     }
 
-    public T update(T entity) {
-        if (entity == null) {
-            throw new IllegalArgumentException();
-        }
-
-        return entityManager().merge(entity);
+    public T update(T entity) throws DataConcurrencyException, DataIntegrityViolationException {
+        return save(entity);
     }
 
     /**
@@ -124,26 +126,36 @@ public class JpaContainerBaseRepository<T, K extends Serializable>
      * still valid but the persisted entity is/will be deleted
      *
      * @param entity
+     * @throws DataIntegrityViolationException
      */
     @Override
-    public void delete(T entity) {
+    @SuppressWarnings("squid:S1226")
+    public void delete(T entity) throws DataIntegrityViolationException {
         if (entity == null) {
             throw new IllegalArgumentException();
         }
 
-        entity = entityManager().merge(entity);
-        entityManager().remove(entity);
+        try {
+            entity = entityManager().merge(entity);
+            entityManager().remove(entity);
+        } catch (final PersistenceException ex) {
+            // TODO need to check and make sure we only throw
+            // DataIntegrityViolationException if we get sql state 23505
+            throw new DataIntegrityViolationException(ex);
+        }
+
     }
 
     /**
      * Removes the entity with the specified ID from the repository.
      *
      * @param entityId
+     * @throws DataIntegrityViolationException
      * @throws UnsuportedOperationException if the delete operation makes no
      * sense for this repository
      */
     @Override
-    public void deleteByPK(K entityId) {
+    public void deleteByPK(K entityId) throws DataIntegrityViolationException {
         if (entityId == null) {
             throw new IllegalArgumentException();
         }
@@ -177,19 +189,7 @@ public class JpaContainerBaseRepository<T, K extends Serializable>
             throw new IllegalArgumentException();
         }
 
-        return findOne(key) != null;
-    }
-
-    /**
-     * adds <b>and commits</b> a new entity to the persistence store
-     *
-     * @param entity
-     * @return the newly created persistent object
-     * @throws DataIntegrityViolationException
-     */
-    public boolean add(T entity) throws DataIntegrityViolationException {
-        create(entity);
-        return true;
+        return findOne(key).isPresent();
     }
 
     /**
@@ -212,28 +212,14 @@ public class JpaContainerBaseRepository<T, K extends Serializable>
      */
     @Override
     public T save(T entity) throws DataConcurrencyException, DataIntegrityViolationException {
-        // the following code attempts to do a save or update by checking for
-        // persistence exceptions while doing persist()
-        // this could be made more efficient if we check if the entity has an
-        // autogenerated id
         try {
-            create(entity);
+            return entityManager().merge(entity);
         } catch (final PersistenceException ex) {
-            // if the persist failed due to a locking problem, just throw
-            // and exit
-            if (ex.getCause().getClass() == OptimisticLockException.class) {
+            if (ex.getCause() instanceof OptimisticLockException) {
                 throw new DataConcurrencyException(ex);
             }
-
-            try {
-                update(entity);
-            } catch (final OptimisticLockException exMerge) {
-                throw new DataConcurrencyException(ex);
-            }
-            // TODO need to check other exceptions?
+            throw new DataIntegrityViolationException(ex);
         }
-
-        return entity;
     }
 
     /**
@@ -246,8 +232,9 @@ public class JpaContainerBaseRepository<T, K extends Serializable>
         return entityManager().createQuery("SELECT e FROM " + className + " e ", this.entityClass);
     }
 
+    @SuppressWarnings("squid:S3346")
     private TypedQuery<T> query(String where) {
-        assert !Strings.isNullOrEmpty(where) : "query must not be null or empty";
+        assert !Strings.isNullOrEmpty(where) : QUERY_MUST_NOT_BE_NULL_OR_EMPTY;
 
         final String className = this.entityClass.getSimpleName();
         return entityManager().createQuery("SELECT e FROM " + className + " e WHERE " + where, this.entityClass);
@@ -260,14 +247,13 @@ public class JpaContainerBaseRepository<T, K extends Serializable>
      * @param params
      * @return
      */
+    @SuppressWarnings("squid:S3346")
     protected TypedQuery<T> query(String where, Map<String, Object> params) {
-        assert !Strings.isNullOrEmpty(where) : "query must not be null or empty";
+        assert !Strings.isNullOrEmpty(where) : QUERY_MUST_NOT_BE_NULL_OR_EMPTY;
         assert params != null && params.size() > 0 : "Params must not be null or empty";
 
         final TypedQuery<T> q = query(where);
-        params.entrySet().stream().forEach((e) -> {
-            q.setParameter(e.getKey(), e.getValue());
-        });
+        params.entrySet().stream().forEach(e -> q.setParameter(e.getKey(), e.getValue()));
         return q;
     }
 
@@ -343,15 +329,17 @@ public class JpaContainerBaseRepository<T, K extends Serializable>
      * @param where
      * @return
      */
+    @SuppressWarnings("squid:S3346")
     protected List<T> match(String where) {
-        assert !Strings.isNullOrEmpty(where) : "query must not be null or empty";
+        assert !Strings.isNullOrEmpty(where) : QUERY_MUST_NOT_BE_NULL_OR_EMPTY;
 
         final TypedQuery<T> q = query(where);
         return q.getResultList();
     }
 
+    @SuppressWarnings("squid:S3346")
     protected List<T> match(String whereWithParameters, Map<String, Object> params) {
-        assert !Strings.isNullOrEmpty(whereWithParameters) : "query must not be null or empty";
+        assert !Strings.isNullOrEmpty(whereWithParameters) : QUERY_MUST_NOT_BE_NULL_OR_EMPTY;
         assert params != null && params.size() > 0 : "Params must not be null or empty";
 
         final TypedQuery<T> q = query(whereWithParameters, params);
@@ -406,12 +394,12 @@ public class JpaContainerBaseRepository<T, K extends Serializable>
      */
     private class JpaPagedIterator implements Iterator<T> {
 
-        private final JpaContainerBaseRepository<T, K> repository;
+        private final JpaBaseRepository<T, K> repository;
         private final int pageSize;
         private int currentPageNumber;
         private Iterator<T> currentPage;
 
-        private JpaPagedIterator(JpaContainerBaseRepository<T, K> repository, int pagesize) {
+        private JpaPagedIterator(JpaBaseRepository<T, K> repository, int pagesize) {
             this.repository = repository;
             this.pageSize = pagesize;
         }
