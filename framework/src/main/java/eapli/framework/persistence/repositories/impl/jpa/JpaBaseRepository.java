@@ -6,9 +6,7 @@ package eapli.framework.persistence.repositories.impl.jpa;
 
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
-import eapli.framework.persistence.repositories.DeleteableRepository;
-import eapli.framework.persistence.repositories.IterableRepository;
-import eapli.framework.persistence.repositories.Repository;
+import eapli.framework.persistence.repositories.DataRepository;
 import eapli.util.Strings;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
@@ -44,7 +42,7 @@ import javax.persistence.TypedQuery;
  * @param <K> the key type of the entity
  */
 public class JpaBaseRepository<T, K extends Serializable>
-        implements Repository<T, K>, IterableRepository<T, K>, DeleteableRepository<T, K> {
+        implements DataRepository<T, K> {
 
     private static final String QUERY_MUST_NOT_BE_NULL_OR_EMPTY = "query must not be null or empty";
     private static final int DEFAULT_PAGESIZE = 20;
