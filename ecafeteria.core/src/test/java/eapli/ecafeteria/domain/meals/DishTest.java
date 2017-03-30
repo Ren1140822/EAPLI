@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 
-import eapli.ecafeteria.application.meals.ChangeDishTypeController;
-import eapli.ecafeteria.application.meals.RegisterDishController;
 import eapli.ecafeteria.domain.meals.Dish;
 import eapli.ecafeteria.domain.meals.DishType;
 import eapli.ecafeteria.domain.meals.NutricionalInfo;
@@ -63,38 +61,41 @@ public class DishTest {
         boolean result = instance.is(tosta);
         assertEquals(expResult, result);
     }
-    
-     /**
+
+    /**
      * Test of changeNutricionalInfoTo method, of class Dish.
-     * 
+     *
      * PRP - 29.mar.2017
      */
     @Test(expected = IllegalArgumentException.class)
-    public void testchangeNutricionalInfoToMustNotBeNull() {
+    public void ensureCannotChangeNutricionalInfoToNull() {
         System.out.println("ChangeNutricionalInfoTo -New nutricional info must not be null");
 
-        final Dish Dishinstance=new Dish(peixe, new Designation("Tosta"), new NutricionalInfo(1,1), Money.euros(7));
+        final Dish Dishinstance = new Dish(peixe, new Designation("Tosta"), new NutricionalInfo(1, 1),
+                Money.euros(7));
         Dishinstance.changeNutricionalInfoTo(null);
     }
-   
+
     /**
      * Tests of changePriceTo method, of class Dish.
-     * 
+     *
      * PRP - 29.mar.2017
      */
     @Test(expected = IllegalArgumentException.class)
-    public void testchangePriceToMustNotBeNull() {
+    public void ensureCannotChangePriceToNull() {
         System.out.println("ChangePriceTo -New price info must not be null");
 
-        final Dish Dishinstance=new Dish(peixe, new Designation("Tosta"), new NutricionalInfo(1,1), Money.euros(7));
+        final Dish Dishinstance = new Dish(peixe, new Designation("Tosta"), new NutricionalInfo(1, 1),
+                Money.euros(7));
         Dishinstance.changePriceTo(null);
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
-    public void testchangePriceToCanNotBeNegative() {
+    public void ensureCannotChangePriceToNegative() {
         System.out.println("ChangePriceTo -New price can nt be negativel");
-        
-        final Dish Dishinstance=new Dish(peixe, new Designation("Tosta"), new NutricionalInfo(1,1), Money.euros(1));
+
+        final Dish Dishinstance = new Dish(peixe, new Designation("Tosta"), new NutricionalInfo(1, 1),
+                Money.euros(1));
         Dishinstance.changePriceTo(Money.euros(-1));
     }
 }
