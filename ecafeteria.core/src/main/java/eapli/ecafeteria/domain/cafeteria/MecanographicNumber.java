@@ -14,7 +14,6 @@ import javax.persistence.Embeddable;
  *
  * @author Jorge Santos ajs@isep.ipp.pt
  */
-
 @Embeddable
 public class MecanographicNumber implements ValueObject, Serializable {
 

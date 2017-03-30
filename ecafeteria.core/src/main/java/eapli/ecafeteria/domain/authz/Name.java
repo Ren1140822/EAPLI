@@ -19,7 +19,6 @@ public class Name implements ValueObject, Serializable {
     private String firstName;
     private String lastName;
 
-
     public Name(String firstName, String lastName) {
         if (Strings.isNullOrEmpty(firstName) || Strings.isNullOrEmpty(lastName)) {
             throw new IllegalStateException("first name and last name should neither be null nor empty");

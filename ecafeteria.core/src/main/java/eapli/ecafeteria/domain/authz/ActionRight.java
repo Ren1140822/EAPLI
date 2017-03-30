@@ -15,7 +15,7 @@ public enum ActionRight {
     /**
      * checks if this action right can be performed by a user with the specified
      * role types
-     * 
+     *
      * @param roles
      * @return
      */

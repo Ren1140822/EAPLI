@@ -1,10 +1,10 @@
 package eapli.ecafeteria.domain.cafeteria;
 
-import eapli.framework.domain.EmailAddress;
 import eapli.ecafeteria.domain.authz.Name;
 import eapli.ecafeteria.domain.authz.Password;
 import eapli.ecafeteria.domain.authz.Username;
 import eapli.framework.domain.AggregateRoot;
+import eapli.framework.domain.EmailAddress;
 import eapli.util.DateTime;
 import eapli.util.Strings;
 import java.io.Serializable;
@@ -79,6 +79,7 @@ public class SignupRequest implements AggregateRoot<Username>, Serializable {
         this.approvalStatus = ApprovalStatus.PENDING;
         this.createdOn = createdOn;
     }
+
     protected SignupRequest() {
         // for ORM only
     }
@@ -90,7 +91,6 @@ public class SignupRequest implements AggregateRoot<Username>, Serializable {
     public void refuse() {
         this.approvalStatus = ApprovalStatus.REFUSED;
     }
-
 
     @Override
     public boolean equals(Object o) {
