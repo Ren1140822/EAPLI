@@ -90,7 +90,8 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
             return true;
         }
 
-        return id().equals(that.id());
+        return id().equals(that.id()) && dishType.equals(that.dishType) && nutricionalInfo.equals(that.nutricionalInfo)
+                && price.equals(that.price) && active == that.active;
     }
 
     @Override
