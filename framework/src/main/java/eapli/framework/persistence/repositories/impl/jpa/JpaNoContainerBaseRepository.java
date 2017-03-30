@@ -62,7 +62,7 @@ public class JpaNoContainerBaseRepository<T, K extends Serializable> extends Jpa
         if (singletonEMF == null) {
             assert !Strings.isNullOrEmpty(persistenceUnitName) : "the persistence unit name must be provided";
             Logger.getLogger(this.getClass().getSimpleName())
-                    .info("EAPLI-F-PJ001: Not runing in container mode; creating entity manager factory by hand");
+                    .info("Not running in container mode");
             singletonEMF = Persistence.createEntityManagerFactory(persistenceUnitName);
         }
         return singletonEMF;
