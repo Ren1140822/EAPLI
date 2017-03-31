@@ -16,9 +16,9 @@ public class RomanNumeral {
      * standard Roman numeral representation of the number. For each i, the
      * number numbers[i] is represented by the corresponding string, letters[i].
      */
-    private static int[] numbers = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
+    private static int[] numbers = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
 
-    private static String[] letters = { "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
+    private static String[] letters = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
     private final int num; // The number represented by this Roman numeral.
 
     /**
@@ -26,8 +26,7 @@ public class RomanNumeral {
      * parameter. Throws a NumberFormatException if arabic is not in the range 1
      * to 3999 inclusive.
      *
-     * @param arabic
-     *            the number we want to express as a Roman literal
+     * @param arabic the number we want to express as a Roman literal
      */
     public RomanNumeral(int arabic) {
         if (arabic < 1) {
@@ -109,22 +108,22 @@ public class RomanNumeral {
      */
     private int letterToNumber(char letter) {
         switch (letter) {
-        case 'I':
-            return 1;
-        case 'V':
-            return 5;
-        case 'X':
-            return 10;
-        case 'L':
-            return 50;
-        case 'C':
-            return 100;
-        case 'D':
-            return 500;
-        case 'M':
-            return 1000;
-        default:
-            throw new NumberFormatException("Illegal character \"" + letter + "\" in Roman numeral");
+            case 'I':
+                return 1;
+            case 'V':
+                return 5;
+            case 'X':
+                return 10;
+            case 'L':
+                return 50;
+            case 'C':
+                return 100;
+            case 'D':
+                return 500;
+            case 'M':
+                return 1000;
+            default:
+                throw new NumberFormatException("Illegal character \"" + letter + "\" in Roman numeral");
         }
     }
 

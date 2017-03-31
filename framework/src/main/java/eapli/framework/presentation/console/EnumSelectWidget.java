@@ -12,8 +12,7 @@ import java.util.EnumSet;
  * an item.
  *
  * @author Paulo Gandra Sousa
- * @param <T>
- *            the type of enum in the collection
+ * @param <T> the type of enum in the collection
  */
 public class EnumSelectWidget<T extends Enum<T>> extends SelectWidget<T> {
 

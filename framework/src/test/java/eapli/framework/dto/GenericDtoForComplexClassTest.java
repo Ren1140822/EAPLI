@@ -5,13 +5,11 @@
  */
 package eapli.framework.dto;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.util.Map;
-
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -66,6 +64,7 @@ public class GenericDtoForComplexClassTest {
 
     @SuppressWarnings("unused")
     private static class SimpleClass {
+
         private final String stringField;
         private final int intField;
 
@@ -77,6 +76,7 @@ public class GenericDtoForComplexClassTest {
 
     @SuppressWarnings("unused")
     private static class ComplexClass {
+
         SimpleClass one;
         SimpleClass two;
         SimpleClass sameAsOne;

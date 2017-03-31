@@ -12,7 +12,7 @@ import eapli.util.Console;
  * @author Jorge Santos ajs@isep.ipp.pt
  */
 public class NutricionalInfoDataWidget {
-    
+
     private Integer calories;
     private Integer salt;
 

@@ -8,17 +8,17 @@ import eapli.ecafeteria.user.consoleapp.presentation.FrontMenu;
  */
 public final class ECafeteriaUserApp {
 
-	/**
-	 * Empty constructor is private to avoid instantiation of this class.
-	 */
-	private ECafeteriaUserApp() {
-	}
+    /**
+     * Empty constructor is private to avoid instantiation of this class.
+     */
+    private ECafeteriaUserApp() {
+    }
 
-	public static void main(final String[] args) {
+    public static void main(final String[] args) {
 
-		// only needed because of the in memory persistence
-		new ECafeteriaBootstrap().execute();
+        // only needed because of the in memory persistence
+        new ECafeteriaBootstrap().execute();
 
-		new FrontMenu().show();
-	}
+        new FrontMenu().show();
+    }
 }

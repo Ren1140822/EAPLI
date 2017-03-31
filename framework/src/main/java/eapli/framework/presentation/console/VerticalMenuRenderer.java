@@ -8,6 +8,7 @@ package eapli.framework.presentation.console;
  *
  */
 public class VerticalMenuRenderer extends MenuRenderer {
+
     public VerticalMenuRenderer(Menu menu) {
         super(menu);
     }

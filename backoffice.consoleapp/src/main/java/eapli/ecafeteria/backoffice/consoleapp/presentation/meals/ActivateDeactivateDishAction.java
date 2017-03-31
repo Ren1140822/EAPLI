@@ -12,9 +12,10 @@ import eapli.framework.actions.Action;
  * @author mcn
  */
 public class ActivateDeactivateDishAction implements Action {
+
     @Override
     public boolean execute() {
         return new ActivateDeactivateDishUI().show();
     }
-    
+
 }

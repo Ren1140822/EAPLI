@@ -12,6 +12,7 @@ import eapli.framework.actions.Action;
  * @author mcn
  */
 public class ListDishTypeAction implements Action {
+
     @Override
     public boolean execute() {
         return new ListDishTypeUI().show();
