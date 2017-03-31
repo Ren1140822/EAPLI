@@ -20,6 +20,7 @@ public class Money implements Comparable<Money>, Serializable, ValueObject {
      */
     private static final long serialVersionUID = 1L;
     private static final transient int HUNDRED = 100;
+
     /**
      * If you use one currency a lot, you may want a special constructor for
      * that currency.
@@ -27,6 +28,7 @@ public class Money implements Comparable<Money>, Serializable, ValueObject {
     public static Money dollars(final double amount) {
         return new Money(amount, Currency.getInstance("USD"));
     }
+
     /**
      * If you use one currency a lot, you may want a special constructor for
      * that currency.
@@ -75,7 +77,6 @@ public class Money implements Comparable<Money>, Serializable, ValueObject {
         this.amount = amountInPennies;
         this.currency = currency;
     }
-
 
     /**
      * Returns the amount portion of this Money object.

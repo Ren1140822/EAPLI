@@ -15,10 +15,10 @@ public class VerticalSeparator extends MenuItem {
 
     private static final VerticalSeparator instance = new VerticalSeparator();
 
-
     public static VerticalSeparator separator() {
         return instance;
     }
+
     public VerticalSeparator() {
         super(-1, "------------------", NullAction.instance());
     }

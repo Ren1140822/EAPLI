@@ -10,15 +10,15 @@ package eapli.framework.actions;
  */
 public class ShowMessageAction implements Action {
 
-	private final String message;
+    private final String message;
 
-	public ShowMessageAction(String message) {
-		this.message = message;
-	}
+    public ShowMessageAction(String message) {
+        this.message = message;
+    }
 
-	@Override
-	public boolean execute() {
-		System.out.println(message);
-		return true;
-	}
+    @Override
+    public boolean execute() {
+        System.out.println(message);
+        return true;
+    }
 }

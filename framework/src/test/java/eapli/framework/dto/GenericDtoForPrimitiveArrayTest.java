@@ -5,14 +5,12 @@
  */
 package eapli.framework.dto;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.lang.reflect.Array;
 import java.util.Map;
-
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -59,6 +57,7 @@ public class GenericDtoForPrimitiveArrayTest {
     }
 
     private static class WithPrimitiveArrayClass {
+
         private final int[] data;
 
         public WithPrimitiveArrayClass(int n) {

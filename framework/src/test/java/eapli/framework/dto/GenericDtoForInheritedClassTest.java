@@ -5,12 +5,10 @@
  */
 package eapli.framework.dto;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.Map;
-
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -61,6 +59,7 @@ public class GenericDtoForInheritedClassTest {
 
     @SuppressWarnings("unused")
     private static class SimpleClassBase {
+
         private final String stringField;
         private final int intField;
 
@@ -72,6 +71,7 @@ public class GenericDtoForInheritedClassTest {
 
     @SuppressWarnings("unused")
     private static class SimpleClass extends SimpleClassBase {
+
         private final float floatField;
 
         public SimpleClass(String s, int i, float f) {

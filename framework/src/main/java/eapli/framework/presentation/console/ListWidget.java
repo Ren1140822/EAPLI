@@ -19,8 +19,7 @@ import java.util.Collection;
  *
  *
  * @author Paulo Gandra Sousa
- * @param <T>
- *            the type of element each item in list is
+ * @param <T> the type of element each item in list is
  */
 public class ListWidget<T> {
 

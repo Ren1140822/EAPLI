@@ -16,8 +16,7 @@ import eapli.ecafeteria.bootstrapapp.ECafeteriaBootstrap;
 public final class ECafeteriaBackoffice {
 
     /**
-     * @param args
-     *            the command line arguments
+     * @param args the command line arguments
      */
     public static void main(final String[] args) {
 
@@ -31,6 +30,7 @@ public final class ECafeteriaBackoffice {
             menu.mainLoop();
         }
     }
+
     /**
      * Empty constructor is private to avoid instantiation of this class.
      */

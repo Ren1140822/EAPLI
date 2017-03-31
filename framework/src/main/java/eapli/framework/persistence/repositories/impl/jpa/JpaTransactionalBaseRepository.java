@@ -39,7 +39,7 @@ import javax.persistence.PersistenceException;
  * database)
  * @param <K> the primary key of the table
  */
-public class JpaNoContainerBaseRepository<T, K extends Serializable> extends JpaBaseRepository<T, K> {
+public class JpaTransactionalBaseRepository<T, K extends Serializable> extends JpaBaseRepository<T, K> {
 
     private final String persistenceUnitName;
     private static EntityManagerFactory singletonEMF;
@@ -51,7 +51,7 @@ public class JpaNoContainerBaseRepository<T, K extends Serializable> extends Jpa
      * configured EntityManagerFactory
      */
     @SuppressWarnings("unchecked")
-    public JpaNoContainerBaseRepository(String persistenceUnitName) {
+    public JpaTransactionalBaseRepository(String persistenceUnitName) {
         super();
         this.persistenceUnitName = persistenceUnitName;
     }

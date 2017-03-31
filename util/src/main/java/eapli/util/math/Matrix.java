@@ -10,6 +10,7 @@ package eapli.util.math;
  *
  */
 public class Matrix {
+
     /* creates a square identity matrix */
     public static Matrix identity(int n) {
         final Matrix id = zero(n, n);
@@ -20,14 +21,17 @@ public class Matrix {
         }
         return id;
     }
+
     /* creates a square zero matrix */
     public static Matrix zero(int n) {
         return zero(n, n);
     }
+
     /* creates a zero matrix */
     public static Matrix zero(int r, int c) {
         return new Matrix(r, c);
     }
+
     /* creates a "zero" matrix with the same given value */
     public static Matrix zero(int r, int c, double zero) {
         final Matrix z = new Matrix(r, c);
@@ -56,6 +60,7 @@ public class Matrix {
         this.data = new double[this.rows][this.cols];
         copyData(other.data, this.data);
     }
+
     private Matrix(int rows, int cols) {
         this.rows = rows;
         this.cols = cols;
@@ -70,7 +75,6 @@ public class Matrix {
     public int size() {
         return this.rows * this.cols;
     }
-
 
     public Vector row(int index) {
         if (index < 0 || index >= this.rows) {
@@ -93,7 +97,6 @@ public class Matrix {
         }
         return vec;
     }
-
 
     // return a new matrix obtained by multiplying a matrix by a scalar
     public Matrix scale(double k) {
@@ -225,11 +228,11 @@ public class Matrix {
     // indexes are 1-based
     public Matrix submatrix(int index, Vector.VectorType typ) {
         switch (typ) {
-        case Row:
-            return withoutRow(index);
+            case Row:
+                return withoutRow(index);
 
-        case Column:
-            return withoutColumn(index);
+            case Column:
+                return withoutColumn(index);
 
         }
         throw new IllegalStateException("should not happen - unknown VectorType");
@@ -456,7 +459,6 @@ public class Matrix {
         return det;
     }
 
-
     public int columnCount() {
         return this.cols;
     }
@@ -650,7 +652,6 @@ public class Matrix {
         return dest;
     }
 
-
     // removes a row or column from the matrix
     // indexes are 1-based
     public Matrix withoutRow(int index) {
@@ -749,6 +750,5 @@ public class Matrix {
             }
         }
     }
-
 
 }

@@ -8,7 +8,7 @@ import eapli.framework.actions.Action;
 
 /**
  * an action that shows a UI
- * 
+ *
  * @author Paulo Gandra Sousa
  */
 public class ShowUiAction implements Action {
