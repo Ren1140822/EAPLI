@@ -33,6 +33,9 @@ public class ActivateDeactivateDishController implements Controller {
             throw new IllegalArgumentException();
         }
         dish.toogleState();
-        this.dishRepository.save(dish);
+
+        this.dishRepository.beginTransaction();
+        Dish ret = this.dishRepository.save(dish);
+        this.dishRepository.commit();
     }
 }

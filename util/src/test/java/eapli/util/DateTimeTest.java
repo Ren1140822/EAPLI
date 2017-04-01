@@ -74,7 +74,6 @@ public class DateTimeTest {
     /**
      * Test of endOfWeek method, of class DateTime.
      */
-
     // @Test
     // public void testLastDayOfWeek13Of2014Is22() {
     // System.out.println("endOfWeek");

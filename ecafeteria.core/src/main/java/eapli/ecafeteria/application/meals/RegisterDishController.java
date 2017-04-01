@@ -30,7 +30,12 @@ public class RegisterDishController implements Controller {
 
         final Dish newDish = new Dish(dishType, Designation.valueOf(name), new NutricionalInfo(calories, salt),
                 Money.euros(price));
-        return this.dishRepository.save(newDish);
+
+        this.dishRepository.beginTransaction();
+        Dish ret = this.dishRepository.save(newDish);
+        this.dishRepository.commit();
+
+        return ret;
     }
 
     public Iterable<DishType> dishTypes() {

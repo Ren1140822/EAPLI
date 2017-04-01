@@ -14,8 +14,7 @@ import java.util.Iterator;
  * select an item.
  *
  * @author Paulo Gandra Sousa
- * @param <T>
- *            the type of element in the collection
+ * @param <T> the type of element in the collection
  */
 public class SelectWidget<T> extends ListWidget<T> {
 
@@ -47,8 +46,8 @@ public class SelectWidget<T> extends ListWidget<T> {
     /**
      *
      * @return -1 if the user has not yet made a selection 0 if the user
-     *         selected "exit" a positive number corresponding to the list index
-     *         of source if the user selected an item
+     * selected "exit" a positive number corresponding to the list index of
+     * source if the user selected an item
      */
     public int selectedOption() {
         return this.option;
@@ -56,18 +55,18 @@ public class SelectWidget<T> extends ListWidget<T> {
 
     public T selectedElement() {
         switch (this.option) {
-        case -1:
-        case 0:
-            return null;
-        default:
-            int idx = 0;
-            T elem = null;
-            final Iterator<T> it = this.source.iterator();
-            while (idx < this.option) {
-                elem = it.next();
-                idx++;
-            }
-            return elem;
+            case -1:
+            case 0:
+                return null;
+            default:
+                int idx = 0;
+                T elem = null;
+                final Iterator<T> it = this.source.iterator();
+                while (idx < this.option) {
+                    elem = it.next();
+                    idx++;
+                }
+                return elem;
         }
     }
 }

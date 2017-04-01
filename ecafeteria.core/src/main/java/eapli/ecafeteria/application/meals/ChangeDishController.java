@@ -35,7 +35,10 @@ public class ChangeDishController implements Controller {
             throw new IllegalArgumentException();
         }
         dish.changePriceTo(newPrice);
-        this.dishRepository.save(dish);
+
+        this.dishRepository.beginTransaction();
+        Dish ret = this.dishRepository.save(dish);
+        this.dishRepository.commit();
     }
 
     public void changeDishNutricionalInfo(Dish dish, NutricionalInfo newNutricionalInfo) throws DataConcurrencyException, DataIntegrityViolationException {
@@ -44,6 +47,9 @@ public class ChangeDishController implements Controller {
             throw new IllegalArgumentException();
         }
         dish.changeNutricionalInfoTo(newNutricionalInfo);
-        this.dishRepository.save(dish);
+
+        this.dishRepository.beginTransaction();
+        Dish ret = this.dishRepository.save(dish);
+        this.dishRepository.commit();
     }
 }

@@ -6,11 +6,10 @@ package eapli.util;
 
 /**
  * utility class for file manipulation.
- * 
+ *
  * @author Paulo Gandra Sousa
  */
 public class Files {
-
 
     public static String currentDirectory() {
         return new java.io.File(".").getAbsolutePath();
@@ -23,6 +22,7 @@ public class Files {
             return filename;
         }
     }
+
     private Files() {
         // to make sure this is an utility class
     }

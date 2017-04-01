@@ -12,6 +12,7 @@ import java.util.Arrays;
  *
  */
 public class Vector {
+
     /* creates a "zero" vector with the same given value */
     public static Vector zero(int n, VectorType type, double zero) {
         final Vector z = new Vector(n, type);
@@ -46,7 +47,6 @@ public class Vector {
     public double elementAt(int i) {
         return getAt(i - 1);
     }
-
 
     public Vector normalize() {
         double sum = 0;
