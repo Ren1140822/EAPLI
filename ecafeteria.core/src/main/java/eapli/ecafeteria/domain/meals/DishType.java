@@ -91,8 +91,8 @@ public class DishType implements AggregateRoot<String>, Serializable {
 
     @Override
     public boolean sameAs(Object other) {
-        // FIXME implement this method
-        return false;
+        final DishType dishType = (DishType) other;
+        return this.equals(dishType) && description().equals(dishType.description()) && isActive() == dishType.isActive();
     }
 
     @Override
