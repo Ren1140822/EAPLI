@@ -5,12 +5,9 @@
  */
 package eapli.ecafeteria.domain.meals;
 
-import org.junit.After;
-import org.junit.AfterClass;
+import org.junit.*;
+
 import static org.junit.Assert.assertEquals;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
 
 /**
  *
@@ -37,25 +34,30 @@ public class DishTypeTest {
     public void tearDown() {
     }
 
-    @Test(expected = IllegalStateException.class)
+	@Test
+	public void ensureDishTypeHasAnAcronymAndDescription() {
+		new DishType("Veg", "Vegetarian");
+	}
+
+	@Test(expected = IllegalArgumentException.class)
     public void testAcronymMustNotBeEmpty() {
         System.out.println("must have non-empty acronym");
         new DishType("", "vegetarian dish");
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testAcronymMustNotBeNull() {
         System.out.println("must have an acronym");
         new DishType(null, "vegetarian dish");
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testDescriptionMustNotBeEmpty() {
         System.out.println("must have non-empty description");
         new DishType("veg1", "");
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testDescriptionMustNotBeNull() {
         System.out.println("must have a description");
         new DishType("veg1", null);

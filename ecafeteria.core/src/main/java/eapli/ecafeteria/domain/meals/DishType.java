@@ -2,12 +2,9 @@ package eapli.ecafeteria.domain.meals;
 
 import eapli.framework.domain.AggregateRoot;
 import eapli.util.Strings;
+
+import javax.persistence.*;
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Version;
 
 /**
  * a dish type, e.g., vegetarian or fish or meat.
@@ -36,21 +33,70 @@ public class DishType implements AggregateRoot<String>, Serializable {
     // business ID
     @Column(unique = true)
     private String acronym;
-    private String description;
+	private String description;
     private boolean active;
 
     protected DishType() {
         // for ORM
     }
 
+    /**
+     * DishType constructor.
+     * @param name Mandatory
+     * @param description Mandatory
+     */
     public DishType(String name, String description) {
-        if (Strings.isNullOrEmpty(name) || Strings.isNullOrEmpty(description)) {
-            throw new IllegalStateException();
-        }
+        setName(name);
+        setDescription(description);
         this.acronym = name;
         this.description = description;
         this.active = true;
     }
+
+	/**
+	 * Sets and validates newDescription
+	 * @param newDescription
+	 */
+	private void setDescription(String newDescription) {
+		if (descriptionMeetsMinimumRequirements(newDescription)) {
+			this.description = description;
+		}
+		else {
+			throw new IllegalArgumentException("Invalid Description");
+		}
+	}
+
+	/**
+	 * Sets and validates newName
+	 * @param newName
+	 */
+	private void setName(String newName) {
+		if (nameMeetsMinimumRequirements(newName)) {
+			this.acronym= newName;
+		}
+		else {
+			throw new IllegalArgumentException("Invalid Name");
+		}
+	}
+
+	/**
+     * Ensure name is not null or empty.
+     * @param name
+     * @return True if name meets minimum requirements. False if name does not meet minimum requirements.
+     */
+    private boolean nameMeetsMinimumRequirements(String name) {
+        return !Strings.isNullOrEmpty(name);
+    }
+
+    /**
+     * Ensure description is not null or empty.
+     * @param description
+     * @return True if description meets minimum requirements. False if description does not meet minimum requirements.
+     */
+    private boolean descriptionMeetsMinimumRequirements(String description) {
+        return !Strings.isNullOrEmpty(description);
+    }
+
 
     public String description() {
         return this.description;
@@ -72,8 +118,12 @@ public class DishType implements AggregateRoot<String>, Serializable {
         return isActive();
     }
 
+    /**
+     * Change DishType description
+     * @param newDescription New description.
+     */
     public void changeDescriptionTo(String newDescription) {
-        if (newDescription == null || newDescription.trim().isEmpty()) {
+        if (!descriptionMeetsMinimumRequirements(newDescription)) {
             throw new IllegalArgumentException();
         }
         this.description = newDescription;
