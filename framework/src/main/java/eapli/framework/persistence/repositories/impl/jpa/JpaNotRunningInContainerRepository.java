@@ -25,7 +25,7 @@ import javax.persistence.Persistence;
  * database)
  * @param <K> the primary key of the table
  */
-public class JpaNotRunningInContainerBaseRepository<T, K extends Serializable> extends JpaBaseRepository<T, K>
+public class JpaNotRunningInContainerRepository<T, K extends Serializable> extends JpaBaseRepository<T, K>
         implements TransactionalContext {
 
     private final String persistenceUnitName;
@@ -35,9 +35,13 @@ public class JpaNotRunningInContainerBaseRepository<T, K extends Serializable> e
      *
      * @param persistenceUnitName the name of the persistence unit to use
      */
-    @SuppressWarnings("unchecked")
-    public JpaNotRunningInContainerBaseRepository(String persistenceUnitName) {
+    public JpaNotRunningInContainerRepository(String persistenceUnitName) {
         super();
+        this.persistenceUnitName = persistenceUnitName;
+    }
+
+    JpaNotRunningInContainerRepository(String persistenceUnitName, Class<T> classz) {
+        super(classz);
         this.persistenceUnitName = persistenceUnitName;
     }
 

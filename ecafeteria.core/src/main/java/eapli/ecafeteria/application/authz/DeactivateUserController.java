@@ -21,7 +21,7 @@ import eapli.util.DateTime;
  */
 public class DeactivateUserController implements Controller {
 
-    private final UserRepository userRepository = PersistenceContext.repositories().users();
+    private final UserRepository userRepository = PersistenceContext.repositories().users(true);
 
     public Iterable<SystemUser> activeUsers() {
         Application.ensurePermissionOfLoggedInUser(ActionRight.ADMINISTER);

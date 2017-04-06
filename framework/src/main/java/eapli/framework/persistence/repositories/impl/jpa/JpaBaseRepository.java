@@ -4,24 +4,22 @@
  */
 package eapli.framework.persistence.repositories.impl.jpa;
 
+import eapli.framework.persistence.DataConcurrencyException;
+import eapli.framework.persistence.DataIntegrityViolationException;
+import eapli.framework.persistence.repositories.DataRepository;
+import eapli.util.Strings;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.OptimisticLockException;
 import javax.persistence.PersistenceException;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.TypedQuery;
-
-import eapli.framework.persistence.DataConcurrencyException;
-import eapli.framework.persistence.DataIntegrityViolationException;
-import eapli.framework.persistence.repositories.DataRepository;
-import eapli.util.Strings;
 
 /**
  * An utility class for implementing JPA repositories. This class' methods don't
@@ -40,12 +38,10 @@ import eapli.util.Strings;
  * implementation patterns</a>
  *
  * @author Paulo Gandra Sousa
- * @param <T>
- *            the entity type that we want to build a repository for
- * @param <K>
- *            the key type of the entity
+ * @param <T> the entity type that we want to build a repository for
+ * @param <K> the key type of the entity
  */
-public class JpaBaseRepository<T, K extends Serializable> implements DataRepository<T, K> {
+public abstract class JpaBaseRepository<T, K extends Serializable> implements DataRepository<T, K> {
 
     private static final String QUERY_MUST_NOT_BE_NULL_OR_EMPTY = "query must not be null or empty";
     private static final int DEFAULT_PAGESIZE = 20;
@@ -58,19 +54,23 @@ public class JpaBaseRepository<T, K extends Serializable> implements DataReposit
     private EntityManager entityManager;
 
     public JpaBaseRepository() {
-	final ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
-	entityClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
+        final ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
+        entityClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
+    }
+
+    JpaBaseRepository(Class<T> classz) {
+        entityClass = classz;
     }
 
     protected EntityManagerFactory entityManagerFactory() {
-	return this.emFactory;
+        return this.emFactory;
     }
 
     protected EntityManager entityManager() {
-	if (this.entityManager == null || !this.entityManager.isOpen()) {
-	    this.entityManager = entityManagerFactory().createEntityManager();
-	}
-	return this.entityManager;
+        if (this.entityManager == null || !this.entityManager.isOpen()) {
+            this.entityManager = entityManagerFactory().createEntityManager();
+        }
+        return this.entityManager;
     }
 
     /**
@@ -80,17 +80,17 @@ public class JpaBaseRepository<T, K extends Serializable> implements DataReposit
      * @return the newly created persistent object
      */
     public T create(T entity) throws DataIntegrityViolationException {
-	if (entity == null) {
-	    throw new IllegalArgumentException();
-	}
-	try {
-	    this.entityManager().persist(entity);
-	} catch (final PersistenceException ex) {
-	    // TODO need to check and make sure we only throw
-	    // DataIntegrityViolationException if we get sql state 23505
-	    throw new DataIntegrityViolationException(ex);
-	}
-	return entity;
+        if (entity == null) {
+            throw new IllegalArgumentException();
+        }
+        try {
+            this.entityManager().persist(entity);
+        } catch (final PersistenceException ex) {
+            // TODO need to check and make sure we only throw
+            // DataIntegrityViolationException if we get sql state 23505
+            throw new DataIntegrityViolationException(ex);
+        }
+        return entity;
     }
 
     /**
@@ -100,7 +100,7 @@ public class JpaBaseRepository<T, K extends Serializable> implements DataReposit
      * @return
      */
     public Optional<T> read(K id) {
-	return Optional.ofNullable(this.entityManager().find(this.entityClass, id));
+        return Optional.ofNullable(this.entityManager().find(this.entityClass, id));
     }
 
     /**
@@ -111,15 +111,15 @@ public class JpaBaseRepository<T, K extends Serializable> implements DataReposit
      */
     @Override
     public Optional<T> findOne(K id) {
-	if (id == null) {
-	    throw new IllegalArgumentException();
-	}
+        if (id == null) {
+            throw new IllegalArgumentException();
+        }
 
-	return read(id);
+        return read(id);
     }
 
     public T update(T entity) throws DataConcurrencyException, DataIntegrityViolationException {
-	return save(entity);
+        return save(entity);
     }
 
     /**
@@ -132,18 +132,18 @@ public class JpaBaseRepository<T, K extends Serializable> implements DataReposit
     @Override
     @SuppressWarnings("squid:S1226")
     public void delete(T entity) throws DataIntegrityViolationException {
-	if (entity == null) {
-	    throw new IllegalArgumentException();
-	}
+        if (entity == null) {
+            throw new IllegalArgumentException();
+        }
 
-	try {
-	    entity = entityManager().merge(entity);
-	    entityManager().remove(entity);
-	} catch (final PersistenceException ex) {
-	    // TODO need to check and make sure we only throw
-	    // DataIntegrityViolationException if we get sql state 23505
-	    throw new DataIntegrityViolationException(ex);
-	}
+        try {
+            entity = entityManager().merge(entity);
+            entityManager().remove(entity);
+        } catch (final PersistenceException ex) {
+            // TODO need to check and make sure we only throw
+            // DataIntegrityViolationException if we get sql state 23505
+            throw new DataIntegrityViolationException(ex);
+        }
     }
 
     /**
@@ -151,20 +151,20 @@ public class JpaBaseRepository<T, K extends Serializable> implements DataReposit
      *
      * @param entityId
      * @throws DataIntegrityViolationException
-     * @throws UnsuportedOperationException
-     *             if the delete operation makes no sense for this repository
+     * @throws UnsuportedOperationException if the delete operation makes no
+     * sense for this repository
      */
     @Override
     public void deleteByPK(K entityId) throws DataIntegrityViolationException {
-	if (entityId == null) {
-	    throw new IllegalArgumentException();
-	}
+        if (entityId == null) {
+            throw new IllegalArgumentException();
+        }
 
-	// TODO this is not efficient...
-	final Optional<T> entity = findOne(entityId);
-	if (entity.isPresent()) {
-	    delete(entity.get());
-	}
+        // TODO this is not efficient...
+        final Optional<T> entity = findOne(entityId);
+        if (entity.isPresent()) {
+            delete(entity.get());
+        }
     }
 
     /**
@@ -174,8 +174,8 @@ public class JpaBaseRepository<T, K extends Serializable> implements DataReposit
      */
     @Override
     public long count() {
-	return (Long) entityManager().createQuery("SELECT COUNT(*) FROM " + this.entityClass.getSimpleName())
-		.getSingleResult();
+        TypedQuery<Long> q = entityManager().createQuery("SELECT COUNT(*) FROM " + this.entityClass.getSimpleName(), Long.class);
+        return q.getSingleResult();
     }
 
     /**
@@ -185,11 +185,11 @@ public class JpaBaseRepository<T, K extends Serializable> implements DataReposit
      * @return
      */
     public boolean contains(K key) {
-	if (key == null) {
-	    throw new IllegalArgumentException();
-	}
+        if (key == null) {
+            throw new IllegalArgumentException();
+        }
 
-	return findOne(key).isPresent();
+        return findOne(key).isPresent();
     }
 
     /**
@@ -206,20 +206,20 @@ public class JpaBaseRepository<T, K extends Serializable> implements DataReposit
      *
      * @param entity
      * @return the persisted entity - might be a different object than the
-     *         parameter
+     * parameter
      * @throws eapli.framework.persistence.DataConcurrencyException
      * @throws DataIntegrityViolationException
      */
     @Override
     public T save(T entity) throws DataConcurrencyException, DataIntegrityViolationException {
-	try {
-	    return entityManager().merge(entity);
-	} catch (final PersistenceException ex) {
-	    if (ex.getCause() instanceof OptimisticLockException) {
-		throw new DataConcurrencyException(ex);
-	    }
-	    throw new DataIntegrityViolationException(ex);
-	}
+        try {
+            return entityManager().merge(entity);
+        } catch (final PersistenceException ex) {
+            if (ex.getCause() instanceof OptimisticLockException) {
+                throw new DataConcurrencyException(ex);
+            }
+            throw new DataIntegrityViolationException(ex);
+        }
     }
 
     /**
@@ -228,16 +228,16 @@ public class JpaBaseRepository<T, K extends Serializable> implements DataReposit
      * @return
      */
     protected TypedQuery<T> queryAll() {
-	final String className = this.entityClass.getSimpleName();
-	return entityManager().createQuery("SELECT e FROM " + className + " e ", this.entityClass);
+        final String className = this.entityClass.getSimpleName();
+        return entityManager().createQuery("SELECT e FROM " + className + " e ", this.entityClass);
     }
 
     @SuppressWarnings("squid:S3346")
     private TypedQuery<T> query(String where) {
-	assert !Strings.isNullOrEmpty(where) : QUERY_MUST_NOT_BE_NULL_OR_EMPTY;
+        assert !Strings.isNullOrEmpty(where) : QUERY_MUST_NOT_BE_NULL_OR_EMPTY;
 
-	final String className = this.entityClass.getSimpleName();
-	return entityManager().createQuery("SELECT e FROM " + className + " e WHERE " + where, this.entityClass);
+        final String className = this.entityClass.getSimpleName();
+        return entityManager().createQuery("SELECT e FROM " + className + " e WHERE " + where, this.entityClass);
     }
 
     /**
@@ -249,12 +249,12 @@ public class JpaBaseRepository<T, K extends Serializable> implements DataReposit
      */
     @SuppressWarnings("squid:S3346")
     protected TypedQuery<T> query(String where, Map<String, Object> params) {
-	assert !Strings.isNullOrEmpty(where) : QUERY_MUST_NOT_BE_NULL_OR_EMPTY;
-	assert params != null && params.size() > 0 : "Params must not be null or empty";
+        assert !Strings.isNullOrEmpty(where) : QUERY_MUST_NOT_BE_NULL_OR_EMPTY;
+        assert params != null && params.size() > 0 : "Params must not be null or empty";
 
-	final TypedQuery<T> q = query(where);
-	params.entrySet().stream().forEach(e -> q.setParameter(e.getKey(), e.getValue()));
-	return q;
+        final TypedQuery<T> q = query(where);
+        params.entrySet().stream().forEach(e -> q.setParameter(e.getKey(), e.getValue()));
+        return q;
     }
 
     /**
@@ -265,12 +265,12 @@ public class JpaBaseRepository<T, K extends Serializable> implements DataReposit
      */
     @Override
     public List<T> first(int n) {
-	if (n <= 0) {
-	    throw new IllegalArgumentException();
-	}
-	final TypedQuery<T> q = queryAll();
-	q.setMaxResults(n);
-	return q.getResultList();
+        if (n <= 0) {
+            throw new IllegalArgumentException();
+        }
+        final TypedQuery<T> q = queryAll();
+        q.setMaxResults(n);
+        return q.getResultList();
     }
 
     /**
@@ -280,23 +280,23 @@ public class JpaBaseRepository<T, K extends Serializable> implements DataReposit
      */
     @Override
     public T first() {
-	final List<T> r = first(1);
-	return r.isEmpty() ? null : r.get(0);
+        final List<T> r = first(1);
+        return r.isEmpty() ? null : r.get(0);
     }
 
     public T last() {
-	throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 
     public List<T> page(int pageNumber, int pageSize) {
-	if (pageNumber <= 0 || pageSize <= 0) {
-	    throw new IllegalArgumentException();
-	}
-	final TypedQuery<T> q = queryAll();
-	q.setMaxResults(pageSize);
-	q.setFirstResult((pageNumber - 1) * pageSize);
+        if (pageNumber <= 0 || pageSize <= 0) {
+            throw new IllegalArgumentException();
+        }
+        final TypedQuery<T> q = queryAll();
+        q.setMaxResults(pageSize);
+        q.setFirstResult((pageNumber - 1) * pageSize);
 
-	return q.getResultList();
+        return q.getResultList();
     }
 
     /**
@@ -306,84 +306,81 @@ public class JpaBaseRepository<T, K extends Serializable> implements DataReposit
      */
     @Override
     public Iterator<T> iterator(int pagesize) {
-	return new JpaPagedIterator(this, pagesize);
+        return new JpaPagedIterator(this, pagesize);
     }
 
     @Override
     public Iterator<T> iterator() {
-	return new JpaPagedIterator(this, DEFAULT_PAGESIZE);
+        return new JpaPagedIterator(this, DEFAULT_PAGESIZE);
     }
 
     @Override
     public Iterable<T> findAll() {
-	// TODO check performance impact of this 'where' clause
-	return match("1=1");
+        // TODO check performance impact of this 'where' clause
+        return match("1=1");
     }
 
     /**
      * searches for objects that match the given criteria
      *
-     * helper method. not to be exposed as public in any situation. the where
-     * clause should use "e" as the query object
+     * @param where the where clause should use "e" as the query object
      *
-     * @param where
      * @return
      */
     @SuppressWarnings("squid:S3346")
-    protected List<T> match(String where) {
-	assert !Strings.isNullOrEmpty(where) : QUERY_MUST_NOT_BE_NULL_OR_EMPTY;
+    public List<T> match(String where) {
+        assert !Strings.isNullOrEmpty(where) : QUERY_MUST_NOT_BE_NULL_OR_EMPTY;
 
-	final TypedQuery<T> q = query(where);
-	return q.getResultList();
+        final TypedQuery<T> q = query(where);
+        return q.getResultList();
     }
 
     @SuppressWarnings("squid:S3346")
-    protected List<T> match(String whereWithParameters, Map<String, Object> params) {
-	assert !Strings.isNullOrEmpty(whereWithParameters) : QUERY_MUST_NOT_BE_NULL_OR_EMPTY;
-	assert params != null && params.size() > 0 : "Params must not be null or empty";
+    public List<T> match(String whereWithParameters, Map<String, Object> params) {
+        assert !Strings.isNullOrEmpty(whereWithParameters) : QUERY_MUST_NOT_BE_NULL_OR_EMPTY;
+        assert params != null && params.size() > 0 : "Params must not be null or empty";
 
-	final TypedQuery<T> q = query(whereWithParameters, params);
-	return q.getResultList();
+        final TypedQuery<T> q = query(whereWithParameters, params);
+        return q.getResultList();
     }
 
     /**
      * searches for one object that matches the given criteria
      *
-     * helper method. not to be exposed as public in any situation. the where
-     * clause should use "e" as the query object
      *
-     * @param where
+     *
+     * @param where the where clause should use "e" as the query object
      * @return
      */
-    protected T matchOne(String where) {
-	final TypedQuery<T> q = query(where);
-	// TODO should we allow to throw NoResultException? it will expose a JPA
-	// specific exception to domain layer. most likely we should return null
-	return q.getSingleResult();
+    public T matchOne(String where) {
+        final TypedQuery<T> q = query(where);
+        // TODO should we allow to throw NoResultException? it will expose a JPA
+        // specific exception to domain layer. most likely we should return null
+        return q.getSingleResult();
     }
 
-    protected T matchOne(String whereWithParameters, Map<String, Object> params) {
-	final TypedQuery<T> q = query(whereWithParameters, params);
-	// TODO should we allow to throw NoResultException? it will expose a JPA
-	// specific exception to domain layer. most likely we should return null
-	return q.getSingleResult();
+    public T matchOne(String whereWithParameters, Map<String, Object> params) {
+        final TypedQuery<T> q = query(whereWithParameters, params);
+        // TODO should we allow to throw NoResultException? it will expose a JPA
+        // specific exception to domain layer. most likely we should return null
+        return q.getSingleResult();
     }
 
-    protected T matchOne(String where, Object... args) {
-	final TypedQuery<T> q = query(where);
-	boolean isArgName = true;
-	String argName = "";
-	for (final Object o : args) {
-	    if (isArgName) {
-		argName = (String) o;
-	    } else {
-		q.setParameter(argName, o);
-	    }
-	    isArgName = !isArgName;
-	}
-	// TODO should we allow to throw NoResultException? it will expose a JPA
-	// specific exception to domain layer. most likely we should return null
-	return q.getSingleResult();
+    public T matchOne(String where, Object... args) {
+        final TypedQuery<T> q = query(where);
+        boolean isArgName = true;
+        String argName = "";
+        for (final Object o : args) {
+            if (isArgName) {
+                argName = (String) o;
+            } else {
+                q.setParameter(argName, o);
+            }
+            isArgName = !isArgName;
+        }
+        // TODO should we allow to throw NoResultException? it will expose a JPA
+        // specific exception to domain layer. most likely we should return null
+        return q.getSingleResult();
     }
 
     /**
@@ -394,46 +391,46 @@ public class JpaBaseRepository<T, K extends Serializable> implements DataReposit
      */
     private class JpaPagedIterator implements Iterator<T> {
 
-	private final JpaBaseRepository<T, K> repository;
-	private final int pageSize;
-	private int currentPageNumber;
-	private Iterator<T> currentPage;
+        private final JpaBaseRepository<T, K> repository;
+        private final int pageSize;
+        private int currentPageNumber;
+        private Iterator<T> currentPage;
 
-	private JpaPagedIterator(JpaBaseRepository<T, K> repository, int pagesize) {
-	    this.repository = repository;
-	    this.pageSize = pagesize;
-	}
+        private JpaPagedIterator(JpaBaseRepository<T, K> repository, int pagesize) {
+            this.repository = repository;
+            this.pageSize = pagesize;
+        }
 
-	@Override
-	public boolean hasNext() {
-	    if (needsToLoadPage()) {
-		loadNextPage();
-	    }
-	    return this.currentPage.hasNext();
-	}
+        @Override
+        public boolean hasNext() {
+            if (needsToLoadPage()) {
+                loadNextPage();
+            }
+            return this.currentPage.hasNext();
+        }
 
-	@Override
-	public T next() {
-	    if (needsToLoadPage()) {
-		loadNextPage();
-	    }
-	    return this.currentPage.next();
-	}
+        @Override
+        public T next() {
+            if (needsToLoadPage()) {
+                loadNextPage();
+            }
+            return this.currentPage.next();
+        }
 
-	@Override
-	public void remove() {
-	    throw new UnsupportedOperationException("Not supported yet.");
-	}
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
 
-	private void loadNextPage() {
-	    final List<T> page = this.repository.page(++this.currentPageNumber, this.pageSize);
-	    this.currentPage = page.iterator();
-	}
+        private void loadNextPage() {
+            final List<T> page = this.repository.page(++this.currentPageNumber, this.pageSize);
+            this.currentPage = page.iterator();
+        }
 
-	private boolean needsToLoadPage() {
-	    // either we do not have an iterator yet or we have reached the end
-	    // of the (current) iterator
-	    return this.currentPage == null || !this.currentPage.hasNext();
-	}
+        private boolean needsToLoadPage() {
+            // either we do not have an iterator yet or we have reached the end
+            // of the (current) iterator
+            return this.currentPage == null || !this.currentPage.hasNext();
+        }
     }
 }

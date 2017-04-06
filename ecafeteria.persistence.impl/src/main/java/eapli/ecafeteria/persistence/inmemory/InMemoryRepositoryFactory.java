@@ -16,7 +16,7 @@ import eapli.ecafeteria.persistence.UserRepository;
 public class InMemoryRepositoryFactory implements RepositoryFactory {
 
     @Override
-    public UserRepository users() {
+    public UserRepository users(boolean tx) {
         return new InMemoryUserRepository();
     }
 
@@ -31,13 +31,13 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     }
 
     @Override
-    public CafeteriaUserRepository cafeteriaUsers() {
+    public CafeteriaUserRepository cafeteriaUsers(boolean tx) {
 
         return new InMemoryCafeteriaUserRepository();
     }
 
     @Override
-    public SignupRequestRepository signupRequests() {
+    public SignupRequestRepository signupRequests(boolean tx) {
         return new InMemorySignupRequestRepository();
     }
 

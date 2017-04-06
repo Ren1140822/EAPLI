@@ -1,6 +1,7 @@
 package eapli.framework.persistence.repositories.impl.inmemory;
 
 import eapli.framework.persistence.repositories.DataRepository;
+import eapli.framework.persistence.repositories.TransactionalContext;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
  * Created by nuno on 20/03/16.
  */
 public abstract class InMemoryRepository<T, K>
-        implements DataRepository<T, K> {
+        implements DataRepository<T, K>, TransactionalContext {
 
     // Ideally this would be a typed generic Map but since it is a static member
     // it cannot be generic. the solution is to use the old-style untyped Map
@@ -128,5 +129,29 @@ public abstract class InMemoryRepository<T, K>
         // TODO if there is no element an IndexOutOfBounds exception will be
         // thrown. most likely we should return null
         return data().values().stream().filter(filterFunc).collect(Collectors.toList()).get(0);
+    }
+
+    @Override
+    public void beginTransaction() {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //just ignore...
+    }
+
+    @Override
+    public void commit() {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //just ignore...
+    }
+
+    @Override
+    public void rollback() {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //just ignore...
+    }
+
+    @Override
+    public void close() {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //just ignore...
     }
 }

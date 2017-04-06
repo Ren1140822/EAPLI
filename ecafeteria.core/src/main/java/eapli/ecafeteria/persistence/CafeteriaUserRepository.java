@@ -4,12 +4,13 @@ import eapli.ecafeteria.domain.authz.Username;
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
 import eapli.framework.persistence.repositories.DataRepository;
+import eapli.framework.persistence.repositories.TransactionalContext;
 
 /**
  *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
-public interface CafeteriaUserRepository extends DataRepository<CafeteriaUser, MecanographicNumber> {
+public interface CafeteriaUserRepository extends DataRepository<CafeteriaUser, MecanographicNumber>, TransactionalContext {
 
     /**
      * returns the cafeteria user (utente) whose username is given

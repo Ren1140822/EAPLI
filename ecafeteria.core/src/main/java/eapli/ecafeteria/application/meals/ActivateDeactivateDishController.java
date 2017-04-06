@@ -34,8 +34,6 @@ public class ActivateDeactivateDishController implements Controller {
         }
         dish.toogleState();
 
-        this.dishRepository.beginTransaction();
         Dish ret = this.dishRepository.save(dish);
-        this.dishRepository.commit();
     }
 }

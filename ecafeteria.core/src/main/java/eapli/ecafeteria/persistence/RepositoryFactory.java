@@ -9,15 +9,33 @@ package eapli.ecafeteria.persistence;
  */
 public interface RepositoryFactory {
 
-    UserRepository users();
+    /**
+     *
+     * @param autoTx declares if the repository should be created in auto
+     * transaction mode or if the caller will take care of transactions
+     * @return
+     */
+    UserRepository users(boolean autoTx);
 
     DishTypeRepository dishTypes();
 
     OrganicUnitRepository organicUnits();
 
-    CafeteriaUserRepository cafeteriaUsers();
+    /**
+     *
+     * @param autoTx declares if the repository should be created in auto
+     * transaction mode or if the caller will take care of transactions
+     * @return
+     */
+    CafeteriaUserRepository cafeteriaUsers(boolean autoTx);
 
-    SignupRequestRepository signupRequests();
+    /**
+     *
+     * @param autoTx declares if the repository should be created in auto
+     * transaction mode or if the caller will take care of transactions
+     * @return
+     */
+    SignupRequestRepository signupRequests(boolean autoTx);
 
     DishRepository dishes();
 

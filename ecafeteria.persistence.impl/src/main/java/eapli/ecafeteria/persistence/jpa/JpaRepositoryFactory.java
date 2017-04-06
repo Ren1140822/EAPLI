@@ -15,8 +15,8 @@ import eapli.ecafeteria.persistence.UserRepository;
 public class JpaRepositoryFactory implements RepositoryFactory {
 
     @Override
-    public UserRepository users() {
-        return new JpaUserRepository();
+    public UserRepository users(boolean autoTx) {
+        return new JpaUserRepository(autoTx);
     }
 
     @Override
@@ -30,13 +30,13 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     }
 
     @Override
-    public JpaCafeteriaUserRepository cafeteriaUsers() {
-        return new JpaCafeteriaUserRepository();
+    public JpaCafeteriaUserRepository cafeteriaUsers(boolean autoTx) {
+        return new JpaCafeteriaUserRepository(autoTx);
     }
 
     @Override
-    public SignupRequestRepository signupRequests() {
-        return new JpaSignupRequestRepository();
+    public SignupRequestRepository signupRequests(boolean autoTx) {
+        return new JpaSignupRequestRepository(autoTx);
     }
 
     @Override
