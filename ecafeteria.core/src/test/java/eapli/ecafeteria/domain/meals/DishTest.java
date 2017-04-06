@@ -21,7 +21,7 @@ public class DishTest {
 
     private DishType peixe;
     private NutricionalInfo aNutricionalInfo;
-    private Designation prego = Designation.valueOf("Prego");
+    private final Designation prego = Designation.valueOf("Prego");
 
     public DishTest() {
     }
