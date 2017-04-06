@@ -20,7 +20,7 @@ import java.util.Calendar;
  */
 public class SignupController implements Controller {
 
-    private final SignupRequestRepository signupRequestRepository = PersistenceContext.repositories().signupRequests();
+    private final SignupRequestRepository signupRequestRepository = PersistenceContext.repositories().signupRequests(true);
     private final OrganicUnitRepository organicUnitRepository = PersistenceContext.repositories().organicUnits();
 
     public SignupRequest signup(final String username, final String password, final String firstName,

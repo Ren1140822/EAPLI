@@ -20,7 +20,7 @@ import java.util.Set;
  */
 public class AddUserController implements Controller {
 
-    private final UserRepository userRepository = PersistenceContext.repositories().users();
+    private final UserRepository userRepository = PersistenceContext.repositories().users(true);
 
     /**
      * Get existing RoleTypes available to the user.

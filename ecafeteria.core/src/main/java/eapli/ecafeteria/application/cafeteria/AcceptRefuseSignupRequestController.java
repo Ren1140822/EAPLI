@@ -23,12 +23,22 @@ import eapli.framework.persistence.DataIntegrityViolationException;
 /**
  *
  * Created by AJS on 08/04/2016.
+ *
+ * @FIXME this controller has lots of logic that should be moved to a domain
+ * service
+ *
+ * @TODO there is some code duplication to create and add the system user
+ *
+ * @TODO following the guideline that a controller should only change one
+ * Aggregate, we shouldn't be changing all these entities here, but should
+ * instead use asynchronous events. However in this case we will take advantage
+ * of TransactionalContext
  */
 public class AcceptRefuseSignupRequestController implements Controller {
 
-    private final UserRepository userRepository = PersistenceContext.repositories().users();
-    private final CafeteriaUserRepository cafeteriaUserRepository = PersistenceContext.repositories().cafeteriaUsers();
-    private final SignupRequestRepository signupRequestsRepository = PersistenceContext.repositories().signupRequests();
+    private final UserRepository userRepository = PersistenceContext.repositories().users(false);
+    private final CafeteriaUserRepository cafeteriaUserRepository = PersistenceContext.repositories().cafeteriaUsers(false);
+    private final SignupRequestRepository signupRequestsRepository = PersistenceContext.repositories().signupRequests(false);
 
     public SignupRequest acceptSignupRequest(SignupRequest theSignupRequest)
             throws DataIntegrityViolationException, DataConcurrencyException {
@@ -38,15 +48,11 @@ public class AcceptRefuseSignupRequestController implements Controller {
             throw new IllegalStateException();
         }
 
-        // FIXME this controller has lots of logic that should be moved to a
-        // domain service
         //
-        // TODO there is some code duplication to create and add the system
-        // user
+        // explicitly begin a transaction
         //
-        // TODO following the guideline that a controller should only change one
-        // Aggregate, we shouldn't be changing all these entities here, but
-        // should instead use asynchronous events.
+        userRepository.beginTransaction();
+
         //
         // add system user
         //
@@ -69,7 +75,13 @@ public class AcceptRefuseSignupRequestController implements Controller {
         // modify Signup Request to accepted
         //
         theSignupRequest.accept();
-        return this.signupRequestsRepository.save(theSignupRequest);
+        theSignupRequest = this.signupRequestsRepository.save(theSignupRequest);
+
+        //
+        // explicitly commit the transaction
+        userRepository.commit();
+
+        return theSignupRequest;
     }
 
     public SignupRequest refuseSignupRequest(SignupRequest theSignupRequest)

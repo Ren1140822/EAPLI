@@ -11,7 +11,7 @@ import java.util.Optional;
  */
 public class AuthenticationService {
 
-    private final UserRepository repo = PersistenceContext.repositories().users();
+    private final UserRepository repo = PersistenceContext.repositories().users(true);
 
     /**
      * Checks if a user can be authenticated with the username/password pair

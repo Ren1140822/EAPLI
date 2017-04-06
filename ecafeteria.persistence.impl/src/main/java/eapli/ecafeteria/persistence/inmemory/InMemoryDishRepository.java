@@ -19,28 +19,4 @@ public class InMemoryDishRepository extends InMemoryRepository<Dish, Designation
     protected Designation newPK(Dish entity) {
         return entity.id();
     }
-
-    @Override
-    public void beginTransaction() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        //just ignore...
-    }
-
-    @Override
-    public void commit() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        //just ignore...
-    }
-
-    @Override
-    public void rollback() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        //just ignore...
-    }
-
-    @Override
-    public void close() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        //just ignore...
-    }
 }
