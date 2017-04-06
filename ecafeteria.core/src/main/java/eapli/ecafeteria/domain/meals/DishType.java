@@ -2,115 +2,167 @@ package eapli.ecafeteria.domain.meals;
 
 import eapli.framework.domain.AggregateRoot;
 import eapli.util.Strings;
+
+import javax.persistence.*;
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Version;
 
 /**
  * a dish type, e.g., vegetarian or fish or meat.
- *
+ * <p>
  * this class is implemented in a more traditional way than DDD, by using
  * primitive types for the attributes instead of value objects. this means that
  * some semantic is lost and potential code duplication may rise if the same
  * concept is used as an attribute in more than one class. however, the learning
  * curve is smoother when compared to full DDD.
- *
- *
+ * <p>
+ * <p>
  * Created by MCN on 29/03/2016.
  */
 @Entity
 public class DishType implements AggregateRoot<String>, Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    // ORM primary key
-    @Id
-    @GeneratedValue
-    private Long pk;
-    @Version
-    private Long version;
+	// ORM primary key
+	@Id
+	@GeneratedValue
+	private Long pk;
+	@Version
+	private Long version;
 
-    // business ID
-    @Column(unique = true)
-    private String acronym;
-    private String description;
-    private boolean active;
+	// business ID
+	@Column(unique = true)
+	private String acronym;
+	private String description;
+	private boolean active;
 
-    protected DishType() {
-        // for ORM
-    }
+	protected DishType() {
+		// for ORM
+	}
 
-    public DishType(String name, String description) {
-        if (Strings.isNullOrEmpty(name) || Strings.isNullOrEmpty(description)) {
-            throw new IllegalStateException();
-        }
-        this.acronym = name;
-        this.description = description;
-        this.active = true;
-    }
+	/**
+	 * DishType constructor.
+	 *
+	 * @param name        Mandatory
+	 * @param description Mandatory
+	 */
+	public DishType(String name, String description) {
+		setName(name);
+		setDescription(description);
+		this.active = true;
+	}
 
-    public String description() {
-        return this.description;
-    }
+	/**
+	 * Sets and validates newDescription.
+	 *
+	 * @param newDescription
+	 */
+	private void setDescription(String newDescription) {
+		if (descriptionMeetsMinimumRequirements(newDescription)) {
+			this.description = description;
+		} else {
+			throw new IllegalArgumentException("Invalid Description");
+		}
+	}
 
-    public boolean isActive() {
-        return this.active;
-    }
+	/**
+	 * Sets and validates newName.
+	 *
+	 * @param newName
+	 */
+	private void setName(String newName) {
+		if (nameMeetsMinimumRequirements(newName)) {
+			this.acronym = newName;
+		} else {
+			throw new IllegalArgumentException("Invalid Name");
+		}
+	}
 
-    /**
-     * toggles the state of the dishtype, activating it or deactivating it
-     * accordingly.
-     *
-     * @return whether the dishtype is active or not
-     */
-    public boolean toogleState() {
+	/**
+	 * Ensure name is not null or empty.
+	 *
+	 * @param name
+	 * @return True if name meets minimum requirements. False if name does not meet minimum requirements.
+	 */
+	private boolean nameMeetsMinimumRequirements(String name) {
+		return !Strings.isNullOrEmpty(name);
+	}
 
-        this.active = !this.active;
-        return isActive();
-    }
+	/**
+	 * Ensure description is not null or empty.
+	 *
+	 * @param description
+	 * @return True if description meets minimum requirements. False if description does not meet minimum requirements.
+	 */
+	private boolean descriptionMeetsMinimumRequirements(String description) {
+		return !Strings.isNullOrEmpty(description);
+	}
 
-    public void changeDescriptionTo(String newDescription) {
-        if (newDescription == null || newDescription.trim().isEmpty()) {
-            throw new IllegalArgumentException();
-        }
-        this.description = newDescription;
-    }
 
-    @Override
-    public String id() {
-        return this.acronym;
-    }
+	public String description() {
+		return this.description;
+	}
 
-    @Override
-    public boolean is(String id) {
-        return id.equalsIgnoreCase(this.acronym);
-    }
+	public boolean isActive() {
+		return this.active;
+	}
 
-    @Override
-    public boolean sameAs(Object other) {
-        final DishType dishType = (DishType) other;
-        return this.equals(dishType) && description().equals(dishType.description()) && isActive() == dishType.isActive();
-    }
+	/**
+	 * Toggles the state of the dishtype, activating it or deactivating it
+	 * accordingly.
+	 *
+	 * @return whether the dishtype is active or not
+	 */
+	public boolean toogleState() {
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof DishType)) {
-            return false;
-        }
+		this.active = !this.active;
+		return isActive();
+	}
 
-        final DishType other = (DishType) o;
-        return id().equals(other.id());
-    }
+	/**
+	 * Change DishType description
+	 *
+	 * @param newDescription New description.
+	 */
+	public void changeDescriptionTo(String newDescription) {
+		if (!descriptionMeetsMinimumRequirements(newDescription)) {
+			throw new IllegalArgumentException();
+		}
+		this.description = newDescription;
+	}
 
-    @Override
-    public int hashCode() {
-        return this.acronym.hashCode();
-    }
+	@Override
+	public boolean is(String id) {
+		return id.equalsIgnoreCase(this.acronym);
+	}
+
+	@Override
+	public String id() {
+		return this.acronym;
+	}
+
+	@Override
+	public boolean sameAs(Object other) {
+		final DishType dishType = (DishType) other;
+		return this.equals(dishType) && description().equals(dishType.description()) && isActive() == dishType.isActive();
+	}
+
+	@Override
+	public int hashCode() {
+		return this.acronym.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof DishType)) {
+			return false;
+		}
+
+		final DishType other = (DishType) o;
+		return id().equals(other.id());
+	}
 
 }

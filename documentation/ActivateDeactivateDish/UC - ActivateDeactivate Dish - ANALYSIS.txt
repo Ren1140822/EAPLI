@@ -1,31 +1,31 @@
 	___________
 
-	AN¡LISE 
+	AN√ÅLISE 
 	____________
 
 
-	Reuni„o com o cliente  em 2017.03.27
+	Reuni√£o com o cliente  em 2017.03.27
 
 	* Um prato passa a ter um estado ativo ou inativo
-	* Esse estado vai ser importante no futuro para a possibilidade de inclus„o numa ementa
-	* O utilizador que pode efetuar esta alteraÁ„o È do tipo ìmenu managerî
-	* N„o importa saber o historico de estado do prato
+	* Esse estado vai ser importante no futuro para a possibilidade de inclus√£o numa ementa
+	* O utilizador que pode efetuar esta altera√ß√£o √© do tipo "menu manager"
+	* N√£o importa saber o historico de estado do prato
 	* Um prato pode ser desativado mesmo que esteja atualmente em uso numa ementa
 
 
 	______________________
 
-	REGRAS DE NEG”CIO
+	REGRAS DE NEG√ìCIO
 	_____________________
 
 
-	* Um prato È inicialmente criado no estado ativo
+	* Um prato √© inicialmente criado no estado ativo
 
 
 
 	______________________
 		
-	TESTES UNIT¡RIOS
+	TESTES UNIT√ÅRIOS
 	_____________________
 
 

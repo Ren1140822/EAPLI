@@ -7,7 +7,7 @@
 	_______________________________
 
 	1. Fazer o login como chef/Password1
-	2. Escolher a opção   Dish  >  Activate/Deactivate Dish
+	2. Escolher a opÃ§Ã£o   Dish  >  Activate/Deactivate Dish
 	3. Mostrar todos os pratos e seu estado
 	4. Escolher Dish a atualizar
-	5. Confirmar a atualização efetuada através de List Dishes (Dish  >  List Dish)
+	5. Confirmar a atualizaÃ§Ã£o efetuada atravÃ©s de List Dishes (Dish  >  List Dish)
