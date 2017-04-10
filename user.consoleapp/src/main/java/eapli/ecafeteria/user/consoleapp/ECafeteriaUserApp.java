@@ -17,7 +17,7 @@ public final class ECafeteriaUserApp {
     public static void main(final String[] args) {
 
         // only needed because of the in memory persistence
-        new ECafeteriaBootstrap().execute();
+//        new ECafeteriaBootstrap().execute();
 
         new FrontMenu().show();
     }
