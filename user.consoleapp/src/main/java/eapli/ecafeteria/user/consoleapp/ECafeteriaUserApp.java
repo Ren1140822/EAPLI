@@ -16,8 +16,8 @@ public final class ECafeteriaUserApp {
 
     public static void main(final String[] args) {
 
-        // only needed because of the in memory persistence
-        new ECafeteriaBootstrap().execute();
+        // to ensure some default test data is available, specially when using in memory persistence
+        // new ECafeteriaBootstrap().execute();
 
         new FrontMenu().show();
     }
