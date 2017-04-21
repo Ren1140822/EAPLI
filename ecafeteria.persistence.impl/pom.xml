@@ -35,4 +35,5 @@
             <version>1.4.194</version>
         </dependency>
     </dependencies>
+    <name>ecafeteria.persistence.impl</name>
 </project>
