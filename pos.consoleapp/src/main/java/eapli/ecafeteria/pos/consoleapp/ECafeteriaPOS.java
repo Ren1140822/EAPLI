@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates and open the template
  * in the editor.
  */
-package eapli.ecafeteria.backoffice.consoleapp;
+package eapli.ecafeteria.pos.consoleapp;
 
 import eapli.cafeteria.consoleapp.presentation.authz.LoginAction;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.MainMenu;
+import eapli.ecafeteria.pos.consoleapp.presentation.MainMenu;
 
 /**
  *
  * @author Paulo Gandra Sousa
  */
-public final class ECafeteriaBackoffice {
+public final class ECafeteriaPOS {
 
     /**
      * @param args the command line arguments
@@ -29,6 +29,6 @@ public final class ECafeteriaBackoffice {
     /**
      * Empty constructor is private to avoid instantiation of this class.
      */
-    private ECafeteriaBackoffice() {
+    private ECafeteriaPOS() {
     }
 }

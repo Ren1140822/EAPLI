@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates and open the template
  * in the editor.
  */
-package eapli.ecafeteria.bootstrapapp;
+package eapli.ecafeteria.bootstrapers;
 
 import eapli.ecafeteria.application.authz.AddUserController;
 import eapli.ecafeteria.domain.authz.RoleType;
@@ -70,7 +70,7 @@ public class UsersBootstraper implements Action {
         } catch (final DataIntegrityViolationException | DataConcurrencyException e) {
             // ignoring exception. assuming it is just a primary key violation
             // due to the tentative of inserting a duplicated user
-            Logger.getLogger(ECafeteriaBootstrap.class.getSimpleName())
+            Logger.getLogger(ECafeteriaBootstraper.class.getSimpleName())
                     .info("EAPLI-DI001: bootstrapping existing record");
         }
     }

@@ -1,4 +1,4 @@
-package eapli.ecafeteria.bootstrapapp;
+package eapli.ecafeteria.bootstrapers;
 
 import eapli.ecafeteria.application.cafeteria.AddOrganicUnitController;
 import eapli.framework.actions.Action;
@@ -30,7 +30,7 @@ public class OrganicUnitBootstraper implements Action {
         } catch (final DataIntegrityViolationException | DataConcurrencyException e) {
             // ignoring exception. assuming it is just a primary key violation
             // due to the tentative of inserting a duplicated user
-            Logger.getLogger(ECafeteriaBootstrap.class.getSimpleName())
+            Logger.getLogger(ECafeteriaBootstraper.class.getSimpleName())
                     .info("EAPLI-DI001: bootstrapping existing record");
         }
     }
