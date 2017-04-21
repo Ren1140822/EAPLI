@@ -114,7 +114,7 @@ public class MainMenu extends AbstractUI {
 
     @Override
     public String headline() {
-        return "eCAFETERIA [@" + Application.session().session().authenticatedUser().id() + "]";
+        return "eCafeteria Back Office [@" + Application.session().session().authenticatedUser().id() + "]";
     }
 
     private Menu buildMainMenu() {

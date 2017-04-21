@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates and open the template
  * in the editor.
  */
-package eapli.ecafeteria.bootstrapapp;
+package eapli.ecafeteria.bootstrapers;
 
 import java.util.logging.Logger;
 
@@ -48,7 +48,7 @@ public class CafeteriaUserBootstraper implements Action {
             acceptController.acceptSignupRequest(request);
         } catch (final DataConcurrencyException | DataIntegrityViolationException e) {
             // assume it just a question of trying to insert duplicate record
-            Logger.getLogger(ECafeteriaBootstrap.class.getSimpleName())
+            Logger.getLogger(ECafeteriaBootstraper.class.getSimpleName())
                     .info("EAPLI-DI001: Exception during bootstrapping: assuming existing record.");
         }
         return request;
