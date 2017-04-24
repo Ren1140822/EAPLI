@@ -4,6 +4,9 @@ ANALYSIS
 
 Meeting with the client at 06/04/2017
 
+Q: How does the cashier operator identifies a client?
+A: It is external to the system, using a QR Code reader that retrieves his mecanographic number.
+
 Q: What is the currency system? Money, points or something else?
 A: [not replied yet]
 Assumption: We've assumed that it is money.
