@@ -1,0 +1,40 @@
+-----------------
+ANALYSIS
+-----------------
+
+Meeting with the client at 06/04/2017
+
+Q: What is the currency system? Money, points or something else?
+A: [not replied yet]
+Assumption: We've assumed that it is money.
+
+Q: If it is a money system, what is the used currency (e.g. Euro, US Dollar...)? Or is it multi-currency?
+A: [not replied yet]
+Assumption: We've assumed that it is Euro.
+
+Q: What information is required for a transaction?
+A: [not replied yet]
+Assumption: We've assumed that it has an associated date and an ammount.
+
+Q: Can the card account balance be negative?
+A: [not replied yet]
+Assumption: No.
+
+-----------------
+BUSINESS RULES
+-----------------
+
+A transaction has a date and an amount in Euros.
+An account card has a list of transactions and a Balance.
+A balance has the current amount (result from the sum of the transactions).
+
+-----------------
+UNIT TESTS
+-----------------
+
+ensureTransactionHasDate
+ensureTransactionHasAmount
+ensureAccountCardHasTransactions
+ensureAccountCardHasBalance
+ensureBalanceHasAmount
+ensureBalanceIsPositive
