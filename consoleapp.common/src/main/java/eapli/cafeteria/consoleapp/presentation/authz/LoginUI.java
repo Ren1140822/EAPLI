@@ -3,7 +3,7 @@ package eapli.cafeteria.consoleapp.presentation.authz;
 import eapli.ecafeteria.application.authz.LoginController;
 import eapli.framework.application.Controller;
 import eapli.framework.presentation.console.AbstractUI;
-import eapli.util.Console;
+import eapli.util.io.Console;
 
 /**
  * UI for user login action. Created by nuno on 21/03/16.
