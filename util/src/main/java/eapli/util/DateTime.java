@@ -182,7 +182,7 @@ public final class DateTime {
             final Date date = df.parse(aDateString);
             return dateToCalendar(date);
         } catch (final ParseException ex) {
-            Logger.getLogger(Console.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DateTime.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
