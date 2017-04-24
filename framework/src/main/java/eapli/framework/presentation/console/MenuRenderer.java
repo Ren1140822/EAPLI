@@ -1,6 +1,6 @@
 package eapli.framework.presentation.console;
 
-import eapli.util.Console;
+import eapli.util.io.Console;
 
 public abstract class MenuRenderer {
 

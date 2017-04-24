@@ -5,13 +5,15 @@
  */
 package eapli.framework.dto;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import org.junit.After;
 import org.junit.AfterClass;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -33,17 +35,17 @@ public class GenericDtoForCollectionClassTest {
 
     @BeforeClass
     public static void setUpClass() {
-        System.out.println("GenericDtoForCollectionClassTest");
+	System.out.println("GenericDtoForCollectionClassTest");
 
-        instance = GenericDTO.buildDTO(subject);
+	instance = GenericDTO.of(subject);
 
-        System.out.println("===========");
-        System.out.println(instance);
-        System.out.println(instance.type());
-        for (final Map.Entry<String, Object> e : instance.entrySet()) {
-            System.out.println("[" + e.getKey() + "] => [" + e.getValue() + "]");
-        }
-        System.out.println("===========");
+	System.out.println("===========");
+	System.out.println(instance);
+	System.out.println(instance.type());
+	for (final Map.Entry<String, Object> e : instance.entrySet()) {
+	    System.out.println("[" + e.getKey() + "] => [" + e.getValue() + "]");
+	}
+	System.out.println("===========");
     }
 
     @AfterClass
@@ -61,73 +63,71 @@ public class GenericDtoForCollectionClassTest {
 
     @SuppressWarnings("unused")
     private static class SimpleClass {
+	private final String stringField;
+	private final int intField;
 
-        private final String stringField;
-        private final int intField;
-
-        public SimpleClass(String s, int i) {
-            this.stringField = s;
-            this.intField = i;
-        }
+	public SimpleClass(String s, int i) {
+	    this.stringField = s;
+	    this.intField = i;
+	}
     }
 
     private static class WithListClass {
+	private final int intField;
+	private final List<SimpleClass> data = new ArrayList<SimpleClass>();
 
-        private final int intField;
-        private final List<SimpleClass> data = new ArrayList<SimpleClass>();
-
-        public WithListClass(int n, SimpleClass c) {
-            this.intField = n;
-            for (int i = 0; i < this.intField; i++) {
-                this.data.add(c);
-            }
-        }
+	public WithListClass(int n, SimpleClass c) {
+	    this.intField = n;
+	    for (int i = 0; i < this.intField; i++) {
+		this.data.add(c);
+	    }
+	}
     }
 
     @Test
     public void ensureType() {
-        System.out.println("ensureType");
+	System.out.println("ensureType");
 
-        assertEquals("Name of type is incorrect", subject.getClass().getName(), instance.type());
+	assertEquals("Name of type is incorrect", subject.getClass().getName(), instance.type());
     }
 
     @Test
     public void ensureDTOHas2Fields() {
-        System.out.println("ensureDTOHas2Fields");
+	System.out.println("ensureDTOHas2Fields");
 
-        assertEquals("Name of type is incorrect", 2, instance.size());
+	assertEquals("Name of type is incorrect", 2, instance.size());
     }
 
     @Test
     public void ensureListFieldIsList() {
-        System.out.println("ensureListFieldIsList");
+	System.out.println("ensureListFieldIsList");
 
-        assertTrue("'data' is not a List", List.class.isAssignableFrom(instance.get("data").getClass()));
+	assertTrue("'data' is not a List", List.class.isAssignableFrom(instance.get("data").getClass()));
     }
 
     @Test
     public void ensureListFieldHasAllMembers() {
-        System.out.println("ensureListFieldHasAllMembers");
+	System.out.println("ensureListFieldHasAllMembers");
 
-        assertEquals("'data' list is missing elements", INT_FIELD_VALUE, ((List<?>) (instance.get("data"))).size());
+	assertEquals("'data' list is missing elements", INT_FIELD_VALUE, ((List<?>) (instance.get("data"))).size());
     }
 
     @SuppressWarnings("unchecked")
     @Test
     public void ensureListFieldIsTransformed() {
-        System.out.println("ensureListFieldIsTransformed");
+	System.out.println("ensureListFieldIsTransformed");
 
-        for (final GenericDTO e : (List<GenericDTO>) (instance.get("data"))) {
-            assertEquals("'intField' is incorrect", INT_FIELD_VALUE, e.get("intField"));
-            assertEquals("'stringField' is incorrect", STRING_FIELD_VALUE, e.get("stringField"));
-        }
-        assertTrue(true);
+	for (final GenericDTO e : (List<GenericDTO>) (instance.get("data"))) {
+	    assertEquals("'intField' is incorrect", INT_FIELD_VALUE, e.get("intField"));
+	    assertEquals("'stringField' is incorrect", STRING_FIELD_VALUE, e.get("stringField"));
+	}
+	assertTrue(true);
     }
 
     @Test
     public void ensureIntFieldIsTransformed() {
-        System.out.println("ensureIntFieldIsTransformed");
+	System.out.println("ensureIntFieldIsTransformed");
 
-        assertEquals("'intField' is incorrectly transformed", INT_FIELD_VALUE, instance.get("intField"));
+	assertEquals("'intField' is incorrectly transformed", INT_FIELD_VALUE, instance.get("intField"));
     }
 }

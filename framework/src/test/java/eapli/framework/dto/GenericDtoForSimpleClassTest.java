@@ -5,10 +5,12 @@
  */
 package eapli.framework.dto;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Map;
+
 import org.junit.After;
 import org.junit.AfterClass;
-import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -29,17 +31,17 @@ public class GenericDtoForSimpleClassTest {
 
     @BeforeClass
     public static void setUpClass() {
-        System.out.println("GenericDtoForSimpleClassTest");
+	System.out.println("GenericDtoForSimpleClassTest");
 
-        instance = GenericDTO.buildDTO(subject);
+	instance = GenericDTO.of(subject);
 
-        System.out.println("===========");
-        System.out.println(instance);
-        System.out.println(instance.type());
-        for (final Map.Entry<String, Object> e : instance.entrySet()) {
-            System.out.println("[" + e.getKey() + "] => [" + e.getValue() + "]");
-        }
-        System.out.println("===========");
+	System.out.println("===========");
+	System.out.println(instance);
+	System.out.println(instance.type());
+	for (final Map.Entry<String, Object> e : instance.entrySet()) {
+	    System.out.println("[" + e.getKey() + "] => [" + e.getValue() + "]");
+	}
+	System.out.println("===========");
     }
 
     @AfterClass
@@ -57,41 +59,40 @@ public class GenericDtoForSimpleClassTest {
 
     @SuppressWarnings("unused")
     private static class SimpleClass {
+	private final String stringField;
+	private final int intField;
 
-        private final String stringField;
-        private final int intField;
-
-        public SimpleClass(String s, int i) {
-            this.stringField = s;
-            this.intField = i;
-        }
+	public SimpleClass(String s, int i) {
+	    this.stringField = s;
+	    this.intField = i;
+	}
     }
 
     @Test
     public void ensureType() {
-        System.out.println("ensureType");
+	System.out.println("ensureType");
 
-        assertEquals("Name of type is incorrect", subject.getClass().getName(), instance.type());
+	assertEquals("Name of type is incorrect", subject.getClass().getName(), instance.type());
     }
 
     @Test
     public void ensureDTOHas2Fields() {
-        System.out.println("ensureDTOHas2Fields");
+	System.out.println("ensureDTOHas2Fields");
 
-        assertEquals("Name of type is incorrect", 2, instance.size());
+	assertEquals("Name of type is incorrect", 2, instance.size());
     }
 
     @Test
     public void ensureStringFieldIsTransformed() {
-        System.out.println("ensureStringFieldIsTransformed");
+	System.out.println("ensureStringFieldIsTransformed");
 
-        assertEquals("'stringField' is incorrectly transformed", STRING_FIELD_VALUE, instance.get("stringField"));
+	assertEquals("'stringField' is incorrectly transformed", STRING_FIELD_VALUE, instance.get("stringField"));
     }
 
     @Test
     public void ensureIntFieldIsTransformed() {
-        System.out.println("ensureIntFieldIsTransformed");
+	System.out.println("ensureIntFieldIsTransformed");
 
-        assertEquals("'intField' is incorrectly transformed", INT_FIELD_VALUE, instance.get("intField"));
+	assertEquals("'intField' is incorrectly transformed", INT_FIELD_VALUE, instance.get("intField"));
     }
 }
