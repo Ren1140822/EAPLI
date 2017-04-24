@@ -17,15 +17,15 @@
     </properties>
 
     <modules>
-        <module>ecafeteria.bootstrapapp</module>
         <module>backoffice.consoleapp</module>
         <module>user.consoleapp</module>
+        <module>pos.consoleapp</module>
+        <module>consoleapp.common</module>
+        <module>ecafeteria.bootstrapapp</module>
+        <module>ecafeteria.bootstrap.core</module>
         <module>ecafeteria.core</module>
+        <module>ecafeteria.persistence.impl</module>
         <module>framework</module>
         <module>util</module>
-        <module>consoleapp.common</module>
-        <module>ecafeteria.persistence.impl</module>
     </modules>
-
-
 </project>
