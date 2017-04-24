@@ -22,7 +22,7 @@ public class GenericDTOTest {
 
     @BeforeClass
     public static void setUpClass() {
-        System.out.println("GenericDTO");
+	System.out.println("GenericDTO");
 
     }
 
@@ -41,13 +41,13 @@ public class GenericDTOTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void ensureTypeIsNotNull() {
-        System.out.println("ensureTypeIsNotNull");
-        new GenericDTO(null);
+	System.out.println("ensureTypeIsNotNull");
+	new GenericDTO(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void ensureTypeIsNotEmpty() {
-        System.out.println("ensureTypeIsNotEmpty");
-        new GenericDTO("");
+	System.out.println("ensureTypeIsNotEmpty");
+	new GenericDTO("");
     }
 }

@@ -5,7 +5,7 @@
 package eapli.framework.presentation.console;
 
 import eapli.framework.visitor.Visitor;
-import eapli.util.Console;
+import eapli.util.io.Console;
 import java.util.Collection;
 import java.util.Iterator;
 

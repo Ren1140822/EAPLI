@@ -5,10 +5,12 @@
  */
 package eapli.framework.dto;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Map;
+
 import org.junit.After;
 import org.junit.AfterClass;
-import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -31,17 +33,17 @@ public class GenericDtoForInheritedClassTest {
 
     @BeforeClass
     public static void setUpClass() {
-        System.out.println("GenericDtoForInheritedClassTest");
+	System.out.println("GenericDtoForInheritedClassTest");
 
-        instance = GenericDTO.buildDTO(subject);
+	instance = GenericDTO.of(subject);
 
-        System.out.println("===========");
-        System.out.println(instance);
-        System.out.println(instance.type());
-        for (final Map.Entry<String, Object> e : instance.entrySet()) {
-            System.out.println("[" + e.getKey() + "] => [" + e.getValue() + "]");
-        }
-        System.out.println("===========");
+	System.out.println("===========");
+	System.out.println(instance);
+	System.out.println(instance.type());
+	for (final Map.Entry<String, Object> e : instance.entrySet()) {
+	    System.out.println("[" + e.getKey() + "] => [" + e.getValue() + "]");
+	}
+	System.out.println("===========");
     }
 
     @AfterClass
@@ -59,59 +61,57 @@ public class GenericDtoForInheritedClassTest {
 
     @SuppressWarnings("unused")
     private static class SimpleClassBase {
+	private final String stringField;
+	private final int intField;
 
-        private final String stringField;
-        private final int intField;
-
-        public SimpleClassBase(String s, int i) {
-            this.stringField = s;
-            this.intField = i;
-        }
+	public SimpleClassBase(String s, int i) {
+	    this.stringField = s;
+	    this.intField = i;
+	}
     }
 
     @SuppressWarnings("unused")
     private static class SimpleClass extends SimpleClassBase {
+	private final float floatField;
 
-        private final float floatField;
-
-        public SimpleClass(String s, int i, float f) {
-            super(s, i);
-            this.floatField = f;
-        }
+	public SimpleClass(String s, int i, float f) {
+	    super(s, i);
+	    this.floatField = f;
+	}
     }
 
     @Test
     public void ensureType() {
-        System.out.println("ensureType");
+	System.out.println("ensureType");
 
-        assertEquals("Name of type is incorrect", instance.type(), subject.getClass().getName());
+	assertEquals("Name of type is incorrect", instance.type(), subject.getClass().getName());
     }
 
     @Test
     public void ensureDTOHas3Fields() {
-        System.out.println("ensureDTOHas3Fields");
+	System.out.println("ensureDTOHas3Fields");
 
-        assertEquals("Name of type is incorrect", 3, instance.size());
+	assertEquals("Name of type is incorrect", 3, instance.size());
     }
 
     @Test
     public void ensureStringFieldIsTransformed() {
-        System.out.println("ensureStringFieldIsTransformed");
+	System.out.println("ensureStringFieldIsTransformed");
 
-        assertEquals("'stringField' is incorrectly transformed", STRING_FIELD_VALUE, instance.get("stringField"));
+	assertEquals("'stringField' is incorrectly transformed", STRING_FIELD_VALUE, instance.get("stringField"));
     }
 
     @Test
     public void ensureIntFieldIsTransformed() {
-        System.out.println("ensureIntFieldIsTransformed");
+	System.out.println("ensureIntFieldIsTransformed");
 
-        assertEquals("'intField' is incorrectly transformed", INT_FIELD_VALUE, instance.get("intField"));
+	assertEquals("'intField' is incorrectly transformed", INT_FIELD_VALUE, instance.get("intField"));
     }
 
     @Test
     public void ensureFloatFieldIsTransformed() {
-        System.out.println("ensureFloatFieldIsTransformed");
+	System.out.println("ensureFloatFieldIsTransformed");
 
-        assertEquals("'floatField' is incorrectly transformed", FLOAT_FIELD_VALUE, instance.get("floatField"));
+	assertEquals("'floatField' is incorrectly transformed", FLOAT_FIELD_VALUE, instance.get("floatField"));
     }
 }
