@@ -4,6 +4,7 @@ import eapli.framework.domain.AggregateRoot;
 import eapli.framework.domain.Designation;
 import eapli.framework.domain.Money;
 import java.io.Serializable;
+import java.util.ArrayList;
 import javax.persistence.CascadeType;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -31,7 +32,23 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
     private DishType dishType;
     private NutricionalInfo nutricionalInfo;
     private Money price;
+    private ArrayList<Allergen> allergens;
     private boolean active;
+    private boolean hasAllergens;
+
+    public Dish(final DishType dishType, final Designation name, final NutricionalInfo nutricionalInfo, Money price, ArrayList<Allergen>allergens) {
+        if (dishType == null || name == null || nutricionalInfo == null || allergens == null || allergens.isEmpty()){
+            throw new IllegalStateException();
+        }
+
+        this.dishType = dishType;
+        this.name = name;
+        this.nutricionalInfo = nutricionalInfo;
+        this.setPrice(price);
+        this.active = true;
+        this.allergens = allergens;
+        this.hasAllergens = false;
+    }
 
     public Dish(final DishType dishType, final Designation name, final NutricionalInfo nutricionalInfo, Money price) {
         if (dishType == null || name == null || nutricionalInfo == null) {
@@ -43,7 +60,9 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
         this.nutricionalInfo = nutricionalInfo;
         this.setPrice(price);
         this.active = true;
+        this.hasAllergens = true;
     }
+
 
     public Dish(final DishType dishType, final Designation name, Money price) {
         if (dishType == null || name == null || price == null) {
@@ -55,8 +74,8 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
         this.nutricionalInfo = null;
         this.price = price;
         this.active = true;
+        this.hasAllergens = false;
     }
-
     protected Dish() {
         // for ORM only
     }
@@ -119,6 +138,12 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
     public Money currentPrice() {
         return this.price;
     }
+
+    /**
+     * WARNING - when calling this method always check if the dish has allergens or Null Pointer Exceptions may occurr
+     * @return list of allergens in the dish
+     */
+    public ArrayList<Allergen> allergens() { return this.allergens; }
 
     /**
      *
