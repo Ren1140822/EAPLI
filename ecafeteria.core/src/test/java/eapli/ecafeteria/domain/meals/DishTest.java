@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import eapli.ecafeteria.domain.meals.Allergen;
 import eapli.ecafeteria.domain.meals.Dish;
 import eapli.ecafeteria.domain.meals.DishType;
 import eapli.ecafeteria.domain.meals.NutricionalInfo;
@@ -12,6 +13,8 @@ import eapli.framework.domain.Money;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 /**
  *
@@ -22,6 +25,8 @@ public class DishTest {
     private DishType peixe;
     private NutricionalInfo aNutricionalInfo;
     private final Designation prego = Designation.valueOf("Prego");
+    private ArrayList<Allergen> allergens = new ArrayList<>();
+
 
     public DishTest() {
     }
@@ -48,6 +53,18 @@ public class DishTest {
     public void testNutricionalInfoMustNotBeNull() {
         System.out.println("must have an Nutricional Info");
         Dish instance = new Dish(peixe, prego, null, Money.euros(7));
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testAllergensListCantBeNull() {
+        System.out.println("must have a not null list of allergens");
+        Dish instance = new Dish(peixe, prego, aNutricionalInfo, Money.euros(7), null);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testAllergensListCantBeEmpty() {
+        System.out.println("must have a valid list of allergens");
+        Dish instance = new Dish(peixe, prego, aNutricionalInfo, Money.euros(7), allergens);
     }
 
     /**
