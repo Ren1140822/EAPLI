@@ -1,5 +1,6 @@
 package eapli.ecafeteria.domain.cafeteria.account;
 
+import eapli.framework.domain.Money;
 import eapli.framework.domain.ValueObject;
 import eapli.util.DateTime;
 
@@ -23,7 +24,7 @@ public abstract class Transaction implements ValueObject, Serializable {
     @GeneratedValue
     private Long pk;
 
-    private Amount aAmount;
+    private Money aMoney;
 
     @Temporal(TemporalType.DATE)
     private Calendar date;
@@ -32,14 +33,17 @@ public abstract class Transaction implements ValueObject, Serializable {
         // for ORM only
     }
 
-    public Transaction(Double aAmount) {
-        this.aAmount = new Amount(aAmount);
+    public Transaction(Money aMoney) {
+        if (aMoney == null) {
+            throw new IllegalStateException("Money can't be null.");
+        }
+        this.aMoney = aMoney;
         this.date = DateTime.now();
     }
 
     @Override
     public int hashCode() {
-        int result = aAmount.hashCode();
+        int result = aMoney.hashCode();
         result = 31 * result + date.hashCode();
         return result;
     }
@@ -54,6 +58,6 @@ public abstract class Transaction implements ValueObject, Serializable {
         }
 
         final Transaction other = (Transaction) o;
-        return this.aAmount.equals(other.aAmount) && this.date.equals(other.date);
+        return this.aMoney.equals(other.aMoney) && this.date.equals(other.date);
     }
 }

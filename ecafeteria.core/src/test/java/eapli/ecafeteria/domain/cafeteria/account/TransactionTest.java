@@ -1,5 +1,6 @@
 package eapli.ecafeteria.domain.cafeteria.account;
 
+import eapli.framework.domain.Money;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -19,7 +20,7 @@ public class TransactionTest {
 
     @Test
     public void ensureTransactionIsEqualsToTheSameInstance() {
-        final Transaction aTransaction = new Transaction(50d) {
+        final Transaction aTransaction = new Transaction(Money.euros(50)) {
         };
 
         assertTrue(aTransaction.equals(aTransaction));
@@ -27,9 +28,9 @@ public class TransactionTest {
 
     @Test
     public void ensureTransactionEqualsFailsForDifferentTransaction() {
-        final Transaction aTransaction = new Transaction(50d) {
+        final Transaction aTransaction = new Transaction(Money.euros(50)) {
         };
-        final Transaction anotherTransaction = new Transaction(55d) {
+        final Transaction anotherTransaction = new Transaction(Money.euros(55)) {
         };
 
         assertFalse(aTransaction.equals(anotherTransaction));

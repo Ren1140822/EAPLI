@@ -1,5 +1,7 @@
 package eapli.ecafeteria.domain.cafeteria.account;
 
+import eapli.framework.domain.Money;
+
 import javax.persistence.Entity;
 
 /**
@@ -13,8 +15,8 @@ public class TopUp extends Transaction {
         // for ORM only
     }
 
-    public TopUp(Double aAmount) {
-        super(aAmount);
+    public TopUp(Money aMoney) {
+        super(aMoney);
     }
 
     @Override
