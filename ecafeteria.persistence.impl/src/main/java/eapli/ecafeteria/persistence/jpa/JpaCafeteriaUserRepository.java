@@ -11,7 +11,9 @@ import eapli.framework.persistence.repositories.impl.jpa.JpaAutoTxRepository;
  *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
-class JpaCafeteriaUserRepository extends JpaAutoTxRepository<CafeteriaUser, MecanographicNumber> implements CafeteriaUserRepository {
+class JpaCafeteriaUserRepository
+        extends JpaAutoTxRepository<CafeteriaUser, MecanographicNumber>
+        implements CafeteriaUserRepository {
 
     public JpaCafeteriaUserRepository(boolean autoTx) {
         super(Application.settings().getPersistenceUnitName(), autoTx);

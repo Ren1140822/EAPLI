@@ -1,10 +1,10 @@
 package eapli.ecafeteria.persistence.jpa;
 
-import eapli.ecafeteria.domain.meals.Menu;
+import eapli.ecafeteria.persistence.MealTypeRepository;
+import eapli.ecafeteria.persistence.MenuRepository;
 import eapli.ecafeteria.persistence.*;
 
 /**
- *
  * Created by nuno on 21/03/16.
  */
 public class JpaRepositoryFactory implements RepositoryFactory {
@@ -55,5 +55,13 @@ public class JpaRepositoryFactory implements RepositoryFactory {
         return new JpaMealTypeRepository();
     }
 
+    @Override
+    public AccountCardRepository accountCards() {
+        return new JpaAccountCardRepository();
+    }
 
+    @Override
+    public TransactionRepository transactions() {
+        return new JpaTransactionRepository();
+    }
 }

@@ -35,9 +35,13 @@ A balance has the current amount (result from the sum of the transactions).
 UNIT TESTS
 -----------------
 
-ensureTransactionHasDate
 ensureTransactionHasAmount
-ensureAccountCardHasTransactions
-ensureAccountCardHasBalance
-ensureBalanceHasAmount
-ensureBalanceIsPositive
+ensureTransactionIsEqualsToTheSameInstance
+ensureAmountHasAmount
+ensureAmountIsEqualsToTheSameInstance
+ensureAmountIsEqualsToTheSameAmount
+ensureAmountEqualsFailsForDifferentAmount
+ensureAccountCardPassesForTheSameSystemUser
+ensureAccountCardFailsForDifferentSystemUser
+ensureAccountCardIsTheSameAsTheSameSystemUser
+ensureAccountCardIsNotTheSameAsTheSameSystemUser
