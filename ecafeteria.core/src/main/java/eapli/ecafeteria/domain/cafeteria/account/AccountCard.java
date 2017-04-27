@@ -40,6 +40,15 @@ public class AccountCard implements AggregateRoot<CafeteriaUser>, Serializable {
         this.balance = new Amount(0d);
     }
 
+    /**
+     * Adds a transaction amount to the account card balance.
+     *
+     * @param aAmount the amount to add
+     */
+    public void topUp(Double aAmount) {
+        this.balance = this.balance.add(aAmount);
+    }
+
     @Override
     public boolean is(CafeteriaUser id) {
         return id().equals(id);

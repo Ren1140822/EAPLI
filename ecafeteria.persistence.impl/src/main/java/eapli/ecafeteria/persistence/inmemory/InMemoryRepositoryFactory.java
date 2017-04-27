@@ -1,14 +1,7 @@
 package eapli.ecafeteria.persistence.inmemory;
 
 import eapli.ecafeteria.bootstrapers.ECafeteriaBootstraper;
-import eapli.ecafeteria.persistence.CafeteriaUserRepository;
-import eapli.ecafeteria.persistence.DishRepository;
-import eapli.ecafeteria.persistence.DishTypeRepository;
-import eapli.ecafeteria.persistence.MaterialRepository;
-import eapli.ecafeteria.persistence.OrganicUnitRepository;
-import eapli.ecafeteria.persistence.RepositoryFactory;
-import eapli.ecafeteria.persistence.SignupRequestRepository;
-import eapli.ecafeteria.persistence.UserRepository;
+import eapli.ecafeteria.persistence.*;
 
 /**
  *
@@ -55,5 +48,10 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     @Override
     public MaterialRepository materials() {
         return new InMemoryMaterialRepository();
+    }
+
+    @Override
+    public AccountCardRepository accountCards() {
+        return new InMemoryAccountCardRepository();
     }
 }

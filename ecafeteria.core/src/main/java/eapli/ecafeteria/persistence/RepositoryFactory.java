@@ -40,4 +40,6 @@ public interface RepositoryFactory {
     DishRepository dishes();
 
     MaterialRepository materials();
+
+    AccountCardRepository accountCards();
 }

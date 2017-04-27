@@ -3,9 +3,6 @@ package eapli.ecafeteria.domain.cafeteria.account;
 import eapli.framework.domain.ValueObject;
 
 import javax.persistence.Embeddable;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Version;
 import java.io.Serializable;
 
 /**
@@ -29,6 +26,11 @@ public class Amount implements ValueObject, Serializable {
         }
 
         this.amount = amount;
+    }
+
+    public Amount add(Double aAmount) {
+
+        return new Amount(this.amount + aAmount);
     }
 
     @Override
