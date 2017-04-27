@@ -40,4 +40,6 @@ public interface RepositoryFactory {
     AccountCardRepository accountCards();
 
     TransactionRepository transactions();
+
+    AllergenRepository allergens();
 }

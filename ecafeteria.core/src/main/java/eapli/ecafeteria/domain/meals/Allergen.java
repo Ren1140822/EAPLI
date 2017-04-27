@@ -1,12 +1,13 @@
 package eapli.ecafeteria.domain.meals;
 
+import eapli.framework.domain.AggregateRoot;
 import eapli.framework.domain.Designation;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class Allergen implements Serializable {
+public class Allergen implements AggregateRoot<Designation>, Serializable{
 
     // ORM primary key
     @Id
@@ -29,5 +30,32 @@ public class Allergen implements Serializable {
 
     protected Allergen() {
         // for ORM only
+    }
+
+    public Designation name() { return name; }
+    public String description() { return description; }
+
+    @Override
+    public boolean is(Designation id) {
+        return id.equals(name);
+    }
+
+    @Override
+    public Designation id() {
+        return name;
+    }
+
+    @Override
+    public boolean sameAs(Object other) {
+        if (!(other instanceof Allergen)) {
+            return false;
+        }
+
+        final Allergen that = (Allergen) other;
+        if (this == that) {
+            return true;
+        }
+
+        return (id().equals(that.id()) && description().equals(that.description()));
     }
 }

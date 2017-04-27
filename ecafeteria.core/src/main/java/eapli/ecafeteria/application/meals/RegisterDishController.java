@@ -2,6 +2,7 @@ package eapli.ecafeteria.application.meals;
 
 import eapli.ecafeteria.Application;
 import eapli.ecafeteria.domain.authz.ActionRight;
+import eapli.ecafeteria.domain.meals.Allergen;
 import eapli.ecafeteria.domain.meals.Dish;
 import eapli.ecafeteria.domain.meals.DishType;
 import eapli.ecafeteria.domain.meals.NutricionalInfo;
@@ -13,13 +14,16 @@ import eapli.framework.domain.Money;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
 
+import java.util.ArrayList;
+import java.util.Set;
+
 /**
  *
  * @author Jorge Santos ajs@isep.ipp.pt
  */
 public class RegisterDishController implements Controller {
 
-    private ListDishTypeService svc = new ListDishTypeService();
+    private ListDishTypeService svcDishTypes = new ListDishTypeService();
 
     private DishRepository dishRepository = PersistenceContext.repositories().dishes();
 
@@ -36,7 +40,15 @@ public class RegisterDishController implements Controller {
         return ret;
     }
 
-    public Iterable<DishType> dishTypes() {
-        return this.svc.activeDishTypes();
+    private ListAllergensService svcAllergens = new ListAllergensService();
+
+    public void addAllergensToDish(final Set<Allergen>allergens, Dish dish){
+        dish.addAllergens(allergens);
     }
+
+    public Iterable<DishType> dishTypes() {
+        return this.svcDishTypes.activeDishTypes();
+    }
+
+    public Iterable<Allergen> allergens() { return this.svcAllergens.allAllergens(); }
 }
