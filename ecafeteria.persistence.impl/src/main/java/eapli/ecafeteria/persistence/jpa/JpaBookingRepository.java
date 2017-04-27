@@ -17,15 +17,5 @@ import eapli.ecafeteria.persistence.BookingRepository;
  * @author nunopinto
  */
 public class JpaBookingRepository extends CafeteriaJpaRepositoryBase<Booking,Long> implements BookingRepository {
-    
-    @Override
-    public Iterable<Booking> findByMecanographicNumber(MecanographicNumber number) {
-       return match("e.user.mecanographicNumber:="+number);
-    }
 
-    @Override
-    public Iterable<Booking> findByMeal(Meal meal) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

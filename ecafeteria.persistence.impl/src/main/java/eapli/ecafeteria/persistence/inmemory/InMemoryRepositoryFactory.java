@@ -70,4 +70,9 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     public TransactionRepository transactions() {
         return new InMemoryTransactionRepository();
     }
+
+    @Override
+    public BookingRepository bookings() {
+        return new InMemoryBookingRepository();
+          }
 }

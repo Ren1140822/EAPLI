@@ -17,8 +17,6 @@ import eapli.framework.persistence.repositories.DataRepository;
  */
 public interface BookingRepository extends DataRepository<Booking, Long> {
     
-    Iterable<Booking> findByMecanographicNumber(MecanographicNumber number);
-    
-    Iterable<Booking> findByMeal(Meal meal);
+
     
 }
