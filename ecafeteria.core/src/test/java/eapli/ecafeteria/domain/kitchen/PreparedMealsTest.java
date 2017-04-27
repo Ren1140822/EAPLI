@@ -39,6 +39,6 @@ public class PreparedMealsTest {
     
    @Test(expected = IllegalArgumentException.class)
     public void ensureQuantityIsNonNegative(){
-        PreparedMeals prMeals = new PreparedMeals(-1);
+        MealsPrepared prMeals = new MealsPrepared(-1);
     }
 }
