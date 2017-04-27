@@ -40,4 +40,8 @@ public interface RepositoryFactory {
     DishRepository dishes();
 
     MaterialRepository materials();
+    
+    MenuRepository menus();
+
+    MealTypeRepository mealTypes();
 }

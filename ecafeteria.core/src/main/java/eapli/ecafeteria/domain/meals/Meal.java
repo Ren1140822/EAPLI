@@ -5,10 +5,15 @@
  */
 package eapli.ecafeteria.domain.meals;
 
+import java.util.Date;
+import java.util.Objects;
+import javax.persistence.*;
+
 /**
  *
  * @author //add authors
  */
+@Entity
 public class Meal {
-    
+
 }
