@@ -52,6 +52,11 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     }
 
     @Override
+    public MenuRepository menus() {
+        return new InMemoryMenuRepository();
+    }
+
+    @Override
     public AccountCardRepository accountCards() {
         return new InMemoryAccountCardRepository();
     }
@@ -59,5 +64,17 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     @Override
     public TransactionRepository transactions() {
         return new InMemoryTransactionRepository();
+    }
+
+    @Override
+    public AllergenRepository allergens() { return new InMemoryAllergenRepository(); }
+
+    @Override
+    public BookingRepository bookings() {
+        return new InMemoryBookingRepository();
+          }
+    
+    public MealRepository meals() {
+        return new InMemoryMealRepository();
     }
 }
