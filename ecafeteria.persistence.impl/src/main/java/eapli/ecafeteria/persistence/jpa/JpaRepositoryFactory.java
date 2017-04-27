@@ -3,7 +3,6 @@ package eapli.ecafeteria.persistence.jpa;
 import eapli.ecafeteria.persistence.*;
 
 /**
- *
  * Created by nuno on 21/03/16.
  */
 public class JpaRepositoryFactory implements RepositoryFactory {
@@ -46,5 +45,10 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     @Override
     public AccountCardRepository accountCards() {
         return new JpaAccountCardRepository();
+    }
+
+    @Override
+    public TransactionRepository transactions() {
+        return new JpaTransactionRepository();
     }
 }

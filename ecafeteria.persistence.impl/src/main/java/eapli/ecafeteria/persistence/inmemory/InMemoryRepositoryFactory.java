@@ -1,11 +1,11 @@
 package eapli.ecafeteria.persistence.inmemory;
 
 //import eapli.ecafeteria.bootstrapers.ECafeteriaBootstraper;
+
 import eapli.ecafeteria.bootstrapers.ECafeteriaBootstraper;
 import eapli.ecafeteria.persistence.*;
 
 /**
- *
  * Created by nuno on 20/03/16.
  */
 public class InMemoryRepositoryFactory implements RepositoryFactory {
@@ -54,5 +54,10 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     @Override
     public AccountCardRepository accountCards() {
         return new InMemoryAccountCardRepository();
+    }
+
+    @Override
+    public TransactionRepository transactions() {
+        return new InMemoryTransactionRepository();
     }
 }

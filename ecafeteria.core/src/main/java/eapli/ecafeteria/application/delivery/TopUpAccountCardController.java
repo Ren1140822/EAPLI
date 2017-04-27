@@ -2,6 +2,7 @@ package eapli.ecafeteria.application.delivery;
 
 import eapli.ecafeteria.persistence.AccountCardRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
+import eapli.ecafeteria.persistence.TransactionRepository;
 import eapli.framework.application.Controller;
 
 /**
@@ -11,6 +12,6 @@ import eapli.framework.application.Controller;
 public class TopUpAccountCardController implements Controller {
 
     private final AccountCardRepository accountCardsRepo = PersistenceContext.repositories().accountCards();
-
+    private final TransactionRepository transactionRepo = PersistenceContext.repositories().transactions();
 
 }
