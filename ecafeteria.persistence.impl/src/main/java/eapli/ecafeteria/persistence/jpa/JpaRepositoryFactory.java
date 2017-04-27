@@ -1,5 +1,7 @@
 package eapli.ecafeteria.persistence.jpa;
 
+import eapli.ecafeteria.persistence.MealTypeRepository;
+import eapli.ecafeteria.persistence.MenuRepository;
 import eapli.ecafeteria.persistence.*;
 
 /**
@@ -40,6 +42,17 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     @Override
     public MaterialRepository materials() {
         return new JpaMaterialRepository();
+    }
+
+    @Override
+    public MenuRepository menus() {
+     
+        return new JpaMenuRepository();
+    }
+
+    @Override
+    public MealTypeRepository mealTypes() {
+        return new JpaMealTypeRepository();
     }
 
     @Override

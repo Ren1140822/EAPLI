@@ -52,6 +52,16 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     }
 
     @Override
+    public MenuRepository menus() {
+        return new InMemoryMenuRepository();
+    }
+
+    @Override
+    public MealTypeRepository mealTypes() {
+        return new InMemoryMealTypeRepository();
+    }
+
+    @Override
     public AccountCardRepository accountCards() {
         return new InMemoryAccountCardRepository();
     }
