@@ -15,7 +15,7 @@ import java.util.Currency;
  */
 public class MenuTest {
 
-    private MenuEntry menuEntry;
+    private Meal meal;
     private Dish dish;
     private MealType mealType;
     private TimePeriod2 timePeriod;
@@ -31,12 +31,12 @@ public class MenuTest {
         name = Designation.valueOf("qwerty");
         price = new Money(10, Currency.getInstance("€"));
         dish = new Dish(dishType, name, price);
-        mealType = new MealType("asdf");
+        mealType = new MealType(MealType.MealTypes.ALMOCO);
         Calendar start = Calendar.getInstance();
         Calendar end = Calendar.getInstance();
         end.add(Calendar.DAY_OF_MONTH, 5);
         timePeriod = new TimePeriod2(start, end);
-        menuEntry = new MenuEntry(dish, mealType, timePeriod);
+        meal = new Meal(dish, mealType, timePeriod);
     }
 
     @Test(expected = IllegalStateException.class)
@@ -48,7 +48,7 @@ public class MenuTest {
     @Test(expected = IllegalStateException.class)
     public void testIsPublished(){
         System.out.println("MenuTest: testing 'isPublished' method normal behaviour");
-        Menu instance = new Menu(menuEntry);
+        Menu instance = new Menu(meal);
         boolean result = instance.isPublished();
         Assert.assertEquals(true, result);
     }

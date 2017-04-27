@@ -12,41 +12,21 @@ import javax.persistence.*;
 
 import org.jcp.xml.dsig.internal.dom.Utils;
 
-@Entity
+@Embeddable
 public class MealType implements ValueObject, Serializable {
 
-    private static final long serailVersionUID = 1L;
+    public enum MealTypes { ALMOCO, JANTAR };
 
-    @Id
-    private String mealType;
-    @Version
-    private Long version;
+    private MealTypes mealType;
 
-    protected MealType() {} //for ORM
-
-    public MealType(String mealType) {
-        if (Strings.isNullOrEmpty(mealType)) {
-            throw new IllegalArgumentException();
+    public MealType(MealTypes mealType) {
+        if(mealType == null){
+            throw new IllegalStateException();
         }
         this.mealType = mealType;
     }
 
     public String mealType() {
-        return this.mealType;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        MealType mealType1 = (MealType) o;
-
-        return mealType.equals(mealType1.mealType);
-    }
-
-    @Override
-    public int hashCode() {
-        return mealType.hashCode();
+        return this.mealType.name();
     }
 }

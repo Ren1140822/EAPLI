@@ -2,21 +2,22 @@ package eapli.ecafeteria.application.meals;
 
 import eapli.ecafeteria.Application;
 import eapli.ecafeteria.domain.authz.ActionRight;
-import eapli.ecafeteria.domain.meals.Dish;
 import eapli.ecafeteria.domain.meals.MealType;
-import eapli.ecafeteria.persistence.DishRepository;
-import eapli.ecafeteria.persistence.MealTypeRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
+
+import java.util.ArrayList;
 
 /**
  * Created by pyska on 26-04-2017.
  */
 public class ListMealTypeService {
-    private MealTypeRepository mealTypeRepository = PersistenceContext.repositories().mealTypes();
-
-    public Iterable<MealType> allMealTypes() {
+    public Iterable<MealType.MealTypes> allMealTypes() {
         Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_MENUS);
 
-        return this.mealTypeRepository.findAll();
+        ArrayList<MealType.MealTypes> res = new ArrayList<>();
+        for(MealType.MealTypes type : MealType.MealTypes.values()){
+            res.add(type);
+        }
+        return res;
     }
 }

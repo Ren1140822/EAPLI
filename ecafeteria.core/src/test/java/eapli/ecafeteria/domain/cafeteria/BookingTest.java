@@ -9,20 +9,18 @@ import eapli.ecafeteria.domain.meals.Dish;
 import eapli.ecafeteria.domain.meals.DishType;
 import eapli.ecafeteria.domain.meals.Meal;
 import eapli.ecafeteria.domain.meals.MealType;
-import eapli.ecafeteria.domain.meals.MenuEntry;
 import eapli.framework.domain.Designation;
 import eapli.framework.domain.Money;
-
-import java.util.Calendar;
-import java.util.Currency;
-import java.util.Date;
-
 import eapli.framework.domain.TimePeriod2;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.util.Calendar;
+import java.util.Currency;
+
 import static org.junit.Assert.*;
 
 /**
@@ -52,7 +50,16 @@ public class BookingTest {
 
     @Test (expected=IllegalStateException.class)
     public void ensureBookingHasUser() {
-        new Booking(null,new Meal());
+        DishType dishType = new DishType("asdf", "fdsa");
+        Designation name = Designation.valueOf("qwer");
+        Money price = new Money(20, Currency.getInstance("€"));
+        Dish dish = new Dish(dishType, name, price);
+        MealType mealType = new MealType(MealType.MealTypes.ALMOCO);
+        Calendar start = Calendar.getInstance();
+        Calendar end = Calendar.getInstance();
+        end.add(Calendar.DAY_OF_MONTH, 5);
+        TimePeriod2 timePeriod = new TimePeriod2(start, end);
+        new Booking(null, new Meal(dish, mealType, timePeriod));
     }
     @Test (expected=IllegalStateException.class)
     public void ensureBookingHasMeal() {

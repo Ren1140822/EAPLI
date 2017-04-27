@@ -6,7 +6,7 @@
 package eapli.ecafeteria.domain.cafeteria;
 
 import eapli.ecafeteria.domain.meals.Meal;
-import eapli.framework.domain.AggregateRoot;
+
 import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

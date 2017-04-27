@@ -16,18 +16,4 @@ public class MealTypeTest {
         System.out.println("MealTypeTest: string must not be null");
         MealType instance = new MealType(null);
     }
-
-    @Test(expected = IllegalStateException.class)
-    public void testMealTypeMustNotBeEmpty(){
-        System.out.println("MealTypeTest: string must not be empty");
-        MealType instance = new MealType("");
-    }
-
-    @Test
-    public void assureMealTypeNormalFunction(){
-        System.out.println("MealTypeTest: assert 'mealType' function normal behaviour");
-        String name = Strings.randomString(4);
-        MealType instance = new MealType(name);
-        Assert.assertEquals(name, instance.mealType());
-    }
 }
