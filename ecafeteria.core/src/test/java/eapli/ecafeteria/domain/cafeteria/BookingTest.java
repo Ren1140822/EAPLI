@@ -5,6 +5,8 @@
  */
 package eapli.ecafeteria.domain.cafeteria;
 
+import eapli.ecafeteria.domain.booking.Booking;
+import eapli.ecafeteria.domain.booking.BookingState;
 import eapli.ecafeteria.domain.meals.Dish;
 import eapli.ecafeteria.domain.meals.DishType;
 import eapli.ecafeteria.domain.meals.Meal;
@@ -52,11 +54,23 @@ public class BookingTest {
 
     @Test (expected=IllegalStateException.class)
     public void ensureBookingHasUser() {
-        new Booking(null,new Meal());
+        new Booking(null,new Meal(), BookingState.DONE);
     }
     @Test (expected=IllegalStateException.class)
     public void ensureBookingHasMeal() {
-        new Booking(new CafeteriaUser(),null);
+        new Booking(new CafeteriaUser(),null, BookingState.DONE);
+    }
+    
+    @Test (expected=IllegalStateException.class)
+    public void ensureBookingStateIsDone(){
+        Booking b = new Booking(new CafeteriaUser(), new Meal(), BookingState.DELIVERED);
+        b.cancel();
+    }
+    
+    @Test
+    public void ensureBookingIsCanceled(){
+        Booking b = new Booking(new CafeteriaUser(), new Meal(), BookingState.DONE);
+        b.cancel();
     }
     
 }

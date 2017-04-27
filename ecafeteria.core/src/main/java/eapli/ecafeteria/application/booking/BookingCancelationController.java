@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eapli.ecafeteria.domain.booking;
+package eapli.ecafeteria.application.booking;
 
 /**
  *
  * @author Miguel Silva - 1150901
  */
-public class BookingStateCanceled extends BookingStateAbstract {
+public class BookingCancelationController {
     
 }
