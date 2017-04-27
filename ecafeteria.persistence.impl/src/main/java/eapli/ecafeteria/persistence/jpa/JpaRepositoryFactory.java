@@ -64,4 +64,9 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     public TransactionRepository transactions() {
         return new JpaTransactionRepository();
     }
+
+    @Override
+    public BookingRepository bookings() {
+        return new JpaBookingRepository();
+    }
 }
