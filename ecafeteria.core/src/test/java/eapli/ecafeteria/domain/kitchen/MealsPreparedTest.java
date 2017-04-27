@@ -5,6 +5,7 @@
  */
 package eapli.ecafeteria.domain.kitchen;
 
+import eapli.ecafeteria.domain.meals.Meal;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -16,29 +17,39 @@ import static org.junit.Assert.*;
  *
  * @author Diogo Santos
  */
-public class PreparedMealsTest {
-    
-    public PreparedMealsTest() {
+public class MealsPreparedTest {
+
+    public MealsPreparedTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
     
-   @Test(expected = IllegalArgumentException.class)
-    public void ensureQuantityIsNonNegative(){
-        MealsPrepared prMeals = new MealsPrepared(-1);
+    @Test
+    public void ensureMealsPreparedIsInAValidState() {
+        MealsPrepared prMeals = new MealsPrepared(new Meal(), 100);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureQuantityIsNonNegative() {
+        MealsPrepared prMeals = new MealsPrepared(new Meal(), -1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureMealsPreparedHasMeal() {
+        MealsPrepared prMeals = new MealsPrepared(null, 100);
     }
 }
