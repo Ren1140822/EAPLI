@@ -5,25 +5,14 @@
  */
 package eapli.ecafeteria.domain.cafeteria;
 
-import eapli.ecafeteria.domain.meals.Dish;
-import eapli.ecafeteria.domain.meals.DishType;
+import eapli.ecafeteria.domain.booking.Booking;
 import eapli.ecafeteria.domain.meals.Meal;
-import eapli.ecafeteria.domain.meals.MealType;
-import eapli.ecafeteria.domain.meals.MenuEntry;
-import eapli.framework.domain.Designation;
-import eapli.framework.domain.Money;
-
-import java.util.Calendar;
-import java.util.Currency;
-import java.util.Date;
-
-import eapli.framework.domain.TimePeriod2;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
 
 /**
  *
