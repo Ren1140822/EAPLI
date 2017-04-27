@@ -2,6 +2,7 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence">
   <persistence-unit name="eapli.eCafeteriaPU">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    
     <class>eapli.ecafeteria.domain.meals.DishType</class>
     <class>eapli.ecafeteria.domain.cafeteria.OrganicUnit</class>
     <class>eapli.ecafeteria.domain.authz.SystemUser</class>
@@ -13,6 +14,9 @@
     <class>eapli.ecafeteria.domain.meals.Dish</class>
     <class>eapli.ecafeteria.domain.kitchen.Material</class>
     <class>eapli.ecafeteria.domain.meals.Allergen</class>
+    
+    
+    
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/ecafeteria"/>
       <!--            
