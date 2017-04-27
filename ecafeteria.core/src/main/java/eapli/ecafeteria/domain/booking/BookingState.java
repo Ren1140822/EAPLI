@@ -9,15 +9,8 @@ package eapli.ecafeteria.domain.booking;
  *
  * @author Miguel Silva - 1150901
  */
-public interface BookingState {
+public enum BookingState {
+    
+    CANCELED, DEFINITIVE, DELIVERED, DONE, WASTED;
 
-    boolean transitToCanceled();
-
-    boolean transitToDefinitive();
-
-    boolean transitToDelivered();
-
-    boolean transitToDone();
-
-    boolean transitToWasted();
 }

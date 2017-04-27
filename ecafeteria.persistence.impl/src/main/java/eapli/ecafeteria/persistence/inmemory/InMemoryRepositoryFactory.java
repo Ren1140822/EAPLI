@@ -57,11 +57,6 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     }
 
     @Override
-    public MealTypeRepository mealTypes() {
-        return new InMemoryMealTypeRepository();
-    }
-
-    @Override
     public AccountCardRepository accountCards() {
         return new InMemoryAccountCardRepository();
     }
@@ -75,4 +70,8 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     public BookingRepository bookings() {
         return new InMemoryBookingRepository();
           }
+    
+    public MealRepository meals() {
+        return new InMemoryMealRepository();
+    }
 }

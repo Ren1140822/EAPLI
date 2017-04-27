@@ -5,7 +5,6 @@
  */
 package eapli.ecafeteria.domain.meals;
 
-import java.util.Objects;
 import javax.persistence.*;
 
 @Entity
@@ -20,16 +19,16 @@ public class Menu {
     private Long version;
 
     @OneToOne
-    private MenuEntry menuEntry;
+    private Meal meal;
     private boolean published;
 
     protected Menu() {} //for ORM
 
-    public Menu(MenuEntry menuEntry) {
-        if(menuEntry == null){
+    public Menu(Meal meal) {
+        if(meal == null){
             throw new IllegalStateException();
         }
-        this.menuEntry = menuEntry;
+        this.meal = meal;
     }
 
     public boolean isPublished() {
@@ -50,14 +49,14 @@ public class Menu {
         if (published != menu.published) return false;
         if (!pk.equals(menu.pk)) return false;
         if (!version.equals(menu.version)) return false;
-        return menuEntry.equals(menu.menuEntry);
+        return meal.equals(menu.meal);
     }
 
     @Override
     public int hashCode() {
         int result = pk.hashCode();
         result = 31 * result + version.hashCode();
-        result = 31 * result + menuEntry.hashCode();
+        result = 31 * result + meal.hashCode();
         result = 31 * result + (published ? 1 : 0);
         return result;
     }

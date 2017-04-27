@@ -2,7 +2,10 @@ package eapli.ecafeteria.application.meals;
 
 import eapli.ecafeteria.Application;
 import eapli.ecafeteria.domain.authz.ActionRight;
-import eapli.ecafeteria.domain.meals.*;
+import eapli.ecafeteria.domain.meals.Dish;
+import eapli.ecafeteria.domain.meals.Meal;
+import eapli.ecafeteria.domain.meals.MealType;
+import eapli.ecafeteria.domain.meals.Menu;
 import eapli.ecafeteria.persistence.MenuRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.framework.application.Controller;
@@ -22,7 +25,7 @@ public class RegisterMenuController implements Controller {
             throws DataIntegrityViolationException, DataConcurrencyException {
         Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_MENUS);
 
-        final Menu newMenu = new Menu(new MenuEntry(dish, mealType, timePeriod));
+        final Menu newMenu = new Menu(new Meal(dish, mealType, timePeriod));
         Menu menu = repository.save(newMenu);
         return menu;
     }
@@ -31,7 +34,7 @@ public class RegisterMenuController implements Controller {
         return dishService.allDishes();
     }
 
-    public Iterable<MealType> allMealTypes(){
+    public Iterable<MealType.MealTypes> allMealTypes(){
         return mealTypeService.allMealTypes();
     }
 }
