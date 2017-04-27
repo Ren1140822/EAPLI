@@ -77,4 +77,9 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     public MealRepository meals() {
         return new InMemoryMealRepository();
     }
+
+    @Override
+    public MealsPreparedRepository mealsPrepared() {
+        return new InMemoryMealsPreparedRepository();
+    }
 }
