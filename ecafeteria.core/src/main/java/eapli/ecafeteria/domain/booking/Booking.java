@@ -39,7 +39,7 @@ public class Booking implements Serializable {
 
     private BookingState state;
 
-    public Booking() {
+    protected Booking() {
         // for ORM
     }
 
