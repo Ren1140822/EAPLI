@@ -69,4 +69,9 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 
     @Override
     public AllergenRepository allergens() { return new JpaAllergenRepository(); }
+
+    @Override
+    public MealsPreparedRepository mealsPrepared() {
+        return new JpaMealsPreparedRepository();
+    }
 }
