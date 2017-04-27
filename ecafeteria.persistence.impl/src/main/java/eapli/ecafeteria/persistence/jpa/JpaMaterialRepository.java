@@ -6,7 +6,8 @@ import eapli.ecafeteria.persistence.MaterialRepository;
 /**
  * Created by MCN on 29/03/2016.
  */
-class JpaMaterialRepository extends CafeteriaJpaRepositoryBase<Material, Long> implements MaterialRepository {
+class JpaMaterialRepository extends CafeteriaJpaRepositoryBase<Material, Long>
+        implements MaterialRepository {
 
     @Override
     public Material findByAcronym(String acronym) {

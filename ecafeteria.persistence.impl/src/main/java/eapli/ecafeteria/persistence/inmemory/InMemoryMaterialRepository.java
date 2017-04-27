@@ -7,7 +7,8 @@ import eapli.framework.persistence.repositories.impl.inmemory.InMemoryRepository
 /**
  * Created by MCN on 29/03/2016.
  */
-public class InMemoryMaterialRepository extends InMemoryRepositoryWithLongPK<Material> implements MaterialRepository {
+public class InMemoryMaterialRepository extends InMemoryRepositoryWithLongPK<Material>
+        implements MaterialRepository {
 
     @Override
     public Material findByAcronym(String acronym) {

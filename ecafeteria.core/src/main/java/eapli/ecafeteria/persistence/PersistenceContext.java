@@ -15,10 +15,10 @@ import java.util.logging.Logger;
  */
 public class PersistenceContext {
 
-    public static RepositoryFactory repositories() {
-        // return new InMemoryRepositoryFactory();
-        // return new JpaRepositoryFactory();
+    private PersistenceContext() {
+    }
 
+    public static RepositoryFactory repositories() {
         final String factoryClassName = Application.settings().getRepositoryFactory();
         try {
             return (RepositoryFactory) Class.forName(factoryClassName).newInstance();
@@ -27,8 +27,5 @@ public class PersistenceContext {
             Logger.getLogger(PersistenceContext.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
-    }
-
-    private PersistenceContext() {
     }
 }
