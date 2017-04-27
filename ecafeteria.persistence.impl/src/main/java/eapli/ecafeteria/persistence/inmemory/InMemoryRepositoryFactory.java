@@ -3,7 +3,12 @@ package eapli.ecafeteria.persistence.inmemory;
 //import eapli.ecafeteria.bootstrapers.ECafeteriaBootstraper;
 
 import eapli.ecafeteria.bootstrapers.ECafeteriaBootstraper;
+import eapli.ecafeteria.domain.kitchen.MealsPrepared;
 import eapli.ecafeteria.persistence.*;
+import eapli.framework.persistence.DataConcurrencyException;
+import eapli.framework.persistence.DataIntegrityViolationException;
+import java.util.Iterator;
+import java.util.Optional;
 
 /**
  * Created by nuno on 20/03/16.
@@ -52,6 +57,11 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     }
 
     @Override
+    public MenuRepository menus() {
+        return new InMemoryMenuRepository();
+    }
+
+    @Override
     public AccountCardRepository accountCards() {
         return new InMemoryAccountCardRepository();
     }
@@ -59,5 +69,22 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     @Override
     public TransactionRepository transactions() {
         return new InMemoryTransactionRepository();
+    }
+
+    @Override
+    public AllergenRepository allergens() { return new InMemoryAllergenRepository(); }
+
+    @Override
+    public BookingRepository bookings() {
+        return new InMemoryBookingRepository();
+          }
+    
+    public MealRepository meals() {
+        return new InMemoryMealRepository();
+    }
+
+    @Override
+    public MealsPreparedRepository mealsPrepared() {
+        return new InMemoryMealsPreparedRepository();
     }
 }

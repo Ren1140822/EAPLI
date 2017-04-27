@@ -4,12 +4,9 @@ import eapli.framework.domain.AggregateRoot;
 import eapli.framework.domain.Designation;
 import eapli.framework.domain.Money;
 import java.io.Serializable;
-import java.util.ArrayList;
-import javax.persistence.CascadeType;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Version;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.*;
 
 /**
  * A Dish
@@ -32,23 +29,9 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
     private DishType dishType;
     private NutricionalInfo nutricionalInfo;
     private Money price;
-    private ArrayList<Allergen> allergens;
     private boolean active;
-    private boolean hasAllergens;
-
-    public Dish(final DishType dishType, final Designation name, final NutricionalInfo nutricionalInfo, Money price, ArrayList<Allergen>allergens) {
-        if (dishType == null || name == null || nutricionalInfo == null || allergens == null || allergens.isEmpty()){
-            throw new IllegalStateException();
-        }
-
-        this.dishType = dishType;
-        this.name = name;
-        this.nutricionalInfo = nutricionalInfo;
-        this.setPrice(price);
-        this.active = true;
-        this.allergens = allergens;
-        this.hasAllergens = false;
-    }
+    @OneToMany
+    private Set<Allergen> allergens = new HashSet<>();
 
     public Dish(final DishType dishType, final Designation name, final NutricionalInfo nutricionalInfo, Money price) {
         if (dishType == null || name == null || nutricionalInfo == null) {
@@ -60,7 +43,6 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
         this.nutricionalInfo = nutricionalInfo;
         this.setPrice(price);
         this.active = true;
-        this.hasAllergens = true;
     }
 
 
@@ -74,7 +56,6 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
         this.nutricionalInfo = null;
         this.price = price;
         this.active = true;
-        this.hasAllergens = false;
     }
     protected Dish() {
         // for ORM only
@@ -139,11 +120,9 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
         return this.price;
     }
 
-    /**
-     * WARNING - when calling this method always check if the dish has allergens or Null Pointer Exceptions may occurr
-     * @return list of allergens in the dish
-     */
-    public ArrayList<Allergen> allergens() { return this.allergens; }
+    public Set<Allergen> allergens() { return this.allergens; }
+
+    public boolean hasAllergens() { return !allergens.isEmpty(); }
 
     /**
      *
@@ -186,5 +165,9 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
             throw new IllegalArgumentException();
         }
         this.price = price;
+    }
+
+    public void addAllergens(Set<Allergen> allergens) {
+        this.allergens=allergens;
     }
 }

@@ -8,6 +8,7 @@ import eapli.ecafeteria.persistence.AccountCardRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.ecafeteria.persistence.TransactionRepository;
 import eapli.framework.application.Controller;
+import eapli.framework.domain.Money;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
 
@@ -20,18 +21,20 @@ public class TopUpAccountCardController implements Controller {
     private final AccountCardRepository accountCardsRepo = PersistenceContext.repositories().accountCards();
     private final TransactionRepository transactionRepo = PersistenceContext.repositories().transactions();
 
-    public void topUpCard(String mecanographicNumber, Double amount)
+    public void topUpCard(String mecanographicNumber, Double eurosValue)
             throws DataConcurrencyException, DataIntegrityViolationException {
 
         MecanographicNumber cafeteriaUserID = new MecanographicNumber(mecanographicNumber);
 
         AccountCard card = accountCardsRepo.findByMecanographicNumber(cafeteriaUserID);
 
+        Money aMoney = Money.euros(eurosValue);
+
         // Save new transaction
-        Transaction aTransaction = new TopUp(amount);
+        Transaction aTransaction = new TopUp(aMoney);
         transactionRepo.save(aTransaction);
         // Add to card's balance
-        card.topUp(amount);
+        card.topUp(aMoney);
         accountCardsRepo.save(card);
     }
 }

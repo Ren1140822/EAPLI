@@ -14,12 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.OptimisticLockException;
-import javax.persistence.PersistenceException;
-import javax.persistence.PersistenceUnit;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 
 /**
  * An utility class for implementing JPA repositories. This class' methods don't
@@ -353,34 +348,46 @@ public abstract class JpaBaseRepository<T, K extends Serializable> implements Da
      * @return
      */
     public T matchOne(String where) {
-        final TypedQuery<T> q = query(where);
-        // TODO should we allow to throw NoResultException? it will expose a JPA
-        // specific exception to domain layer. most likely we should return null
+        final TypedQuery<T> q;
+        try{
+        q = query(where);
         return q.getSingleResult();
+        }catch(NoResultException e){
+            System.err.println("No results found\n");
+            return null;
+        }
     }
 
     public T matchOne(String whereWithParameters, Map<String, Object> params) {
-        final TypedQuery<T> q = query(whereWithParameters, params);
-        // TODO should we allow to throw NoResultException? it will expose a JPA
-        // specific exception to domain layer. most likely we should return null
-        return q.getSingleResult();
+        final TypedQuery<T> q = null;
+        try{
+            query(whereWithParameters, params);
+            return q.getSingleResult();
+        }catch(NoResultException e){
+            System.err.println("No results found\n");
+            return null;
+        }
     }
 
     public T matchOne(String where, Object... args) {
-        final TypedQuery<T> q = query(where);
-        boolean isArgName = true;
-        String argName = "";
-        for (final Object o : args) {
-            if (isArgName) {
-                argName = (String) o;
-            } else {
-                q.setParameter(argName, o);
+        final TypedQuery<T> q = null;
+        try{
+            query(where);
+            boolean isArgName = true;
+            String argName = "";
+            for (final Object o : args) {
+                if (isArgName) {
+                    argName = (String) o;
+                } else {
+                    q.setParameter(argName, o);
+                }
+                isArgName = !isArgName;
             }
-            isArgName = !isArgName;
+            return q.getSingleResult();
+        }catch(NoResultException e){
+            System.err.println("No results found\n");
+            return null;
         }
-        // TODO should we allow to throw NoResultException? it will expose a JPA
-        // specific exception to domain layer. most likely we should return null
-        return q.getSingleResult();
     }
 
     /**
