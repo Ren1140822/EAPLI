@@ -29,7 +29,7 @@ public class MenuTest {
     public void setUp(){
         dishType = new DishType("fdsa", "description");
         name = Designation.valueOf("qwerty");
-        price = new Money(10, Currency.getInstance("€"));
+        price = new Money(10, Currency.getInstance("EUR"));
         dish = new Dish(dishType, name, price);
         mealType = new MealType(MealType.MealTypes.ALMOCO);
         Calendar start = Calendar.getInstance();
@@ -45,7 +45,7 @@ public class MenuTest {
         Menu instance = new Menu(null);
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void testIsPublished(){
         System.out.println("MenuTest: testing 'isPublished' method normal behaviour");
         Menu instance = new Menu(meal);
