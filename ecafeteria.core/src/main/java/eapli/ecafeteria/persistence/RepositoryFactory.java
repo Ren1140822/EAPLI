@@ -42,6 +42,12 @@ public interface RepositoryFactory {
     AccountCardRepository accountCards();
 
     TransactionRepository transactions();
+    
+    BookingRepository bookings();
 
     MealRepository meals();
+
+    AllergenRepository allergens();
+    
+    MealsPreparedRepository mealsPrepared();
 }

@@ -55,18 +55,6 @@ public class DishTest {
         Dish instance = new Dish(peixe, prego, null, Money.euros(7));
     }
 
-    @Test(expected = IllegalStateException.class)
-    public void testAllergensListCantBeNull() {
-        System.out.println("must have a not null list of allergens");
-        Dish instance = new Dish(peixe, prego, aNutricionalInfo, Money.euros(7), null);
-    }
-
-    @Test(expected = IllegalStateException.class)
-    public void testAllergensListCantBeEmpty() {
-        System.out.println("must have a valid list of allergens");
-        Dish instance = new Dish(peixe, prego, aNutricionalInfo, Money.euros(7), allergens);
-    }
-
     /**
      * Test of is method, of class Dish.
      */

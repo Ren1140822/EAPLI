@@ -20,6 +20,7 @@ import org.junit.Test;
 
 import java.util.Calendar;
 import java.util.Currency;
+import java.util.Locale;
 
 import static org.junit.Assert.*;
 
@@ -52,7 +53,7 @@ public class MealsPreparedTest {
     public void ensureMealsPreparedIsInAValidState() {
         DishType dishType = new DishType("asdf", "fdsa");
         Designation name = Designation.valueOf("qwer");
-        Money price = new Money(20, Currency.getInstance("€"));
+        Money price = new Money((long) 20, Currency.getInstance(Locale.GERMANY));
         Dish dish = new Dish(dishType, name, price);
         MealType mealType = new MealType(MealType.MealTypes.ALMOCO);
         Calendar start = Calendar.getInstance();
