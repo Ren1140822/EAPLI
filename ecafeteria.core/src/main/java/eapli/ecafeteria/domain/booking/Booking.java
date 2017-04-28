@@ -7,7 +7,7 @@ package eapli.ecafeteria.domain.booking;
 
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.ecafeteria.domain.meals.Meal;
-import eapli.framework.domain.AggregateRoot;
+
 import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -39,7 +39,7 @@ public class Booking implements Serializable {
 
     private BookingState state;
 
-    public Booking() {
+    protected Booking() {
         // for ORM
     }
 

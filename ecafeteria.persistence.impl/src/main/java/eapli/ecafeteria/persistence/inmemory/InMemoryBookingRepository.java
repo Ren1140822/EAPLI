@@ -10,6 +10,7 @@ import eapli.ecafeteria.domain.booking.BookingState;
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
 import eapli.ecafeteria.domain.meals.Meal;
+import eapli.ecafeteria.domain.booking.Booking;
 import eapli.ecafeteria.persistence.BookingRepository;
 import eapli.framework.persistence.repositories.impl.inmemory.InMemoryRepositoryWithLongPK;
 
@@ -19,16 +20,6 @@ import eapli.framework.persistence.repositories.impl.inmemory.InMemoryRepository
  */
 public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Booking>
         implements BookingRepository {
-
-    @Override
-    public Booking findByMecanographicNumber(MecanographicNumber number) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Booking findByMeal(Meal meal) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public Iterable<Booking> findBookingByUserAndState(CafeteriaUser user, BookingState state) {

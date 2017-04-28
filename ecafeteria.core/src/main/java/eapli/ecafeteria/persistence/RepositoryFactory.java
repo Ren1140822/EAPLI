@@ -39,9 +39,15 @@ public interface RepositoryFactory {
 
     MenuRepository menus();
 
-    MealTypeRepository mealTypes();
-
     AccountCardRepository accountCards();
 
     TransactionRepository transactions();
+    
+    BookingRepository bookings();
+
+    MealRepository meals();
+
+    AllergenRepository allergens();
+    
+    MealsPreparedRepository mealsPrepared();
 }

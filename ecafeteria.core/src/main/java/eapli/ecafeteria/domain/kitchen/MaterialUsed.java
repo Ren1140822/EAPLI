@@ -14,7 +14,7 @@ import javax.persistence.Version;
 
 /**
  *
- * @author Pedro Fernandes
+ * @author Pedro Fernandes (1060503@isep.ipp.pt) Diana Silva (1151088@isep.ipp.pt)
  */
 @Entity
 public class MaterialUsed implements AggregateRoot<String>, Serializable {

@@ -20,9 +20,7 @@ import java.util.List;
  */
 public interface BookingRepository extends DataRepository<Booking, Long> {
     
-    Booking findByMecanographicNumber(MecanographicNumber number);
-    
-    Booking findByMeal(Meal meal);
+
     
     Iterable<Booking> findBookingByUserAndState(CafeteriaUser user, BookingState state);
     

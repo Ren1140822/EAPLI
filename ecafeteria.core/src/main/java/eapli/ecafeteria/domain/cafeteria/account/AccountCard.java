@@ -2,6 +2,7 @@ package eapli.ecafeteria.domain.cafeteria.account;
 
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.framework.domain.AggregateRoot;
+import eapli.framework.domain.Money;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -26,7 +27,7 @@ public class AccountCard implements AggregateRoot<CafeteriaUser>, Serializable {
     @Column(unique = true)
     @OneToOne
     private CafeteriaUser owner;
-    private Amount balance;
+    private Balance balance;
 
     protected AccountCard() {
         // for ORM only
@@ -36,17 +37,20 @@ public class AccountCard implements AggregateRoot<CafeteriaUser>, Serializable {
         if (owner == null) {
             throw new IllegalStateException("Owner can't be null");
         }
+
         this.owner = owner;
-        this.balance = new Amount(0d);
+
+        Money startMoney = Money.euros(0);
+        this.balance = new Balance(startMoney);
     }
 
     /**
-     * Adds a transaction amount to the account card balance.
+     * Adds money to the account card balance.
      *
-     * @param aAmount the amount to add
+     * @param aMoney the money to add
      */
-    public void topUp(Double aAmount) {
-        this.balance = this.balance.add(aAmount);
+    public void topUp(Money aMoney) {
+        this.balance = this.balance.add(aMoney);
     }
 
     @Override

@@ -5,6 +5,8 @@
  */
 package eapli.ecafeteria.backoffice.consoleapp.presentation.booking;
 
+import eapli.framework.actions.Action;
+
 /**
  *
  * @author Miguel Silva - 1150901

@@ -24,16 +24,6 @@ public class JpaBookingRepository extends CafeteriaJpaRepositoryBase<Booking, Lo
         implements BookingRepository {
 
     @Override
-    public Booking findByMecanographicNumber(MecanographicNumber number) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Booking findByMeal(Meal meal) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public Iterable<Booking> findBookingByUserAndState(CafeteriaUser user, BookingState state) {
         return match("e.user=:" + user + " and e.state=:" + state);
     }
