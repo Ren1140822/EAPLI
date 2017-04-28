@@ -73,8 +73,8 @@ public class RegisterLotsInMealController implements Controller {
      * @return 
      */
     public boolean fillMaterialAndLotCode(String lotCode){
-        
-        Allotment a = new Allotment(lotCode);
+        //FIXME
+       /* Allotment a = new Allotment(lotCode);
         
         if( a == null || material == null){
             throw new IllegalStateException();
@@ -82,7 +82,8 @@ public class RegisterLotsInMealController implements Controller {
         
         materialUsed = new MaterialUsed(material, a);
         
-        return mealsPrepared.addMaterialsUsed(materialUsed);        
+        return mealsPrepared.addMaterialsUsed(materialUsed);     */
+       return true;
     }
     
     /**
