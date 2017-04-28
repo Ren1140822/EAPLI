@@ -58,5 +58,13 @@ public class Booking implements Serializable {
         }
         this.state = BookingState.CANCELED;
     }
+    
+    public boolean belongsTo(CafeteriaUser user){
+        return this.user.equals(user);
+    }
+    
+    public boolean isAtState(BookingState state){
+        return this.state.equals(state);
+    }
 
 }

@@ -3,12 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eapli.ecafeteria.application.booking;
+package eapli.ecafeteria.backoffice.consoleapp.presentation.booking;
 
 /**
  *
  * @author Miguel Silva - 1150901
  */
-public class BookingCancelationController {
-    
+public class CancelBookingAction implements Action {
+
+    @Override
+    public boolean execute() {
+        return new CancelBookingUI().show();
+    }
+
 }

@@ -7,9 +7,12 @@ package eapli.ecafeteria.persistence;
 
 
 import eapli.ecafeteria.domain.booking.Booking;
+import eapli.ecafeteria.domain.booking.BookingState;
+import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
 import eapli.ecafeteria.domain.meals.Meal;
 import eapli.framework.persistence.repositories.DataRepository;
+import java.util.List;
 
 /**
  *
@@ -20,5 +23,7 @@ public interface BookingRepository extends DataRepository<Booking, Long> {
     Booking findByMecanographicNumber(MecanographicNumber number);
     
     Booking findByMeal(Meal meal);
+    
+    Iterable<Booking> findBookingByUserAndState(CafeteriaUser user, BookingState state);
     
 }
