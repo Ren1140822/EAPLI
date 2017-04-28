@@ -15,5 +15,12 @@ import eapli.framework.persistence.repositories.impl.inmemory.InMemoryRepository
  */
 public class InMemoryMealsPreparedRepository extends InMemoryRepositoryWithLongPK<MealsPrepared> 
         implements MealsPreparedRepository{
+
+    @Override
+    public MealsPrepared findByName(String acronym) {
+        
+        // TO DO
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

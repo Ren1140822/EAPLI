@@ -15,6 +15,13 @@ import eapli.ecafeteria.persistence.MealsPreparedRepository;
  */
 public class JpaMealsPreparedRepository extends CafeteriaJpaRepositoryBase<MealsPrepared, Long> implements MealsPreparedRepository{
 
+    @Override
+    public MealsPrepared findByName(String acronym) {
+        
+        // TO DO
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     
     
 }
