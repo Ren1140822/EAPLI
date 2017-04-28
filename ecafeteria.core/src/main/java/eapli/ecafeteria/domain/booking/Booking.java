@@ -7,6 +7,7 @@ package eapli.ecafeteria.domain.booking;
 
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.ecafeteria.domain.meals.Meal;
+import eapli.framework.domain.TimePeriod2;
 
 import java.io.Serializable;
 import javax.persistence.CascadeType;
@@ -58,5 +59,14 @@ public class Booking implements Serializable {
         }
         this.state = BookingState.CANCELED;
     }
+    
+    public void deliver()
+    {
+         if (this.state != BookingState.DEFINITIVE ) {
+            throw new IllegalStateException();
+        }
+        this.state = BookingState.DELIVERED;
+    }
+            
 
 }

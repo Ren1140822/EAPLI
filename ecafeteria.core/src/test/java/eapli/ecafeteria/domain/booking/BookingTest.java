@@ -104,4 +104,18 @@ public class BookingTest {
         b.cancel();
     }
     
+      @Test  (expected=IllegalStateException.class)
+    public void ensureDeliveredMealCannotBeRegisteredMoreThanOnceForSameClient(){
+        Booking b = new Booking(utente, new Meal(dish, mealType, timePeriod), BookingState.DEFINITIVE);
+        b.deliver();
+        b.deliver();
+    }
+    
+     
+    
+    
+    
+
+   
+
 }
