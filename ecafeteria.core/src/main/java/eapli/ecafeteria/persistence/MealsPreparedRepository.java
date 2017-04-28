@@ -14,4 +14,5 @@ import eapli.framework.persistence.repositories.DataRepository;
  */
 public interface MealsPreparedRepository extends DataRepository<MealsPrepared, Long>{
     
+    MealsPrepared findByName(String acronym);
 }

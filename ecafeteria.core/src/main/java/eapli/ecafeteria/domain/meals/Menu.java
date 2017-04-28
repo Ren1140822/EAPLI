@@ -29,6 +29,7 @@ public class Menu {
             throw new IllegalStateException();
         }
         this.meal = meal;
+        this.published = true;
     }
 
     public boolean isPublished() {
