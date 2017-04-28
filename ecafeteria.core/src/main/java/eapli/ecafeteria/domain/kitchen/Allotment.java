@@ -12,7 +12,7 @@ import javax.persistence.Embeddable;
 
 /**
  *
- * @author Pedro Fernandes
+ * @author Pedro Fernandes (1060503@isep.ipp.pt) Diana Silva (1151088@isep.ipp.pt)
  */
 @Embeddable
 public class Allotment implements ValueObject, Serializable{
