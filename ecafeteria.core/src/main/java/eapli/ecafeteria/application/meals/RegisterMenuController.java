@@ -12,6 +12,7 @@ import eapli.framework.application.Controller;
 import eapli.framework.domain.TimePeriod2;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
+import eapli.ecafeteria.domain.authz.*;
 
 /**
  * Created by pyska on 26-04-2017.
@@ -21,11 +22,11 @@ public class RegisterMenuController implements Controller {
     private final ListDishService dishService = new ListDishService();
     private final ListMealTypeService mealTypeService = new ListMealTypeService();
 
-    public Menu registerMenu(Dish dish, MealType mealType, TimePeriod2 timePeriod)
+    public Menu registerMenu(Dish dish, MealType mealType, TimePeriod2 timePeriod,SystemUser systemUser)
             throws DataIntegrityViolationException, DataConcurrencyException {
         Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_MENUS);
 
-        final Menu newMenu = new Menu(new Meal(dish, mealType, timePeriod));
+        final Menu newMenu = new Menu(new Meal(dish, mealType, timePeriod),systemUser);
         Menu menu = repository.save(newMenu);
         return menu;
     }

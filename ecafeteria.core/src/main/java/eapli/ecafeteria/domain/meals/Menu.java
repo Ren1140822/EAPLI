@@ -5,10 +5,12 @@
  */
 package eapli.ecafeteria.domain.meals;
 
+import eapli.ecafeteria.domain.authz.*;
+import java.io.Serializable;
 import javax.persistence.*;
 
 @Entity
-public class Menu {
+public class Menu implements Serializable {
 
     private static final Long serialVersionUID = 1L;
 
@@ -20,36 +22,54 @@ public class Menu {
 
     @OneToOne
     private Meal meal;
+    @OneToOne
+    private SystemUser systemUser;
     private boolean published;
 
-    protected Menu() {} //for ORM
+    protected Menu() {
+    } //for ORM
 
-    public Menu(Meal meal) {
-        if(meal == null){
+    public Menu(Meal meal, SystemUser systemUser) {
+        if (meal == null || systemUser==null) {
             throw new IllegalStateException();
         }
         this.meal = meal;
         this.published = true;
+        this.systemUser = systemUser;
     }
 
     public boolean isPublished() {
         return this.published;
     }
 
-    public Long pk(){
+    public Long pk() {
         return pk;
+    }
+
+    public SystemUser systemUser() {
+        return this.systemUser;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         Menu menu = (Menu) o;
 
-        if (published != menu.published) return false;
-        if (!pk.equals(menu.pk)) return false;
-        if (!version.equals(menu.version)) return false;
+        if (published != menu.published) {
+            return false;
+        }
+        if (!pk.equals(menu.pk)) {
+            return false;
+        }
+        if (!version.equals(menu.version)) {
+            return false;
+        }
         return meal.equals(menu.meal);
     }
 
