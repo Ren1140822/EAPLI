@@ -6,6 +6,8 @@
 package eapli.ecafeteria.bootstrapers;
 
 import eapli.ecafeteria.application.meals.RegisterMenuController;
+import eapli.ecafeteria.domain.authz.RoleType;
+import eapli.ecafeteria.domain.authz.SystemUser;
 import eapli.ecafeteria.persistence.*;
 import eapli.framework.actions.Action;
 import eapli.ecafeteria.domain.meals.*;
@@ -14,6 +16,8 @@ import eapli.framework.domain.TimePeriod2;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Logger;
 
 /**
@@ -32,19 +36,24 @@ public class MenuBootstraper implements Action {
         final Calendar end = Calendar.getInstance();
         end.add(Calendar.DAY_OF_MONTH, 5);
         final TimePeriod2 timePeriod = new TimePeriod2(start, end);
-        register(dishTofu, mealType, timePeriod);
+        final Set<RoleType> roles = new HashSet<RoleType>();
+        roles.add(RoleType.ADMIN);
+        roles.add(RoleType.MENU_MANAGER);
+        roles.add(RoleType.KITCHEN_MANAGER);
+        final SystemUser systemUser= new SystemUser("poweruser", "poweruserA1", "joe", "doe", "joe@email.org", roles);
+        register(dishTofu, mealType, timePeriod,systemUser);
         return false;
     }
 
     /**
      *
      */
-    private void register(Dish dish, MealType mealType, TimePeriod2 timePeriod) {
+    private void register(Dish dish, MealType mealType, TimePeriod2 timePeriod,SystemUser systemUser) {
 
         final RegisterMenuController controller = new RegisterMenuController();
 
         try {
-            controller.registerMenu(dish, mealType, timePeriod);
+            controller.registerMenu(dish, mealType, timePeriod,systemUser);
         } catch (final DataIntegrityViolationException | DataConcurrencyException e) {
 
             // ignoring exception. assuming it is just a primary key violation
