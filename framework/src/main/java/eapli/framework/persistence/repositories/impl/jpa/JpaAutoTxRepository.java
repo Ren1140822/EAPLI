@@ -18,10 +18,10 @@ import java.util.Optional;
  *
  * @author pgsou_000
  */
-public class JpaAutoTxRepository<T, K extends Serializable> implements DataRepository<T, K>, TransactionalContext {
+public class JpaAutoTxRepository<T, K extends Serializable> implements DataRepository<T, K> {
 
     protected JpaBaseRepository<T, K> repo;
-    private boolean autoTx;
+    private TransactionalContext autoTx;
 
     public JpaAutoTxRepository(String persistenceUnitName, TransactionalContext autoTx) {
         final ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
@@ -83,33 +83,5 @@ public class JpaAutoTxRepository<T, K extends Serializable> implements DataRepos
     @Override
     public Iterator<T> iterator() {
         return repo.iterator();
-    }
-
-    @Override
-    public void beginTransaction() {
-        if (!autoTx) {
-            ((JpaNotRunningInContainerRepository) repo).beginTransaction();
-        }
-    }
-
-    @Override
-    public void commit() {
-        if (!autoTx) {
-            ((JpaNotRunningInContainerRepository) repo).commit();
-        }
-    }
-
-    @Override
-    public void rollback() {
-        if (!autoTx) {
-            ((JpaNotRunningInContainerRepository) repo).rollback();
-        }
-    }
-
-    @Override
-    public void close() {
-        if (!autoTx) {
-            ((JpaNotRunningInContainerRepository) repo).close();
-        }
     }
 }

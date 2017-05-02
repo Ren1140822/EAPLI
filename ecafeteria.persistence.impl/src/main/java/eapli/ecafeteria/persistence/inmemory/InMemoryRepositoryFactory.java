@@ -10,6 +10,7 @@ import eapli.ecafeteria.persistence.OrganicUnitRepository;
 import eapli.ecafeteria.persistence.RepositoryFactory;
 import eapli.ecafeteria.persistence.SignupRequestRepository;
 import eapli.ecafeteria.persistence.UserRepository;
+import eapli.framework.persistence.repositories.TransactionalContext;
 
 /**
  *
@@ -23,7 +24,7 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     }
 
     @Override
-    public UserRepository users(boolean tx) {
+    public UserRepository users(TransactionalContext tx) {
         return new InMemoryUserRepository();
     }
 
@@ -38,13 +39,13 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     }
 
     @Override
-    public CafeteriaUserRepository cafeteriaUsers(boolean tx) {
+    public CafeteriaUserRepository cafeteriaUsers(TransactionalContext tx) {
 
         return new InMemoryCafeteriaUserRepository();
     }
 
     @Override
-    public SignupRequestRepository signupRequests(boolean tx) {
+    public SignupRequestRepository signupRequests(TransactionalContext tx) {
         return new InMemorySignupRequestRepository();
     }
 
@@ -57,4 +58,10 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     public MaterialRepository materials() {
         return new InMemoryMaterialRepository();
     }
+
+	@Override
+	public TransactionalContext buildTransactionalContext() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

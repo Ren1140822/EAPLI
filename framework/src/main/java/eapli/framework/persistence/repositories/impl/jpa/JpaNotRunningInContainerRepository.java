@@ -7,6 +7,8 @@ import eapli.framework.persistence.repositories.TransactionalContext;
 import eapli.util.Strings;
 import java.io.Serializable;
 import java.util.logging.Logger;
+
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
@@ -28,7 +30,7 @@ import javax.persistence.Persistence;
 public class JpaNotRunningInContainerRepository<T, K extends Serializable> 
 	extends JpaBaseRepository<T, K> {
 
-    private final JpaTransactionalContext TxCtx;
+    private JpaTransactionalContext TxCtx;
 
     /**
      *

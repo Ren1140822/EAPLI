@@ -4,6 +4,7 @@ import eapli.ecafeteria.Application;
 import eapli.ecafeteria.domain.authz.Username;
 import eapli.ecafeteria.domain.cafeteria.SignupRequest;
 import eapli.ecafeteria.persistence.SignupRequestRepository;
+import eapli.framework.persistence.repositories.TransactionalContext;
 import eapli.framework.persistence.repositories.impl.jpa.JpaAutoTxRepository;
 
 /**
@@ -14,7 +15,7 @@ class JpaSignupRequestRepository
         extends JpaAutoTxRepository<SignupRequest, Username>
         implements SignupRequestRepository {
 
-    public JpaSignupRequestRepository(boolean autoTx) {
+    public JpaSignupRequestRepository(TransactionalContext autoTx) {
         super(Application.settings().getPersistenceUnitName(), autoTx);
     }
 

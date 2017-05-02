@@ -9,7 +9,7 @@ import eapli.framework.persistence.repositories.TransactionalContext;
  *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
-public interface SignupRequestRepository extends DataRepository<SignupRequest, Username>, TransactionalContext {
+public interface SignupRequestRepository extends DataRepository<SignupRequest, Username> {
 
     Iterable<SignupRequest> pendingSignupRequests();
 }

@@ -5,6 +5,7 @@ import eapli.ecafeteria.domain.authz.Username;
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
 import eapli.ecafeteria.persistence.CafeteriaUserRepository;
+import eapli.framework.persistence.repositories.TransactionalContext;
 import eapli.framework.persistence.repositories.impl.jpa.JpaAutoTxRepository;
 
 /**
@@ -15,7 +16,7 @@ class JpaCafeteriaUserRepository
         extends JpaAutoTxRepository<CafeteriaUser, MecanographicNumber>
         implements CafeteriaUserRepository {
 
-    public JpaCafeteriaUserRepository(boolean autoTx) {
+    public JpaCafeteriaUserRepository(TransactionalContext autoTx) {
         super(Application.settings().getPersistenceUnitName(), autoTx);
     }
 

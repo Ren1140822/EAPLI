@@ -6,6 +6,8 @@ package eapli.framework.persistence.repositories.impl.jpa;
 import eapli.framework.persistence.repositories.TransactionalContext;
 import eapli.util.Strings;
 import java.util.logging.Logger;
+
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;

@@ -8,6 +8,6 @@ import eapli.framework.persistence.repositories.TransactionalContext;
 /**
  * Created by nuno on 21/03/16.
  */
-public interface UserRepository extends DataRepository<SystemUser, Username>, TransactionalContext {
+public interface UserRepository extends DataRepository<SystemUser, Username> {
 
 }

@@ -4,6 +4,7 @@ import eapli.ecafeteria.Application;
 import eapli.ecafeteria.domain.authz.SystemUser;
 import eapli.ecafeteria.domain.authz.Username;
 import eapli.ecafeteria.persistence.UserRepository;
+import eapli.framework.persistence.repositories.TransactionalContext;
 import eapli.framework.persistence.repositories.impl.jpa.JpaAutoTxRepository;
 
 /**
@@ -13,7 +14,7 @@ import eapli.framework.persistence.repositories.impl.jpa.JpaAutoTxRepository;
 class JpaUserRepository extends JpaAutoTxRepository<SystemUser, Username>
         implements UserRepository {
 
-    public JpaUserRepository(boolean autoTx) {
+    public JpaUserRepository(TransactionalContext autoTx) {
         super(Application.settings().getPersistenceUnitName(), autoTx);
     }
 }
