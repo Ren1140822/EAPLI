@@ -18,6 +18,9 @@ public final class ECafeteriaPOS {
      * @param args the command line arguments
      */
     public static void main(final String[] args) {
+
+        // to ensure some default test data is available, specially when using in memory persistence
+        // new ECafeteriaBootstrap().execute();
         // login and go to main menu
         // TODO should provide three attempts
         if (new LoginAction().execute()) {
