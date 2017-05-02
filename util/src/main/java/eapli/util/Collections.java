@@ -14,7 +14,8 @@ public final class Collections {
 
     public static int size(Iterable<?> col) {
 	int i = 0;
-	for (final Object o : col) {
+	for (@SuppressWarnings("unused")
+	final Object o : col) {
 	    i++;
 	}
 	return i;
