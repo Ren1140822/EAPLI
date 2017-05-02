@@ -71,7 +71,7 @@ public class SystemUserBuilder implements Factory<SystemUser> {
     }
 
     public SystemUserBuilder withEmail(String email) {
-        this.email = new EmailAddress(email);
+        this.email = EmailAddress.valueOf(email);
         return this;
     }
 

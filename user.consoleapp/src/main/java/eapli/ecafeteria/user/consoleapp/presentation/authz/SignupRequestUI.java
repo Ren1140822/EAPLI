@@ -29,7 +29,7 @@ public class SignupRequestUI extends AbstractUI {
 
         userData.show();
 
-        final SelectWidget<OrganicUnit> selector = new SelectWidget<>(this.theController.organicUnits(),
+        final SelectWidget<OrganicUnit> selector = new SelectWidget<>("Organic units:", this.theController.organicUnits(),
                 new OrganicUnitUIVisitor());
         selector.show();
 

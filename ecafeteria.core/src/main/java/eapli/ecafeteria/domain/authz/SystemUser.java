@@ -69,7 +69,7 @@ public class SystemUser
         this.username = new Username(username);
         this.password = new Password(password);
         this.name = new Name(firstName, lastName);
-        this.email = new EmailAddress(email);
+        this.email = EmailAddress.valueOf(email);
         this.roles = new RoleSet();
 
         this.roles.addAll(roles.stream().map(rt -> new Role(rt, this.createdOn)).collect(Collectors.toList()));

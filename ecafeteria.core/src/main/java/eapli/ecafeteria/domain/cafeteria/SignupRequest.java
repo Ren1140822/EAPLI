@@ -72,7 +72,7 @@ public class SignupRequest implements AggregateRoot<Username>, Serializable {
         this.username = new Username(username);
         this.password = new Password(password);
         this.name = new Name(firstName, lastName);
-        this.email = new EmailAddress(email);
+        this.email = EmailAddress.valueOf(email);
         this.organicUnit = organicUnit;
         this.mecanographicNumber = new MecanographicNumber(mecanographicNumber);
         // by default
