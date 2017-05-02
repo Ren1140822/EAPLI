@@ -25,55 +25,39 @@ import javax.persistence.Persistence;
  * database)
  * @param <K> the primary key of the table
  */
-public class JpaNotRunningInContainerRepository<T, K extends Serializable> extends JpaBaseRepository<T, K>
-        implements TransactionalContext {
+public class JpaNotRunningInContainerRepository<T, K extends Serializable> 
+	extends JpaBaseRepository<T, K> {
 
-    private final String persistenceUnitName;
-    private static EntityManagerFactory singletonEMF;
+    private final JpaTransactionalContext TxCtx;
 
     /**
      *
-     * @param persistenceUnitName the name of the persistence unit to use
      */
-    public JpaNotRunningInContainerRepository(String persistenceUnitName) {
+    public JpaNotRunningInContainerRepository(TransactionalContext TxCtx) {
         super();
-        this.persistenceUnitName = persistenceUnitName;
+        setTxCtx(TxCtx);
     }
-
-    JpaNotRunningInContainerRepository(String persistenceUnitName, Class<T> classz) {
+    
+    JpaNotRunningInContainerRepository(TransactionalContext TxCtx, Class<T> classz) {
         super(classz);
-        this.persistenceUnitName = persistenceUnitName;
+        setTxCtx(TxCtx);
     }
 
+    private void setTxCtx(TransactionalContext TxCtx) {
+        if (TxCtx==null || !(TxCtx instanceof JpaTransactionalContext)) {
+        	throw new IllegalArgumentException();
+        }
+        this.TxCtx = (JpaTransactionalContext)TxCtx;
+    }
+    
     @Override
     @SuppressWarnings("squid:S3346")
     protected EntityManagerFactory entityManagerFactory() {
-        if (singletonEMF == null) {
-            assert !Strings.isNullOrEmpty(persistenceUnitName) : "the persistence unit name must be provided";
-            Logger.getLogger(this.getClass().getSimpleName()).info("Not runing in container mode.");
-            singletonEMF = Persistence.createEntityManagerFactory(persistenceUnitName);
-        }
-        return singletonEMF;
+    	return this.TxCtx.entityManagerFactory();
     }
-
+    
     @Override
-    public void beginTransaction() {
-        EntityTransaction tx = entityManager().getTransaction();
-        tx.begin();
-    }
-
-    @Override
-    public void commit() {
-        entityManager().getTransaction().commit();
-    }
-
-    @Override
-    public void rollback() {
-        entityManager().getTransaction().rollback();
-    }
-
-    @Override
-    public void close() {
-        entityManager().close();
+    protected EntityManager entityManager() {
+        return this.TxCtx.entityManager();
     }
 }

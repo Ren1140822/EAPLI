@@ -23,14 +23,14 @@ public class JpaAutoTxRepository<T, K extends Serializable> implements DataRepos
     protected JpaBaseRepository<T, K> repo;
     private boolean autoTx;
 
-    public JpaAutoTxRepository(String persistenceUnitName, boolean autoTx) {
+    public JpaAutoTxRepository(String persistenceUnitName, TransactionalContext autoTx) {
         final ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
         Class<T> entityClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
 
-        if (autoTx) {
-            repo = new JpaTransactionalRepository<T, K>(persistenceUnitName, entityClass);
+        if (autoTx==null) {
+            repo = new JpaTransactionalRepository<>(persistenceUnitName, entityClass);
         } else {
-            repo = new JpaNotRunningInContainerRepository<T, K>(persistenceUnitName, entityClass);
+            repo = new JpaNotRunningInContainerRepository<>(autoTx, entityClass);
         }
         this.autoTx = autoTx;
     }

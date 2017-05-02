@@ -21,13 +21,13 @@ class JpaCafeteriaUserRepository
 
     @Override
     public CafeteriaUser findByUsername(Username name) {
-        // TODO use parameters instead of string concatenation
+        // FIXME use parameters instead of string concatenation
         return repo.matchOne("e.systemUser.username.name='" + name + "'");
     }
 
     @Override
     public CafeteriaUser findByMecanographicNumber(MecanographicNumber number) {
-        // TODO use parameters instead of string concatenation
+        // FIXME use parameters instead of string concatenation
         return repo.matchOne("e.mecanographicNumber.number='" + number + "'");
     }
 }

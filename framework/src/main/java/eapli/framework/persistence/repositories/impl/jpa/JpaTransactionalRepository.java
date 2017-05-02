@@ -31,11 +31,11 @@ public class JpaTransactionalRepository<T, K extends Serializable>
         extends JpaNotRunningInContainerRepository<T, K> {
 
     public JpaTransactionalRepository(String persistenceUnitName) {
-        super(persistenceUnitName);
+        super(new JpaTransactionalContext(persistenceUnitName));
     }
 
     JpaTransactionalRepository(String persistenceUnitName, Class<T> classz) {
-        super(persistenceUnitName, classz);
+        super(new JpaTransactionalContext(persistenceUnitName), classz);
     }
 
     /**
