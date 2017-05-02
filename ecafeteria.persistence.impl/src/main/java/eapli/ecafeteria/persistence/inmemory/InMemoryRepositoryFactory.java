@@ -1,14 +1,8 @@
 package eapli.ecafeteria.persistence.inmemory;
 
 //import eapli.ecafeteria.bootstrapers.ECafeteriaBootstraper;
-
 import eapli.ecafeteria.bootstrapers.ECafeteriaBootstraper;
-import eapli.ecafeteria.domain.kitchen.MealsPrepared;
 import eapli.ecafeteria.persistence.*;
-import eapli.framework.persistence.DataConcurrencyException;
-import eapli.framework.persistence.DataIntegrityViolationException;
-import java.util.Iterator;
-import java.util.Optional;
 import eapli.framework.persistence.repositories.TransactionalContext;
 
 /**
@@ -73,13 +67,15 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     }
 
     @Override
-    public AllergenRepository allergens() { return new InMemoryAllergenRepository(); }
+    public AllergenRepository allergens() {
+        return new InMemoryAllergenRepository();
+    }
 
     @Override
     public BookingRepository bookings() {
         return new InMemoryBookingRepository();
-          }
-    
+    }
+
     public MealRepository meals() {
         return new InMemoryMealRepository();
     }
@@ -88,11 +84,10 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     public MealsPreparedRepository mealsPrepared() {
         return new InMemoryMealsPreparedRepository();
     }
-}
 
-	@Override
-	public TransactionalContext buildTransactionalContext() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public TransactionalContext buildTransactionalContext() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

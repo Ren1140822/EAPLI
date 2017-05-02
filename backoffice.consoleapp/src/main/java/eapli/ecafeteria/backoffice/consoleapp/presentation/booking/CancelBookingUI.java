@@ -34,7 +34,7 @@ public class CancelBookingUI extends AbstractUI {
         if (!bookingsDone.iterator().hasNext()) {
             System.out.println("There are no bookings done.");
         } else {
-            final SelectWidget<Booking> selector = new SelectWidget<>(bookingsDone, new BookingPrinter());
+            final SelectWidget<Booking> selector = new SelectWidget<>("Bookings:", bookingsDone, new BookingPrinter());
             selector.show();
             final Booking updtBooking = selector.selectedElement();
             try {

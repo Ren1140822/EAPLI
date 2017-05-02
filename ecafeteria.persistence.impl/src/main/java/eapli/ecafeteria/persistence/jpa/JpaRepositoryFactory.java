@@ -1,15 +1,7 @@
 package eapli.ecafeteria.persistence.jpa;
 
-import eapli.ecafeteria.persistence.MenuRepository;
-import eapli.ecafeteria.persistence.*;
 import eapli.ecafeteria.Application;
-import eapli.ecafeteria.persistence.DishRepository;
-import eapli.ecafeteria.persistence.DishTypeRepository;
-import eapli.ecafeteria.persistence.MaterialRepository;
-import eapli.ecafeteria.persistence.OrganicUnitRepository;
-import eapli.ecafeteria.persistence.RepositoryFactory;
-import eapli.ecafeteria.persistence.SignupRequestRepository;
-import eapli.ecafeteria.persistence.UserRepository;
+import eapli.ecafeteria.persistence.*;
 import eapli.framework.persistence.repositories.TransactionalContext;
 import eapli.framework.persistence.repositories.impl.jpa.JpaTransactionalContext;
 
@@ -55,7 +47,7 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 
     @Override
     public MenuRepository menus() {
-     
+
         return new JpaMenuRepository();
     }
 
@@ -73,21 +65,23 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     public MealRepository meals() {
         return new JpaMealRepository();
     }
+
     public BookingRepository bookings() {
         return new JpaBookingRepository();
     }
 
     @Override
-    public AllergenRepository allergens() { return new JpaAllergenRepository(); }
+    public AllergenRepository allergens() {
+        return new JpaAllergenRepository();
+    }
 
     @Override
     public MealsPreparedRepository mealsPrepared() {
         return new JpaMealsPreparedRepository();
     }
-}
 
-	@Override
-	public TransactionalContext buildTransactionalContext() {
-		return new JpaTransactionalContext(Application.settings().getPersistenceUnitName());
-	}
+    @Override
+    public TransactionalContext buildTransactionalContext() {
+        return new JpaTransactionalContext(Application.settings().getPersistenceUnitName());
+    }
 }

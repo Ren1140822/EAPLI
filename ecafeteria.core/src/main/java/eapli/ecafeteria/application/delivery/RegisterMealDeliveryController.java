@@ -18,17 +18,17 @@ public class RegisterMealDeliveryController implements Controller {
     private final TimePeriod2 timePeriod;
 
     public RegisterMealDeliveryController(CafeteriaUser user, TimePeriod2 timePeriod) {
-        if (user == null||timePeriod==null) {
+        if (user == null || timePeriod == null) {
             throw new IllegalStateException();
         }
         this.user = user;
-        this.timePeriod= timePeriod;
+        this.timePeriod = timePeriod;
     }
 
     public boolean registerMealDelivery() {
-        
-        Booking tempBooking = bookingRepo.first(); //TODO: Find booking by current meal(?) and of this user
-        
+
+        Booking tempBooking = bookingRepo.findAll().iterator().next(); //TODO: Find booking by current meal(?) and of this user
+
         tempBooking.deliver();
         return true;
     }
