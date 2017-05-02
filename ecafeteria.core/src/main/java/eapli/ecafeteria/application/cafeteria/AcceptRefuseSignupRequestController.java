@@ -37,7 +37,8 @@ import eapli.framework.persistence.repositories.TransactionalContext;
  */
 public class AcceptRefuseSignupRequestController implements Controller {
 
-	private final TransactionalContext TxCtx = PersistenceContext.repositories().buildTransactionalContext();
+    private final TransactionalContext TxCtx
+            = PersistenceContext.repositories().buildTransactionalContext();
     private final UserRepository userRepository
             = PersistenceContext.repositories().users(TxCtx);
     private final CafeteriaUserRepository cafeteriaUserRepository
