@@ -3,13 +3,12 @@
  */
 package eapli.framework.persistence.repositories.impl.jpa;
 
-import eapli.framework.persistence.repositories.TransactionalContext;
-import eapli.util.Strings;
 import java.io.Serializable;
-import java.util.logging.Logger;
+
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+
+import eapli.framework.persistence.repositories.TransactionalContext;
 
 /**
  * An utility class for implementing JPA repositories not running in containers.
@@ -21,59 +20,44 @@ import javax.persistence.Persistence;
  * TransactionalContext interface.
  *
  * @author Paulo Gandra Sousa
- * @param <T> the entity type managed by this repository (a table in the
- * database)
- * @param <K> the primary key of the table
+ * @param <T>
+ *            the entity type managed by this repository (a table in the
+ *            database)
+ * @param <K>
+ *            the primary key of the table
  */
-public class JpaNotRunningInContainerRepository<T, K extends Serializable> extends JpaBaseRepository<T, K>
-        implements TransactionalContext {
+public class JpaNotRunningInContainerRepository<T, K extends Serializable> extends JpaBaseRepository<T, K> {
 
-    private final String persistenceUnitName;
-    private static EntityManagerFactory singletonEMF;
+    private JpaTransactionalContext TxCtx;
 
     /**
      *
-     * @param persistenceUnitName the name of the persistence unit to use
      */
-    public JpaNotRunningInContainerRepository(String persistenceUnitName) {
-        super();
-        this.persistenceUnitName = persistenceUnitName;
+    public JpaNotRunningInContainerRepository(TransactionalContext TxCtx) {
+	super();
+	setTxCtx(TxCtx);
     }
 
-    JpaNotRunningInContainerRepository(String persistenceUnitName, Class<T> classz) {
-        super(classz);
-        this.persistenceUnitName = persistenceUnitName;
+    JpaNotRunningInContainerRepository(TransactionalContext TxCtx, Class<T> classz) {
+	super(classz);
+	setTxCtx(TxCtx);
+    }
+
+    private void setTxCtx(TransactionalContext TxCtx) {
+	if (TxCtx == null || !(TxCtx instanceof JpaTransactionalContext)) {
+	    throw new IllegalArgumentException();
+	}
+	this.TxCtx = (JpaTransactionalContext) TxCtx;
     }
 
     @Override
     @SuppressWarnings("squid:S3346")
     protected EntityManagerFactory entityManagerFactory() {
-        if (singletonEMF == null) {
-            assert !Strings.isNullOrEmpty(persistenceUnitName) : "the persistence unit name must be provided";
-            Logger.getLogger(this.getClass().getSimpleName()).info("Not runing in container mode.");
-            singletonEMF = Persistence.createEntityManagerFactory(persistenceUnitName);
-        }
-        return singletonEMF;
+	return this.TxCtx.entityManagerFactory();
     }
 
     @Override
-    public void beginTransaction() {
-        EntityTransaction tx = entityManager().getTransaction();
-        tx.begin();
-    }
-
-    @Override
-    public void commit() {
-        entityManager().getTransaction().commit();
-    }
-
-    @Override
-    public void rollback() {
-        entityManager().getTransaction().rollback();
-    }
-
-    @Override
-    public void close() {
-        entityManager().close();
+    protected EntityManager entityManager() {
+	return this.TxCtx.entityManager();
     }
 }

@@ -11,7 +11,6 @@ package eapli.framework.actions;
  */
 @FunctionalInterface
 public interface Action {
-
     /**
      *
      * @return true if this "scope" should end

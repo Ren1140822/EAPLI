@@ -18,10 +18,10 @@ public abstract class CompoundAction implements Action {
      *
      */
     public CompoundAction(Action next) {
-        this.next = next;
+	this.next = next;
     }
 
     protected boolean next() {
-        return next.execute();
+	return next.execute();
     }
 }

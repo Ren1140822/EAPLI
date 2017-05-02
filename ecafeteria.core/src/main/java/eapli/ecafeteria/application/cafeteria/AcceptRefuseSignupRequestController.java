@@ -19,6 +19,7 @@ import eapli.ecafeteria.persistence.UserRepository;
 import eapli.framework.application.Controller;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
+import eapli.framework.persistence.repositories.TransactionalContext;
 
 /**
  *
@@ -36,12 +37,14 @@ import eapli.framework.persistence.DataIntegrityViolationException;
  */
 public class AcceptRefuseSignupRequestController implements Controller {
 
+    private final TransactionalContext TxCtx
+            = PersistenceContext.repositories().buildTransactionalContext();
     private final UserRepository userRepository
-            = PersistenceContext.repositories().users(false);
+            = PersistenceContext.repositories().users(TxCtx);
     private final CafeteriaUserRepository cafeteriaUserRepository
-            = PersistenceContext.repositories().cafeteriaUsers(false);
+            = PersistenceContext.repositories().cafeteriaUsers(TxCtx);
     private final SignupRequestRepository signupRequestsRepository
-            = PersistenceContext.repositories().signupRequests(false);
+            = PersistenceContext.repositories().signupRequests(TxCtx);
 
     public SignupRequest acceptSignupRequest(SignupRequest theSignupRequest)
             throws DataIntegrityViolationException, DataConcurrencyException {
@@ -52,14 +55,14 @@ public class AcceptRefuseSignupRequestController implements Controller {
         }
 
         // explicitly begin a transaction
-        userRepository.beginTransaction();
+        TxCtx.beginTransaction();
 
         SystemUser newUser = createSystemUserForCafeteriaUser(theSignupRequest);
         createCafeteriaUser(theSignupRequest, newUser);
         theSignupRequest = acceptTheSignupRequest(theSignupRequest);
 
         // explicitly commit the transaction
-        userRepository.commit();
+        TxCtx.commit();
 
         return theSignupRequest;
     }
@@ -105,13 +108,13 @@ public class AcceptRefuseSignupRequestController implements Controller {
         }
 
         // explicitly begin a transaction
-        userRepository.beginTransaction();
+        TxCtx.beginTransaction();
 
         theSignupRequest.refuse();
         theSignupRequest = this.signupRequestsRepository.save(theSignupRequest);
 
         // explicitly commit the transaction
-        userRepository.commit();
+        TxCtx.commit();
 
         return theSignupRequest;
     }

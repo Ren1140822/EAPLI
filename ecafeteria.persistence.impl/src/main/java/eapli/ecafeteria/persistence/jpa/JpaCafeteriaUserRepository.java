@@ -5,6 +5,7 @@ import eapli.ecafeteria.domain.authz.Username;
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
 import eapli.ecafeteria.persistence.CafeteriaUserRepository;
+import eapli.framework.persistence.repositories.TransactionalContext;
 import eapli.framework.persistence.repositories.impl.jpa.JpaAutoTxRepository;
 
 /**
@@ -15,19 +16,19 @@ class JpaCafeteriaUserRepository
         extends JpaAutoTxRepository<CafeteriaUser, MecanographicNumber>
         implements CafeteriaUserRepository {
 
-    public JpaCafeteriaUserRepository(boolean autoTx) {
+    public JpaCafeteriaUserRepository(TransactionalContext autoTx) {
         super(Application.settings().getPersistenceUnitName(), autoTx);
     }
 
     @Override
     public CafeteriaUser findByUsername(Username name) {
-        // TODO use parameters instead of string concatenation
+        // FIXME use parameters instead of string concatenation
         return repo.matchOne("e.systemUser.username.name='" + name + "'");
     }
 
     @Override
     public CafeteriaUser findByMecanographicNumber(MecanographicNumber number) {
-        // TODO use parameters instead of string concatenation
+        // FIXME use parameters instead of string concatenation
         return repo.matchOne("e.mecanographicNumber.number='" + number + "'");
     }
 }

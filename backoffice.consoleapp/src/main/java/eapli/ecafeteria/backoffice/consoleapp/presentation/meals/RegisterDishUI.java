@@ -28,7 +28,7 @@ public class RegisterDishUI extends AbstractUI {
     protected boolean doShow() {
         final Iterable<DishType> dishTypes = this.theController.dishTypes();
 
-        final SelectWidget<DishType> selector = new SelectWidget<>(dishTypes, new DishTypePrinter());
+        final SelectWidget<DishType> selector = new SelectWidget<>("Dish types:", dishTypes, new DishTypePrinter());
         selector.show();
         final DishType theDishType = selector.selectedElement();
 

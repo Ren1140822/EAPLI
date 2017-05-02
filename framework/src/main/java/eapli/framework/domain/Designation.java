@@ -3,9 +3,12 @@
  */
 package eapli.framework.domain;
 
-import eapli.util.Strings;
 import java.io.Serializable;
+
 import javax.persistence.Embeddable;
+
+import eapli.framework.domain.ddd.ValueObject;
+import eapli.util.Strings;
 
 /**
  * Generic name concept
@@ -16,7 +19,7 @@ import javax.persistence.Embeddable;
 public class Designation implements ValueObject, Serializable {
 
     private static final long serialVersionUID = 1L;
-    private String designation;
+    private String theDesignation;
 
     /**
      * protected constructor. to construct a new Designation instance use the
@@ -25,10 +28,10 @@ public class Designation implements ValueObject, Serializable {
      * @param name
      */
     protected Designation(String name) {
-        if (Strings.isNullOrEmpty(name)) {
-            throw new IllegalStateException("Name should neither be null nor empty");
-        }
-        this.designation = name;
+	if (Strings.isNullOrEmpty(name)) {
+	    throw new IllegalStateException("Name should neither be null nor empty");
+	}
+	theDesignation = name;
     }
 
     /**
@@ -39,34 +42,34 @@ public class Designation implements ValueObject, Serializable {
      * @return
      */
     public static Designation valueOf(String name) {
-        return new Designation(name);
+	return new Designation(name);
     }
 
     protected Designation() {
-        // for ORM
+	// for ORM
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Designation)) {
-            return false;
-        }
+	if (this == o) {
+	    return true;
+	}
+	if (!(o instanceof Designation)) {
+	    return false;
+	}
 
-        final Designation other = (Designation) o;
+	final Designation other = (Designation) o;
 
-        return this.designation.equals(other.designation);
+	return theDesignation.equals(other.theDesignation);
     }
 
     @Override
     public String toString() {
-        return this.designation;
+	return theDesignation;
     }
 
     @Override
     public int hashCode() {
-        return this.designation.hashCode();
+	return theDesignation.hashCode();
     }
 }

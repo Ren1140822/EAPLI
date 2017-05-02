@@ -20,30 +20,30 @@ public class Menu {
     private final Map<Integer, MenuItem> itemByOption = new HashMap<>();
 
     public Menu() {
-        this.title = "";
+	this.title = "";
     }
 
     public Menu(String title) {
-        this.title = title;
+	this.title = title;
     }
 
     public void add(MenuItem item) {
-        if (item == null) {
-            throw new IllegalArgumentException();
-        }
-        this.itens.add(item);
-        this.itemByOption.put(item.option(), item);
+	if (item == null) {
+	    throw new IllegalArgumentException();
+	}
+	this.itens.add(item);
+	this.itemByOption.put(item.option(), item);
     }
 
     public String title() {
-        return this.title;
+	return this.title;
     }
 
     public Iterable<MenuItem> itens() {
-        return this.itens;
+	return this.itens;
     }
 
     public MenuItem item(int option) {
-        return this.itemByOption.get(option);
+	return this.itemByOption.get(option);
     }
 }

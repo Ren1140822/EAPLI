@@ -9,6 +9,7 @@ import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
 import java.util.Iterator;
 import java.util.Optional;
+import eapli.framework.persistence.repositories.TransactionalContext;
 
 /**
  * Created by nuno on 20/03/16.
@@ -21,7 +22,7 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     }
 
     @Override
-    public UserRepository users(boolean tx) {
+    public UserRepository users(TransactionalContext tx) {
         return new InMemoryUserRepository();
     }
 
@@ -36,13 +37,13 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     }
 
     @Override
-    public CafeteriaUserRepository cafeteriaUsers(boolean tx) {
+    public CafeteriaUserRepository cafeteriaUsers(TransactionalContext tx) {
 
         return new InMemoryCafeteriaUserRepository();
     }
 
     @Override
-    public SignupRequestRepository signupRequests(boolean tx) {
+    public SignupRequestRepository signupRequests(TransactionalContext tx) {
         return new InMemorySignupRequestRepository();
     }
 
@@ -87,4 +88,11 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     public MealsPreparedRepository mealsPrepared() {
         return new InMemoryMealsPreparedRepository();
     }
+}
+
+	@Override
+	public TransactionalContext buildTransactionalContext() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

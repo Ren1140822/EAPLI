@@ -8,14 +8,16 @@ package eapli.framework.visitor;
  * a visitor (GoF)
  *
  * @author Paulo Gandra Sousa
- * @param <T> the specific type we want to visit
+ * @param <T>
+ *            the specific type we want to visit
  */
 public interface Visitor<T> {
 
     /**
      * visits a specific object
      *
-     * @param visitee the object to visit
+     * @param visitee
+     *            the object to visit
      */
     void visit(T visitee);
 

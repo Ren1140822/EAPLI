@@ -8,16 +8,15 @@ package eapli.framework.presentation.console;
  *
  */
 public class VerticalMenuRenderer extends MenuRenderer {
-
     public VerticalMenuRenderer(Menu menu) {
-        super(menu);
+	super(menu);
     }
 
     @Override
     protected void doShow() {
-        for (final MenuItem item : menu.itens()) {
-            item.show();
-            System.out.println();
-        }
+	for (final MenuItem item : menu.itens()) {
+	    item.show();
+	    System.out.println();
+	}
     }
 }

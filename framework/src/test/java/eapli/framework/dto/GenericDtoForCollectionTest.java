@@ -89,7 +89,6 @@ public class GenericDtoForCollectionTest {
 	assertEquals("list is missing elements", N_SAMPLES, n);
     }
 
-    @SuppressWarnings("unchecked")
     @Test
     public void ensureListFieldIsTransformed() {
 	System.out.println("ensureListFieldIsTransformed");

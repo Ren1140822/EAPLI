@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>eapli</groupId>
     <artifactId>framework</artifactId>
-    <version>1.9.1-SNAPSHOT</version>
+    <version>1.9.5-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>framework</name>
 
@@ -26,9 +26,9 @@
             <version>2.6.2</version>
         </dependency>
         <dependency>
-            <groupId>eapli</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>util</artifactId>
-            <version>1.6-SNAPSHOT</version>
+            <version>1.6.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>

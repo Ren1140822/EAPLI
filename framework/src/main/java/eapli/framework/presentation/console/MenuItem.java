@@ -17,31 +17,31 @@ public class MenuItem {
     private final Action action;
 
     public MenuItem(int option, String text, Action action) {
-        if (text == null || action == null) {
-            throw new IllegalArgumentException();
-        }
-        this.option = option;
-        this.text = text;
-        this.action = action;
+	if (text == null || action == null) {
+	    throw new IllegalArgumentException();
+	}
+	this.option = option;
+	this.text = text;
+	this.action = action;
     }
 
     public boolean select() {
-        return action.execute();
+	return action.execute();
     }
 
     public void show() {
-        System.out.print(option + ". ");
-        System.out.print(text());
+	System.out.print(option + ". ");
+	System.out.print(text());
     }
 
     /**
      * @return the text
      */
     public String text() {
-        return text;
+	return text;
     }
 
     public int option() {
-        return option;
+	return option;
     }
 }

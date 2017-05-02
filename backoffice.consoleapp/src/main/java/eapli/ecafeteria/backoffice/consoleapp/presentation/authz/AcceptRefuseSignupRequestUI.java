@@ -30,7 +30,7 @@ public class AcceptRefuseSignupRequestUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
-        final SelectWidget<SignupRequest> selector = new SelectWidget<SignupRequest>(this.theController.listPendingSignupRequests(),
+        final SelectWidget<SignupRequest> selector = new SelectWidget<SignupRequest>("Pending signups", this.theController.listPendingSignupRequests(),
                 new SignupRequestPrinter());
         selector.show();
         final SignupRequest theSignupRequest = selector.selectedElement();

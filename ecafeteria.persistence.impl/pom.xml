@@ -17,7 +17,7 @@
         <dependency>
             <groupId>eapli</groupId>
             <artifactId>framework</artifactId>
-            <version>1.9.1-SNAPSHOT</version>
+            <version>1.9.5-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>eapli.ecafeteria</groupId>

@@ -5,11 +5,11 @@ public abstract class InMemoryRepositoryWithLongPK<T> extends InMemoryRepository
     private static long nextPK = 1L;
 
     public InMemoryRepositoryWithLongPK() {
-        super();
+	super();
     }
 
     @Override
     protected Long newPK(T entity) {
-        return ++nextPK;
+	return ++nextPK;
     }
 }

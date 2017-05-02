@@ -17,7 +17,7 @@ import eapli.ecafeteria.persistence.PersistenceContext;
  */
 public class CafeteriaUserService {
 
-    private final CafeteriaUserRepository repo = PersistenceContext.repositories().cafeteriaUsers(true);
+    private final CafeteriaUserRepository repo = PersistenceContext.repositories().cafeteriaUsers(null);
 
     public CafeteriaUser findCafeteriaUserByMecNumber(String mecNumber) {
         return this.repo.findByMecanographicNumber(new MecanographicNumber(mecNumber));

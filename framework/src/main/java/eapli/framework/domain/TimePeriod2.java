@@ -31,18 +31,18 @@ public class TimePeriod2 {
      * @param end
      */
     public TimePeriod2(Calendar start, Calendar end) {
-        this.start = start;
-        this.end = end;
+	this.start = start;
+	this.end = end;
     }
 
     protected TimePeriod2() {
     }
 
     public Calendar start() {
-        return this.start;
+	return this.start;
     }
 
     public Calendar end() {
-        return this.start;
+	return this.start;
     }
 }
