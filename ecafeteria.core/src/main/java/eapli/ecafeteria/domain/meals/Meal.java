@@ -1,5 +1,6 @@
 package eapli.ecafeteria.domain.meals;
 
+import eapli.ecafeteria.domain.kitchen.MealsPrepared;
 import eapli.framework.domain.TimePeriod2;
 
 import javax.persistence.*;
@@ -19,8 +20,10 @@ public class Meal {
 
     @OneToOne
     private Dish dish;
+ 
     @Embedded
     private MealType mealType;
+ 
     @Embedded
     private TimePeriod2 timePeriod;
 
@@ -39,7 +42,7 @@ public class Meal {
     public Long pk(){
         return pk;
     }
-
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
