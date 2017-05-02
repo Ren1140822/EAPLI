@@ -38,18 +38,17 @@ public abstract class AbstractListUI<T> extends AbstractUI {
      */
     @Override
     protected boolean doShow() {
-        final Iterable<T> dishTypes = listOfElements();
-        if (!dishTypes.iterator().hasNext()) {
-            System.out.println("There is no registered " + elementName());
-        } else {
-            System.out.println("Listing " + elementName() + "s");
-            new ListWidget<T>(dishTypes, elementPrinter()).show();
-        }
-        return true;
+	final Iterable<T> dishTypes = listOfElements();
+	if (!dishTypes.iterator().hasNext()) {
+	    System.out.println("There is no registered " + elementName());
+	} else {
+	    new ListWidget<>("Listing " + elementName() + "s", dishTypes, elementPrinter()).show();
+	}
+	return true;
     }
 
     @Override
     public String headline() {
-        return "List " + elementName() + "s";
+	return "List " + elementName() + "s";
     }
 }

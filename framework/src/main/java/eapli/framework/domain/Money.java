@@ -4,7 +4,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Currency;
+
 import javax.persistence.Embeddable;
+
+import eapli.framework.domain.ddd.ValueObject;
 
 /**
  * represents money values.
@@ -15,28 +18,8 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Money implements Comparable<Money>, Serializable, ValueObject {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     private static final transient int HUNDRED = 100;
-
-    /**
-     * If you use one currency a lot, you may want a special constructor for
-     * that currency.
-     */
-    public static Money dollars(final double amount) {
-        return new Money(amount, Currency.getInstance("USD"));
-    }
-
-    /**
-     * If you use one currency a lot, you may want a special constructor for
-     * that currency.
-     */
-    public static Money euros(final double amount) {
-        return new Money(amount, Currency.getInstance("EUR"));
-    }
-
     private final BigInteger amount;
     private final Currency currency;
 
@@ -44,9 +27,9 @@ public class Money implements Comparable<Money>, Serializable, ValueObject {
      * For ORM tool only
      */
     protected Money() {
-        // for ORM tool only
-        this.amount = null;
-        this.currency = null;
+	// for ORM tool only
+	amount = null;
+	currency = null;
     }
 
     /**
@@ -61,21 +44,38 @@ public class Money implements Comparable<Money>, Serializable, ValueObject {
      * @param currency
      */
     public Money(double amount, Currency currency) {
-        this.amount = BigInteger.valueOf(Math.round(amount * HUNDRED));
-        this.currency = currency;
+	this.amount = BigInteger.valueOf(Math.round(amount * HUNDRED));
+	this.currency = currency;
     }
 
     public Money(long amount, Currency currency) {
-        this.amount = BigInteger.valueOf(amount * HUNDRED);
-        this.currency = currency;
+	this.amount = BigInteger.valueOf(amount * HUNDRED);
+	this.currency = currency;
     }
 
     private Money(BigInteger amountInPennies, Currency currency, boolean privacyMarker) {
-        // Assert.notNull(amountInPennies);
-        // Assert.notNull(currency);
-        // FIXME do validations
-        this.amount = amountInPennies;
-        this.currency = currency;
+	assert amountInPennies != null;
+	assert currency != null;
+
+	// FIXME do validations
+	amount = amountInPennies;
+	this.currency = currency;
+    }
+
+    /**
+     * If you use one currency a lot, you may want a special constructor for
+     * that currency.
+     */
+    public static Money dollars(final double amount) {
+	return new Money(amount, Currency.getInstance("USD"));
+    }
+
+    /**
+     * If you use one currency a lot, you may want a special constructor for
+     * that currency.
+     */
+    public static Money euros(final double amount) {
+	return new Money(amount, Currency.getInstance("EUR"));
     }
 
     /**
@@ -90,11 +90,11 @@ public class Money implements Comparable<Money>, Serializable, ValueObject {
      * outside.
      */
     public double amount() {
-        return this.amount.doubleValue() / HUNDRED;
+	return amount.doubleValue() / HUNDRED;
     }
 
     public BigDecimal amountAsDecimal() {
-        return BigDecimal.valueOf(amount());
+	return BigDecimal.valueOf(amount());
     }
 
     /**
@@ -103,7 +103,7 @@ public class Money implements Comparable<Money>, Serializable, ValueObject {
      * @return
      */
     public Currency currency() {
-        return this.currency;
+	return currency;
     }
 
     /**
@@ -113,8 +113,10 @@ public class Money implements Comparable<Money>, Serializable, ValueObject {
      * Notice that I'm using a special constructor with a marker argument.
      */
     public Money add(Money arg) {
-        assertSameCurrencyAs(arg);
-        return new Money(this.amount.add(arg.amount), this.currency, true);
+	if (!currency.equals(arg.currency)) {
+	    throw new IllegalArgumentException("Cannot add different currencies");
+	}
+	return new Money(amount.add(arg.amount), currency, true);
     }
 
     /**
@@ -124,16 +126,11 @@ public class Money implements Comparable<Money>, Serializable, ValueObject {
      * @return
      */
     public Money subtract(Money arg) {
-        return add(arg.negate());
-    }
-
-    private void assertSameCurrencyAs(Money arg) {
-        // Assert.equals("money math mismatch", currency, arg.currency);
-        // FIX do validations
+	return add(arg.negate());
     }
 
     public Money negate() {
-        return new Money(this.amount.negate(), this.currency, true);
+	return new Money(amount.negate(), currency, true);
     }
 
     /**
@@ -141,7 +138,7 @@ public class Money implements Comparable<Money>, Serializable, ValueObject {
      *
      */
     public Money multiply(double arg) {
-        return new Money(amount() * arg, this.currency);
+	return new Money(amount() * arg, currency);
     }
 
     /**
@@ -156,17 +153,17 @@ public class Money implements Comparable<Money>, Serializable, ValueObject {
      * pennies.
      */
     public Money[] divide(int denominator) {
-        final BigInteger bigDenominator = BigInteger.valueOf(denominator);
-        final Money[] result = new Money[denominator];
-        final BigInteger simpleResult = this.amount.divide(bigDenominator);
-        for (int i = 0; i < denominator; i++) {
-            result[i] = new Money(simpleResult, this.currency, true);
-        }
-        final int remainder = this.amount.subtract(simpleResult.multiply(bigDenominator)).intValue();
-        for (int i = 0; i < remainder; i++) {
-            result[i] = result[i].add(new Money(BigInteger.valueOf(1), this.currency, true));
-        }
-        return result;
+	final BigInteger bigDenominator = BigInteger.valueOf(denominator);
+	final Money[] result = new Money[denominator];
+	final BigInteger simpleResult = amount.divide(bigDenominator);
+	for (int i = 0; i < denominator; i++) {
+	    result[i] = new Money(simpleResult, currency, true);
+	}
+	final int remainder = amount.subtract(simpleResult.multiply(bigDenominator)).intValue();
+	for (int i = 0; i < remainder; i++) {
+	    result[i] = result[i].add(new Money(BigInteger.valueOf(1), currency, true));
+	}
+	return result;
     }
 
     /**
@@ -176,9 +173,11 @@ public class Money implements Comparable<Money>, Serializable, ValueObject {
      * comparable.
      */
     @Override
-    public int compareTo(Money moneyArg) {
-        assertSameCurrencyAs(moneyArg);
-        return this.amount.compareTo(moneyArg.amount);
+    public int compareTo(Money arg) {
+	if (!currency.equals(arg.currency)) {
+	    throw new IllegalArgumentException("Cannot add different currencies");
+	}
+	return amount.compareTo(arg.amount);
     }
 
     /**
@@ -188,28 +187,28 @@ public class Money implements Comparable<Money>, Serializable, ValueObject {
      * makes methods that need the comparison much easier to read.
      */
     public boolean greaterThan(Money arg) {
-        return compareTo(arg) > 0;
+	return compareTo(arg) > 0;
     }
 
     /**
      * Compares two Money objects.
      */
     public boolean lessThan(Money arg) {
-        return compareTo(arg) < 0;
+	return compareTo(arg) < 0;
     }
 
     /**
      * Compares two Money objects.
      */
     public boolean greaterThanOrEqual(Money arg) {
-        return compareTo(arg) >= 0;
+	return compareTo(arg) >= 0;
     }
 
     /**
      * Compares two Money objects.
      */
     public boolean lessThanOrEqual(Money arg) {
-        return compareTo(arg) <= 0;
+	return compareTo(arg) <= 0;
     }
 
     /**
@@ -217,11 +216,11 @@ public class Money implements Comparable<Money>, Serializable, ValueObject {
      */
     @Override
     public boolean equals(Object arg) {
-        if (!(arg instanceof Money)) {
-            return false;
-        }
-        final Money other = (Money) arg;
-        return this.currency.equals(other.currency) && this.amount.equals(other.amount);
+	if (!(arg instanceof Money)) {
+	    return false;
+	}
+	final Money other = (Money) arg;
+	return currency.equals(other.currency) && amount.equals(other.amount);
     }
 
     /**
@@ -230,15 +229,15 @@ public class Money implements Comparable<Money>, Serializable, ValueObject {
      */
     @Override
     public int hashCode() {
-        return this.amount.hashCode();
+	return amount.hashCode();
     }
 
     public int signum() {
-        return this.amount.signum();
+	return amount.signum();
     }
 
     @Override
     public String toString() {
-        return amount() + " " + currency();
+	return amount() + " " + currency();
     }
 }

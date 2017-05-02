@@ -3,15 +3,12 @@
  */
 package eapli.framework.persistence.repositories.impl.jpa;
 
-import eapli.framework.persistence.repositories.TransactionalContext;
-import eapli.util.Strings;
 import java.io.Serializable;
-import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+
+import eapli.framework.persistence.repositories.TransactionalContext;
 
 /**
  * An utility class for implementing JPA repositories not running in containers.
@@ -23,12 +20,13 @@ import javax.persistence.Persistence;
  * TransactionalContext interface.
  *
  * @author Paulo Gandra Sousa
- * @param <T> the entity type managed by this repository (a table in the
- * database)
- * @param <K> the primary key of the table
+ * @param <T>
+ *            the entity type managed by this repository (a table in the
+ *            database)
+ * @param <K>
+ *            the primary key of the table
  */
-public class JpaNotRunningInContainerRepository<T, K extends Serializable> 
-	extends JpaBaseRepository<T, K> {
+public class JpaNotRunningInContainerRepository<T, K extends Serializable> extends JpaBaseRepository<T, K> {
 
     private JpaTransactionalContext TxCtx;
 
@@ -36,30 +34,30 @@ public class JpaNotRunningInContainerRepository<T, K extends Serializable>
      *
      */
     public JpaNotRunningInContainerRepository(TransactionalContext TxCtx) {
-        super();
-        setTxCtx(TxCtx);
+	super();
+	setTxCtx(TxCtx);
     }
-    
+
     JpaNotRunningInContainerRepository(TransactionalContext TxCtx, Class<T> classz) {
-        super(classz);
-        setTxCtx(TxCtx);
+	super(classz);
+	setTxCtx(TxCtx);
     }
 
     private void setTxCtx(TransactionalContext TxCtx) {
-        if (TxCtx==null || !(TxCtx instanceof JpaTransactionalContext)) {
-        	throw new IllegalArgumentException();
-        }
-        this.TxCtx = (JpaTransactionalContext)TxCtx;
+	if (TxCtx == null || !(TxCtx instanceof JpaTransactionalContext)) {
+	    throw new IllegalArgumentException();
+	}
+	this.TxCtx = (JpaTransactionalContext) TxCtx;
     }
-    
+
     @Override
     @SuppressWarnings("squid:S3346")
     protected EntityManagerFactory entityManagerFactory() {
-    	return this.TxCtx.entityManagerFactory();
+	return this.TxCtx.entityManagerFactory();
     }
-    
+
     @Override
     protected EntityManager entityManager() {
-        return this.TxCtx.entityManager();
+	return this.TxCtx.entityManager();
     }
 }

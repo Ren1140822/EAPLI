@@ -7,15 +7,15 @@ public abstract class MenuRenderer {
     protected final Menu menu;
 
     public MenuRenderer(Menu menu) {
-        super();
-        this.menu = menu;
+	super();
+	this.menu = menu;
     }
 
     public boolean show() {
-        doShow();
+	doShow();
 
-        final MenuItem item = readOption();
-        return item.select();
+	final MenuItem item = readOption();
+	return item.select();
     }
 
     protected abstract void doShow();
@@ -24,11 +24,11 @@ public abstract class MenuRenderer {
      * @return
      */
     protected MenuItem readOption() {
-        MenuItem item;
-        do {
-            final int option = Console.readInteger("\nPlease choose an option");
-            item = menu.item(option);
-        } while (item == null);
-        return item;
+	MenuItem item;
+	do {
+	    final int option = Console.readInteger("\nPlease choose an option");
+	    item = menu.item(option);
+	} while (item == null);
+	return item;
     }
 }

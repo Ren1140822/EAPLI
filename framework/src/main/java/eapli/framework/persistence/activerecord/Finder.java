@@ -10,9 +10,9 @@ import java.util.List;
  *
  * @author Paulo Gandra Sousa
  */
-public interface Finder<T extends ActiveRecord<T>, ID> {
+public interface Finder<T extends ActiveRecord<T>, K> {
 
-    T findById(ID id);
+    T findById(K id);
 
     List<T> all();
 }

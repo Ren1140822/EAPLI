@@ -49,31 +49,31 @@ public class EmailAddressTest {
      */
     @Test
     public void testEmailAddress() {
-        new EmailAddress("geral@acme.com");
+	new EmailAddress("geral@acme.com");
     }
 
     @Test(expected = IllegalStateException.class)
     public void ensureEmailAddressHasAt() {
-        new EmailAddress("geralATacme.com");
+	new EmailAddress("geralATacme.com");
     }
 
     @Test(expected = IllegalStateException.class)
     public void ensureEmailAddressHasHostAndDomain() {
-        new EmailAddress("geral@acme");
+	new EmailAddress("geral@acme");
     }
 
     @Test(expected = IllegalStateException.class)
     public void ensureEmailAddressHasName() {
-        new EmailAddress("@acme.com");
+	new EmailAddress("@acme.com");
     }
 
     @Test(expected = IllegalStateException.class)
     public void ensureEmailAddressIsNotNull() {
-        new EmailAddress(null);
+	new EmailAddress(null);
     }
 
     @Test(expected = IllegalStateException.class)
     public void ensureEmailAddressIsNotEmpty() {
-        new EmailAddress("");
+	new EmailAddress("");
     }
 }

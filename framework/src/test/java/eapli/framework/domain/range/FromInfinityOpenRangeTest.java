@@ -5,10 +5,11 @@
  */
 package eapli.framework.domain.range;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -24,9 +25,9 @@ public class FromInfinityOpenRangeTest extends AbstractRangeTest {
 
     @BeforeClass
     public static void setUpClass() {
-        System.out.println("FromInfinityOpenRangeTest");
-        final Range.RangeBuilder<Long> b = Range.fromInfinity();
-        instance = b.openTo(END).build();
+	System.out.println("FromInfinityOpenRangeTest");
+	final Range.RangeBuilder<Long> b = Range.fromInfinity();
+	instance = b.openTo(END).build();
     }
 
     @AfterClass
@@ -43,24 +44,24 @@ public class FromInfinityOpenRangeTest extends AbstractRangeTest {
 
     @Test
     public void ensureEndIsNotInRange() {
-        System.out.println("ensureEndIsNotInRange");
-        final Long target = new Long(END_VALUE);
-        final boolean result = instance.includes(target);
-        assertFalse("end cannot be part of an open range", result);
+	System.out.println("ensureEndIsNotInRange");
+	final Long target = new Long(END_VALUE);
+	final boolean result = instance.includes(target);
+	assertFalse("end cannot be part of an open range", result);
     }
 
     @Test
     public void ensureSmallValueIsIncluded() {
-        System.out.println("ensureSmallValueIsIncluded");
-        final Long target = Long.MIN_VALUE;
-        final boolean result = instance.includes(target);
-        assertTrue("From infinity range must include any value smaller than end", result);
+	System.out.println("ensureSmallValueIsIncluded");
+	final Long target = Long.MIN_VALUE;
+	final boolean result = instance.includes(target);
+	assertTrue("From infinity range must include any value smaller than end", result);
     }
 
     @Test
     public void ensureIsFromInfinity() {
-        System.out.println("ensureIsFromInfinity");
-        final boolean result = instance.isFromInfinity();
-        assertTrue("from infinity ranges must be from infinity", result);
+	System.out.println("ensureIsFromInfinity");
+	final boolean result = instance.isFromInfinity();
+	assertTrue("from infinity ranges must be from infinity", result);
     }
 }

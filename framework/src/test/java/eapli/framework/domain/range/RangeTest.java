@@ -5,10 +5,11 @@
  */
 package eapli.framework.domain.range;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -24,8 +25,8 @@ public class RangeTest extends AbstractRangeTest {
 
     @BeforeClass
     public static void setUpClass() {
-        System.out.println("Range");
-        instance = Range.openFrom(START).openTo(END).build();
+	System.out.println("Range");
+	instance = Range.openFrom(START).openTo(END).build();
     }
 
     @AfterClass
@@ -42,37 +43,37 @@ public class RangeTest extends AbstractRangeTest {
 
     @Test(expected = IllegalStateException.class)
     public void ensureStartBiggerThanEndIsNotAllowed() {
-        System.out.println("ensureStartBiggerThanEndIsNotAllowed");
-        Range.openFrom(END).openTo(START).build();
+	System.out.println("ensureStartBiggerThanEndIsNotAllowed");
+	Range.openFrom(END).openTo(START).build();
     }
 
     @Test
     public void ensureLowerIsNotInRange() {
-        System.out.println("ensureLowerIsNotInRange");
-        final Long target = new Long(START_VALUE - DELTA_VALUE);
-        final boolean result = instance.includes(target);
-        assertFalse("value lower than start cannot be part of an open range", result);
+	System.out.println("ensureLowerIsNotInRange");
+	final Long target = new Long(START_VALUE - DELTA_VALUE);
+	final boolean result = instance.includes(target);
+	assertFalse("value lower than start cannot be part of an open range", result);
     }
 
     @Test
     public void ensureUpperIsNotInRange() {
-        System.out.println("ensureUpperIsNotInRange");
-        final Long target = new Long(END_VALUE + DELTA_VALUE);
-        final boolean result = instance.includes(target);
-        assertFalse("value greater than end cannot be part of an open range", result);
+	System.out.println("ensureUpperIsNotInRange");
+	final Long target = new Long(END_VALUE + DELTA_VALUE);
+	final boolean result = instance.includes(target);
+	assertFalse("value greater than end cannot be part of an open range", result);
     }
 
     @Test
     public void ensureMiddleIsInRange() {
-        System.out.println("ensureMiddleIsInRange");
-        final Long target = new Long(START_VALUE + DELTA_VALUE / 2);
-        final boolean result = instance.includes(target);
-        assertTrue("value in the middle is part of an open range", result);
+	System.out.println("ensureMiddleIsInRange");
+	final Long target = new Long(START_VALUE + DELTA_VALUE / 2);
+	final boolean result = instance.includes(target);
+	assertTrue("value in the middle is part of an open range", result);
     }
 
     @Test(expected = IllegalStateException.class)
     public void ensureEmptyRangeIsNotAllowed() {
-        System.out.println("ensureEmptyRangeIsNotAllowed");
-        Range.openFrom(START).openTo(START).build();
+	System.out.println("ensureEmptyRangeIsNotAllowed");
+	Range.openFrom(START).openTo(START).build();
     }
 }

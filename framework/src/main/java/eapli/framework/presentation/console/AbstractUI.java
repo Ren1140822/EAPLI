@@ -33,10 +33,10 @@ public abstract class AbstractUI {
      *
      */
     public void mainLoop() {
-        boolean wantsToExit;
-        do {
-            wantsToExit = show();
-        } while (!wantsToExit);
+	boolean wantsToExit;
+	do {
+	    wantsToExit = show();
+	} while (!wantsToExit);
     }
 
     /**
@@ -44,31 +44,31 @@ public abstract class AbstractUI {
      * @return true if the user wants to leave this UI
      */
     public boolean show() {
-        drawFormTitle();
-        final boolean wantsToExit = doShow();
-        drawFormBorder();
-        // Console.waitForKey("Press any key.");
+	drawFormTitle();
+	final boolean wantsToExit = doShow();
+	drawFormBorder();
+	// Console.waitForKey("Press any key.");
 
-        return wantsToExit;
+	return wantsToExit;
     }
 
     protected void drawFormTitle() {
-        System.out.println();
-        drawFormTitle(headline());
-        System.out.println();
+	System.out.println();
+	drawFormTitle(headline());
+	System.out.println();
     }
 
     protected void drawFormBorder() {
-        System.out.println(BORDER);
-        System.out.println();
+	System.out.println(BORDER);
+	System.out.println();
     }
 
     protected void drawFormSeparator() {
-        System.out.println(SEPARATOR);
+	System.out.println(SEPARATOR);
     }
 
     protected void drawFormTitle(String title) {
-        final String titleBorder = BORDER.substring(0, 2) + " " + title + " " + BORDER.substring(4 + title.length());
-        System.out.println(titleBorder);
+	final String titleBorder = BORDER.substring(0, 2) + " " + title + " " + BORDER.substring(4 + title.length());
+	System.out.println(titleBorder);
     }
 }
