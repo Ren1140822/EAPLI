@@ -43,6 +43,20 @@ public class Meal {
         return pk;
     }
     
+    public TimePeriod2 timePeriod(){
+        return this.timePeriod;
+    }
+    
+    public Dish dish(){
+        return this.dish;
+    }
+    
+    public MealType mealType(){
+        return this.mealType();
+    }
+    
+    
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
