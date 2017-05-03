@@ -17,6 +17,7 @@ import eapli.ecafeteria.backoffice.consoleapp.presentation.cafeteria.AddOrganicU
 import eapli.ecafeteria.backoffice.consoleapp.presentation.cafeteria.OrganicUnitPrinter;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen.ListMaterialAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen.RegisterMaterialAction;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen.RegistrationOfPreparedMealsAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.ActivateDeactivateDishAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.ActivateDeactivateDishTypeAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.ChangeDishNutricionalInfoAction;
@@ -82,6 +83,9 @@ public class MainMenu extends AbstractUI {
     // MATERIALS
     private static final int MATERIAL_REGISTER_OPTION = 1;
     private static final int MATERIAL_LIST_OPTION = 2;
+    
+    //MEALS
+    private static final int REGISTER_PREPARED_MEALS = 2;
 
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
@@ -89,7 +93,9 @@ public class MainMenu extends AbstractUI {
     private static final int ORGANIC_UNITS_OPTION = 3;
     private static final int SETTINGS_OPTION = 4;
     private static final int DISH_TYPES_OPTION = 5;
-    private static final int TRACEABILITY_OPTION = 6;
+    private static final int MEALS_OPTION = 6;
+    private static final int TRACEABILITY_OPTION = 7;
+    
 
     @Override
     public boolean show() {
@@ -137,8 +143,11 @@ public class MainMenu extends AbstractUI {
             mainMenu.add(new SubMenu(SETTINGS_OPTION, settingsMenu, new ShowVerticalSubMenuAction(settingsMenu)));
         }
         if (Application.session().session().authenticatedUser().isAuthorizedTo(ActionRight.MANAGE_KITCHEN)) {
-            final Menu kitchenMenu = buildKitchenMenu();
-            mainMenu.add(new SubMenu(TRACEABILITY_OPTION, kitchenMenu, new ShowVerticalSubMenuAction(kitchenMenu)));
+            final Menu kitchenMealsMenu = buildKitchenMealsMenu();
+            mainMenu.add(new SubMenu(MEALS_OPTION, kitchenMealsMenu, 
+                    new ShowVerticalSubMenuAction(kitchenMealsMenu)));    
+            final Menu kitchenMaterialsMenu = buildKitchenMaterialsMenu();
+            mainMenu.add(new SubMenu(TRACEABILITY_OPTION, kitchenMaterialsMenu, new ShowVerticalSubMenuAction(kitchenMaterialsMenu)));
         }
         if (Application.session().session().authenticatedUser().isAuthorizedTo(ActionRight.MANAGE_MENUS)) {
             final Menu myDishTypeMenu = buildDishMenu();
@@ -222,8 +231,18 @@ public class MainMenu extends AbstractUI {
 
         return menu;
     }
+    
+     private Menu buildKitchenMealsMenu() {
+        final Menu menu = new Menu("Meals >");
 
-    private Menu buildKitchenMenu() {
+        menu.add(new MenuItem(REGISTER_PREPARED_MEALS, "Register Meals Prepared", new RegistrationOfPreparedMealsAction()));
+
+        menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
+
+        return menu;
+    }
+
+    private Menu buildKitchenMaterialsMenu() {
         final Menu menu = new Menu("Traceability >");
 
         menu.add(new MenuItem(MATERIAL_REGISTER_OPTION, "Register new material", new RegisterMaterialAction()));
