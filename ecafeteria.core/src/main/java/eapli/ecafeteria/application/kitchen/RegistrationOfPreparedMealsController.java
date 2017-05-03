@@ -13,6 +13,7 @@ import eapli.ecafeteria.domain.meals.Meal;
 import eapli.ecafeteria.domain.meals.MealType;
 import eapli.ecafeteria.persistence.MealsPreparedRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
+import eapli.framework.application.Controller;
 import eapli.framework.domain.TimePeriod2;
 import eapli.framework.domain.range.TimePeriod;
 import eapli.framework.persistence.DataConcurrencyException;
@@ -24,12 +25,12 @@ import java.util.GregorianCalendar;
  *
  * @author Diogo Santos
  */
-public class RegistrationOfPreparedMealsController {
+public class RegistrationOfPreparedMealsController implements Controller{
 
     private final MealsPreparedRepository repository = PersistenceContext.repositories().mealsPrepared();
     private final ListMealService listMealsSvc = new ListMealService();
 
-    public Iterable<Meal> findMeals(TimePeriod period, MealType mealType) {
+    public Iterable<Meal> findMeals() {
         // today    
         Calendar date = new GregorianCalendar();
         // reset hour, minutes, seconds and millis
