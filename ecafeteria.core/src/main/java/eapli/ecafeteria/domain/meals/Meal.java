@@ -59,9 +59,7 @@ public class Meal {
 
     @Override
     public int hashCode() {
-        int result = pk.hashCode();
-        result = 31 * result + version.hashCode();
-        result = 31 * result + dish.hashCode();
+        int result = dish.hashCode();
         result = 31 * result + mealType.hashCode();
         result = 31 * result + timePeriod.hashCode();
         return result;

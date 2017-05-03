@@ -19,6 +19,8 @@ public class MealType implements ValueObject, Serializable {
 
     private MealTypes mealType;
 
+    protected MealType() {} // For ORM
+
     public MealType(MealTypes mealType) {
         if(mealType == null){
             throw new IllegalStateException();

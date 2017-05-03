@@ -12,17 +12,15 @@ import javax.persistence.*;
 @Entity
 public class Menu implements Serializable {
 
-    private static final Long serialVersionUID = 1L;
-
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long pk;
     @Version
     private Long version;
 
     @OneToOne
     private Meal meal;
-    @OneToOne
+    @ManyToOne
     private SystemUser systemUser;
     private boolean published;
 
@@ -61,23 +59,24 @@ public class Menu implements Serializable {
 
         Menu menu = (Menu) o;
 
-        if (published != menu.published) {
+        if (published != menu.published)
             return false;
-        }
-        if (!pk.equals(menu.pk)) {
+
+        if (!pk.equals(menu.pk))
             return false;
-        }
-        if (!version.equals(menu.version)) {
+
+        if (!version.equals(menu.version))
             return false;
-        }
+
+        if (!systemUser.equals(((Menu) o).systemUser))
+            return false;
+
         return meal.equals(menu.meal);
     }
 
     @Override
     public int hashCode() {
-        int result = pk.hashCode();
-        result = 31 * result + version.hashCode();
-        result = 31 * result + meal.hashCode();
+        int result = meal.hashCode();
         result = 31 * result + (published ? 1 : 0);
         return result;
     }

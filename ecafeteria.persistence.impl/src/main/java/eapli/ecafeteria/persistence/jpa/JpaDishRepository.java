@@ -13,6 +13,6 @@ class JpaDishRepository extends CafeteriaJpaRepositoryBase<Dish, Designation> im
     @Override
     public Dish findByName(Designation name) {
         // TODO use parameters instead of string concatenation
-        return matchOne("e.name.designation='" + name + "'");
+        return matchOne("e.name.theDesignation='" + name + "'");
     }
 }
