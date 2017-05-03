@@ -84,8 +84,7 @@ public class MainMenu extends AbstractUI {
     private static final int REGISTER_PREPARED_MEALS = 2;
     
     // BOOKINGS
-    private static final int LIST_BOOKINGS_OPTION = 1;
-    private static final int CANCEL_BOOKINGS_OPTION = 2;
+    private static final int CANCEL_BOOKINGS_OPTION = 1;
 
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
