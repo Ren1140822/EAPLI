@@ -13,6 +13,7 @@ import eapli.ecafeteria.backoffice.consoleapp.presentation.authz.AcceptRefuseSig
 import eapli.ecafeteria.backoffice.consoleapp.presentation.authz.AddUserUI;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.authz.DeactivateUserAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.authz.ListUsersAction;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.booking.CancelBookingAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.cafeteria.AddOrganicUnitUI;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.cafeteria.OrganicUnitPrinter;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen.ListMaterialAction;
@@ -81,6 +82,10 @@ public class MainMenu extends AbstractUI {
     
     //MEALS
     private static final int REGISTER_PREPARED_MEALS = 2;
+    
+    // BOOKINGS
+    private static final int LIST_BOOKINGS_OPTION = 1;
+    private static final int CANCEL_BOOKINGS_OPTION = 2;
 
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
@@ -90,6 +95,7 @@ public class MainMenu extends AbstractUI {
     private static final int DISH_TYPES_OPTION = 5;
     private static final int MEALS_OPTION = 6;
     private static final int TRACEABILITY_OPTION = 7;
+    private static final int BOOKINGS_OPTION = 8;
 
     @Override
     public boolean show() {
@@ -135,6 +141,9 @@ public class MainMenu extends AbstractUI {
                     new ShowVerticalSubMenuAction(organicUnitsMenu)));
             final Menu settingsMenu = buildAdminSettingsMenu();
             mainMenu.add(new SubMenu(SETTINGS_OPTION, settingsMenu, new ShowVerticalSubMenuAction(settingsMenu)));
+            final Menu bookingsMenu = buildBookingsMenu();
+            mainMenu.add(new SubMenu(BOOKINGS_OPTION, bookingsMenu,
+                    new ShowVerticalSubMenuAction(bookingsMenu)));
         }
         if (Application.session().session().authenticatedUser().isAuthorizedTo(ActionRight.MANAGE_KITCHEN)) {
             final Menu kitchenMealsMenu = buildKitchenMealsMenu();
@@ -202,6 +211,15 @@ public class MainMenu extends AbstractUI {
         menu.add(new MenuItem(DEACTIVATE_USER_OPTION, "Deactivate User", new DeactivateUserAction()));
         menu.add(new MenuItem(ACCEPT_REFUSE_SIGNUP_REQUEST_OPTION, "Accept/Refuse Signup Request",
                 new AcceptRefuseSignupRequestAction()));
+        menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
+
+        return menu;
+    }
+    
+     private Menu buildBookingsMenu() {
+        final Menu menu = new Menu("Bookings >");
+        
+        menu.add(new MenuItem(CANCEL_BOOKINGS_OPTION, "Cancel Booking", new CancelBookingAction()));
         menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
 
         return menu;
