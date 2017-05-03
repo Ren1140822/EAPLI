@@ -21,7 +21,7 @@ import java.util.Set;
  */
 public class MenuTest {
 
-    private Meal meal;
+    private MenuEntry menuEntry;
     private Dish dish;
     private MealType mealType;
     private TimePeriod2 timePeriod;
@@ -44,7 +44,7 @@ public class MenuTest {
         Calendar end = Calendar.getInstance();
         end.add(Calendar.DAY_OF_MONTH, 5);
         timePeriod = new TimePeriod2(start, end);
-        meal = new Meal(dish, mealType, timePeriod);
+        menuEntry = new MenuEntry(dish, mealType, timePeriod);
         final Set<RoleType> roles = new HashSet<RoleType>();
         roles.add(RoleType.ADMIN);
         roles.add(RoleType.MENU_MANAGER);
@@ -62,7 +62,7 @@ public class MenuTest {
     @Test
     public void testIsPublished() {
         System.out.println("MenuTest: testing 'isPublished' method normal behaviour");
-        Menu instance = new Menu(meal,systemUser);
+        Menu instance = new Menu(menuEntry,systemUser);
         boolean result = instance.isPublished();
         Assert.assertEquals(true, result);
     }

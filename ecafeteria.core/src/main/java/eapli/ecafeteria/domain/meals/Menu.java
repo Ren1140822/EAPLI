@@ -19,7 +19,7 @@ public class Menu implements Serializable {
     private Long version;
 
     @OneToOne
-    private Meal meal;
+    private MenuEntry menuEntry;
     @ManyToOne
     private SystemUser systemUser;
     private boolean published;
@@ -27,11 +27,11 @@ public class Menu implements Serializable {
     protected Menu() {
     } //for ORM
 
-    public Menu(Meal meal, SystemUser systemUser) {
-        if (meal == null || systemUser==null) {
+    public Menu(MenuEntry menuEntry, SystemUser systemUser) {
+        if (menuEntry == null || systemUser==null) {
             throw new IllegalStateException();
         }
-        this.meal = meal;
+        this.menuEntry = menuEntry;
         this.published = true;
         this.systemUser = systemUser;
     }
@@ -71,12 +71,12 @@ public class Menu implements Serializable {
         if (!systemUser.equals(((Menu) o).systemUser))
             return false;
 
-        return meal.equals(menu.meal);
+        return menuEntry.equals(menu.menuEntry);
     }
 
     @Override
     public int hashCode() {
-        int result = meal.hashCode();
+        int result = menuEntry.hashCode();
         result = 31 * result + (published ? 1 : 0);
         return result;
     }

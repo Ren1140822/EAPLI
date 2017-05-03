@@ -17,15 +17,7 @@ import eapli.ecafeteria.backoffice.consoleapp.presentation.cafeteria.AddOrganicU
 import eapli.ecafeteria.backoffice.consoleapp.presentation.cafeteria.OrganicUnitPrinter;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen.ListMaterialAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen.RegisterMaterialAction;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.ActivateDeactivateDishAction;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.ActivateDeactivateDishTypeAction;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.ChangeDishNutricionalInfoAction;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.ChangeDishPriceAction;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.ChangeDishTypeAction;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.ListDishAction;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.ListDishTypeAction;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.RegisterDishAction;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.RegisterDishTypeAction;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.*;
 import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.framework.actions.ReturnAction;
 import eapli.framework.actions.ShowMessageAction;
@@ -79,6 +71,9 @@ public class MainMenu extends AbstractUI {
     private static final int CHANGE_DISH_NUTRICIONAL_INFO_OPTION = 1;
     private static final int CHANGE_DISH_PRICE_OPTION = 2;
 
+    // MENUS
+    private static final int REGISTER_MENU_OPTION = 1;
+
     // MATERIALS
     private static final int MATERIAL_REGISTER_OPTION = 1;
     private static final int MATERIAL_LIST_OPTION = 2;
@@ -90,6 +85,7 @@ public class MainMenu extends AbstractUI {
     private static final int SETTINGS_OPTION = 4;
     private static final int DISH_TYPES_OPTION = 5;
     private static final int TRACEABILITY_OPTION = 6;
+    private static final int MENU_MANAG_OPTION = 7;
 
     @Override
     public boolean show() {
@@ -143,6 +139,8 @@ public class MainMenu extends AbstractUI {
         if (Application.session().session().authenticatedUser().isAuthorizedTo(ActionRight.MANAGE_MENUS)) {
             final Menu myDishTypeMenu = buildDishMenu();
             mainMenu.add(new SubMenu(DISH_TYPES_OPTION, myDishTypeMenu, new ShowVerticalSubMenuAction(myDishTypeMenu)));
+            final Menu myMenuMenu = buildMenuMenu();
+            mainMenu.add(new SubMenu(MENU_MANAG_OPTION, myMenuMenu, new ShowVerticalSubMenuAction(myMenuMenu)));
         }
         if (Application.session().session().authenticatedUser().isAuthorizedTo(ActionRight.SALE)) {
             // TODO
@@ -198,6 +196,15 @@ public class MainMenu extends AbstractUI {
         menu.add(new MenuItem(ACCEPT_REFUSE_SIGNUP_REQUEST_OPTION, "Accept/Refuse Signup Request",
                 new AcceptRefuseSignupRequestAction()));
         menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
+
+        return menu;
+    }
+
+    private Menu buildMenuMenu() {
+        final Menu menu = new Menu("Menus >");
+
+        menu.add(new MenuItem(REGISTER_MENU_OPTION, "Register simple menu", new RegisterMenuAction()));
+        menu.add(new MenuItem(EXIT_OPTION, "Return", new ReturnAction()));
 
         return menu;
     }
