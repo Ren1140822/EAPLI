@@ -18,38 +18,38 @@ public class CafeteriaName implements ValueObject {
     private String name;
 
     protected CafeteriaName() {
-        // for ORM
+	// for ORM
     }
 
     public CafeteriaName(String name) {
-        if (Strings.isNullOrEmpty(name)) {
-            throw new IllegalArgumentException("cafetria name cannot be empty neither null");
-        }
-        setName(name);
+	if (Strings.isNullOrEmpty(name)) {
+	    throw new IllegalArgumentException("cafetria name cannot be empty neither null");
+	}
+	setName(name);
     }
 
     public String getName() {
-        return this.name;
+	return this.name;
     }
 
     private void setName(String name) {
-        this.name = name;
+	this.name = name;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (o == null) {
-            return false;
-        }
-        if (!(o instanceof CafeteriaName)) {
-            return false;
-        }
-        final CafeteriaName other = (CafeteriaName) o;
-        return this.name.equals(other.name);
+	if (o == null) {
+	    return false;
+	}
+	if (!(o instanceof CafeteriaName)) {
+	    return false;
+	}
+	final CafeteriaName other = (CafeteriaName) o;
+	return this.name.equals(other.name);
     }
 
     @Override
     public int hashCode() {
-        return this.name.hashCode();
+	return this.name.hashCode();
     }
 }

@@ -22,17 +22,17 @@ public abstract class DomainEventBase implements DomainEvent {
     private final Calendar registeredAt;
 
     public DomainEventBase(Calendar occuredAt) {
-        this.occuredAt = occuredAt;
-        registeredAt = DateTime.now();
+	this.occuredAt = occuredAt;
+	registeredAt = DateTime.now();
     }
 
     @Override
     public Calendar occurredAt() {
-        return occuredAt;
+	return occuredAt;
     }
 
     @Override
     public Calendar registeredAt() {
-        return registeredAt;
+	return registeredAt;
     }
 }

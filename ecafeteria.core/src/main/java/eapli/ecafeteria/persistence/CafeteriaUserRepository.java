@@ -15,7 +15,8 @@ public interface CafeteriaUserRepository extends DataRepository<CafeteriaUser, M
     /**
      * returns the cafeteria user (utente) whose username is given
      *
-     * @param name the username to search for
+     * @param name
+     *            the username to search for
      * @return
      */
     CafeteriaUser findByUsername(Username name);

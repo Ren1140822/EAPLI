@@ -25,7 +25,8 @@ package eapli.framework.domain;
  * </ol>
  *
  * @author Paulo Gandra Sousa
- * @param <ID> the type of the primary <b>business</b> id of the entity
+ * @param <ID>
+ *            the type of the primary <b>business</b> id of the entity
  */
 public interface AggregateRoot<ID> extends DomainEntity<ID> {
 
