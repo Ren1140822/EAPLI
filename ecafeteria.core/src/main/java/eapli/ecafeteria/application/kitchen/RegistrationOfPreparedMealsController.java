@@ -5,6 +5,7 @@
  */
 package eapli.ecafeteria.application.kitchen;
 
+import eapli.ecafeteria.application.meals.ListMealService;
 import eapli.ecafeteria.domain.meals.Meal;
 import eapli.ecafeteria.domain.meals.MealType;
 import eapli.ecafeteria.persistence.MealsPreparedRepository;
@@ -21,8 +22,9 @@ import java.util.GregorianCalendar;
 public class RegistrationOfPreparedMealsController {
 
     private final MealsPreparedRepository repository = PersistenceContext.repositories().mealsPrepared();
+    private final ListMealService listMealsSvc = new ListMealService();
 
-    public void findMeals(TimePeriod period, MealType mealType) {
+    public Iterable<Meal> findMeals(TimePeriod period, MealType mealType) {
         // today    
         Calendar date = new GregorianCalendar();
         // reset hour, minutes, seconds and millis
@@ -40,7 +42,7 @@ public class RegistrationOfPreparedMealsController {
         date.add(Calendar.DAY_OF_MONTH, 1);
 
         TimePeriod2 timePeriod2 = new TimePeriod2(date, dateMidnight);
-        
+        return this.listMealsSvc.listMealsByDate(timePeriod2);
     }
 
     public void insertQuantityOfPreparedMeals(Meal meal, int quantity) {
