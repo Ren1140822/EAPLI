@@ -84,4 +84,9 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     public TransactionalContext buildTransactionalContext() {
         return new JpaTransactionalContext(Application.settings().getPersistenceUnitName());
     }
+
+    @Override
+    public MealEvaluationRepository mealEvaluations() {
+        return new JpaMealEvaluationRepository();
+    }
 }

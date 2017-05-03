@@ -59,4 +59,6 @@ public interface RepositoryFactory {
     AllergenRepository allergens();
     
     MealsPreparedRepository mealsPrepared();
+    
+    MealEvaluationRepository mealEvaluations();
 }

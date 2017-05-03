@@ -31,10 +31,10 @@ public class Booking implements Serializable {
     @GeneratedValue
     private Long pk;
 
-    @OneToMany(cascade = CascadeType.MERGE)
+    //@OneToMany(cascade = CascadeType.MERGE)
     private CafeteriaUser user;
 
-    @OneToMany(cascade = CascadeType.MERGE)
+    //@OneToMany(cascade = CascadeType.MERGE)
     private Meal meal;
     private BookingState state;
 
@@ -60,6 +60,10 @@ public class Booking implements Serializable {
 
     public boolean belongsTo(CafeteriaUser user) {
         return this.user.equals(user);
+    }
+    
+    public boolean isOfMeal(Meal meal) {
+        return this.meal.equals(meal);
     }
 
     public boolean isAtState(BookingState state) {
