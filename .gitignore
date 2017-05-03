@@ -166,3 +166,7 @@ fabric.properties
 /ecafeteria.persistence.impl/target/
 *.classpath
 *.project
+
+*.xml
+
+*.db
