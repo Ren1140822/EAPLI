@@ -8,6 +8,9 @@ package eapli.ecafeteria.domain.kitchen;
 import eapli.ecafeteria.domain.meals.Meal;
 import eapli.framework.domain.AggregateRoot;
 import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Version;
 
 
@@ -15,16 +18,26 @@ import javax.persistence.Version;
  *
  * @author Diogo Santos [1150451@isep.ipp.pt] Sofia Silva [1150690@isep.ipp.pt]
  */
+@Entity
 public class MealsPrepared implements AggregateRoot<Meal> {
    
+    // ORM primary key
+    @Id
+    @GeneratedValue
+    private Long pk;
     @Version
     private Long version;
-
-    @EmbeddedId
+    
     private Meal meal;
 
     private int quantity;
   
+    
+    
+    protected MealsPrepared() {
+        // for ORM
+    }
+        
     /**
      * Prepared Meals Constructor.
      *
