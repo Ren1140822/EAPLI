@@ -10,12 +10,35 @@ package eapli.util.math;
  *
  */
 public class Matrix {
+    private int iDF = 0; // determinant factor
+    private final int rows;
+    private final int cols;
+    private final double[][] data;
+
+    public Matrix(double[][] elems) {
+	this.rows = elems.length + 1;
+	this.cols = elems[0].length + 1;
+	this.data = new double[this.rows][this.cols];
+	copyData(elems, this.data);
+    }
+
+    public Matrix(Matrix other) {
+	this.rows = other.data.length + 1;
+	this.cols = other.data[0].length + 1;
+	this.data = new double[this.rows][this.cols];
+	copyData(other.data, this.data);
+    }
+
+    private Matrix(int rows, int cols) {
+	this.rows = rows;
+	this.cols = cols;
+	this.data = new double[rows][cols];
+    }
+
     /* creates a square identity matrix */
     public static Matrix identity(int n) {
 	final Matrix id = zero(n, n);
 	for (int i = 0; i < n; i++) {
-	    // for (int j = 0; j < n; j++)
-	    // id.putAt(i, j, 0.0);
 	    id.putAt(i, i, 1.0);
 	}
 	return id;
@@ -42,31 +65,6 @@ public class Matrix {
 	return z;
     }
 
-    private int iDF = 0; // determinant factor
-    private final int rows;
-    private final int cols;
-    private final double[][] data;
-
-    public Matrix(double[][] elems) {
-	this.rows = elems.length + 1;
-	this.cols = elems[0].length + 1;
-	this.data = new double[this.rows][this.cols];
-	copyData(elems, this.data);
-    }
-
-    public Matrix(Matrix other) {
-	this.rows = other.data.length + 1;
-	this.cols = other.data[0].length + 1;
-	this.data = new double[this.rows][this.cols];
-	copyData(other.data, this.data);
-    }
-
-    private Matrix(int rows, int cols) {
-	this.rows = rows;
-	this.cols = cols;
-	this.data = new double[rows][cols];
-    }
-
     // indexes are 1-based
     public double elementAt(int i, int j) {
 	return getAt(i - 1, j - 1);
@@ -80,7 +78,7 @@ public class Matrix {
 	if (index < 0 || index >= this.rows) {
 	    throw new IllegalArgumentException("index");
 	}
-	final Vector vec = new Vector(this.cols, Vector.VectorType.Row);
+	final Vector vec = new Vector(this.cols, Vector.VectorType.ROW);
 	for (int i = 0; i < this.cols; i++) {
 	    vec.putAt(i, getAt(index, i));
 	}
@@ -91,7 +89,7 @@ public class Matrix {
 	if (index < 0 || index >= this.cols) {
 	    throw new IllegalArgumentException("index");
 	}
-	final Vector vec = new Vector(this.rows, Vector.VectorType.Column);
+	final Vector vec = new Vector(this.rows, Vector.VectorType.COLUMN);
 	for (int i = 0; i < this.rows; i++) {
 	    vec.putAt(i, getAt(i, index));
 	}
@@ -196,9 +194,11 @@ public class Matrix {
 	return dest;
     }
 
-    // returns a diagonal matrix with the same elements in this matrix's
-    // diagonal
-    public Matrix Diagonal() {
+    /**
+     * @return the diagonal matrix with the same elements in this matrix's
+     *         diagonal
+     */
+    public Matrix diagonal() {
 	if (!isSquare()) {
 	    throw new IllegalStateException("matrix should be square");
 	}
@@ -210,9 +210,12 @@ public class Matrix {
 	return diag;
     }
 
-    // returns a row vector (a matrix with just one row) with the elements in
-    // this matrix's diagonal
-    public Matrix DiagonalElements() {
+    /**
+     *
+     * @return a row vector (a matrix with just one row) with the elements in
+     *         this matrix's diagonal
+     */
+    public Matrix diagonalElements() {
 	// if (!IsSquare)
 	// throw new InvalidOperationException("matrix should be square");
 	final int k = java.lang.Math.min(this.rows, this.cols);
@@ -228,10 +231,10 @@ public class Matrix {
     // indexes are 1-based
     public Matrix submatrix(int index, Vector.VectorType typ) {
 	switch (typ) {
-	case Row:
+	case ROW:
 	    return withoutRow(index);
 
-	case Column:
+	case COLUMN:
 	    return withoutColumn(index);
 
 	}
@@ -360,17 +363,18 @@ public class Matrix {
 
 	final Matrix adj = new Matrix(this.rows, this.cols);
 
-	int ii, jj, ia, ja;
 	double det;
 	final int tms = this.rows;
 
 	for (int i = 0; i < this.rows; i++) {
 	    for (int j = 0; j < this.cols; j++) {
-		ia = ja = 0;
+		int ia = 0;
+		int ja = 0;
 
 		final Matrix ap = new Matrix(tms - 1, tms - 1);
 
-		for (ii = 0; ii < tms; ii++) {
+		for (int ii = 0; ii < tms; ii++) {
+		    int jj;
 		    for (jj = 0; jj < tms; jj++) {
 
 			if ((ii != i) && (jj != j)) {
@@ -398,10 +402,9 @@ public class Matrix {
 	    throw new IllegalStateException("matrix must be square");
 	}
 
-	double f1 = 0;
-	double temp = 0;
+	double f1;
+	double temp;
 	final int tms = this.rows; // get This Matrix Size
-	int v = 1;
 
 	this.iDF = 1;
 
@@ -409,7 +412,7 @@ public class Matrix {
 
 	for (int col = 0; col < tms - 1; col++) {
 	    for (int row = col + 1; row < tms; row++) {
-		v = 1;
+		int v = 1;
 		// check if 0 in diagonal
 		while (m.getAt(col, col) == 0) {
 		    // if so switch until not
@@ -699,10 +702,10 @@ public class Matrix {
 
     /* ??? */
     private void NSolve(int rows, double[][] data) {
-	int i, j;
-
 	final int cols = rows + 1;
+	int i;
 	for (i = 0; i < rows; i++) {
+	    int j;
 	    for (j = i; j < rows && data[j][j] == 0.0; j++) {
 		;
 	    }
@@ -726,7 +729,7 @@ public class Matrix {
 	    }
 	}
 	for (i = rows - 2; i >= 0; i--) {
-	    for (j = cols - 2; j > i; j--) {
+	    for (int j = cols - 2; j > i; j--) {
 		data[i][cols - 1] -= data[i][j] * data[j][cols - 1];
 		data[i][j] = 0;
 	    }

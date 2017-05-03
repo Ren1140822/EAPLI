@@ -28,36 +28,36 @@ import eapli.framework.persistence.repositories.TransactionalContext;
  */
 public class JpaNotRunningInContainerRepository<T, K extends Serializable> extends JpaBaseRepository<T, K> {
 
-    private JpaTransactionalContext TxCtx;
+    private JpaTransactionalContext txContext;
 
     /**
      *
      */
-    public JpaNotRunningInContainerRepository(TransactionalContext TxCtx) {
+    public JpaNotRunningInContainerRepository(TransactionalContext txCtx) {
 	super();
-	setTxCtx(TxCtx);
+	setTxCtx(txCtx);
     }
 
-    JpaNotRunningInContainerRepository(TransactionalContext TxCtx, Class<T> classz) {
+    JpaNotRunningInContainerRepository(TransactionalContext txCtx, Class<T> classz) {
 	super(classz);
-	setTxCtx(TxCtx);
+	setTxCtx(txCtx);
     }
 
-    private void setTxCtx(TransactionalContext TxCtx) {
-	if (TxCtx == null || !(TxCtx instanceof JpaTransactionalContext)) {
+    private void setTxCtx(TransactionalContext txCtx) {
+	if (txCtx == null || !(txCtx instanceof JpaTransactionalContext)) {
 	    throw new IllegalArgumentException();
 	}
-	this.TxCtx = (JpaTransactionalContext) TxCtx;
+	this.txContext = (JpaTransactionalContext) txCtx;
     }
 
     @Override
     @SuppressWarnings("squid:S3346")
     protected EntityManagerFactory entityManagerFactory() {
-	return this.TxCtx.entityManagerFactory();
+	return this.txContext.entityManagerFactory();
     }
 
     @Override
     protected EntityManager entityManager() {
-	return this.TxCtx.entityManager();
+	return this.txContext.entityManager();
     }
 }

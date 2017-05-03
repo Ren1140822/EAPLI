@@ -17,8 +17,9 @@ public class ShowMessageAction implements Action {
     }
 
     @Override
+    @SuppressWarnings("squid:S106")
     public boolean execute() {
-	System.out.println(message);
+	System.out.println(this.message);
 	return true;
     }
 }

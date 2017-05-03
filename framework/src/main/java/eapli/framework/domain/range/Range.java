@@ -49,14 +49,14 @@ public class Range<T extends Comparable<T>> implements ValueObject {
 	 */
 	private RangeBuilder(R start, BoundaryLimitType startBoundary) {
 	    assert (startBoundary == BoundaryLimitType.INFINITY && start == null)
-		    || ((startBoundary != BoundaryLimitType.INFINITY && start != null));
+		    || (startBoundary != BoundaryLimitType.INFINITY && start != null);
 	    this.start = start;
 	    this.startBoundary = startBoundary;
 	}
 
 	public RangeBuilder<R> closedTo(R anchor) {
-	    end = anchor;
-	    endBoundary = BoundaryLimitType.CLOSED;
+	    this.end = anchor;
+	    this.endBoundary = BoundaryLimitType.CLOSED;
 	    return this;
 	}
 
@@ -73,7 +73,7 @@ public class Range<T extends Comparable<T>> implements ValueObject {
 	}
 
 	public Range<R> build() {
-	    return new Range<>(this.start, startBoundary, this.end, this.endBoundary);
+	    return new Range<>(this.start, this.startBoundary, this.end, this.endBoundary);
 	}
     }
 
@@ -147,12 +147,12 @@ public class Range<T extends Comparable<T>> implements ValueObject {
      * @return
      */
     public boolean includes(T target) {
-	if (startBoundary != BoundaryLimitType.INFINITY && endBoundary != BoundaryLimitType.INFINITY) {
+	if (this.startBoundary != BoundaryLimitType.INFINITY && this.endBoundary != BoundaryLimitType.INFINITY) {
 	    return regularIncludes(target);
-	} else if (endBoundary == BoundaryLimitType.INFINITY) {
+	} else if (this.endBoundary == BoundaryLimitType.INFINITY) {
 	    return toInfinityRangeIncludes(target);
 	} else {
-	    assert startBoundary == BoundaryLimitType.INFINITY;
+	    assert this.startBoundary == BoundaryLimitType.INFINITY;
 	    return fromInfinityRangeIncludes(target);
 	}
     }
@@ -161,43 +161,43 @@ public class Range<T extends Comparable<T>> implements ValueObject {
 	if (target.compareTo(this.end) > 0) {
 	    return false;
 	}
-	return !(endBoundary == BoundaryLimitType.OPEN && target.compareTo(this.end) == 0);
+	return !(this.endBoundary == BoundaryLimitType.OPEN && target.compareTo(this.end) == 0);
     }
 
     private boolean toInfinityRangeIncludes(T target) {
 	if (target.compareTo(this.start) < 0) {
 	    return false;
 	}
-	return !(startBoundary == BoundaryLimitType.OPEN && target.compareTo(this.start) == 0);
+	return !(this.startBoundary == BoundaryLimitType.OPEN && target.compareTo(this.start) == 0);
     }
 
     private boolean regularIncludes(T target) {
 	if (target.compareTo(this.start) < 0 || target.compareTo(this.end) > 0) {
 	    return false;
 	}
-	if (startBoundary == BoundaryLimitType.OPEN && target.compareTo(this.start) == 0) {
+	if (this.startBoundary == BoundaryLimitType.OPEN && target.compareTo(this.start) == 0) {
 	    return false;
 	}
-	return !(endBoundary == BoundaryLimitType.OPEN && target.compareTo(this.end) == 0);
+	return !(this.endBoundary == BoundaryLimitType.OPEN && target.compareTo(this.end) == 0);
     }
 
     @Override
     public String toString() {
 	final StringBuilder sb = new StringBuilder();
-	sb.append(startBracket(startBoundary == BoundaryLimitType.OPEN));
+	sb.append(startBracket(this.startBoundary == BoundaryLimitType.OPEN));
 	sb.append(rangeValue(this.isFromInfinity(), this.start));
 	sb.append(", ");
 	sb.append(rangeValue(this.isToInfinity(), this.end));
-	sb.append(endBracket(endBoundary == BoundaryLimitType.OPEN));
+	sb.append(endBracket(this.endBoundary == BoundaryLimitType.OPEN));
 	return sb.toString();
     }
 
     public boolean isToInfinity() {
-	return endBoundary == BoundaryLimitType.INFINITY;
+	return this.endBoundary == BoundaryLimitType.INFINITY;
     }
 
     public boolean isFromInfinity() {
-	return startBoundary == BoundaryLimitType.INFINITY;
+	return this.startBoundary == BoundaryLimitType.INFINITY;
     }
 
     public T start() {

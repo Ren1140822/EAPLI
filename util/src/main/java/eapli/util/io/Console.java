@@ -24,6 +24,7 @@ import eapli.util.DateTime;
  * @author Paulo Gandra Sousa
  *
  */
+@SuppressWarnings("squid:S106")
 public final class Console {
 
     private Console() {
@@ -123,6 +124,7 @@ public final class Console {
 	} while (true);
     }
 
+    @SuppressWarnings("squid:S1166")
     public static void waitForKey(String prompt) {
 	System.out.println(prompt);
 	try {

@@ -3,14 +3,15 @@
  */
 package eapli.framework.persistence.repositories.impl.jpa;
 
-import eapli.framework.persistence.repositories.TransactionalContext;
-import eapli.util.Strings;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+
+import eapli.framework.persistence.repositories.TransactionalContext;
+import eapli.util.Strings;
 
 /**
  * An utility class for providing transactional context to JPA repositories not
@@ -21,7 +22,7 @@ import javax.persistence.Persistence;
  */
 public class JpaTransactionalContext implements TransactionalContext {
 
-    private String persistenceUnitName;
+    private final String persistenceUnitName;
     private static EntityManagerFactory singletonEMF;
     private EntityManager entityManager;
 
@@ -35,12 +36,12 @@ public class JpaTransactionalContext implements TransactionalContext {
 	entityManagerFactory();
     }
 
-    @SuppressWarnings("squid:S3346")
+    @SuppressWarnings({ "squid:S3346", "squid:S2696" })
     EntityManagerFactory entityManagerFactory() {
 	if (singletonEMF == null) {
-	    assert !Strings.isNullOrEmpty(persistenceUnitName) : "the persistence unit name must be provided";
+	    assert !Strings.isNullOrEmpty(this.persistenceUnitName) : "the persistence unit name must be provided";
 	    Logger.getLogger(this.getClass().getSimpleName()).info("Not runing in container mode.");
-	    singletonEMF = Persistence.createEntityManagerFactory(persistenceUnitName);
+	    singletonEMF = Persistence.createEntityManagerFactory(this.persistenceUnitName);
 	}
 	return singletonEMF;
     }
@@ -54,7 +55,7 @@ public class JpaTransactionalContext implements TransactionalContext {
 
     @Override
     public void beginTransaction() {
-	EntityTransaction tx = entityManager().getTransaction();
+	final EntityTransaction tx = entityManager().getTransaction();
 	tx.begin();
     }
 
