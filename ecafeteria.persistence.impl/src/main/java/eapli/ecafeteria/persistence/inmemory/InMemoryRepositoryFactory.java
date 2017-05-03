@@ -90,4 +90,9 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    public MealEvaluationRepository mealEvaluations() {
+        return new InMemoryMealEvaluationRepository();
+    }
 }

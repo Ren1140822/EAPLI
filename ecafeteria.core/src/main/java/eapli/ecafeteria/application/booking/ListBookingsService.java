@@ -23,4 +23,8 @@ public class ListBookingsService {
         return this.repo.findBookingByUserAndState(user, BookingState.DONE);
     }
     
+    public Iterable<Booking> findBookingsStateDeliveredOf(CafeteriaUser user) {
+        return this.repo.findBookingByUserAndState(user, BookingState.DELIVERED);
+    }
+    
 }

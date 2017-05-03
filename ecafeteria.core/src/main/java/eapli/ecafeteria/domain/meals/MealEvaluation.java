@@ -6,6 +6,7 @@
 package eapli.ecafeteria.domain.meals;
 
 import eapli.ecafeteria.domain.booking.Booking;
+import eapli.framework.domain.AggregateRoot;
 import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
@@ -21,7 +22,7 @@ import javax.persistence.Version;
  * [1150019@isep.ipp.pt]
  */
 @Entity
-public class MealEvaluation implements Serializable {
+public class MealEvaluation implements AggregateRoot<Booking>, Serializable {
 
     @Version
     private Long version;
@@ -58,6 +59,25 @@ public class MealEvaluation implements Serializable {
         }
         this.booking = booking;
         this.rating = rating;
+    }
+    
+    public boolean isOfMeal(Meal meal) {
+        return this.booking.isOfMeal(meal);
+    } 
+
+    @Override
+    public boolean sameAs(Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean is(Booking t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Booking id() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

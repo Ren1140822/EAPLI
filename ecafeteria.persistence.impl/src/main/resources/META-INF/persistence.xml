@@ -20,6 +20,7 @@
     <class>eapli.ecafeteria.domain.kitchen.MealsPrepared</class>
     <class>eapli.ecafeteria.domain.kitchen.Meal</class>
     <class>eapli.ecafeteria.domain.meals.Allergen</class>
+    <class>eapli.ecafeteria.domain.meals.MealEvaluation</class>
 
     <!-- properties -->
     <properties>

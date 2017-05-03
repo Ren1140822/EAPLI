@@ -62,6 +62,10 @@ public class Booking implements Serializable {
     public boolean belongsTo(CafeteriaUser user) {
         return this.user.equals(user);
     }
+    
+    public boolean isOfMeal(Meal meal) {
+        return this.meal.equals(meal);
+    }
 
     public boolean isAtState(BookingState state) {
         return this.state.equals(state);
