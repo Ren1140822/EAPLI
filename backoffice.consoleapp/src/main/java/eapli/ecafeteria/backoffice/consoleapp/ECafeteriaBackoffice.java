@@ -7,6 +7,7 @@ package eapli.ecafeteria.backoffice.consoleapp;
 
 import eapli.cafeteria.consoleapp.presentation.authz.LoginAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.MainMenu;
+import eapli.ecafeteria.bootstrapers.ECafeteriaBootstraper;
 
 /**
  *
@@ -19,6 +20,8 @@ public final class ECafeteriaBackoffice {
      */
     public static void main(final String[] args) {
         // login and go to main menu
+        ECafeteriaBootstraper bootstraper = new ECafeteriaBootstraper();
+        bootstraper.execute();
         // TODO should provide three attempts
         if (new LoginAction().execute()) {
             final MainMenu menu = new MainMenu();

@@ -18,12 +18,14 @@ public class ECafeteriaBootstraper implements Action {
     public boolean execute() {
         // declare bootstrap actions
         final Action[] actions = {new UsersBootstraper(),
+                new AllergenBootstraper(),
             new DishTypesBootstraper(),
             new OrganicUnitBootstraper(),
             new CafeteriaUserBootstraper(),
             new DishBootstraper(),
             new MaterialsBootstraper(),
-            new MenuBootstraper(),new MealsPreparedBootstraper(),};
+            new MealsPreparedBootstraper(),
+            new MenuBootstraper(),};
 
         // authenticate a super user to be able to register new users, ...
         // in this case we will inject the session but we shouldn't do this
@@ -47,4 +49,3 @@ public class ECafeteriaBootstraper implements Action {
         return ret;
     }
 }
-
