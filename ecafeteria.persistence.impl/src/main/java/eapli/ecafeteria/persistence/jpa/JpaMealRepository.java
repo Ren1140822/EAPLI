@@ -7,6 +7,7 @@ package eapli.ecafeteria.persistence.jpa;
 
 import eapli.ecafeteria.domain.meals.Meal;
 import eapli.ecafeteria.persistence.MealRepository;
+import eapli.framework.domain.TimePeriod2;
 
 /**
  *
@@ -18,5 +19,12 @@ public class JpaMealRepository extends CafeteriaJpaRepositoryBase<Meal, Long> im
     public Meal findByPk(Long pk) {
         return matchOne("e.pk=pk", "pk", pk);
     }
+
+    @Override
+    public Iterable<Meal> findByDate(TimePeriod2 timePeriod) {
+        return match("e.timePeriod=:"+timePeriod);
+    }
+
+
 
 }
