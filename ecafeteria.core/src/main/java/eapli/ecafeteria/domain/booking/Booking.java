@@ -31,10 +31,10 @@ public class Booking implements Serializable {
     @GeneratedValue
     private Long pk;
 
-    @OneToMany(cascade = CascadeType.MERGE)
+    //@OneToMany(cascade = CascadeType.MERGE)
     private CafeteriaUser user;
 
-    @OneToMany(cascade = CascadeType.MERGE)
+    //@OneToMany(cascade = CascadeType.MERGE)
     private Meal meal;
 
     private BookingState state;
