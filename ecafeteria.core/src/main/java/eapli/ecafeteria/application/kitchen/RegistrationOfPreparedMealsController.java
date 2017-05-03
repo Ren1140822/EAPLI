@@ -5,13 +5,18 @@
  */
 package eapli.ecafeteria.application.kitchen;
 
+import eapli.ecafeteria.Application;
 import eapli.ecafeteria.application.meals.ListMealService;
+import eapli.ecafeteria.domain.authz.ActionRight;
+import eapli.ecafeteria.domain.kitchen.MealsPrepared;
 import eapli.ecafeteria.domain.meals.Meal;
 import eapli.ecafeteria.domain.meals.MealType;
 import eapli.ecafeteria.persistence.MealsPreparedRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.framework.domain.TimePeriod2;
 import eapli.framework.domain.range.TimePeriod;
+import eapli.framework.persistence.DataConcurrencyException;
+import eapli.framework.persistence.DataIntegrityViolationException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -45,7 +50,10 @@ public class RegistrationOfPreparedMealsController {
         return this.listMealsSvc.listMealsByDate(timePeriod2);
     }
 
-    public void insertQuantityOfPreparedMeals(Meal meal, int quantity) {
+    public MealsPrepared registerQuantityOfPreparedMeals(Meal meal, int quantity) throws DataConcurrencyException, DataIntegrityViolationException {
+        Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
+        final MealsPrepared mealsPrepared = new MealsPrepared(meal, quantity);
+        return repository.save(mealsPrepared);
 
     }
 
