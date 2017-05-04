@@ -44,6 +44,10 @@ public class Menu implements Serializable {
         return pk;
     }
 
+    public MenuEntry getMenuEntry(){
+        return menuEntry;
+    }
+
     public SystemUser systemUser() {
         return this.systemUser;
     }
