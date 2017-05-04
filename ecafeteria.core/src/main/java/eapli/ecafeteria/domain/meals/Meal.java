@@ -54,7 +54,7 @@ public class Meal {
     }
 
     public MealType mealType() {
-        return this.mealType();
+        return this.mealType;
     }
 
     @Override

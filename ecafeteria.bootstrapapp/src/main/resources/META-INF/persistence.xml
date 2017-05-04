@@ -13,7 +13,6 @@
     <class>eapli.ecafeteria.domain.cafeteria.SignupRequest</class>
     <class>eapli.ecafeteria.domain.meals.Dish</class>
     <class>eapli.ecafeteria.domain.meals.Menu</class>
-    <class>eapli.ecafeteria.domain.meals.MenuEntry</class>
     <class>eapli.ecafeteria.domain.meals.Meal</class>
     <class>eapli.ecafeteria.domain.kitchen.Material</class>
     <class>eapli.ecafeteria.domain.kitchen.MealsPrepared</class>
