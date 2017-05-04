@@ -5,24 +5,24 @@
  */
 package eapli.ecafeteria.domain.meals;
 
-import eapli.framework.domain.ValueObject;
-import eapli.util.Strings;
+import eapli.framework.domain.ddd.ValueObject;
 import java.io.Serializable;
 import javax.persistence.*;
-
-
 
 @Embeddable
 public class MealType implements ValueObject, Serializable {
 
-    public enum MealTypes { ALMOCO, JANTAR };
+    public enum MealTypes {
+        ALMOCO, JANTAR
+    };
 
     private MealTypes mealType;
 
-    protected MealType() {} // For ORM
+    protected MealType() {
+    } // For ORM
 
     public MealType(MealTypes mealType) {
-        if(mealType == null){
+        if (mealType == null) {
             throw new IllegalStateException();
         }
         this.mealType = mealType;

@@ -6,7 +6,7 @@
 package eapli.ecafeteria.domain.kitchen;
 
 import eapli.ecafeteria.domain.meals.Meal;
-import eapli.framework.domain.AggregateRoot;
+import eapli.framework.domain.ddd.AggregateRoot;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,11 +15,12 @@ import javax.persistence.Version;
 
 /**
  *
- * @author Pedro Fernandes (1060503@isep.ipp.pt) Diana Silva (1151088@isep.ipp.pt)
+ * @author Pedro Fernandes (1060503@isep.ipp.pt) Diana Silva
+ * (1151088@isep.ipp.pt)
  */
 @Entity
 public class MaterialUsed implements AggregateRoot<BatchNumber>, Serializable {
-    
+
     private static final long serialVersionUID = 1L;
 
     // ORM primary key
@@ -28,20 +29,20 @@ public class MaterialUsed implements AggregateRoot<BatchNumber>, Serializable {
     private Long pk;
     @Version
     private Long version;
-    
+
     private Meal meal;
     private Material material;
     private BatchNumber batchNumber;
-    
-    public MaterialUsed(Meal meal, Material material, BatchNumber batchNumber){
-        if (meal == null || material == null || batchNumber == null){
+
+    public MaterialUsed(Meal meal, Material material, BatchNumber batchNumber) {
+        if (meal == null || material == null || batchNumber == null) {
             throw new IllegalStateException();
         }
         this.meal = meal;
         this.material = material;
-        this.batchNumber = batchNumber;        
+        this.batchNumber = batchNumber;
     }
-    
+
     protected MaterialUsed() {
         // for ORM
     }
@@ -51,19 +52,19 @@ public class MaterialUsed implements AggregateRoot<BatchNumber>, Serializable {
         // TO DO
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     public boolean is(BatchNumber t) {
         // TO DO
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     public BatchNumber id() {
         // TO DO
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -82,6 +83,4 @@ public class MaterialUsed implements AggregateRoot<BatchNumber>, Serializable {
         return this.material.hashCode() + this.batchNumber.hashCode();
     }
 
-    
-    
 }

@@ -63,6 +63,8 @@ public interface RepositoryFactory {
     BookingRepository bookings();
 
     MealRepository meals();
+    
+    //MaterialUsedRepository materialUsed();
 
     AllergenRepository allergens();
     

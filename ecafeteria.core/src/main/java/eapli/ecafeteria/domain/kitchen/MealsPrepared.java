@@ -6,7 +6,7 @@
 package eapli.ecafeteria.domain.kitchen;
 
 import eapli.ecafeteria.domain.meals.Meal;
-import eapli.framework.domain.AggregateRoot;
+import eapli.framework.domain.ddd.AggregateRoot;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

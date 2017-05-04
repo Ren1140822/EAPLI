@@ -5,32 +5,33 @@
  */
 package eapli.ecafeteria.domain.kitchen;
 
-import eapli.framework.domain.ValueObject;
+import eapli.framework.domain.ddd.ValueObject;
 import eapli.util.Strings;
 import java.io.Serializable;
 import javax.persistence.Embeddable;
 
 /**
  *
- * @author Pedro Fernandes (1060503@isep.ipp.pt) Diana Silva (1151088@isep.ipp.pt)
+ * @author Pedro Fernandes (1060503@isep.ipp.pt) Diana Silva
+ * (1151088@isep.ipp.pt)
  */
 @Embeddable
-public class BatchNumber implements ValueObject, Serializable{
-    
+public class BatchNumber implements ValueObject, Serializable {
+
     private String lotCode;
-    
-    public BatchNumber(String lotCode){
-        if ( Strings.isNullOrWhiteSpace(lotCode)){
+
+    public BatchNumber(String lotCode) {
+        if (Strings.isNullOrWhiteSpace(lotCode)) {
             throw new IllegalStateException("Invalid lot code");
         }
-        
-        this.lotCode = lotCode;        
+
+        this.lotCode = lotCode;
     }
-    
+
     protected BatchNumber() {
         // for ORM
     }
-    
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -54,5 +55,5 @@ public class BatchNumber implements ValueObject, Serializable{
     public String toString() {
         return this.lotCode;
     }
-    
+
 }

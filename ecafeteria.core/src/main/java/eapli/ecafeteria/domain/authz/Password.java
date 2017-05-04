@@ -3,7 +3,7 @@
  */
 package eapli.ecafeteria.domain.authz;
 
-import eapli.framework.domain.ValueObject;
+import eapli.framework.domain.ddd.ValueObject;
 import eapli.util.Strings;
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -27,58 +27,58 @@ public class Password implements ValueObject, Serializable {
     private String thePassword;
 
     protected Password() {
-	// for ORM only
+        // for ORM only
     }
 
     public Password(String password) {
-	if (!meetsMinimumRequirements(password)) {
-	    throw new IllegalStateException();
-	}
-	thePassword = password;
+        if (!meetsMinimumRequirements(password)) {
+            throw new IllegalStateException();
+        }
+        thePassword = password;
     }
 
     private boolean meetsMinimumRequirements(String password) {
-	// sanity check
-	if (Strings.isNullOrEmpty(password)) {
-	    return false;
-	}
+        // sanity check
+        if (Strings.isNullOrEmpty(password)) {
+            return false;
+        }
 
-	// at least 6 characters long
-	if (password.length() < 6) {
-	    return false;
-	}
+        // at least 6 characters long
+        if (password.length() < 6) {
+            return false;
+        }
 
-	// at least one digit
-	if (!Strings.containsDigit(password)) {
-	    return false;
-	}
+        // at least one digit
+        if (!Strings.containsDigit(password)) {
+            return false;
+        }
 
-	// at least one capital letter
-	if (!Strings.containsCapital(password)) {
-	    return false;
-	}
+        // at least one capital letter
+        if (!Strings.containsCapital(password)) {
+            return false;
+        }
 
-	return true;
+        return true;
     }
 
     @Override
     public boolean equals(Object o) {
-	if (this == o) {
-	    return true;
-	}
-	if (!(o instanceof Password)) {
-	    return false;
-	}
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Password)) {
+            return false;
+        }
 
-	final Password password1 = (Password) o;
+        final Password password1 = (Password) o;
 
-	return thePassword.equals(password1.thePassword);
+        return thePassword.equals(password1.thePassword);
 
     }
 
     @Override
     public int hashCode() {
-	return thePassword.hashCode();
+        return thePassword.hashCode();
     }
 
     /**
@@ -87,20 +87,20 @@ public class Password implements ValueObject, Serializable {
      * @return how strong a password is
      */
     public PasswordStrength strength() {
-	PasswordStrength passwordStrength = PasswordStrength.Weak;
-	if (3 > thePassword.length()) {
-	    passwordStrength = PasswordStrength.Weak;
-	}
-	return passwordStrength;
-	// TODO implement the rest of the method
+        PasswordStrength passwordStrength = PasswordStrength.Weak;
+        if (3 > thePassword.length()) {
+            passwordStrength = PasswordStrength.Weak;
+        }
+        return passwordStrength;
+        // TODO implement the rest of the method
     }
 
     @Override
     public String toString() {
-	return thePassword;
+        return thePassword;
     }
 
     public enum PasswordStrength {
-	Weak, Good, Excelent,
+        Weak, Good, Excelent,
     }
 }

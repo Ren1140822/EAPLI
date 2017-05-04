@@ -21,13 +21,13 @@ import eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen.RegistrationO
 import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.*;
 import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.framework.actions.ReturnAction;
-import eapli.framework.actions.ShowMessageAction;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.HorizontalMenuRenderer;
 import eapli.framework.presentation.console.ListUI;
 import eapli.framework.presentation.console.Menu;
 import eapli.framework.presentation.console.MenuItem;
 import eapli.framework.presentation.console.MenuRenderer;
+import eapli.framework.presentation.console.ShowMessageAction;
 import eapli.framework.presentation.console.ShowVerticalSubMenuAction;
 import eapli.framework.presentation.console.SubMenu;
 import eapli.framework.presentation.console.VerticalMenuRenderer;
