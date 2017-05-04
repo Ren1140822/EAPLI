@@ -38,6 +38,10 @@ public class MenuEntry {
         this.timePeriod = timePeriod;
     }
 
+    public Dish dish() { return dish;}
+    public MealType mealType() { return mealType;}
+    public TimePeriod2 timePeriod(){return timePeriod;}
+
     public Long pk(){
         return pk;
     }

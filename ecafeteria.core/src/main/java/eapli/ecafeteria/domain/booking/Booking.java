@@ -9,12 +9,7 @@ import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.ecafeteria.domain.meals.Meal;
 
 import java.io.Serializable;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Version;
+import javax.persistence.*;
 
 /**
  *
@@ -31,10 +26,10 @@ public class Booking implements Serializable {
     @GeneratedValue
     private Long pk;
 
-    //@OneToMany(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private CafeteriaUser user;
 
-    //@OneToMany(cascade = CascadeType.MERGE)
+    @OneToOne(cascade = CascadeType.MERGE)
     private Meal meal;
     private BookingState state;
 
