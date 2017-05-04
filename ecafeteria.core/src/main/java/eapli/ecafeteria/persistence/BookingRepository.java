@@ -10,8 +10,11 @@ import eapli.ecafeteria.domain.booking.Booking;
 import eapli.ecafeteria.domain.booking.BookingState;
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
+import eapli.ecafeteria.domain.meals.DishType;
 import eapli.ecafeteria.domain.meals.Meal;
+import eapli.ecafeteria.domain.meals.MealType;
 import eapli.framework.persistence.repositories.DataRepository;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,4 +27,5 @@ public interface BookingRepository extends DataRepository<Booking, Long> {
     
     Iterable<Booking> findBookingByUserAndState(CafeteriaUser user, BookingState state);
     Booking findBookingByUserAndMealAndState(CafeteriaUser user,Meal meal,BookingState state);
+    Iterable<Booking> checkBookingsByDateMealAndDishType(Date date, MealType mealType, DishType dishType);
 }
