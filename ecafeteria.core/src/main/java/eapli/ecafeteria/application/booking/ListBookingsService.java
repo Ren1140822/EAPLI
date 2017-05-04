@@ -34,4 +34,9 @@ public class ListBookingsService {
         return this.repo.findBookingByUserAndState(user, BookingState.DELIVERED);
     }
 
+    
+     public Iterable<Booking> findBookingsStateDefinitiveOf(CafeteriaUser user) {
+        return this.repo.findBookingByUserAndState(user, BookingState.DEFINITIVE);
+    }
+    
 }

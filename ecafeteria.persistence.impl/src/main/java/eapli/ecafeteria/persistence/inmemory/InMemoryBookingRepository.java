@@ -25,5 +25,10 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
     public Iterable<Booking> findBookingByUserAndState(CafeteriaUser user, BookingState state) {
         return match(e -> e.belongsTo(user) && e.isAtState(state));
     }
+
+    @Override
+    public Booking findBookingByUserAndMealAndState(CafeteriaUser user, Meal meal, BookingState state) {
+        return matchOne(e -> e.belongsTo(user) &&e.isOfMeal(meal) && e.isAtState(state));
+    }
     
 }

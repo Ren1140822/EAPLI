@@ -28,4 +28,9 @@ public class JpaBookingRepository extends CafeteriaJpaRepositoryBase<Booking, Lo
         return match("e.user=:" + user + " and e.state=:" + state);
     }
 
+     @Override
+    public Booking findBookingByUserAndMealAndState(CafeteriaUser user,Meal meal,BookingState state) {
+        return matchOne("e.user=:" + user + " and e.meal=:" + meal+ " and e.state=:" + state);
+    }
+    
 }
