@@ -47,8 +47,8 @@ public class RegisterLotsInMealController implements Controller {
     public Iterable<Meal> showMealsOfDay(){
         Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
 
-        TimePeriod2 period = new TimePeriod2(DateTime.now(), DateTime.tomorrow());
-       return this.mealRepository.findByDate(period);
+        Calendar date = DateTime.now();
+       return this.mealRepository.findByDate(date);
  
     }
     
