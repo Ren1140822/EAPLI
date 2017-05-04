@@ -23,7 +23,6 @@ class JpaCafeteriaUserRepository extends JpaAutoTxRepository<CafeteriaUser, Meca
 
     @Override
     public CafeteriaUser findByUsername(Username name) {
-        // FIXME use parameters instead of string concatenation
         Map<String, Object> params = new HashMap<>();
         params.put("name", name);
         return repo.matchOne("e.systemUser.username=:name", params);
@@ -33,6 +32,6 @@ class JpaCafeteriaUserRepository extends JpaAutoTxRepository<CafeteriaUser, Meca
     public CafeteriaUser findByMecanographicNumber(MecanographicNumber number) {
         Map<String, Object> params = new HashMap<>();
         params.put("number", number);
-        return repo.matchOne("e.mecanographicNumber.number=:number", params);
+        return repo.matchOne("e.mecanographicNumber=:number", params);
     }
 }
