@@ -13,7 +13,6 @@ import eapli.ecafeteria.persistence.AllergenRepository;
 import eapli.ecafeteria.persistence.DishTypeRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.framework.actions.Action;
-import eapli.framework.domain.Designation;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
 
@@ -35,9 +34,9 @@ public class DishBootstraper implements Action {
         final DishType vegie = dishTypeRepo.findByAcronym("vegie");
         final DishType fish = dishTypeRepo.findByAcronym("fish");
         final DishType meat = dishTypeRepo.findByAcronym("meat");
-        final Allergen molluscs = allergenRepository.allergens().iterator().next();
+        final Allergen cerials = allergenRepository.allergens().iterator().next();
         final Set<Allergen>allergenSet = new HashSet<>();
-        allergenSet.add(molluscs);
+        allergenSet.add(cerials);
 
         register(vegie, "tofu grelhado", 10, 1, 2.99, null);
         register(vegie, "lentilhas salteadas", 10, 1, 2.85,null);
