@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Menu implements Serializable {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pk;
     @Version
     private Long version;
@@ -27,11 +27,11 @@ public class Menu implements Serializable {
     } //for ORM
 
     public Menu(Set<Meal> meals) {
-        if(meals == null){
+        if (meals == null) {
             throw new IllegalStateException();
         }
         this.meals = meals;
-        this.published = true;
+        this.published = false;
     }
 
     public boolean isPublished() {
@@ -42,12 +42,17 @@ public class Menu implements Serializable {
         return pk;
     }
 
-    public boolean addMeal(Meal meal){
+    public boolean addMeal(Meal meal) {
         return meals.add(meal);
     }
 
-    public Iterable<Meal> getMeals(){
+    public Iterable<Meal> getMeals() {
         return meals;
+    }
+
+    public boolean toogleState() {
+      this.published=true;
+      return isPublished();
     }
 
     @Override
@@ -61,14 +66,17 @@ public class Menu implements Serializable {
 
         Menu menu = (Menu) o;
 
-        if (published != menu.published)
+        if (published != menu.published) {
             return false;
+        }
 
-        if (!pk.equals(menu.pk))
+        if (!pk.equals(menu.pk)) {
             return false;
+        }
 
-        if (!version.equals(menu.version))
+        if (!version.equals(menu.version)) {
             return false;
+        }
 
         return meals.containsAll(menu.meals);
     }
