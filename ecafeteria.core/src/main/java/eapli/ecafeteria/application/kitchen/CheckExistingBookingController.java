@@ -10,12 +10,13 @@ import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.ecafeteria.domain.booking.Booking;
 import eapli.ecafeteria.persistence.BookingRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
+import eapli.framework.application.Controller;
 
 /**
  *
  * @author Diogo
  */
-public class CheckExistingBookingController {
+public class CheckExistingBookingController implements Controller {
 
     private final BookingRepository repository = PersistenceContext.repositories().bookings();
 
