@@ -13,12 +13,13 @@ public class ShowMessageAction implements Action {
     private final String message;
 
     public ShowMessageAction(String message) {
-        this.message = message;
+	this.message = message;
     }
 
     @Override
+    @SuppressWarnings("squid:S106")
     public boolean execute() {
-        System.out.println(message);
-        return true;
+	System.out.println(this.message);
+	return true;
     }
 }

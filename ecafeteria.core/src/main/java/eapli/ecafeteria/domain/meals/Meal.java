@@ -1,6 +1,5 @@
 package eapli.ecafeteria.domain.meals;
 
-import eapli.ecafeteria.domain.kitchen.MealsPrepared;
 import eapli.framework.domain.TimePeriod2;
 
 import javax.persistence.*;
@@ -10,6 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 public class Meal {
+
     private static final Long serialVersionUID = 1L;
 
     @Id
@@ -20,17 +20,19 @@ public class Meal {
 
     @OneToOne
     private Dish dish;
- 
+
     @Embedded
     private MealType mealType;
- 
+
+    //TODO why does a meal need a time period?
     @Embedded
     private TimePeriod2 timePeriod;
 
-    protected Meal() {} //for ORM
+    protected Meal() {
+    } //for ORM
 
     public Meal(Dish dish, MealType mealType, TimePeriod2 timePeriod) {
-        if(dish == null || mealType == null || timePeriod == null){
+        if (dish == null || mealType == null || timePeriod == null) {
             throw new IllegalStateException();
         }
 
@@ -39,35 +41,46 @@ public class Meal {
         this.timePeriod = timePeriod;
     }
 
-    public Long pk(){
+    public Long pk() {
         return pk;
     }
-    
-    public TimePeriod2 timePeriod(){
+
+    public TimePeriod2 timePeriod() {
         return this.timePeriod;
     }
-    
-    public Dish dish(){
+
+    public Dish dish() {
         return this.dish;
     }
-    
-    public MealType mealType(){
+
+    public MealType mealType() {
         return this.mealType();
     }
-    
-    
-    
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         Meal meal = (Meal) o;
 
-        if (!pk.equals(meal.pk)) return false;
-        if (!version.equals(meal.version)) return false;
-        if (!dish.equals(meal.dish)) return false;
-        if (!mealType.equals(meal.mealType)) return false;
+        //FIXME aggregates/entities are only compared by identity
+        if (!pk.equals(meal.pk)) {
+            return false;
+        }
+        if (!version.equals(meal.version)) {
+            return false;
+        }
+        if (!dish.equals(meal.dish)) {
+            return false;
+        }
+        if (!mealType.equals(meal.mealType)) {
+            return false;
+        }
         return timePeriod.equals(meal.timePeriod);
     }
 

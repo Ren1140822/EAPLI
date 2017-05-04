@@ -31,7 +31,11 @@ public class Designation implements ValueObject, Serializable {
 	if (Strings.isNullOrEmpty(name)) {
 	    throw new IllegalStateException("Name should neither be null nor empty");
 	}
-	theDesignation = name;
+	this.theDesignation = name;
+    }
+
+    protected Designation() {
+	// for ORM
     }
 
     /**
@@ -45,10 +49,6 @@ public class Designation implements ValueObject, Serializable {
 	return new Designation(name);
     }
 
-    protected Designation() {
-	// for ORM
-    }
-
     @Override
     public boolean equals(Object o) {
 	if (this == o) {
@@ -60,16 +60,16 @@ public class Designation implements ValueObject, Serializable {
 
 	final Designation other = (Designation) o;
 
-	return theDesignation.equals(other.theDesignation);
+	return this.theDesignation.equals(other.theDesignation);
     }
 
     @Override
     public String toString() {
-	return theDesignation;
+	return this.theDesignation;
     }
 
     @Override
     public int hashCode() {
-	return theDesignation.hashCode();
+	return this.theDesignation.hashCode();
     }
 }

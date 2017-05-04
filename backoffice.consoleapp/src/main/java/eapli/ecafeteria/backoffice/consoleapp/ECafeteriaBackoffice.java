@@ -20,6 +20,8 @@ public final class ECafeteriaBackoffice {
      */
     public static void main(final String[] args) {
         // login and go to main menu
+
+        //FIXME bootstrapapp should be called independently when needed. the other applications must not call the bootstrapper
         ECafeteriaBootstraper bootstraper = new ECafeteriaBootstraper();
         bootstraper.execute();
         // TODO should provide three attempts

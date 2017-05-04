@@ -37,12 +37,12 @@ public class EmailAddress implements ValueObject, Serializable {
 	this.address = address;
     }
 
-    public static EmailAddress valueOf(String address) {
-	return new EmailAddress(address);
-    }
-
     protected EmailAddress() {
 	// for ORM
+    }
+
+    public static EmailAddress valueOf(String address) {
+	return new EmailAddress(address);
     }
 
     @Override
@@ -56,17 +56,17 @@ public class EmailAddress implements ValueObject, Serializable {
 
 	final EmailAddress that = (EmailAddress) o;
 
-	return address.equals(that.address);
+	return this.address.equals(that.address);
 
     }
 
     @Override
     public int hashCode() {
-	return address.hashCode();
+	return this.address.hashCode();
     }
 
     @Override
     public String toString() {
-	return address;
+	return this.address;
     }
 }

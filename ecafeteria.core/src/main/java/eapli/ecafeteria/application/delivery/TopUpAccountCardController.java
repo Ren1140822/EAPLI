@@ -1,5 +1,7 @@
 package eapli.ecafeteria.application.delivery;
 
+import eapli.ecafeteria.Application;
+import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
 import eapli.ecafeteria.domain.cafeteria.account.AccountCard;
 import eapli.ecafeteria.domain.cafeteria.account.TopUp;
@@ -21,17 +23,19 @@ public class TopUpAccountCardController implements Controller {
     private final AccountCardRepository accountCardsRepo = PersistenceContext.repositories().accountCards();
     private final TransactionRepository transactionRepo = PersistenceContext.repositories().transactions();
 
+    //FIXME you are updating more than one aggregate in the same controller but there is no transactional control
     public void topUpCard(String mecanographicNumber, Double eurosValue)
             throws DataConcurrencyException, DataIntegrityViolationException {
+        Application.ensurePermissionOfLoggedInUser(ActionRight.SALE);
 
-        MecanographicNumber cafeteriaUserID = new MecanographicNumber(mecanographicNumber);
+        MecanographicNumber aMecanographicNumber = new MecanographicNumber(mecanographicNumber);
 
-        AccountCard card = accountCardsRepo.findByMecanographicNumber(cafeteriaUserID);
+        AccountCard card = accountCardsRepo.findByMecanographicNumber(aMecanographicNumber);
 
         Money aMoney = Money.euros(eurosValue);
 
         // Save new transaction
-        Transaction aTransaction = new TopUp(aMoney);
+        Transaction aTransaction = new TopUp(aMecanographicNumber, aMoney);
         transactionRepo.save(aTransaction);
         // Add to card's balance
         card.topUp(aMoney);

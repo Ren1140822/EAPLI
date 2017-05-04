@@ -62,7 +62,9 @@ public class MenuTest {
     @Test
     public void testIsPublished() {
         System.out.println("MenuTest: testing 'isPublished' method normal behaviour");
-        Menu instance = new Menu(systemUser);
+        HashSet<Meal> meals = new HashSet<>();
+        meals.add(meal);
+        Menu instance = new Menu(meals);
         boolean result = instance.isPublished();
         Assert.assertEquals(true, result);
     }

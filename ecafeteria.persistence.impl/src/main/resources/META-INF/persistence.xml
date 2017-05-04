@@ -17,18 +17,22 @@
     <class>eapli.ecafeteria.domain.meals.Meal</class>
     <class>eapli.ecafeteria.domain.kitchen.Material</class>
     <class>eapli.ecafeteria.domain.kitchen.MealsPrepared</class>
-    <class>eapli.ecafeteria.domain.kitchen.Meal</class>
+    <class>eapli.ecafeteria.domain.meals.Meal</class>
     <class>eapli.ecafeteria.domain.meals.Allergen</class>
     <class>eapli.ecafeteria.domain.booking.Booking</class>
     <class>eapli.ecafeteria.domain.meals.MealEvaluation</class>
-    
+    <class>eapli.ecafeteria.domain.cafeteria.account.Transaction</class>
+    <class>eapli.ecafeteria.domain.cafeteria.account.TopUp</class>
+    <class>eapli.ecafeteria.domain.cafeteria.account.AccountCard</class>
+
+
     <!-- properties -->
     <properties>
       <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/ecafeteria"/>-->
       <property name="javax.persistence.jdbc.url" value="jdbc:h2:.\db3\ecafeteria;MV_STORE=FALSE"/>
       <property name="javax.persistence.jdbc.password" value=""/>
       <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
-      <property name="javax.persistence.jdbc.user" value=""/>
+      <property name="javax.persistence.jdbc.user" value="sa"/>
       <!--<property name="javax.persistence.schema-generation.database.action" value="create"/>-->
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
       <!--<property name="javax.persistence.schema-generation.database.action" value="create-tables"/>-->

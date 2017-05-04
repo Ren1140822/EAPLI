@@ -78,8 +78,7 @@ public class DishTest {
     public void ensureCannotChangeNutricionalInfoToNull() {
         System.out.println("ChangeNutricionalInfoTo -New nutricional info must not be null");
 
-        final Dish Dishinstance = new Dish(peixe, prego, new NutricionalInfo(1, 1),
-                Money.euros(7));
+	final Dish Dishinstance = new Dish(peixe, prego, new NutricionalInfo(1, 1), Money.euros(7));
         Dishinstance.changeNutricionalInfoTo(null);
     }
 
@@ -92,8 +91,7 @@ public class DishTest {
     public void ensureCannotChangePriceToNull() {
         System.out.println("ChangePriceTo -New price info must not be null");
 
-        final Dish Dishinstance = new Dish(peixe, prego, new NutricionalInfo(1, 1),
-                Money.euros(7));
+	final Dish Dishinstance = new Dish(peixe, prego, new NutricionalInfo(1, 1), Money.euros(7));
         Dishinstance.changePriceTo(null);
     }
 
@@ -101,8 +99,7 @@ public class DishTest {
     public void ensureCannotChangePriceToNegative() {
         System.out.println("ChangePriceTo -New price can nt be negativel");
 
-        final Dish Dishinstance = new Dish(peixe, prego, new NutricionalInfo(1, 1),
-                Money.euros(1));
+	final Dish Dishinstance = new Dish(peixe, prego, new NutricionalInfo(1, 1), Money.euros(1));
         Dishinstance.changePriceTo(Money.euros(-1));
     }
 }

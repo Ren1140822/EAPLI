@@ -5,9 +5,7 @@
  */
 package eapli.ecafeteria.domain.meals;
 
-import eapli.ecafeteria.domain.authz.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
@@ -23,20 +21,17 @@ public class Menu implements Serializable {
 
     @OneToMany
     private Set<Meal> meals;
-    @ManyToOne
-    private SystemUser systemUser;
     private boolean published;
 
     protected Menu() {
     } //for ORM
 
-    public Menu(SystemUser systemUser) {
-        if (systemUser==null) {
+    public Menu(Set<Meal> meals) {
+        if(meals == null){
             throw new IllegalStateException();
         }
-        this.meals = new HashSet<>();
+        this.meals = meals;
         this.published = true;
-        this.systemUser = systemUser;
     }
 
     public boolean isPublished() {
@@ -53,10 +48,6 @@ public class Menu implements Serializable {
 
     public Iterable<Meal> getMeals(){
         return meals;
-    }
-
-    public SystemUser systemUser() {
-        return this.systemUser;
     }
 
     @Override
@@ -77,9 +68,6 @@ public class Menu implements Serializable {
             return false;
 
         if (!version.equals(menu.version))
-            return false;
-
-        if (!systemUser.equals(((Menu) o).systemUser))
             return false;
 
         return meals.containsAll(menu.meals);

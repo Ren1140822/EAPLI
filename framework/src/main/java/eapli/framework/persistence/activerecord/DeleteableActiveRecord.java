@@ -8,7 +8,7 @@ package eapli.framework.persistence.activerecord;
  *
  * @author Paulo Gandra Sousa
  */
-public interface DeleteableActiveRecord<ID> extends ActiveRecord<ID> {
+public interface DeleteableActiveRecord<I> extends ActiveRecord<I> {
 
     /*
      * deletes the current object from the persistence store. the object in

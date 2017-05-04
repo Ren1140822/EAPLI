@@ -21,7 +21,7 @@ import eapli.framework.persistence.repositories.TransactionalContext;
  */
 public class JpaAutoTxRepository<T, K extends Serializable> implements DataRepository<T, K> {
 
-    protected JpaBaseRepository<T, K> repo;
+    protected final JpaBaseRepository<T, K> repo;
     private final TransactionalContext autoTx;
 
     public JpaAutoTxRepository(String persistenceUnitName, TransactionalContext autoTx) {
@@ -30,45 +30,53 @@ public class JpaAutoTxRepository<T, K extends Serializable> implements DataRepos
 	final Class<T> entityClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
 
 	if (autoTx == null) {
-	    repo = new JpaTransactionalRepository<>(persistenceUnitName, entityClass);
+	    this.repo = new JpaTransactionalRepository<>(persistenceUnitName, entityClass);
 	} else {
-	    repo = new JpaNotRunningInContainerRepository<>(autoTx, entityClass);
+	    this.repo = new JpaNotRunningInContainerRepository<>(autoTx, entityClass);
 	}
 	this.autoTx = autoTx;
     }
 
+    public TransactionalContext context() {
+	return this.autoTx;
+    }
+
+    public boolean isInTransaction() {
+	return this.autoTx == null;
+    }
+
     @Override
     public void delete(T entity) throws DataIntegrityViolationException {
-	repo.delete(entity);
+	this.repo.delete(entity);
     }
 
     @Override
     public void delete(K id) throws DataIntegrityViolationException {
-	repo.delete(id);
+	this.repo.delete(id);
     }
 
     @Override
     public T save(T entity) throws DataConcurrencyException, DataIntegrityViolationException {
-	return repo.save(entity);
+	return this.repo.save(entity);
     }
 
     @Override
     public Iterable<T> findAll() {
-	return repo.findAll();
+	return this.repo.findAll();
     }
 
     @Override
     public Optional<T> findOne(K id) {
-	return repo.findOne(id);
+	return this.repo.findOne(id);
     }
 
     @Override
     public long count() {
-	return repo.count();
+	return this.repo.count();
     }
 
     @Override
     public Iterator<T> iterator() {
-	return repo.iterator();
+	return this.repo.iterator();
     }
 }

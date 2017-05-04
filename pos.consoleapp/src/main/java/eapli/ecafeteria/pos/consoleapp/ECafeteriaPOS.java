@@ -19,8 +19,6 @@ public final class ECafeteriaPOS {
      */
     public static void main(final String[] args) {
 
-        // to ensure some default test data is available, specially when using in memory persistence
-        // new ECafeteriaBootstrap().execute();
         // login and go to main menu
         // TODO should provide three attempts
         if (new LoginAction().execute()) {

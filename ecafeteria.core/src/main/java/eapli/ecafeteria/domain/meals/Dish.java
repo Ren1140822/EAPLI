@@ -156,7 +156,8 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
     }
 
     public void changePriceTo(Money newPrice) {
-        //TODO extra business logic associated with changing the price of a dish, e.g., save price history
+	// TODO extra business logic associated with changing the price of a
+	// dish, e.g., save price history
         setPrice(newPrice);
     }
 
