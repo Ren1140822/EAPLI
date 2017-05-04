@@ -13,26 +13,26 @@ public class LoginUI extends AbstractUI {
     private final LoginController theController = new LoginController();
 
     protected Controller controller() {
-        return this.theController;
+	return this.theController;
     }
 
     @Override
     protected boolean doShow() {
-        final String userName = Console.readLine("Username:");
-        final String password = Console.readLine("Password:");
+	final String userName = Console.readLine("Username:");
+	final String password = Console.readLine("Password:");
 
-        if (this.theController.login(userName, password)) {
-            System.out.println("Authentication Successful");
-            return true;
-        } else {
-            // getLogger().info("Invalid Authenticon:" + e);
-            System.out.println("Invalid authentication");
-            return false;
-        }
+	if (this.theController.login(userName, password)) {
+	    System.out.println("Authentication Successful");
+	    return true;
+	} else {
+	    // getLogger().info("Invalid Authenticon:" + e);
+	    System.out.println("Invalid authentication");
+	    return false;
+	}
     }
 
     @Override
     public String headline() {
-        return "Login";
+	return "Login";
     }
 }

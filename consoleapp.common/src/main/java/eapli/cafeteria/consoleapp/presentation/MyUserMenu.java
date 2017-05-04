@@ -17,14 +17,14 @@ public class MyUserMenu extends Menu {
     private static final int LOGOUT_OPTION = 3;
 
     public MyUserMenu() {
-        super("My account >");
-        buildMyUserMenu();
+	super("My account >");
+	buildMyUserMenu();
     }
 
     private void buildMyUserMenu() {
-        add(new MenuItem(CHANGE_PASSWORD_OPTION, "Change password", new ShowMessageAction("Not implemented yet")));
-        add(new MenuItem(LOGIN_OPTION, "Change user (Login)", new LoginAction()));
-        add(new MenuItem(LOGOUT_OPTION, "Logout", new LogoutAction()));
-        add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
+	add(new MenuItem(CHANGE_PASSWORD_OPTION, "Change password", new ShowMessageAction("Not implemented yet")));
+	add(new MenuItem(LOGIN_OPTION, "Change user (Login)", new LoginAction()));
+	add(new MenuItem(LOGOUT_OPTION, "Logout", new LogoutAction()));
+	add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
     }
 }

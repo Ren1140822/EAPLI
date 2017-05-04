@@ -42,69 +42,69 @@ public class CafeteriaUser implements AggregateRoot<MecanographicNumber>, Serial
     private OrganicUnit organicUnit;
 
     public CafeteriaUser(SystemUser user, OrganicUnit organicUnit, MecanographicNumber mecanographicNumber) {
-        if (mecanographicNumber == null || user == null || organicUnit == null) {
-            throw new IllegalStateException();
-        }
-        this.systemUser = user;
-        this.organicUnit = organicUnit;
-        this.mecanographicNumber = mecanographicNumber;
+	if (mecanographicNumber == null || user == null || organicUnit == null) {
+	    throw new IllegalStateException();
+	}
+	this.systemUser = user;
+	this.organicUnit = organicUnit;
+	this.mecanographicNumber = mecanographicNumber;
     }
 
     protected CafeteriaUser() {
-        // for ORM only
+	// for ORM only
     }
 
     public SystemUser user() {
-        return this.systemUser;
+	return this.systemUser;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof CafeteriaUser)) {
-            return false;
-        }
+	if (this == o) {
+	    return true;
+	}
+	if (!(o instanceof CafeteriaUser)) {
+	    return false;
+	}
 
-        final CafeteriaUser other = (CafeteriaUser) o;
-        return this.mecanographicNumber.equals(other.mecanographicNumber);
+	final CafeteriaUser other = (CafeteriaUser) o;
+	return this.mecanographicNumber.equals(other.mecanographicNumber);
     }
 
     @Override
     public int hashCode() {
-        return this.mecanographicNumber.hashCode();
+	return this.mecanographicNumber.hashCode();
     }
 
     @Override
     public boolean sameAs(Object other) {
-        if (!(other instanceof CafeteriaUser)) {
-            return false;
-        }
+	if (!(other instanceof CafeteriaUser)) {
+	    return false;
+	}
 
-        final CafeteriaUser that = (CafeteriaUser) other;
-        if (this == that) {
-            return true;
-        }
-        return (this.mecanographicNumber.equals(that.mecanographicNumber) && this.systemUser.sameAs(that.systemUser)
-                && this.organicUnit.sameAs(that.organicUnit));
+	final CafeteriaUser that = (CafeteriaUser) other;
+	if (this == that) {
+	    return true;
+	}
+	return (this.mecanographicNumber.equals(that.mecanographicNumber) && this.systemUser.sameAs(that.systemUser)
+		&& this.organicUnit.sameAs(that.organicUnit));
     }
 
     @Override
     public boolean is(MecanographicNumber id) {
-        return id().equals(id);
+	return id().equals(id);
     }
 
     public MecanographicNumber mecanographicNumber() {
-        return id();
+	return id();
     }
 
     @Override
     public MecanographicNumber id() {
-        return this.mecanographicNumber;
+	return this.mecanographicNumber;
     }
 
     public OrganicUnit organicUnit() {
-        return this.organicUnit;
+	return this.organicUnit;
     }
 }

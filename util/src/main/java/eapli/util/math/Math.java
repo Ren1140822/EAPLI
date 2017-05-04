@@ -27,7 +27,7 @@ public class Math {
      * @return true if number is positive
      */
     public static boolean isPositive(final long number) {
-	return (number > 0);
+	return number > 0;
     }
 
     /**
@@ -87,10 +87,11 @@ public class Math {
      *            - exemplo 50
      * @return retorna o novo valor aplicando uma conversão linear - exemplo 5
      */
+    @SuppressWarnings("squid:S1488")
     public static float simpleLinearConversion(final float oldMin, final float oldMax, final float newMin,
 	    final float newMax, final float oldValue) {
-	final float new_value = ((oldValue - oldMin) / (oldMax - oldMin)) * (newMax - newMin) + newMin;
-	return new_value;
+	final float result = ((oldValue - oldMin) / (oldMax - oldMin)) * (newMax - newMin) + newMin;
+	return result;
     }
 
     /**
@@ -108,14 +109,15 @@ public class Math {
      *            - exemplo 50
      * @return retorna o novo valor aplicando uma conversão linear - exemplo 5
      */
+    @SuppressWarnings("squid:S1488")
     public static BigDecimal simpleLinearConversion(final BigDecimal oldMin, final BigDecimal oldMax,
 	    final BigDecimal newMin, final BigDecimal newMax, final BigDecimal oldValue) {
 	final BigDecimal a = oldValue.subtract(oldMin);
 	final BigDecimal b = oldMax.subtract(oldMin);
 	final BigDecimal c = a.divide(b, 1, RoundingMode.HALF_UP);
 	final BigDecimal d = newMax.subtract(newMin);
-	final BigDecimal new_value = c.multiply(d).add(newMin);
-	return new_value;
+	final BigDecimal result = c.multiply(d).add(newMin);
+	return result;
     }
 
     public static String format(final BigDecimal amount) {

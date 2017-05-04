@@ -17,7 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 
 /**
- *
+ * @TODO why is this an aggregate? are the decisions registered in the design of
+ * the use case?
  * @author Sofia Gonçalves [1150657@isep.ipp.pt] Pedro Chilro
  * [1150019@isep.ipp.pt]
  */
@@ -60,10 +61,10 @@ public class MealEvaluation implements AggregateRoot<Booking>, Serializable {
         this.booking = booking;
         this.rating = rating;
     }
-    
+
     public boolean isOfMeal(Meal meal) {
         return this.booking.isOfMeal(meal);
-    } 
+    }
 
     @Override
     public boolean sameAs(Object o) {

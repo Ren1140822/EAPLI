@@ -15,6 +15,6 @@ public class InMemoryAccountCardRepository extends InMemoryRepositoryWithLongPK<
     @Override
     public AccountCard findByMecanographicNumber(MecanographicNumber number) {
 
-        return matchOne(e -> e.id().id().equals(number));
+        return matchOne(e -> e.id().equals(number));
     }
 }

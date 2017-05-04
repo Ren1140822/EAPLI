@@ -12,6 +12,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 /**
+ * @TODO is this an Entity, a value object, an aggregate?
  *
  * @author Nuno Pinto [1150838@isep.ipp.pt] Henrique Oliveira
  * [1150738@isep.ipp.pt]
@@ -26,10 +27,10 @@ public class Booking implements Serializable {
     @GeneratedValue
     private Long pk;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    //@OneToMany(cascade = CascadeType.MERGE)
     private CafeteriaUser user;
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    //@OneToMany(cascade = CascadeType.MERGE)
     private Meal meal;
     private BookingState state;
 
@@ -43,9 +44,15 @@ public class Booking implements Serializable {
         }
         this.user = user;
         this.meal = meal;
+        //TODO can we really create a booking in any state? what are the business rules?
         this.state = actualState;
     }
 
+    /**
+     * It cancels the booking by changing its state from "Done" to "Canceled".
+     * It throws an IllegalStateException if the booking is in a non-cancellable
+     * state.
+     */
     public void cancel() {
         if (this.state != BookingState.DONE) {
             throw new IllegalStateException();
@@ -56,27 +63,34 @@ public class Booking implements Serializable {
     public boolean belongsTo(CafeteriaUser user) {
         return this.user.equals(user);
     }
-    
+
     public boolean isOfMeal(Meal meal) {
         return this.meal.equals(meal);
     }
 
+    /**
+     * It checks if the booking is currently at a certain state.
+     *
+     * @param state The state to be compared to.
+     * @return It returns "true" if the booking is currently at state indicated
+     * by the parameter or "false" otherwise.
+     */
     public boolean isAtState(BookingState state) {
         return this.state.equals(state);
     }
-    
+
     public void deliver() {
         if (this.state != BookingState.DEFINITIVE) {
             throw new IllegalStateException();
         }
         this.state = BookingState.DELIVERED;
     }
-    
-    public Meal meal(){
+
+    public Meal meal() {
         return this.meal;
     }
-    
-    public BookingState state(){
+
+    public BookingState state() {
         return this.state;
     }
 

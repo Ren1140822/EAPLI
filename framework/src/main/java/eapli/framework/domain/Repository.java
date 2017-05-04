@@ -16,8 +16,10 @@ import java.util.Optional;
  * there should be one repository per aggregate root only
  *
  * @author Paulo Gandra Sousa
- * @param <T> the type of the entity
- * @param <I> the type of the entity's identity
+ * @param <T>
+ *            the type of the entity
+ * @param <I>
+ *            the type of the entity's identity
  */
 public interface Repository<T extends AggregateRoot<?>, I extends Serializable> extends Iterable<T> {
 
@@ -51,7 +53,7 @@ public interface Repository<T extends AggregateRoot<?>, I extends Serializable> 
      *
      * @param entity
      * @return the persisted entity - might be a different object than the
-     * parameter
+     *         parameter
      */
     T save(T entity);
 

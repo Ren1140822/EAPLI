@@ -14,6 +14,7 @@ import eapli.framework.domain.TimePeriod2;
 public class RegisterMealDeliveryController implements Controller {
 
     private final BookingRepository bookingRepo = PersistenceContext.repositories().bookings();
+    //TODO preferably, controllers should not have state
     private final CafeteriaUser user;
     private final TimePeriod2 timePeriod;
 
