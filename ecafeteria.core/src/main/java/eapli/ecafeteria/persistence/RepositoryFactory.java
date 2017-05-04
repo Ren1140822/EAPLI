@@ -64,7 +64,7 @@ public interface RepositoryFactory {
 
     MealRepository meals();
     
-    MaterialUsedRepository materialUsed();
+    //MaterialUsedRepository materialUsed();
 
     AllergenRepository allergens();
     

@@ -32,7 +32,7 @@ public class RegisterLotsInMealController implements Controller {
     private final MaterialRepository materialRepository = PersistenceContext.repositories().materials();
     private final MealRepository mealRepository = PersistenceContext.repositories().meals();
 //    private final MaterialUsedRepository = PersistenceContext.repositories().materialsUsed();
-    private final MaterialUsedRepository materialUsedRepository= PersistenceContext.repositories().materialUsed();
+   // private final MaterialUsedRepository materialUsedRepository= PersistenceContext.repositories().materialUsed();
     
     private Material material;
     private MaterialUsed materialUsed;
@@ -109,8 +109,8 @@ public class RegisterLotsInMealController implements Controller {
      * @throws eapli.framework.persistence.DataIntegrityViolationException 
      */
     public boolean saveRegistration() throws DataConcurrencyException, DataIntegrityViolationException{
-        
-        materialUsedRepository.save(materialUsed);
+       // FIXME
+//        materialUsedRepository.save(materialUsed);
         cleanObjects();
         
         return true;
