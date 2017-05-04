@@ -1,10 +1,9 @@
 package eapli.ecafeteria.domain.meals;
 
-import eapli.framework.domain.AggregateRoot;
+import eapli.framework.domain.ddd.AggregateRoot;
 import eapli.util.Strings;
-
-import javax.persistence.*;
 import java.io.Serializable;
+import javax.persistence.*;
 
 /**
  * a dish type, e.g., vegetarian or fish or meat.
@@ -37,21 +36,19 @@ public class DishType implements AggregateRoot<String>, Serializable {
     private boolean active;
 
     protected DishType() {
-	// for ORM
+        // for ORM
     }
 
     /**
      * DishType constructor.
      *
-     * @param name
-     *            Mandatory
-     * @param description
-     *            Mandatory
+     * @param name Mandatory
+     * @param description Mandatory
      */
     public DishType(String name, String description) {
-	setName(name);
-	setDescription(description);
-	this.active = true;
+        setName(name);
+        setDescription(description);
+        this.active = true;
     }
 
     /**
@@ -60,11 +57,11 @@ public class DishType implements AggregateRoot<String>, Serializable {
      * @param newDescription
      */
     private void setDescription(String newDescription) {
-	if (descriptionMeetsMinimumRequirements(newDescription)) {
-	    this.description = description;
-	} else {
-	    throw new IllegalArgumentException("Invalid Description");
-	}
+        if (descriptionMeetsMinimumRequirements(newDescription)) {
+            this.description = description;
+        } else {
+            throw new IllegalArgumentException("Invalid Description");
+        }
     }
 
     /**
@@ -73,11 +70,11 @@ public class DishType implements AggregateRoot<String>, Serializable {
      * @param newName
      */
     private void setName(String newName) {
-	if (nameMeetsMinimumRequirements(newName)) {
-	    this.acronym = newName;
-	} else {
-	    throw new IllegalArgumentException("Invalid Name");
-	}
+        if (nameMeetsMinimumRequirements(newName)) {
+            this.acronym = newName;
+        } else {
+            throw new IllegalArgumentException("Invalid Name");
+        }
     }
 
     /**
@@ -85,10 +82,10 @@ public class DishType implements AggregateRoot<String>, Serializable {
      *
      * @param name
      * @return True if name meets minimum requirements. False if name does not
-     *         meet minimum requirements.
+     * meet minimum requirements.
      */
     private boolean nameMeetsMinimumRequirements(String name) {
-	return !Strings.isNullOrEmpty(name);
+        return !Strings.isNullOrEmpty(name);
     }
 
     /**
@@ -96,18 +93,18 @@ public class DishType implements AggregateRoot<String>, Serializable {
      *
      * @param description
      * @return True if description meets minimum requirements. False if
-     *         description does not meet minimum requirements.
+     * description does not meet minimum requirements.
      */
     private boolean descriptionMeetsMinimumRequirements(String description) {
-	return !Strings.isNullOrEmpty(description);
+        return !Strings.isNullOrEmpty(description);
     }
 
     public String description() {
-	return this.description;
+        return this.description;
     }
 
     public boolean isActive() {
-	return this.active;
+        return this.active;
     }
 
     /**
@@ -118,56 +115,55 @@ public class DishType implements AggregateRoot<String>, Serializable {
      */
     public boolean toogleState() {
 
-	this.active = !this.active;
-	return isActive();
+        this.active = !this.active;
+        return isActive();
     }
 
     /**
      * Change DishType description
      *
-     * @param newDescription
-     *            New description.
+     * @param newDescription New description.
      */
     public void changeDescriptionTo(String newDescription) {
-	if (!descriptionMeetsMinimumRequirements(newDescription)) {
-	    throw new IllegalArgumentException();
-	}
-	this.description = newDescription;
+        if (!descriptionMeetsMinimumRequirements(newDescription)) {
+            throw new IllegalArgumentException();
+        }
+        this.description = newDescription;
     }
 
     @Override
     public boolean is(String id) {
-	return id.equalsIgnoreCase(this.acronym);
+        return id.equalsIgnoreCase(this.acronym);
     }
 
     @Override
     public String id() {
-	return this.acronym;
+        return this.acronym;
     }
 
     @Override
     public boolean sameAs(Object other) {
-	final DishType dishType = (DishType) other;
-	return this.equals(dishType) && description().equals(dishType.description())
-		&& isActive() == dishType.isActive();
+        final DishType dishType = (DishType) other;
+        return this.equals(dishType) && description().equals(dishType.description())
+                && isActive() == dishType.isActive();
     }
 
     @Override
     public int hashCode() {
-	return this.acronym.hashCode();
+        return this.acronym.hashCode();
     }
 
     @Override
     public boolean equals(Object o) {
-	if (this == o) {
-	    return true;
-	}
-	if (!(o instanceof DishType)) {
-	    return false;
-	}
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof DishType)) {
+            return false;
+        }
 
-	final DishType other = (DishType) o;
-	return id().equals(other.id());
+        final DishType other = (DishType) o;
+        return id().equals(other.id());
     }
 
 }

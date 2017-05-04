@@ -6,9 +6,7 @@
 package eapli.ecafeteria.persistence.inmemory;
 
 import eapli.ecafeteria.domain.meals.Meal;
-import eapli.ecafeteria.domain.meals.Menu;
 import eapli.ecafeteria.persistence.MealRepository;
-import eapli.ecafeteria.persistence.MenuRepository;
 import eapli.framework.domain.TimePeriod2;
 import eapli.framework.persistence.repositories.impl.inmemory.InMemoryRepositoryWithLongPK;
 

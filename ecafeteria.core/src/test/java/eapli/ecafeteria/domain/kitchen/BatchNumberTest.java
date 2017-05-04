@@ -15,9 +15,9 @@ import org.junit.Test;
  *
  * @author Pedro Fernandes
  */
-public class AllotmentTest {
+public class BatchNumberTest {
     
-    public AllotmentTest() {
+    public BatchNumberTest() {
     }
     
     @BeforeClass
@@ -38,16 +38,16 @@ public class AllotmentTest {
 
     @Test
     public void testAllotmentOk() {
-        Allotment a = new Allotment("A34");
+        BatchNumber a = new BatchNumber("A34");
     }
     
     @Test(expected = IllegalStateException.class)
     public void ensureCodeIsNotEmpty() {
-        Allotment a = new Allotment("");
+        BatchNumber a = new BatchNumber("");
     }
     
     @Test(expected = IllegalStateException.class)
     public void ensureCodeHasNotWhiteSpaces() {
-        Allotment a = new Allotment(" ");
+        BatchNumber a = new BatchNumber(" ");
     }
 }

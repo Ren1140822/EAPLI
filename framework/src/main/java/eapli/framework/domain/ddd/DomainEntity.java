@@ -21,15 +21,15 @@ import eapli.framework.domain.Identifiable;
  * <li>Account
  * </ol>
  *
- * @param <I>
- *            the type of the primary <b>business</b> id of the entity
+ * @param <I> the type of the primary <b>business</b> id of the entity
  * @author Paulo Gandra Sousa
  */
 public interface DomainEntity<I> extends Identifiable<I> {
 
     /**
      * Entities are compared by identity only. no need to compare all fields of
-     * the object.
+     * the object. you can use the domainEntityHelper.areEqual() method as
+     * default implementation
      *
      * see sameAs().
      *

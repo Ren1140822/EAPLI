@@ -3,7 +3,7 @@
  */
 package eapli.ecafeteria.domain.cafeteria;
 
-import eapli.framework.domain.AggregateRoot;
+import eapli.framework.domain.ddd.AggregateRoot;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Version;
@@ -24,27 +24,27 @@ public class Cafeteria implements AggregateRoot<CafeteriaName> {
     private CafeteriaName name;
 
     protected Cafeteria() {
-	// for ORM
+        // for ORM
     }
 
     public Cafeteria(String name, String description, OrganicUnit unit) {
-	this.name = new CafeteriaName(name);
-	// TODO implement rest of the method
+        this.name = new CafeteriaName(name);
+        // TODO implement rest of the method
     }
 
     @Override
     public boolean sameAs(Object other) {
-	// TODO Auto-generated method stub
-	return false;
+        // TODO Auto-generated method stub
+        return false;
     }
 
     @Override
     public boolean is(CafeteriaName id) {
-	return this.name.equals(id);
+        return this.name.equals(id);
     }
 
     @Override
     public CafeteriaName id() {
-	return this.name;
+        return this.name;
     }
 }

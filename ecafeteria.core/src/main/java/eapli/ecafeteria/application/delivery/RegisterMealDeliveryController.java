@@ -1,11 +1,14 @@
 package eapli.ecafeteria.application.delivery;
 
+import eapli.ecafeteria.application.booking.ListBookingsService;
 import eapli.ecafeteria.domain.booking.Booking;
+import eapli.ecafeteria.domain.booking.BookingState;
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
+import eapli.ecafeteria.domain.meals.Meal;
 import eapli.ecafeteria.persistence.BookingRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.framework.application.Controller;
-import eapli.framework.domain.TimePeriod2;
+import java.util.LinkedList;
 
 /**
  *
@@ -14,22 +17,38 @@ import eapli.framework.domain.TimePeriod2;
 public class RegisterMealDeliveryController implements Controller {
 
     private final BookingRepository bookingRepo = PersistenceContext.repositories().bookings();
-    //TODO preferably, controllers should not have state
-    private final CafeteriaUser user;
-    private final TimePeriod2 timePeriod;
 
-    public RegisterMealDeliveryController(CafeteriaUser user, TimePeriod2 timePeriod) {
-        if (user == null || timePeriod == null) {
+    private final CafeteriaUser user;
+
+    public RegisterMealDeliveryController(CafeteriaUser user) {
+        if (user == null) {
             throw new IllegalStateException();
         }
         this.user = user;
-        this.timePeriod = timePeriod;
+
     }
 
+    /**
+     * Registers the last meal that this user booked.
+     * @return  true if meal delivery was registered
+     */
     public boolean registerMealDelivery() {
 
-        Booking tempBooking = bookingRepo.findAll().iterator().next(); //TODO: Find booking by current meal(?) and of this user
+        ListBookingsService bookingsService = new ListBookingsService();
+        LinkedList<Booking> bookingList = new LinkedList<>();
+        bookingsService.findBookingsStateDefinitiveOf(user).iterator().forEachRemaining(bookingList::add);
+        Booking tempBooking = bookingList.getLast();
+        tempBooking.deliver();
+        return true;
+    }
 
+    /**
+     * Registers a specific meal of this user
+     * @param meal the meal to deliver
+     * @return true if the meal delivery was registered
+     */
+    public boolean registerMealDelivery(Meal meal) {
+        Booking tempBooking = bookingRepo.findBookingByUserAndMealAndState(user, meal, BookingState.DEFINITIVE);
         tempBooking.deliver();
         return true;
     }

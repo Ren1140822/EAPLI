@@ -8,6 +8,8 @@ package eapli.ecafeteria.persistence.jpa;
 import eapli.ecafeteria.domain.meals.Meal;
 import eapli.ecafeteria.persistence.MealRepository;
 import eapli.framework.domain.TimePeriod2;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -22,7 +24,9 @@ public class JpaMealRepository extends CafeteriaJpaRepositoryBase<Meal, Long> im
 
     @Override
     public Iterable<Meal> findByDate(TimePeriod2 timePeriod) {
-        return match("e.timePeriod=:"+timePeriod);
+        Map<String, Object> params = new HashMap<>();
+        params.put("timePeriod", timePeriod);
+        return match("e.timePeriod=:timePeriod", params);
     }
 
 

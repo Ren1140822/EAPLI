@@ -1,13 +1,12 @@
 package eapli.ecafeteria.domain.meals;
 
-import eapli.framework.domain.AggregateRoot;
 import eapli.framework.domain.Designation;
-
-import javax.persistence.*;
+import eapli.framework.domain.ddd.AggregateRoot;
 import java.io.Serializable;
+import javax.persistence.*;
 
 @Entity
-public class Allergen implements AggregateRoot<Designation>, Serializable{
+public class Allergen implements AggregateRoot<Designation>, Serializable {
 
     // ORM primary key
     @Id
@@ -20,8 +19,8 @@ public class Allergen implements AggregateRoot<Designation>, Serializable{
     private Designation name;
     private String description;
 
-    public Allergen(Designation name, String description){
-        if(name==null | description==null){
+    public Allergen(Designation name, String description) {
+        if (name == null | description == null) {
             throw new IllegalStateException("Allergen name or description cannot be null");
         }
         this.name = name;
@@ -32,8 +31,13 @@ public class Allergen implements AggregateRoot<Designation>, Serializable{
         // for ORM only
     }
 
-    public Designation name() { return name; }
-    public String description() { return description; }
+    public Designation name() {
+        return name;
+    }
+
+    public String description() {
+        return description;
+    }
 
     @Override
     public boolean is(Designation id) {

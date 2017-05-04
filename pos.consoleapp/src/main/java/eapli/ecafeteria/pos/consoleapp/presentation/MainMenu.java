@@ -9,15 +9,7 @@ import eapli.cafeteria.consoleapp.presentation.ExitWithMessageAction;
 import eapli.cafeteria.consoleapp.presentation.MyUserMenu;
 import eapli.ecafeteria.Application;
 import eapli.ecafeteria.domain.authz.ActionRight;
-import eapli.framework.presentation.console.AbstractUI;
-import eapli.framework.presentation.console.HorizontalMenuRenderer;
-import eapli.framework.presentation.console.Menu;
-import eapli.framework.presentation.console.MenuItem;
-import eapli.framework.presentation.console.MenuRenderer;
-import eapli.framework.presentation.console.ShowVerticalSubMenuAction;
-import eapli.framework.presentation.console.SubMenu;
-import eapli.framework.presentation.console.VerticalMenuRenderer;
-import eapli.framework.presentation.console.VerticalSeparator;
+import eapli.framework.presentation.console.*;
 
 /**
  * TODO split this class in more specialized classes for each menu
@@ -30,6 +22,7 @@ public class MainMenu extends AbstractUI {
 
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
+    private static final int SALES_OPTION = 2;
 
     @Override
     public boolean show() {
@@ -69,7 +62,9 @@ public class MainMenu extends AbstractUI {
 
 	if (Application.session().session().authenticatedUser().isAuthorizedTo(ActionRight.SALE)) {
 	    // TODO
-	}
+        final Menu salesMenu = new SalesMenu();
+        mainMenu.add(new SubMenu(SALES_OPTION, salesMenu, new ShowVerticalSubMenuAction(salesMenu)));
+    }
 
 	if (!Application.settings().isMenuLayoutHorizontal()) {
 	    mainMenu.add(VerticalSeparator.separator());
