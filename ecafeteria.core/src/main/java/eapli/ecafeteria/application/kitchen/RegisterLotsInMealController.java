@@ -7,12 +7,12 @@ package eapli.ecafeteria.application.kitchen;
 
 import eapli.ecafeteria.Application;
 import eapli.ecafeteria.domain.authz.ActionRight;
-import eapli.ecafeteria.domain.kitchen.Allotment;
 import eapli.ecafeteria.domain.kitchen.Material;
 import eapli.ecafeteria.domain.kitchen.MaterialUsed;
 import eapli.ecafeteria.domain.kitchen.MealsPrepared;
+import eapli.ecafeteria.domain.meals.Meal;
 import eapli.ecafeteria.persistence.MaterialRepository;
-import eapli.ecafeteria.persistence.MealsPreparedRepository;
+import eapli.ecafeteria.persistence.MealRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.framework.application.Controller;
 import eapli.framework.persistence.DataConcurrencyException;
@@ -25,22 +25,21 @@ import eapli.framework.persistence.DataIntegrityViolationException;
 public class RegisterLotsInMealController implements Controller {
     
     private final MaterialRepository materialRepository = PersistenceContext.repositories().materials();
-    private final MealsPreparedRepository mealPrepRepository = PersistenceContext.repositories().mealsPrepared();
+    private final MealRepository mealRepository = PersistenceContext.repositories().meals();
     
     private Material material;
     private MaterialUsed materialUsed;
-    private MealsPrepared mealsPrepared;
+    private Meal meal;
     
     /**
      * list of MealsPrepared the has not lotcode registration
      * @return 
      */
-    public Iterable<MealsPrepared> showMealsWithoutRegistration(){
+    public Iterable<Meal> showMealsWithoutRegistration(){
         Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
+
         
-        // TO DO -> find without registration (implement boolean in MealsPrepared to continue)
-        
-        return this.mealPrepRepository.findAll();
+        return this.mealRepository.findAll();
     }
     
     /**
@@ -48,11 +47,12 @@ public class RegisterLotsInMealController implements Controller {
      * @param preMeal
      * @return 
      */
-    public MealsPrepared selectedPrepMeal(String preMeal){
+    public Meal selectedMeal(String preMeal){
         
-        mealsPrepared = this.mealPrepRepository.findByName(preMeal);
+        // FIX ME
+        meal = this.mealRepository.findByPk(Long.MIN_VALUE);
                 
-        return mealsPrepared;
+        return meal;
     }
     
     /**
@@ -74,7 +74,7 @@ public class RegisterLotsInMealController implements Controller {
      */
     public boolean fillMaterialAndLotCode(String lotCode){
         //FIXME
-       /* Allotment a = new Allotment(lotCode);
+       /* BatchNumber a = new BatchNumber(lotCode);
         
         if( a == null || material == null){
             throw new IllegalStateException();
@@ -92,11 +92,11 @@ public class RegisterLotsInMealController implements Controller {
      */
     public boolean saveRegistration() throws DataConcurrencyException, DataIntegrityViolationException{
         
-        if (mealsPrepared == null){
+        if (meal == null){
             return false;
         }
 
-        this.mealPrepRepository.save(mealsPrepared);
+        this.mealRepository.save(meal);
         
         cleanObjects();
         
@@ -109,7 +109,7 @@ public class RegisterLotsInMealController implements Controller {
     private void cleanObjects(){
         material = null;
         materialUsed = null;
-        mealsPrepared = null;
+        meal = null;
     }
     
 
