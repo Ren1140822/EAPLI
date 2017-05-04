@@ -22,10 +22,10 @@ public class ListMealService {
     
     private final MealRepository mealRepository = PersistenceContext.repositories().meals();
     
-    public Iterable<Meal> listMealsByDate(TimePeriod2 timePeriod2) {
+    public Iterable<Meal> listMealsByDate(Calendar date) {
         Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
 
-        return this.mealRepository.findByDate(timePeriod2);
+        return this.mealRepository.findByDate(date);
     }
     
 }

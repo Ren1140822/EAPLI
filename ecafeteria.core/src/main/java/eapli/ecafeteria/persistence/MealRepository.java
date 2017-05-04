@@ -11,6 +11,6 @@ import java.util.Calendar;
  */
 public interface MealRepository extends DataRepository<Meal, Long> {
     
-    public Iterable<Meal> findByDate(TimePeriod2 timePeriod2);
+    public Iterable<Meal> findByDate(Calendar date);
     public Meal findByPk(Long pk);
 }
