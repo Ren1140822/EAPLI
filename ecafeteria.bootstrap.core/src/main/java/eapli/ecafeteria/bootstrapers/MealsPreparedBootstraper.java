@@ -6,7 +6,7 @@
 package eapli.ecafeteria.bootstrapers;
 
 import eapli.ecafeteria.application.kitchen.RegisterMaterialController;
-import eapli.ecafeteria.application.kitchen.RegistrationOfPreparedMealsController;
+import eapli.ecafeteria.application.kitchen.RegisterPreparedMealsController;
 import eapli.ecafeteria.domain.meals.Dish;
 import eapli.ecafeteria.domain.meals.DishType;
 import eapli.ecafeteria.domain.meals.Meal;
@@ -57,7 +57,7 @@ public class MealsPreparedBootstraper implements Action {
      *
      */
     private void register(Meal meal, int quantitity) {
-        final RegistrationOfPreparedMealsController controller = new RegistrationOfPreparedMealsController();
+        final RegisterPreparedMealsController controller = new RegisterPreparedMealsController();
         try {
             controller.registerQuantityOfPreparedMeals(meal, quantitity);
         } catch (final DataIntegrityViolationException | DataConcurrencyException e) {

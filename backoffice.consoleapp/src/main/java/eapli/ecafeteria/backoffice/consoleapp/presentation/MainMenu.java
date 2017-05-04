@@ -17,7 +17,7 @@ import eapli.ecafeteria.backoffice.consoleapp.presentation.cafeteria.AddOrganicU
 import eapli.ecafeteria.backoffice.consoleapp.presentation.cafeteria.OrganicUnitPrinter;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen.ListMaterialAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen.RegisterMaterialAction;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen.RegistrationOfPreparedMealsAction;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen.RegisterPreparedMealsAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.*;
 import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.framework.actions.ReturnAction;
@@ -242,7 +242,7 @@ public class MainMenu extends AbstractUI {
      private Menu buildKitchenMealsMenu() {
         final Menu menu = new Menu("Meals >");
 
-        menu.add(new MenuItem(REGISTER_PREPARED_MEALS, "Register Meals Prepared", new RegistrationOfPreparedMealsAction()));
+        menu.add(new MenuItem(REGISTER_PREPARED_MEALS, "Register Meals Prepared", new RegisterPreparedMealsAction()));
 
         menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
 

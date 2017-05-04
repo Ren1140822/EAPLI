@@ -24,7 +24,7 @@ import java.util.GregorianCalendar;
  *
  * @author Diogo Santos
  */
-public class RegistrationOfPreparedMealsController implements Controller {
+public class RegisterPreparedMealsController implements Controller {
 
     private final MealsPreparedRepository repository = PersistenceContext.repositories().mealsPrepared();
     private final ListMealService listMealsSvc = new ListMealService();
