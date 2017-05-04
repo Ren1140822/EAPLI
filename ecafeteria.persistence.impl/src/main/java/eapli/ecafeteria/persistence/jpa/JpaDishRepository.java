@@ -16,6 +16,6 @@ class JpaDishRepository extends CafeteriaJpaRepositoryBase<Dish, Designation> im
     public Dish findByName(Designation name) {
         Map<String, Object> params = new HashMap<>();
         params.put("name", name);
-        return matchOne("e.name.designation=>name", params);
+        return matchOne("e.name.designation=:name", params);
     }
 }
