@@ -5,40 +5,33 @@
  */
 package eapli.ecafeteria.domain.meals;
 
-import eapli.ecafeteria.domain.authz.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 
-/**
- * @FIXME is this an entity, a value object or an aggregate?
- *
- */
 @Entity
 public class Menu implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long pk;
     @Version
     private Long version;
 
-    @OneToOne
-    private MenuEntry menuEntry;
-    //TODO why does a menu needs a reference to a system user?
-    @ManyToOne
-    private SystemUser systemUser;
+    @OneToMany
+    private Set<Meal> meals;
     private boolean published;
 
     protected Menu() {
     } //for ORM
 
-    public Menu(MenuEntry menuEntry, SystemUser systemUser) {
-        if (menuEntry == null || systemUser == null) {
+    public Menu(Set<Meal> meals) {
+        if(meals == null){
             throw new IllegalStateException();
         }
-        this.menuEntry = menuEntry;
+        this.meals = meals;
         this.published = true;
-        this.systemUser = systemUser;
     }
 
     public boolean isPublished() {
@@ -49,12 +42,12 @@ public class Menu implements Serializable {
         return pk;
     }
 
-    public MenuEntry getMenuEntry() {
-        return menuEntry;
+    public boolean addMeal(Meal meal){
+        return meals.add(meal);
     }
 
-    public SystemUser systemUser() {
-        return this.systemUser;
+    public Iterable<Meal> getMeals(){
+        return meals;
     }
 
     @Override
@@ -68,28 +61,21 @@ public class Menu implements Serializable {
 
         Menu menu = (Menu) o;
 
-        if (published != menu.published) {
+        if (published != menu.published)
             return false;
-        }
 
-        if (!pk.equals(menu.pk)) {
+        if (!pk.equals(menu.pk))
             return false;
-        }
 
-        if (!version.equals(menu.version)) {
+        if (!version.equals(menu.version))
             return false;
-        }
 
-        if (!systemUser.equals(((Menu) o).systemUser)) {
-            return false;
-        }
-
-        return menuEntry.equals(menu.menuEntry);
+        return meals.containsAll(menu.meals);
     }
 
     @Override
     public int hashCode() {
-        int result = menuEntry.hashCode();
+        int result = meals.hashCode();
         result = 31 * result + (published ? 1 : 0);
         return result;
     }
