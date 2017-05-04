@@ -1,5 +1,6 @@
 package eapli.ecafeteria.backoffice.consoleapp.presentation.meals;
 
+import eapli.ecafeteria.application.meals.ListAllergensController;
 import eapli.ecafeteria.application.meals.RegisterDishController;
 import eapli.ecafeteria.domain.meals.Allergen;
 import eapli.ecafeteria.domain.meals.Dish;
@@ -21,6 +22,7 @@ import java.util.*;
 public class RegisterDishUI extends AbstractUI {
 
     private final RegisterDishController theController = new RegisterDishController();
+    
 
     protected Controller controller() {
         return this.theController;
@@ -54,7 +56,7 @@ public class RegisterDishUI extends AbstractUI {
 
         if(hasAllergens){
             boolean stop = false;
-            Collection<Allergen> allergens = (Collection<Allergen>) this.theController.allergens();
+            Collection<Allergen> allergens = (Collection<Allergen>) theController.getAllergens();
             Set<Allergen> allergensToAdd = new HashSet<>();
             ListAllergenUI listAllergens = new ListAllergenUI();
             System.out.println("Select allergens contained in the new dish\n");
