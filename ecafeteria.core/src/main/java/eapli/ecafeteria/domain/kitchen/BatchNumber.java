@@ -15,11 +15,11 @@ import javax.persistence.Embeddable;
  * @author Pedro Fernandes (1060503@isep.ipp.pt) Diana Silva (1151088@isep.ipp.pt)
  */
 @Embeddable
-public class Allotment implements ValueObject, Serializable{
+public class BatchNumber implements ValueObject, Serializable{
     
     private String lotCode;
     
-    public Allotment(String lotCode){
+    public BatchNumber(String lotCode){
         if ( Strings.isNullOrWhiteSpace(lotCode)){
             throw new IllegalStateException("Invalid lot code");
         }
@@ -27,7 +27,7 @@ public class Allotment implements ValueObject, Serializable{
         this.lotCode = lotCode;        
     }
     
-    protected Allotment() {
+    protected BatchNumber() {
         // for ORM
     }
     
@@ -36,11 +36,11 @@ public class Allotment implements ValueObject, Serializable{
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Allotment)) {
+        if (!(o instanceof BatchNumber)) {
             return false;
         }
 
-        final Allotment that = (Allotment) o;
+        final BatchNumber that = (BatchNumber) o;
 
         return this.lotCode.equals(that.lotCode);
     }

@@ -5,6 +5,7 @@
  */
 package eapli.ecafeteria.domain.kitchen;
 
+import eapli.ecafeteria.domain.meals.Meal;
 import eapli.framework.domain.AggregateRoot;
 import java.io.Serializable;
 import javax.persistence.Entity;
@@ -17,7 +18,7 @@ import javax.persistence.Version;
  * @author Pedro Fernandes (1060503@isep.ipp.pt) Diana Silva (1151088@isep.ipp.pt)
  */
 @Entity
-public class MaterialUsed implements AggregateRoot<String>, Serializable {
+public class MaterialUsed implements AggregateRoot<BatchNumber>, Serializable {
     
     private static final long serialVersionUID = 1L;
 
@@ -28,16 +29,17 @@ public class MaterialUsed implements AggregateRoot<String>, Serializable {
     @Version
     private Long version;
     
+    private Meal meal;
     private Material material;
-    private Allotment allotment;
+    private BatchNumber batchNumber;
     
-    public MaterialUsed(Material material, Allotment allotment){
-        if (material == null || allotment == null){
+    public MaterialUsed(Meal meal, Material material, BatchNumber batchNumber){
+        if (meal == null || material == null || batchNumber == null){
             throw new IllegalStateException();
         }
-        
+        this.meal = meal;
         this.material = material;
-        this.allotment = allotment;        
+        this.batchNumber = batchNumber;        
     }
     
     protected MaterialUsed() {
@@ -49,15 +51,15 @@ public class MaterialUsed implements AggregateRoot<String>, Serializable {
         // TO DO
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
-    public boolean is(String id) {
+    public boolean is(BatchNumber t) {
         // TO DO
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
-    public String id() {
+    public BatchNumber id() {
         // TO DO
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -72,12 +74,14 @@ public class MaterialUsed implements AggregateRoot<String>, Serializable {
         }
 
         final MaterialUsed other = (MaterialUsed) o;
-        return id().equals(other.id());
+        return this.batchNumber.equals(other.batchNumber);
     }
 
     @Override
     public int hashCode() {
-        return this.material.hashCode() + this.allotment.hashCode();
+        return this.material.hashCode() + this.batchNumber.hashCode();
     }
+
+    
     
 }
