@@ -41,19 +41,19 @@ public class MenuBootstraper implements Action {
         roles.add(RoleType.MENU_MANAGER);
         roles.add(RoleType.KITCHEN_MANAGER);
         final SystemUser systemUser= new SystemUser("poweruser", "poweruserA1", "joe", "doe", "joe@email.org", roles);
-        register(dishTofu, mealType, timePeriod,systemUser);
+        register(dishTofu, mealType, timePeriod, Calendar.getInstance());
         return false;
     }
 
     /**
      *
      */
-    private void register(Dish dish, MealType mealType, TimePeriod2 timePeriod,SystemUser systemUser) {
+    private void register(Dish dish, MealType mealType, TimePeriod2 timePeriod, Calendar date) {
 
         final RegisterMenuController controller = new RegisterMenuController();
 
         try {
-            controller.registerMenu(dish, mealType, timePeriod,systemUser);
+            controller.registerMenu(dish, mealType, timePeriod, date);
         } catch (final DataIntegrityViolationException | DataConcurrencyException e) {
 
             // ignoring exception. assuming it is just a primary key violation

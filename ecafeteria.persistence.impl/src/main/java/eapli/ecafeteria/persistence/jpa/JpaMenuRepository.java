@@ -25,4 +25,9 @@ public class JpaMenuRepository extends CafeteriaJpaRepositoryBase<Menu, Long> im
         return match("e.published=true");
     }
 
+    @Override
+    public Iterable<Menu> notPublishedMenu() {
+       return match("e.published=false");
+    }
+
 }

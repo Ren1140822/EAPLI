@@ -5,6 +5,8 @@
  */
 package eapli.ecafeteria.domain.meals;
 
+import eapli.framework.domain.TimePeriod2;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,7 +16,7 @@ import javax.persistence.*;
 public class Menu implements Serializable {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pk;
     @Version
     private Long version;
@@ -23,15 +25,19 @@ public class Menu implements Serializable {
     private Set<Meal> meals;
     private boolean published;
 
+    @Embedded
+    private TimePeriod2 period;
+
     protected Menu() {
     } //for ORM
 
-    public Menu(Set<Meal> meals) {
-        if(meals == null){
+    public Menu(TimePeriod2 period) {
+        if(period == null){
             throw new IllegalStateException();
         }
-        this.meals = meals;
+        this.meals = new HashSet<>();
         this.published = true;
+        this.period = period;
     }
 
     public boolean isPublished() {
@@ -42,12 +48,17 @@ public class Menu implements Serializable {
         return pk;
     }
 
-    public boolean addMeal(Meal meal){
+    public boolean addMeal(Meal meal) {
         return meals.add(meal);
     }
 
-    public Iterable<Meal> getMeals(){
+    public Iterable<Meal> getMeals() {
         return meals;
+    }
+
+    public boolean toogleState() {
+      this.published=true;
+      return isPublished();
     }
 
     @Override
@@ -61,14 +72,17 @@ public class Menu implements Serializable {
 
         Menu menu = (Menu) o;
 
-        if (published != menu.published)
+        if (published != menu.published) {
             return false;
+        }
 
-        if (!pk.equals(menu.pk))
+        if (!pk.equals(menu.pk)) {
             return false;
+        }
 
-        if (!version.equals(menu.version))
+        if (!version.equals(menu.version)) {
             return false;
+        }
 
         return meals.containsAll(menu.meals);
     }

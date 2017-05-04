@@ -78,7 +78,7 @@ public class RegisterMenuUI extends AbstractUI {
             SystemUser user = Application.session().session().authenticatedUser();
 
             try {
-                this.theController.registerMenu(theDish, theMealType, theTimePeriod2, user);
+                this.theController.registerMenu(theDish, theMealType, theTimePeriod2, Calendar.getInstance());
                 System.out.printf("Menu registered successfully.\n");
             } catch (final DataIntegrityViolationException | DataConcurrencyException e) {
                 System.out.println("You tried to enter a dish which already exists in the database.");

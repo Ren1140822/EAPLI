@@ -25,10 +25,12 @@
     <class>eapli.ecafeteria.domain.cafeteria.account.AccountCard</class>
 
     <properties>
-      <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/db/ecafeteria"/>-->
 
-      <property name="javax.persistence.jdbc.url" value="jdbc:h2:..\db_1\ecafeteria"/>
-      <property name="javax.persistence.jdbc.user" value=""/>
+        <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://127.0.0.1/~/db/ecafeteria"/>
+        <property name="javax.persistence.jdbc.user" value="sa"/>
+
+        <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:..\db_1\ecafeteria"/>-->
+        <!--<property name="javax.persistence.jdbc.user" value=""/>-->
       <property name="javax.persistence.jdbc.password" value=""/>
       <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>

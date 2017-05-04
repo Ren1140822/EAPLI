@@ -51,6 +51,6 @@ public class TopUpAccountCardUI extends AbstractUI {
 
     @Override
     public String headline() {
-        return "Change Dish Type description";
+        return "TopUp Card";
     }
 }

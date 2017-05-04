@@ -3,6 +3,8 @@ package eapli.ecafeteria.persistence.jpa;
 import eapli.ecafeteria.domain.meals.Dish;
 import eapli.ecafeteria.persistence.DishRepository;
 import eapli.framework.domain.Designation;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -12,7 +14,8 @@ class JpaDishRepository extends CafeteriaJpaRepositoryBase<Dish, Designation> im
 
     @Override
     public Dish findByName(Designation name) {
-        // TODO use parameters instead of string concatenation
-        return matchOne("e.name.theDesignation='" + name + "'");
+        Map<String, Object> params = new HashMap<>();
+        params.put("name", name);
+        return matchOne("e.name=:name", params);
     }
 }
