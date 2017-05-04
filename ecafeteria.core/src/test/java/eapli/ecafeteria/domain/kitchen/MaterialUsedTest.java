@@ -58,7 +58,7 @@ public class MaterialUsedTest {
         start = DateTime.now();
         end = DateTime.tomorrow();
         timePeriod2 = new TimePeriod2(start, end);
-        meal = new Meal(d, mealType, timePeriod2); 
+        meal = new Meal(d, mealType, Calendar.getInstance());
     }
     
     @After

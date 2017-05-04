@@ -11,8 +11,11 @@ import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
 import eapli.ecafeteria.domain.meals.Meal;
 import eapli.ecafeteria.domain.booking.Booking;
+import eapli.ecafeteria.domain.meals.DishType;
+import eapli.ecafeteria.domain.meals.MealType;
 import eapli.ecafeteria.persistence.BookingRepository;
 import eapli.framework.persistence.repositories.impl.inmemory.InMemoryRepositoryWithLongPK;
+import java.util.Date;
 
 /**
  *
@@ -29,6 +32,12 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
     @Override
     public Booking findBookingByUserAndMealAndState(CafeteriaUser user, Meal meal, BookingState state) {
         return matchOne(e -> e.belongsTo(user) &&e.isOfMeal(meal) && e.isAtState(state));
+    }
+
+    @Override
+    public Iterable<Booking> checkBookingsByDateMealAndDishType(Date date, MealType mealType, DishType dishType) {
+        //TODO: Implement the method
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

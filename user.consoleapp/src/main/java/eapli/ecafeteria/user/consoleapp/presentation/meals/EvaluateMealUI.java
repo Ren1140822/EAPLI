@@ -32,28 +32,30 @@ public class EvaluateMealUI extends AbstractUI {
     @Override
     protected boolean doShow() {
         final Iterable<Booking> bookings = theController.listDeliveredBookings();
-        if(bookings.iterator().hasNext()) {
+        if (bookings.iterator().hasNext()) {
             final SelectWidget<Booking> selector = new SelectWidget<>("Bookings:", bookings, new BookingPrinter());
             selector.show();
             final Booking chosenBooking = selector.selectedElement();
-            
-            int rating = Integer.parseInt(Console.readLine("Rating (1-5): "));
-            while(rating < 1 || rating > 5) {
-                rating = Integer.parseInt(Console.readLine("Rating (1-5): "));
+
+            if (chosenBooking != null) {
+                int rating = Integer.parseInt(Console.readLine("Rating (1-5): "));
+                while (rating < 1 || rating > 5) {
+                    rating = Integer.parseInt(Console.readLine("Rating (1-5): "));
+                }
+
+                final String comment = Console.readLine("Comment: ");
+
+                try {
+                    theController.mealEvaluation(chosenBooking, rating, comment);
+                } catch (DataConcurrencyException | DataIntegrityViolationException ex) {
+                    Logger.getLogger(EvaluateMealUI.class.getName()).log(Level.FINEST, null, ex);
+                }
             }
-            
-            final String comment = Console.readLine("Comment: ");
-            
-            try {
-                theController.mealEvaluation(chosenBooking, rating, comment);
-            } catch (DataConcurrencyException | DataIntegrityViolationException ex) {
-                Logger.getLogger(EvaluateMealUI.class.getName()).log(Level.FINEST, null, ex);
-            }
-            
+
         } else {
             System.out.println("There are no previous bookings available to rate.");
         }
-        
+
         return true;
     }
 

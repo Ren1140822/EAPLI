@@ -7,8 +7,9 @@ package eapli.ecafeteria.persistence.inmemory;
 
 import eapli.ecafeteria.domain.meals.Meal;
 import eapli.ecafeteria.persistence.MealRepository;
-import eapli.framework.domain.TimePeriod2;
 import eapli.framework.persistence.repositories.impl.inmemory.InMemoryRepositoryWithLongPK;
+import java.util.Calendar;
+
 
 /**
  *
@@ -22,8 +23,8 @@ public class InMemoryMealRepository extends InMemoryRepositoryWithLongPK<Meal> i
     }
 
     @Override
-    public Iterable<Meal> findByDate(TimePeriod2 timePeriod) {
-        return match(e -> e.timePeriod().equals(timePeriod));
+    public Iterable<Meal> findByDate(Calendar date) {
+        return match(e -> e.getDate().compareTo(date) > 0);
     }
 
 }

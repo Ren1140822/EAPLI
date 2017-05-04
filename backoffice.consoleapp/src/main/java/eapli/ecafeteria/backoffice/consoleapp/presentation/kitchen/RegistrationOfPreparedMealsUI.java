@@ -19,24 +19,31 @@ import eapli.util.io.Console;
  *
  * @author Sofia Silva [1150690@isep.ipp.pt] Diogo Santos [1150451@isep.ipp.pt]
  */
-public class RegistrationOfPreparedMealsUI extends AbstractUI{
-    
+public class RegistrationOfPreparedMealsUI extends AbstractUI {
+
     private final RegistrationOfPreparedMealsController controller = new RegistrationOfPreparedMealsController();
 
-    protected Controller controller(){
+    protected Controller controller() {
         return this.controller;
     }
-    
+
     @Override
     protected boolean doShow() {
+        Meal selectedMeal = null;
+        int quantity = 0;
         final Iterable<Meal> meals = this.controller.findMeals();
-        
-        final SelectWidget<Meal> selector = new SelectWidget<>("Meals:", meals, new MealPrinter());
-        selector.show();
-        final Meal selectedMeal = selector.selectedElement();
-        
-        final int quantity = Integer.parseInt(Console.readLine("Quantity of Meals Prepared:"));
-        
+        if (!meals.iterator().hasNext()) {
+            System.out.println("There are no registered meals for the current day!");
+        } else {
+            final SelectWidget<Meal> selector = new SelectWidget<>("Meals:", meals, new MealPrinter());
+            selector.show();
+            selectedMeal = selector.selectedElement();
+            if(selectedMeal == null){
+                return false;
+            }
+            quantity = Integer.parseInt(Console.readLine("Quantity of Meals Prepared:"));
+        }
+
         try {
             this.controller.registerQuantityOfPreparedMeals(selectedMeal, quantity);
         } catch (final DataIntegrityViolationException | DataConcurrencyException e) {
@@ -49,5 +56,5 @@ public class RegistrationOfPreparedMealsUI extends AbstractUI{
     public String headline() {
         return "Registration of Quantity of Prepared Meals by Day/Type/Dish/Meal";
     }
-    
+
 }

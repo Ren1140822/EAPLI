@@ -50,7 +50,7 @@ public class MealsPreparedTest {
         Calendar end = Calendar.getInstance();
         end.add(Calendar.DAY_OF_MONTH, 5);
         TimePeriod2 timePeriod = new TimePeriod2(start, end);
-        meal = new Meal(dish, mealType, timePeriod);
+        meal = new Meal(dish, mealType, Calendar.getInstance());
     }
 
     @After
