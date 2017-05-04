@@ -51,6 +51,11 @@ public class Booking implements Serializable {
         this.state = actualState;
     }
 
+    /**
+     * It cancels the booking by changing its state from "Done" to "Canceled".
+     * It throws an IllegalStateException if the booking is in a non-cancellable
+     * state.
+     */
     public void cancel() {
         if (this.state != BookingState.DONE) {
             throw new IllegalStateException();
@@ -61,27 +66,34 @@ public class Booking implements Serializable {
     public boolean belongsTo(CafeteriaUser user) {
         return this.user.equals(user);
     }
-    
+
     public boolean isOfMeal(Meal meal) {
         return this.meal.equals(meal);
     }
 
+    /**
+     * It checks if the booking is currently at a certain state.
+     *
+     * @param state The state to be compared to.
+     * @return It returns "true" if the booking is currently at state indicated
+     * by the parameter or "false" otherwise.
+     */
     public boolean isAtState(BookingState state) {
         return this.state.equals(state);
     }
-    
+
     public void deliver() {
         if (this.state != BookingState.DEFINITIVE) {
             throw new IllegalStateException();
         }
         this.state = BookingState.DELIVERED;
     }
-    
-    public Meal meal(){
+
+    public Meal meal() {
         return this.meal;
     }
-    
-    public BookingState state(){
+
+    public BookingState state() {
         return this.state;
     }
 

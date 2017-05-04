@@ -17,7 +17,8 @@ public final class ECafeteriaUserApp {
 
     public static void main(final String[] args) {
 
-        // to ensure some default test data is available, specially when using in memory persistence
+	// to ensure some default test data is available, specially when using
+	// in memory persistence
         //new ECafeteriaBootstrap().execute();
         new ECafeteriaBootstraper().execute();
         new FrontMenu().show();

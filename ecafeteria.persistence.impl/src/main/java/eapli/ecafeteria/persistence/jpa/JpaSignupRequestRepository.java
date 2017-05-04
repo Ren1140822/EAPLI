@@ -11,16 +11,15 @@ import eapli.framework.persistence.repositories.impl.jpa.JpaAutoTxRepository;
  *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
-class JpaSignupRequestRepository
-        extends JpaAutoTxRepository<SignupRequest, Username>
-        implements SignupRequestRepository {
+class JpaSignupRequestRepository extends JpaAutoTxRepository<SignupRequest, Username>
+	implements SignupRequestRepository {
 
     public JpaSignupRequestRepository(TransactionalContext autoTx) {
-        super(Application.settings().getPersistenceUnitName(), autoTx);
+	super(Application.settings().getPersistenceUnitName(), autoTx);
     }
 
     @Override
     public Iterable<SignupRequest> pendingSignupRequests() {
-        return repo.match("e.approvalStatus=eapli.ecafeteria.domain.cafeteria.ApprovalStatus.PENDING");
+	return repo.match("e.approvalStatus=eapli.ecafeteria.domain.cafeteria.ApprovalStatus.PENDING");
     }
 }

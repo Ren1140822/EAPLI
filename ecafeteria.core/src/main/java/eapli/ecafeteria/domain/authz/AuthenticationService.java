@@ -21,25 +21,25 @@ public class AuthenticationService {
      * @return the authenticated user or null otherwise
      */
     public Optional<UserSession> authenticate(Username username, Password pass) {
-        if (username == null) {
-            throw new IllegalArgumentException("a username must be provided");
-        }
-        final Optional<SystemUser> user = retrieveUser(username);
-        if (!user.isPresent()) {
-            return Optional.empty();
-        }
-        if (user.get().passwordMatches(pass) && user.get().isActive()) {
-            return Optional.of(createSessionForUser(user.get()));
-        } else {
-            return Optional.empty();
-        }
+	if (username == null) {
+	    throw new IllegalArgumentException("a username must be provided");
+	}
+	final Optional<SystemUser> user = retrieveUser(username);
+	if (!user.isPresent()) {
+	    return Optional.empty();
+	}
+	if (user.get().passwordMatches(pass) && user.get().isActive()) {
+	    return Optional.of(createSessionForUser(user.get()));
+	} else {
+	    return Optional.empty();
+	}
     }
 
     private UserSession createSessionForUser(SystemUser user) {
-        return new UserSession(user);
+	return new UserSession(user);
     }
 
     private Optional<SystemUser> retrieveUser(Username userName) {
-        return this.repo.findOne(userName);
+	return this.repo.findOne(userName);
     }
 }

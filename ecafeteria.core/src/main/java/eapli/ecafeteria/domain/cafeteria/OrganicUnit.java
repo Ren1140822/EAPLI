@@ -36,74 +36,72 @@ public class OrganicUnit implements AggregateRoot<String>, Serializable {
     private boolean active;
 
     protected OrganicUnit() {
-        // for ORM
+	// for ORM
     }
 
     public OrganicUnit(String acronym, String name, String description) {
-        if (acronym == null || name == null || description == null || acronym.trim().isEmpty()) {
-            throw new IllegalStateException();
-        }
-        this.acronym = acronym;
-        // TODO name and description provably should not be empty
-        this.name = name;
-        this.description = description;
-        this.active = true;
+	if (acronym == null || name == null || description == null || acronym.trim().isEmpty()) {
+	    throw new IllegalStateException();
+	}
+	this.acronym = acronym;
+	// TODO name and description provably should not be empty
+	this.name = name;
+	this.description = description;
+	this.active = true;
     }
 
     @Override
     public String id() {
-        return this.acronym;
+	return this.acronym;
     }
 
     @Override
     public boolean is(String acronym) {
-        return acronym.equalsIgnoreCase(this.acronym);
+	return acronym.equalsIgnoreCase(this.acronym);
     }
 
     public boolean isActive() {
-        return this.active;
+	return this.active;
     }
 
     public String name() {
-        return this.name;
+	return this.name;
     }
 
     public String description() {
-        return this.description;
+	return this.description;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof OrganicUnit)) {
-            return false;
-        }
+	if (this == o) {
+	    return true;
+	}
+	if (!(o instanceof OrganicUnit)) {
+	    return false;
+	}
 
-        final OrganicUnit other = (OrganicUnit) o;
-        return this.id().equals(other.id());
+	final OrganicUnit other = (OrganicUnit) o;
+	return this.id().equals(other.id());
     }
 
     @Override
     public int hashCode() {
-        return this.acronym.hashCode();
+	return this.acronym.hashCode();
     }
 
     @Override
     public boolean sameAs(Object other) {
-        if (!(other instanceof OrganicUnit)) {
-            return false;
-        }
+	if (!(other instanceof OrganicUnit)) {
+	    return false;
+	}
 
-        final OrganicUnit that = (OrganicUnit) other;
-        if (this == that) {
-            return true;
-        }
+	final OrganicUnit that = (OrganicUnit) other;
+	if (this == that) {
+	    return true;
+	}
 
-        return this.acronym.equals(that.acronym)
-                && name.equals(that.name)
-                && description.equals(that.description)
-                && active == that.active;
+	return this.acronym.equals(that.acronym) && name.equals(that.name) && description.equals(that.description)
+		&& active == that.active;
     }
 }

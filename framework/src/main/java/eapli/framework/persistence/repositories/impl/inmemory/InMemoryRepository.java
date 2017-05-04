@@ -32,12 +32,12 @@ public abstract class InMemoryRepository<T, K extends Serializable> implements I
 	this.entityClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes", "static-access" })
+    @SuppressWarnings({ "unchecked", "rawtypes", "static-access", "squid:S2209" })
     protected Map<K, T> data() {
-	if (!this.DATA.containsKey(entityClass)) {
-	    this.DATA.put(entityClass, new HashMap());
+	if (!this.DATA.containsKey(this.entityClass)) {
+	    this.DATA.put(this.entityClass, new HashMap());
 	}
-	return ((Map<K, T>) this.DATA.get(entityClass));
+	return (Map<K, T>) this.DATA.get(this.entityClass);
     }
 
     @Override
@@ -88,8 +88,6 @@ public abstract class InMemoryRepository<T, K extends Serializable> implements I
     }
 
     /**
-     * This method is used for searching a list without using Optional and
-     * Streams, thus returning null when no element is found.
      *
      * @param id
      *            K identifier for object
@@ -100,20 +98,6 @@ public abstract class InMemoryRepository<T, K extends Serializable> implements I
 	return Optional.ofNullable(data().get(id));
     }
 
-    /**
-     * This method is only used for showing the usage of Optional and streams to
-     * avoid returning null. In either case, the client code must check for
-     * NoSuchElementException.
-     *
-     * @param id
-     *            Identifier to look for
-     * @return T
-     */
-    /*
-     * @Override public T findById(K id) { Optional<T> value =
-     * DATA.stream().filter(a -> a.id().equals(id)).findFirst(); T t=
-     * value.get(); return t; }
-     */
     @Override
     public long count() {
 	return data().size();

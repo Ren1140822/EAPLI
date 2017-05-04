@@ -20,7 +20,8 @@ package eapli.framework.domain;
  * </ol>
  *
  * @author Paulo Gandra Sousa
- * @param <K> the type of the primary <b>business</b> id of the entity
+ * @param <K>
+ *            the type of the primary <b>business</b> id of the entity
  */
 public interface DomainEntity<K> extends Identifiable<K> {
 
