@@ -53,7 +53,8 @@ public class BookingBootstraper implements Action {
         
         register(users.findByUsername(username),meal,BookingState.DONE);
         register(users.findByUsername(username),meal,BookingState.DONE);
-        register(users.findByUsername(username),meal,BookingState.DEFINITIVE);
+        register(users.findByUsername(username),meal,BookingState.DELIVERED);
+        register(users.findByUsername(username),meal,BookingState.DELIVERED);
         
         return false;
     }
