@@ -1,8 +1,8 @@
 package eapli.ecafeteria.domain.meals;
 
-import eapli.framework.domain.AggregateRoot;
 import eapli.framework.domain.Designation;
 import eapli.framework.domain.Money;
+import eapli.framework.domain.ddd.AggregateRoot;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
