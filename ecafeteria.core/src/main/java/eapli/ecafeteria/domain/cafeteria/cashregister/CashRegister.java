@@ -8,10 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- *
  * @author Eric Amaral - 1141570@isep.ipp.pt
  * @author Tiago Correia - 1151031@isep.ipp.pt
- *
  */
 @Entity
 public class CashRegister implements AggregateRoot<CashRegisterId>, Serializable {
@@ -30,7 +28,7 @@ public class CashRegister implements AggregateRoot<CashRegisterId>, Serializable
 
     public CashRegister(CashRegisterId id) {
         if (id == null) {
-            throw new IllegalStateException();
+            throw new IllegalStateException("A cash register must have an id!");
         }
         this.id = id;
         this.state = CashRegisterState.CLOSED;
@@ -44,6 +42,16 @@ public class CashRegister implements AggregateRoot<CashRegisterId>, Serializable
             throw new IllegalStateException("Cash Register must be closed before opening!");
         }
         this.state = CashRegisterState.OPENED;
+    }
+
+    /**
+     * Modifies a cash register state to closed.
+     */
+    public void close() {
+        if (this.state != CashRegisterState.OPENED) {
+            throw new IllegalStateException("Cash Register must be opened before closing!");
+        }
+        this.state = CashRegisterState.CLOSED;
     }
 
     @Override
