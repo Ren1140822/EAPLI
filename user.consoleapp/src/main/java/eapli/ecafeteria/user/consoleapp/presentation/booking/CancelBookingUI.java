@@ -37,13 +37,15 @@ public class CancelBookingUI extends AbstractUI {
             final SelectWidget<Booking> selector = new SelectWidget<>("Bookings:", bookingsDone, new BookingPrinter());
             selector.show();
             final Booking updtBooking = selector.selectedElement();
-            try {
-                this.theController.cancel(updtBooking);
-            } catch (DataConcurrencyException ex) {
-                System.out.println("It is not possible to cancel the booking state because it was changed by another user.");
-            } catch (DataIntegrityViolationException ex) {
-                //should not happen!
-                Logger.getLogger(CancelBookingUI.class.getName()).log(Level.SEVERE, null, ex);
+            if (updtBooking != null) {
+                try {
+                    this.theController.cancel(updtBooking);
+                } catch (DataConcurrencyException ex) {
+                    System.out.println("It is not possible to cancel the booking state because it was changed by another user.");
+                } catch (DataIntegrityViolationException ex) {
+                    //should not happen!
+                    Logger.getLogger(CancelBookingUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
         return true;
