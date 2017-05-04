@@ -183,8 +183,8 @@ public class MainMenu extends AbstractUI {
         }));
         menu.add(new MenuItem(LIST_ORGANIC_UNIT_OPTION, "List Organic Unit", () -> {
             // example of using the generic list ui from the framework
-            new ListUI<>(new ListOrganicUnitsController().listOrganicUnits(), new OrganicUnitPrinter(),
-                    "Organic Unit").show();
+	    new ListUI<>(new ListOrganicUnitsController().listOrganicUnits(), new OrganicUnitPrinter(), "Organic Unit")
+		    .show();
             return false;
         }));
         // TODO add other options for Organic Unit management
@@ -231,7 +231,8 @@ public class MainMenu extends AbstractUI {
         menu.add(new MenuItem(DISH_ACTIVATE_DEACTIVATE_OPTION, "Activate/Deactivate Dish",
                 new ActivateDeactivateDishAction()));
         final Menu changeDishMenu = buildChangeDishMenu();
-        menu.add(new MenuItem(DISH_CHANGE_OPTION, "Change Dish Information", new ShowVerticalSubMenuAction(changeDishMenu)));
+	menu.add(new MenuItem(DISH_CHANGE_OPTION, "Change Dish Information",
+		new ShowVerticalSubMenuAction(changeDishMenu)));
 
         menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
 
@@ -264,8 +265,7 @@ public class MainMenu extends AbstractUI {
 
         menu.add(new MenuItem(CHANGE_DISH_NUTRICIONAL_INFO_OPTION, "Change Nutricional Info",
                 new ChangeDishNutricionalInfoAction()));
-        menu.add(new MenuItem(CHANGE_DISH_PRICE_OPTION, "Change Price",
-                new ChangeDishPriceAction()));
+	menu.add(new MenuItem(CHANGE_DISH_PRICE_OPTION, "Change Price", new ChangeDishPriceAction()));
         menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
 
         return menu;

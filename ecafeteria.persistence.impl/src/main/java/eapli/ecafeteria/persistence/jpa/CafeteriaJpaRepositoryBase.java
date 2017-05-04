@@ -12,14 +12,13 @@ import java.io.Serializable;
  * @param <T>
  * @param <K>
  */
-class CafeteriaJpaRepositoryBase<T, K extends Serializable>
-        extends JpaTransactionalRepository<T, K> {
+class CafeteriaJpaRepositoryBase<T, K extends Serializable> extends JpaTransactionalRepository<T, K> {
 
     CafeteriaJpaRepositoryBase(String persistenceUnitName) {
-        super(persistenceUnitName);
+	super(persistenceUnitName);
     }
 
     CafeteriaJpaRepositoryBase() {
-        super(Application.settings().getPersistenceUnitName());
+	super(Application.settings().getPersistenceUnitName());
     }
 }

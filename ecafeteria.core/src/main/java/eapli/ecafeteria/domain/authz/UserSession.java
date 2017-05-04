@@ -20,19 +20,19 @@ public class UserSession implements ValueObject {
     private final UUID token;
 
     public UserSession(SystemUser user) {
-        if (user == null) {
-            throw new IllegalStateException("user must not be null");
-        }
-        this.user = user;
-        this.token = UUID.randomUUID();
+	if (user == null) {
+	    throw new IllegalStateException("user must not be null");
+	}
+	this.user = user;
+	this.token = UUID.randomUUID();
     }
 
     public SystemUser authenticatedUser() {
-        return this.user;
+	return this.user;
     }
 
     @Override
     public String toString() {
-        return this.user.id() + "@" + this.token;
+	return this.user.id() + "@" + this.token;
     }
 }
