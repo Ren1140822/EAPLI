@@ -7,16 +7,14 @@ package eapli.ecafeteria.domain.booking;
 
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.ecafeteria.domain.meals.Meal;
-
 import java.io.Serializable;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Version;
 
 /**
+ * @TODO is this an Entity, a value object, an aggregate?
  *
  * @author Nuno Pinto [1150838@isep.ipp.pt] Henrique Oliveira
  * [1150738@isep.ipp.pt]
@@ -48,6 +46,7 @@ public class Booking implements Serializable {
         }
         this.user = user;
         this.meal = meal;
+        //TODO can we really create a booking in any state? what are the business rules?
         this.state = actualState;
     }
 
