@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eapli.ecafeteria.backoffice.consoleapp.presentation.booking;
+package eapli.ecafeteria.user.consoleapp.presentation.booking;
 
 import eapli.ecafeteria.application.booking.CancelBookingController;
 import eapli.ecafeteria.domain.booking.Booking;
