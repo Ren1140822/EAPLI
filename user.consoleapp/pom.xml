@@ -46,9 +46,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>eapli</groupId>
-            <artifactId>ecafeteria.bootstrapapp</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <groupId>eapli.ecafeteria</groupId>
+            <artifactId>bootstrap.core</artifactId>
+            <version>1.1-SNAPSHOT</version>
             <type>jar</type>
         </dependency>
     </dependencies>

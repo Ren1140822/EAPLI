@@ -7,37 +7,35 @@ package eapli.ecafeteria.domain.kitchen;
 
 import eapli.ecafeteria.domain.meals.Meal;
 import eapli.framework.domain.AggregateRoot;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Version;
 
-
 /**
+ * @TODO why is this an aggregate? are the decisions registered in the design of
+ * the use case?
  *
  * @author Diogo Santos [1150451@isep.ipp.pt] Sofia Silva [1150690@isep.ipp.pt]
  */
 @Entity
 public class MealsPrepared implements AggregateRoot<Meal> {
-   
+
     // ORM primary key
     @Id
     @GeneratedValue
     private Long pk;
     @Version
     private Long version;
-    
+
     private Meal meal;
 
     private int quantity;
-  
-    
-    
+
     protected MealsPrepared() {
         // for ORM
     }
-        
+
     /**
      * Prepared Meals Constructor.
      *
@@ -53,11 +51,11 @@ public class MealsPrepared implements AggregateRoot<Meal> {
         }
         this.quantity = quantity;
         this.meal = meal;
-    }    
+    }
 
     @Override
     public boolean sameAs(Object other) {
-       if (!(other instanceof MealsPrepared)) {
+        if (!(other instanceof MealsPrepared)) {
             return false;
         }
 
@@ -73,7 +71,7 @@ public class MealsPrepared implements AggregateRoot<Meal> {
 
     @Override
     public boolean is(Meal id) {
-       return this.meal.equals(id);
+        return this.meal.equals(id);
     }
 
     @Override
@@ -81,5 +79,4 @@ public class MealsPrepared implements AggregateRoot<Meal> {
         return this.meal;
     }
 
-    
 }

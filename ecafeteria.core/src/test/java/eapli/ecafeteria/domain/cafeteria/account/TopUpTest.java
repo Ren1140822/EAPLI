@@ -1,5 +1,6 @@
 package eapli.ecafeteria.domain.cafeteria.account;
 
+import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
 import eapli.framework.domain.Money;
 import org.junit.Test;
 
@@ -12,8 +13,11 @@ public class TopUpTest {
 
     @Test
     public void ensureTopUpIsNotEqualsToAnotherTransaction() throws Exception {
-        TopUp aTopUp = new TopUp(Money.euros(50));
-        Transaction aTransaction = new Transaction(Money.euros(50)) {
+        final MecanographicNumber aMecanographicNumber = new MecanographicNumber("Dummy");
+        final Money aMoney = Money.euros(50);
+        TopUp aTopUp = new TopUp(aMecanographicNumber, aMoney);
+
+        Transaction aTransaction = new Transaction(aMecanographicNumber, aMoney) {
         };
 
         assertFalse(aTopUp.equals(aTransaction));
@@ -21,9 +25,13 @@ public class TopUpTest {
 
     @Test
     public void ensureTopUpIsNotEqualsToAnotherTopUp() throws Exception {
-        TopUp aTopUp = new TopUp(Money.euros(50));
-        TopUp anotherTopUp = new TopUp(Money.euros(55)) {
-        };
+        final MecanographicNumber aMecanographicNumber = new MecanographicNumber("Dummy");
+        final Money aMoney = Money.euros(50);
+        TopUp aTopUp = new TopUp(aMecanographicNumber, aMoney);
+
+        final MecanographicNumber anotherMecanographicNumber = new MecanographicNumber("Another dummy");
+        final Money anotherMoney = Money.euros(50);
+        TopUp anotherTopUp = new TopUp(anotherMecanographicNumber, anotherMoney);
 
         assertFalse(aTopUp.equals(anotherTopUp));
     }

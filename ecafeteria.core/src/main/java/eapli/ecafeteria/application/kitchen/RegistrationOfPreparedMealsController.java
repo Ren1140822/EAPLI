@@ -10,12 +10,10 @@ import eapli.ecafeteria.application.meals.ListMealService;
 import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.ecafeteria.domain.kitchen.MealsPrepared;
 import eapli.ecafeteria.domain.meals.Meal;
-import eapli.ecafeteria.domain.meals.MealType;
 import eapli.ecafeteria.persistence.MealsPreparedRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.framework.application.Controller;
 import eapli.framework.domain.TimePeriod2;
-import eapli.framework.domain.range.TimePeriod;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
 import java.util.Calendar;
@@ -25,13 +23,14 @@ import java.util.GregorianCalendar;
  *
  * @author Diogo Santos
  */
-public class RegistrationOfPreparedMealsController implements Controller{
+public class RegistrationOfPreparedMealsController implements Controller {
 
     private final MealsPreparedRepository repository = PersistenceContext.repositories().mealsPrepared();
     private final ListMealService listMealsSvc = new ListMealService();
 
     public Iterable<Meal> findMeals() {
-        // today    
+        //TODO check DateTime class in util library
+        // today
         Calendar date = new GregorianCalendar();
         // reset hour, minutes, seconds and millis
         date.set(Calendar.HOUR_OF_DAY, 0);

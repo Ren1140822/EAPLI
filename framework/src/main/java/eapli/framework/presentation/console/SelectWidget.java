@@ -61,14 +61,18 @@ public class SelectWidget<T> extends ListWidget<T> {
 	case 0:
 	    return null;
 	default:
-	    int idx = 0;
-	    T elem = null;
-	    final Iterator<T> it = source.iterator();
-	    while (idx < this.option) {
-		elem = it.next();
-		idx++;
-	    }
-	    return elem;
+	    return fromIndex();
 	}
+    }
+
+    private T fromIndex() {
+	int idx = 0;
+	T elem = null;
+	final Iterator<T> it = this.source.iterator();
+	while (idx < this.option) {
+	    elem = it.next();
+	    idx++;
+	}
+	return elem;
     }
 }

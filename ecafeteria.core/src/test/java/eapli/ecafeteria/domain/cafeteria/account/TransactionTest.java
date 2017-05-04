@@ -1,5 +1,6 @@
 package eapli.ecafeteria.domain.cafeteria.account;
 
+import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
 import eapli.framework.domain.Money;
 import org.junit.Test;
 
@@ -13,14 +14,24 @@ import static org.junit.Assert.assertTrue;
 public class TransactionTest {
 
     @Test(expected = IllegalStateException.class)
+    public void ensureTransactionHasMecanographicNumber() {
+        final Money aMoney = Money.euros(50);
+        new Transaction(null, aMoney) {
+        };
+    }
+
+    @Test(expected = IllegalStateException.class)
     public void ensureTransactionHasAmount() {
-        new Transaction(null) {
+        final MecanographicNumber aMecanographicNumber = new MecanographicNumber("Dummy");
+        new Transaction(aMecanographicNumber, null) {
         };
     }
 
     @Test
     public void ensureTransactionIsEqualsToTheSameInstance() {
-        final Transaction aTransaction = new Transaction(Money.euros(50)) {
+        final MecanographicNumber aMecanographicNumber = new MecanographicNumber("Dummy");
+        final Money aMoney = Money.euros(50);
+        final Transaction aTransaction = new Transaction(aMecanographicNumber, aMoney) {
         };
 
         assertTrue(aTransaction.equals(aTransaction));
@@ -28,9 +39,14 @@ public class TransactionTest {
 
     @Test
     public void ensureTransactionEqualsFailsForDifferentTransaction() {
-        final Transaction aTransaction = new Transaction(Money.euros(50)) {
+        final MecanographicNumber aMecanographicNumber = new MecanographicNumber("Dummy");
+        final Money aMoney = Money.euros(50);
+        final Transaction aTransaction = new Transaction(aMecanographicNumber, aMoney) {
         };
-        final Transaction anotherTransaction = new Transaction(Money.euros(55)) {
+
+        final MecanographicNumber anotherMecanographicNumber = new MecanographicNumber("Another dummy");
+        final Money anotherMoney = Money.euros(50);
+        final Transaction anotherTransaction = new Transaction(anotherMecanographicNumber, anotherMoney) {
         };
 
         assertFalse(aTransaction.equals(anotherTransaction));

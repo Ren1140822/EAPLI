@@ -22,15 +22,15 @@ public class LoginController implements Controller {
      * @param password
      */
     public boolean login(String userName, String password) {
-        try {
-            final Optional<UserSession> newSession = authenticationService.authenticate(new Username(userName),
-                    new Password(password));
-            if (newSession.isPresent()) {
-                Application.session().setSession(newSession.get());
-            }
-            return newSession.isPresent();
-        } catch (final IllegalStateException e) {
-            return false;
-        }
+	try {
+	    final Optional<UserSession> newSession = authenticationService.authenticate(new Username(userName),
+		    new Password(password));
+	    if (newSession.isPresent()) {
+		Application.session().setSession(newSession.get());
+	    }
+	    return newSession.isPresent();
+	} catch (final IllegalStateException e) {
+	    return false;
+	}
     }
 }

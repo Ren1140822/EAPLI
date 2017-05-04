@@ -22,39 +22,53 @@ import java.util.Set;
  */
 public class GenericDTO implements DTO, Map<String, Object> {
 
+    private final Map<String, Object> data = new HashMap<>();
+    private final String type;
+
+    public GenericDTO(String type) {
+	if (type == null || type.trim().length() == 0) {
+	    throw new IllegalArgumentException();
+	}
+	this.type = type;
+    }
+
     /**
      * Builds a DTO from an object using reflection.
      *
      * @param o
      * @return
      */
-    @SuppressWarnings("unchecked")
     public static GenericDTO of(Object o) {
 	final GenericDTO out = new GenericDTO(o.getClass().getName());
 	final List<Field> fields = getInheritedFields(o.getClass());
 	for (final Field aField : fields) {
-	    try {
-		aField.setAccessible(true);
-		if (aField.getType().isPrimitive() || aField.getType() == String.class) {
-		    out.put(aField.getName(), aField.get(o));
-		} else if (aField.getType().isArray()) {
-		    if (aField.getType().getComponentType().isPrimitive()
-			    || aField.getType().getComponentType() == String.class) {
-			buildDtoForArray(aField.getType().getComponentType(), aField.getName(), aField.get(o), out);
-		    } else {
-			buildDtoForIterable(aField.getName(), (Iterable<Object>) (aField.get(o)), out);
-		    }
-		} else if (Collection.class.isAssignableFrom(aField.getType())) {
-		    buildDtoForIterable(aField.getName(), (Iterable<Object>) (aField.get(o)), out);
-		} else {
-		    out.put(aField.getName(), of(aField.get(o)));
-		}
-	    } catch (IllegalArgumentException | IllegalAccessException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	    }
+	    ofField(o, out, aField);
 	}
 	return out;
+    }
+
+    @SuppressWarnings("unchecked")
+    private static void ofField(Object o, final GenericDTO out, final Field aField) {
+	try {
+	    aField.setAccessible(true);
+	    if (aField.getType().isPrimitive() || aField.getType() == String.class) {
+		out.put(aField.getName(), aField.get(o));
+	    } else if (aField.getType().isArray()) {
+		if (aField.getType().getComponentType().isPrimitive()
+			|| aField.getType().getComponentType() == String.class) {
+		    buildDtoForArray(aField.getType().getComponentType(), aField.getName(), aField.get(o), out);
+		} else {
+		    buildDtoForIterable(aField.getName(), (Iterable<Object>) (aField.get(o)), out);
+		}
+	    } else if (Collection.class.isAssignableFrom(aField.getType())) {
+		buildDtoForIterable(aField.getName(), (Iterable<Object>) (aField.get(o)), out);
+	    } else {
+		out.put(aField.getName(), of(aField.get(o)));
+	    }
+	} catch (IllegalArgumentException | IllegalAccessException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
     }
 
     public static Iterable<GenericDTO> ofMany(Iterable<?> col) {
@@ -119,16 +133,6 @@ public class GenericDTO implements DTO, Map<String, Object> {
 	return fields;
     }
 
-    private final Map<String, Object> data = new HashMap<>();
-    private final String type;
-
-    public GenericDTO(String type) {
-	if (type == null || type.trim().length() == 0) {
-	    throw new IllegalArgumentException();
-	}
-	this.type = type;
-    }
-
     /**
      * Returns the name of the type contained in this DTO. Might be helpful for
      * client code to parse the DTO.
@@ -136,66 +140,66 @@ public class GenericDTO implements DTO, Map<String, Object> {
      * @return
      */
     public String type() {
-	return type;
+	return this.type;
     }
 
     @Override
     public void clear() {
-	data.clear();
+	this.data.clear();
     }
 
     @Override
     public boolean containsKey(Object arg0) {
-	return data.containsKey(arg0);
+	return this.data.containsKey(arg0);
     }
 
     @Override
     public boolean containsValue(Object arg0) {
-	return data.containsValue(arg0);
+	return this.data.containsValue(arg0);
     }
 
     @Override
     public Set<java.util.Map.Entry<String, Object>> entrySet() {
-	return data.entrySet();
+	return this.data.entrySet();
     }
 
     @Override
     public Object get(Object arg0) {
-	return data.get(arg0);
+	return this.data.get(arg0);
     }
 
     @Override
     public boolean isEmpty() {
-	return data.isEmpty();
+	return this.data.isEmpty();
     }
 
     @Override
     public Set<String> keySet() {
-	return data.keySet();
+	return this.data.keySet();
     }
 
     @Override
     public Object put(String arg0, Object arg1) {
-	return data.put(arg0, arg1);
+	return this.data.put(arg0, arg1);
     }
 
     @Override
     public void putAll(Map<? extends String, ? extends Object> arg0) {
-	data.putAll(arg0);
+	this.data.putAll(arg0);
     }
 
     @Override
     public Object remove(Object arg0) {
-	return data.remove(arg0);
+	return this.data.remove(arg0);
     }
 
     @Override
     public int size() {
-	return data.size();
+	return this.data.size();
     }
 
     @Override
     public Collection<Object> values() {
-	return data.values();
+	return this.data.values();
     }
 }

@@ -12,7 +12,7 @@ package eapli.framework.persistence;
 public class DataIntegrityViolationException extends Exception {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 7328099647714453484L;
 
@@ -20,6 +20,7 @@ public class DataIntegrityViolationException extends Exception {
      *
      */
     public DataIntegrityViolationException() {
+	// empty
     }
 
     /**

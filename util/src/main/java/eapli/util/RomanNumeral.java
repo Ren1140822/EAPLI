@@ -36,7 +36,7 @@ public class RomanNumeral {
 	if (arabic > 3999) {
 	    throw new NumberFormatException("Value of RomanNumeral must be 3999 or less.");
 	}
-	num = arabic;
+	this.num = arabic;
     }
 
     /*
@@ -96,7 +96,7 @@ public class RomanNumeral {
 	    throw new NumberFormatException("Roman numeral must have value 3999 or less.");
 	}
 
-	num = arabic;
+	this.num = arabic;
 
     } // end constructor
 
@@ -132,9 +132,10 @@ public class RomanNumeral {
      * @return the standard representation of this Roman numeral
      */
     @Override
+    @SuppressWarnings("squid:S00117")
     public String toString() {
 	final StringBuilder roman = new StringBuilder("");
-	int N = num; // N represents the part of num that still has
+	int N = this.num; // N represents the part of num that still has
 	// to be converted to Roman numeral representation.
 	for (int i = 0; i < numbers.length; i++) {
 	    while (N >= numbers[i]) {
@@ -151,6 +152,6 @@ public class RomanNumeral {
      * @return the int value of this Roman numeral
      */
     public int toInt() {
-	return num;
+	return this.num;
     }
 }
