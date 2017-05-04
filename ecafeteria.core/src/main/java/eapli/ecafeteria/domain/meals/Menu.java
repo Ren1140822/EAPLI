@@ -5,6 +5,8 @@
  */
 package eapli.ecafeteria.domain.meals;
 
+import eapli.framework.domain.TimePeriod2;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,15 +25,19 @@ public class Menu implements Serializable {
     private Set<Meal> meals;
     private boolean published;
 
+    @Embedded
+    private TimePeriod2 period;
+
     protected Menu() {
     } //for ORM
 
-    public Menu(Set<Meal> meals) {
-        if(meals == null){
+    public Menu(TimePeriod2 period) {
+        if(period == null){
             throw new IllegalStateException();
         }
-        this.meals = meals;
+        this.meals = new HashSet<>();
         this.published = true;
+        this.period = period;
     }
 
     public boolean isPublished() {
@@ -40,6 +46,10 @@ public class Menu implements Serializable {
 
     public Long pk() {
         return pk;
+    }
+
+    public TimePeriod2 period(){
+        return period;
     }
 
     public boolean addMeal(Meal meal){

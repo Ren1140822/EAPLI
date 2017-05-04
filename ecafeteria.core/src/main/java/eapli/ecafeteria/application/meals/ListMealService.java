@@ -12,6 +12,8 @@ import eapli.ecafeteria.persistence.MealRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.framework.domain.TimePeriod2;
 
+import java.util.Calendar;
+
 /**
  *
  * @author Sofia Silva
@@ -20,10 +22,10 @@ public class ListMealService {
     
     private final MealRepository mealRepository = PersistenceContext.repositories().meals();
     
-    public Iterable<Meal> listMealsByDate(TimePeriod2 timePeriod) {
+    public Iterable<Meal> listMealsByDate(TimePeriod2 timePeriod2) {
         Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
 
-        return this.mealRepository.findByDate(timePeriod);
+        return this.mealRepository.findByDate(timePeriod2);
     }
     
 }

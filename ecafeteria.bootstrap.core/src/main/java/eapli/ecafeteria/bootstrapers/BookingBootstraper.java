@@ -46,10 +46,7 @@ public class BookingBootstraper implements Action {
         Dish dish = new Dish(dishType, name, price);
         MealType mealType = new MealType(MealTypes.ALMOCO);
         Calendar start = Calendar.getInstance();
-        Calendar end = Calendar.getInstance();
-        end.add(Calendar.DAY_OF_MONTH, 5);
-        TimePeriod2 timePeriod = new TimePeriod2(start, end);
-        Meal meal = new Meal(dish,mealType,timePeriod);
+        Meal meal = new Meal(dish,mealType,start);
         
         register(users.findByUsername(username),meal,BookingState.DONE);
         register(users.findByUsername(username),meal,BookingState.DONE);

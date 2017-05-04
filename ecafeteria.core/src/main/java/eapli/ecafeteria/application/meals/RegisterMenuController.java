@@ -11,6 +11,7 @@ import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
 import eapli.ecafeteria.domain.authz.*;
 
+import java.util.Calendar;
 import java.util.HashSet;
 
 /**
@@ -21,14 +22,12 @@ public class RegisterMenuController implements Controller {
     private final ListDishService dishService = new ListDishService();
     private final ListMealTypeService mealTypeService = new ListMealTypeService();
 
-    public Menu registerMenu(Dish dish, MealType mealType, TimePeriod2 timePeriod,SystemUser systemUser)
+    public Menu registerMenu(Dish dish, MealType mealType, TimePeriod2 period, Calendar date)
             throws DataIntegrityViolationException, DataConcurrencyException {
         Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_MENUS);
 
-        final Meal meal = new Meal(dish, mealType, timePeriod);
-        HashSet<Meal> meals = new HashSet<>();
-        meals.add(meal);
-        final Menu newMenu = new Menu(meals);
+        final Meal meal = new Meal(dish, mealType, date);
+        final Menu newMenu = new Menu(period);
         newMenu.addMeal(meal);
 
         Menu menu = repository.save(newMenu);
