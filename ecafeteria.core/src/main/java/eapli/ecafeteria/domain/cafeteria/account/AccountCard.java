@@ -3,11 +3,13 @@ package eapli.ecafeteria.domain.cafeteria.account;
 import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
 import eapli.framework.domain.AggregateRoot;
 import eapli.framework.domain.Money;
-
-import javax.persistence.*;
 import java.io.Serializable;
+import javax.persistence.*;
 
 /**
+ * @TODO why is the AccountCard a separate aggregate? is this justified in the
+ * design of the use case?
+ *
  * @author Ivo Ferro 1151159
  * @author Daniel Gonçalves 1151452
  */

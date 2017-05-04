@@ -6,11 +6,11 @@
 package eapli.ecafeteria.domain.booking;
 
 /**
- *
+ * @TODO javadoc of each state
  * @author Miguel Silva - 1150901
  */
 public enum BookingState {
-    
+
     CANCELED, DEFINITIVE, DELIVERED, DONE, WASTED;
 
 }

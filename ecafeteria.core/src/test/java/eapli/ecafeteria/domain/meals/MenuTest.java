@@ -21,7 +21,7 @@ import java.util.Set;
  */
 public class MenuTest {
 
-    private MenuEntry menuEntry;
+    private Meal meal;
     private Dish dish;
     private MealType mealType;
     private TimePeriod2 timePeriod;
@@ -44,7 +44,7 @@ public class MenuTest {
         Calendar end = Calendar.getInstance();
         end.add(Calendar.DAY_OF_MONTH, 5);
         timePeriod = new TimePeriod2(start, end);
-        menuEntry = new MenuEntry(dish, mealType, timePeriod);
+        meal = new Meal(dish, mealType, timePeriod);
         final Set<RoleType> roles = new HashSet<RoleType>();
         roles.add(RoleType.ADMIN);
         roles.add(RoleType.MENU_MANAGER);
@@ -56,13 +56,15 @@ public class MenuTest {
     @Test(expected = IllegalStateException.class)
     public void testMenuEntryMustNotBeNull() {
         System.out.println("MenuTest: must not have a null menu entry");
-        Menu instance = new Menu(null,null);
+        Menu instance = new Menu(null);
     }
 
     @Test
     public void testIsPublished() {
         System.out.println("MenuTest: testing 'isPublished' method normal behaviour");
-        Menu instance = new Menu(menuEntry,systemUser);
+        HashSet<Meal> meals = new HashSet<>();
+        meals.add(meal);
+        Menu instance = new Menu(meals);
         boolean result = instance.isPublished();
         Assert.assertEquals(true, result);
     }

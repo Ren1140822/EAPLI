@@ -16,6 +16,7 @@ public final class ECafeteriaUserApp {
 
     public static void main(final String[] args) {
 
+        //FIXME bootstrapapp should be called independently when needed. the other applications must not call the bootstrapper
         // to ensure some default test data is available, specially when using
         // in memory persistence
         //new ECafeteriaBootstrap().execute();

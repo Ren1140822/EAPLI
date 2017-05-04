@@ -25,7 +25,8 @@ public class ECafeteriaBootstraper implements Action {
             new DishBootstraper(),
             new MaterialsBootstraper(),
             new MealsPreparedBootstraper(),
-            new MenuBootstraper(),};
+            new MenuBootstraper(),
+            new BookingBootstraper()};
 
         // authenticate a super user to be able to register new users, ...
         // in this case we will inject the session but we shouldn't do this
