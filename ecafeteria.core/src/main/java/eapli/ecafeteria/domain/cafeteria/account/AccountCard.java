@@ -1,8 +1,8 @@
 package eapli.ecafeteria.domain.cafeteria.account;
 
 import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
-import eapli.framework.domain.AggregateRoot;
 import eapli.framework.domain.Money;
+import eapli.framework.domain.ddd.AggregateRoot;
 import java.io.Serializable;
 import javax.persistence.*;
 
