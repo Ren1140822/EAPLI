@@ -37,7 +37,7 @@ public class CreateBookingController {
         /*List<Meal> mealsOfDay = new LinkedList<>();
         Iterable<Menu> menus = menuRepository.publishedMenusOfDay(day);
         for(Menu m: menus){
-            if( (m.menuEntry().timePeriod().start().before(day) || m.menuEntry().timePeriod().start().equals(day))
+            if( (m.getMenuEntry().timePeriod().start().before(day) || m.menuEntry().timePeriod().start().equals(day))
                     && (m.menuEntry().timePeriod().end().after(day) || m.menuEntry().timePeriod().start().equals(day) )){
                 mealsOfDay.add(new Meal(m.menuEntry().dish(), m.menuEntry().mealType(), new TimePeriod2(day,day)));
             }
@@ -56,8 +56,5 @@ public class CreateBookingController {
         Booking b = new Booking(user, meal, BookingState.DONE);
         bookingRepository.save(b);
     }
-    
-    
-    
     
 }
