@@ -1,7 +1,6 @@
 package eapli.ecafeteria.pos.consoleapp.presentation;
 
 import eapli.framework.actions.ReturnAction;
-import eapli.framework.actions.ShowMessageAction;
 import eapli.framework.presentation.console.Menu;
 import eapli.framework.presentation.console.MenuItem;
 
@@ -24,7 +23,7 @@ public class SalesMenu extends Menu {
     }
 
     private void buildSalesMenu() {
-        add(new MenuItem(REGISTER_MEAL_DELIVERY, "Register meal delivery", new ShowMessageAction("Not implemented yet")));
+        add(new MenuItem(REGISTER_MEAL_DELIVERY, "Register meal delivery", new RegisterMealDeliveryAction()));
         add(new MenuItem(TOPUP_CARD, "TopUp Card", new TopUpAccountCardAction()));
         add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
     }
