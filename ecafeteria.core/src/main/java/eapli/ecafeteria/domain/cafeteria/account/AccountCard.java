@@ -1,6 +1,6 @@
 package eapli.ecafeteria.domain.cafeteria.account;
 
-import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
+import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
 import eapli.framework.domain.AggregateRoot;
 import eapli.framework.domain.Money;
 
@@ -12,33 +12,28 @@ import java.io.Serializable;
  * @author Daniel Gonçalves 1151452
  */
 @Entity
-public class AccountCard implements AggregateRoot<CafeteriaUser>, Serializable {
+public class AccountCard implements AggregateRoot<MecanographicNumber>, Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Version
     private Long version;
 
-    @Id
-    @GeneratedValue
-    private Long pk;
+    @EmbeddedId
+    private MecanographicNumber mecanographicNumber;
 
-    // business ID
-    @Column(unique = true)
-    @OneToOne
-    private CafeteriaUser owner;
     private Balance balance;
 
     protected AccountCard() {
         // for ORM only
     }
 
-    public AccountCard(CafeteriaUser owner) {
-        if (owner == null) {
-            throw new IllegalStateException("Owner can't be null");
+    public AccountCard(MecanographicNumber mecanographicNumber) {
+        if (mecanographicNumber == null) {
+            throw new IllegalStateException("Mecanographic number can't be null");
         }
 
-        this.owner = owner;
+        this.mecanographicNumber = mecanographicNumber;
 
         Money startMoney = Money.euros(0);
         this.balance = new Balance(startMoney);
@@ -54,13 +49,13 @@ public class AccountCard implements AggregateRoot<CafeteriaUser>, Serializable {
     }
 
     @Override
-    public boolean is(CafeteriaUser id) {
+    public boolean is(MecanographicNumber id) {
         return id().equals(id);
     }
 
     @Override
-    public CafeteriaUser id() {
-        return this.owner;
+    public MecanographicNumber id() {
+        return this.mecanographicNumber;
     }
 
     @Override
@@ -74,12 +69,12 @@ public class AccountCard implements AggregateRoot<CafeteriaUser>, Serializable {
 
         AccountCard otherCard = (AccountCard) other;
 
-        return this.owner.equals(otherCard.owner) && this.balance.equals(otherCard.balance);
+        return this.mecanographicNumber.equals(otherCard.mecanographicNumber) && this.balance.equals(otherCard.balance);
     }
 
     @Override
     public int hashCode() {
-        return owner.hashCode();
+        return mecanographicNumber.hashCode();
     }
 
     @Override
@@ -93,6 +88,6 @@ public class AccountCard implements AggregateRoot<CafeteriaUser>, Serializable {
 
         AccountCard otherCard = (AccountCard) other;
 
-        return owner.equals(otherCard.owner);
+        return mecanographicNumber.equals(otherCard.mecanographicNumber);
     }
 }
