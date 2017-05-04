@@ -13,8 +13,10 @@ import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.ecafeteria.domain.meals.Comment;
 import eapli.ecafeteria.domain.meals.MealEvaluation;
 import eapli.ecafeteria.domain.meals.Rating;
+import eapli.ecafeteria.persistence.CafeteriaUserRepository;
 import eapli.ecafeteria.persistence.MealEvaluationRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
+import eapli.ecafeteria.persistence.UserRepository;
 import eapli.framework.application.Controller;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
@@ -26,9 +28,11 @@ import eapli.framework.persistence.DataIntegrityViolationException;
 public class EvaluateMealController implements Controller {
 
     private final ListBookingsService svc = new ListBookingsService();
-    private final MealEvaluationRepository repo = PersistenceContext.repositories().mealEvaluations();
+    private final MealEvaluationRepository mealEvaluationRepository = PersistenceContext.repositories().mealEvaluations();
+    private final CafeteriaUserRepository userRepository = PersistenceContext.repositories().cafeteriaUsers(null);
 
-    public Iterable<Booking> listDeliveredBookings(CafeteriaUser user) {
+    public Iterable<Booking> listDeliveredBookings() {
+        CafeteriaUser user = userRepository.findByUsername(Application.session().session().authenticatedUser().username());
         return svc.findBookingsStateDeliveredOf(user);
     }
 
@@ -37,6 +41,6 @@ public class EvaluateMealController implements Controller {
 
         final MealEvaluation mealEvaluation = new MealEvaluation(booking, new Rating(rating), new Comment(comment));
 
-        MealEvaluation ret = repo.save(mealEvaluation);
+        MealEvaluation ret = mealEvaluationRepository.save(mealEvaluation);
     }
 }
