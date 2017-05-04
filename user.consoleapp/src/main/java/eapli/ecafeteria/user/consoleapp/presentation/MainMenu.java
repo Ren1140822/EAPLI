@@ -8,6 +8,7 @@ package eapli.ecafeteria.user.consoleapp.presentation;
 import eapli.cafeteria.consoleapp.presentation.ExitWithMessageAction;
 import eapli.cafeteria.consoleapp.presentation.MyUserMenu;
 import eapli.ecafeteria.application.CafeteriaUserBaseController;
+import eapli.ecafeteria.user.consoleapp.presentation.meals.EvaluateMealAction;
 import eapli.framework.actions.ReturnAction;
 import eapli.framework.presentation.console.Menu;
 import eapli.framework.presentation.console.MenuItem;
@@ -28,11 +29,16 @@ class MainMenu extends CafeteriaUserBaseUI {
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
     private static final int BOOKINGS_OPTION = 2;
-    private static final int ACCOUNT_OPTION = 3;
+    private static final int EVALUATE_MEAL = 3;
+    private static final int ACCOUNT_OPTION = 4;
 
     // BOOKINGS MENU
     private static final int LIST_MENUS_OPTION = 1;
     private static final int BOOK_A_MEAL_OPTION = 2;
+
+    //EVALUATE MEAL
+    private static final int LIST_BOOKING = 1;
+    private static final int CHOOSE_BOOKING_TO_EVALUATE = 2;
 
     // ACCOUNT MENU
     private static final int LIST_MOVEMENTS_OPTION = 1;
@@ -66,6 +72,11 @@ class MainMenu extends CafeteriaUserBaseUI {
 
         mainMenu.add(VerticalSeparator.separator());
 
+        final Menu evaluateMealMenu = buildEvaluateMealMenu();
+        mainMenu.add(new SubMenu(EVALUATE_MEAL, evaluateMealMenu, new ShowVerticalSubMenuAction(evaluateMealMenu)));
+
+        mainMenu.add(VerticalSeparator.separator());
+
         final Menu accountMenu = buildAccountMenu();
         mainMenu.add(new SubMenu(ACCOUNT_OPTION, accountMenu, new ShowVerticalSubMenuAction(accountMenu)));
         // TODO add menu options
@@ -88,6 +99,14 @@ class MainMenu extends CafeteriaUserBaseUI {
         final Menu menu = new Menu("Bookings");
         menu.add(new MenuItem(LIST_MENUS_OPTION, "List menus", new ShowMessageAction("Not implemented yet")));
         menu.add(new MenuItem(BOOK_A_MEAL_OPTION, "Book a meal", new ShowMessageAction("Not implemented yet")));
+        menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
+        return menu;
+    }
+
+    private Menu buildEvaluateMealMenu() {
+        final Menu menu = new Menu("Evaluate Meal");
+        menu.add(new MenuItem(LIST_BOOKING, "List booked meals", new ShowMessageAction("Not implemented yet")));
+        menu.add(new MenuItem(CHOOSE_BOOKING_TO_EVALUATE, "Choose meal to evaluate", new EvaluateMealAction()));
         menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
         return menu;
     }
