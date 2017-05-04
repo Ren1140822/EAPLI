@@ -9,17 +9,22 @@ import eapli.ecafeteria.domain.authz.*;
 import java.io.Serializable;
 import javax.persistence.*;
 
+/**
+ * @FIXME is this an entity, a value object or an aggregate?
+ *
+ */
 @Entity
 public class Menu implements Serializable {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pk;
     @Version
     private Long version;
 
     @OneToOne
     private MenuEntry menuEntry;
+    //TODO why does a menu needs a reference to a system user?
     @ManyToOne
     private SystemUser systemUser;
     private boolean published;
@@ -28,7 +33,7 @@ public class Menu implements Serializable {
     } //for ORM
 
     public Menu(MenuEntry menuEntry, SystemUser systemUser) {
-        if (menuEntry == null || systemUser==null) {
+        if (menuEntry == null || systemUser == null) {
             throw new IllegalStateException();
         }
         this.menuEntry = menuEntry;
@@ -44,7 +49,7 @@ public class Menu implements Serializable {
         return pk;
     }
 
-    public MenuEntry getMenuEntry(){
+    public MenuEntry getMenuEntry() {
         return menuEntry;
     }
 
@@ -63,17 +68,21 @@ public class Menu implements Serializable {
 
         Menu menu = (Menu) o;
 
-        if (published != menu.published)
+        if (published != menu.published) {
             return false;
+        }
 
-        if (!pk.equals(menu.pk))
+        if (!pk.equals(menu.pk)) {
             return false;
+        }
 
-        if (!version.equals(menu.version))
+        if (!version.equals(menu.version)) {
             return false;
+        }
 
-        if (!systemUser.equals(((Menu) o).systemUser))
+        if (!systemUser.equals(((Menu) o).systemUser)) {
             return false;
+        }
 
         return menuEntry.equals(menu.menuEntry);
     }

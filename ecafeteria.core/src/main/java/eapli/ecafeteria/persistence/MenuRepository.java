@@ -8,6 +8,8 @@ package eapli.ecafeteria.persistence;
 import eapli.ecafeteria.domain.meals.Menu;
 import eapli.framework.persistence.repositories.DataRepository;
 
+import java.util.Calendar;
+
 /**
  *
  * @author Eduangelo Ferreira
@@ -16,4 +18,6 @@ public interface MenuRepository extends DataRepository<Menu, Long> {
 
     public Menu findByPk(Long pk);
     public Iterable<Menu> publishedMenu();
+
+    public Iterable<Menu> publishedMenusOfDay(Calendar day);
 }

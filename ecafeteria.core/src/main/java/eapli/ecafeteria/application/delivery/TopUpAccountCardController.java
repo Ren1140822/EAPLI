@@ -23,6 +23,7 @@ public class TopUpAccountCardController implements Controller {
     private final AccountCardRepository accountCardsRepo = PersistenceContext.repositories().accountCards();
     private final TransactionRepository transactionRepo = PersistenceContext.repositories().transactions();
 
+    //FIXME you are updating more than one aggregate in the same controller but there is no transactional control
     public void topUpCard(String mecanographicNumber, Double eurosValue)
             throws DataConcurrencyException, DataIntegrityViolationException {
         Application.ensurePermissionOfLoggedInUser(ActionRight.SALE);
