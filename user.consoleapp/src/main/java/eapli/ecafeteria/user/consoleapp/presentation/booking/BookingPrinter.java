@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eapli.ecafeteria.backoffice.consoleapp.presentation.booking;
+package eapli.ecafeteria.user.consoleapp.presentation.booking;
 
 import eapli.ecafeteria.domain.booking.Booking;
 import eapli.framework.visitor.Visitor;
@@ -16,7 +16,8 @@ public class BookingPrinter implements Visitor<Booking> {
 
     @Override
     public void visit(Booking visitee) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.printf("%-10s%-10s%-10s%-10s%-10s\n", visitee.meal().pk(), visitee.meal().mealType(),
+                visitee.meal().dish(), visitee.meal().timePeriod(), String.valueOf(visitee.state()));
     }
     
 }

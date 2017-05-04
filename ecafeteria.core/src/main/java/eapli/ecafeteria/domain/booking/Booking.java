@@ -36,7 +36,6 @@ public class Booking implements Serializable {
 
     //@OneToMany(cascade = CascadeType.MERGE)
     private Meal meal;
-
     private BookingState state;
 
     protected Booking() {
@@ -70,12 +69,20 @@ public class Booking implements Serializable {
     public boolean isAtState(BookingState state) {
         return this.state.equals(state);
     }
-
+    
     public void deliver() {
         if (this.state != BookingState.DEFINITIVE) {
             throw new IllegalStateException();
         }
         this.state = BookingState.DELIVERED;
+    }
+    
+    public Meal meal(){
+        return this.meal;
+    }
+    
+    public BookingState state(){
+        return this.state;
     }
 
 }

@@ -30,7 +30,7 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
     private NutricionalInfo nutricionalInfo;
     private Money price;
     private boolean active;
-    @OneToMany
+    @ManyToMany
     private Set<Allergen> allergens = new HashSet<>();
 
     public Dish(final DishType dishType, final Designation name, final NutricionalInfo nutricionalInfo, Money price) {

@@ -90,6 +90,7 @@ public class MainMenu extends AbstractUI {
     private static final int DISH_TYPES_OPTION = 5;
     private static final int MEALS_OPTION = 6;
     private static final int TRACEABILITY_OPTION = 7;
+    private static final int BOOKINGS_OPTION = 8;
 
     @Override
     public boolean show() {
