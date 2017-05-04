@@ -26,7 +26,7 @@ class JpaCafeteriaUserRepository extends JpaAutoTxRepository<CafeteriaUser, Meca
         // FIXME use parameters instead of string concatenation
         Map<String, Object> params = new HashMap<>();
         params.put("name", name);
-        return repo.matchOne("e.systemUser.username.name=:name", params);
+        return repo.matchOne("e.systemUser.username=:name", params);
     }
 
     @Override
