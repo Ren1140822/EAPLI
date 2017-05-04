@@ -38,7 +38,7 @@ public class EvaluateMealUI extends AbstractUI {
             final Booking chosenBooking = selector.selectedElement();
             
             int rating = Integer.parseInt(Console.readLine("Rating (1-5): "));
-            while(rating < 1 && rating > 5) {
+            while(rating < 1 || rating > 5) {
                 rating = Integer.parseInt(Console.readLine("Rating (1-5): "));
             }
             
@@ -53,7 +53,7 @@ public class EvaluateMealUI extends AbstractUI {
         } else {
             System.out.println("There are no previous bookings available to rate.");
         }
-        System.out.println("Meal");
+        
         return true;
     }
 
