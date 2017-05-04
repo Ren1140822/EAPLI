@@ -14,7 +14,7 @@ import javax.persistence.Id;
  *
  */
 @Entity
-public class CashRegister implements AggregateRoot<Shift>, Serializable {
+public class CashRegister implements AggregateRoot<CashRegisterId>, Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -23,20 +23,17 @@ public class CashRegister implements AggregateRoot<Shift>, Serializable {
 
     private CashRegisterId id;
     private CashRegisterState state;
-    //@OneToMany(cascade = CascadeType.MERGE)
-    private Shift shift;
 
     protected CashRegister() {
         // for ORM only
     }
 
-    public CashRegister(CashRegisterId id, Shift shift) {
-        if (id == null || shift == null) {
+    public CashRegister(CashRegisterId id) {
+        if (id == null) {
             throw new IllegalStateException();
         }
         this.id = id;
         this.state = CashRegisterState.CLOSED;
-        this.shift = shift;
     }
 
     /**
@@ -47,16 +44,6 @@ public class CashRegister implements AggregateRoot<Shift>, Serializable {
             throw new IllegalStateException("Cash Register must be closed before opening!");
         }
         this.state = CashRegisterState.OPENED;
-    }
-
-    @Override
-    public boolean is(Shift idShift) {
-        return id().equals(idShift);
-    }
-
-    @Override
-    public Shift id() {
-        return this.shift;
     }
 
     @Override
@@ -71,8 +58,17 @@ public class CashRegister implements AggregateRoot<Shift>, Serializable {
         CashRegister otherCashRegister = (CashRegister) otherObject;
 
         return this.id.equals(otherCashRegister.id)
-                && this.state.equals(otherCashRegister.state)
-                && this.shift.equals(otherCashRegister.shift);
+                && this.state.equals(otherCashRegister.state);
+    }
+
+    @Override
+    public boolean is(CashRegisterId id) {
+        return id().equals(id);
+    }
+
+    @Override
+    public CashRegisterId id() {
+        return this.id;
     }
 
     @Override
