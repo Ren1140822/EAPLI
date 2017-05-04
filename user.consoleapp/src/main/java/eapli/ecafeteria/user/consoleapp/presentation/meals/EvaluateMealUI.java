@@ -6,8 +6,16 @@
 package eapli.ecafeteria.user.consoleapp.presentation.meals;
 
 import eapli.ecafeteria.application.meals.EvaluateMealController;
+import eapli.ecafeteria.domain.booking.Booking;
+import eapli.ecafeteria.user.consoleapp.presentation.booking.BookingPrinter;
 import eapli.framework.application.Controller;
+import eapli.framework.persistence.DataConcurrencyException;
+import eapli.framework.persistence.DataIntegrityViolationException;
 import eapli.framework.presentation.console.AbstractUI;
+import eapli.framework.presentation.console.SelectWidget;
+import eapli.util.io.Console;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,7 +31,28 @@ public class EvaluateMealUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
-        //TO DO, implementation 
+        final Iterable<Booking> bookings = theController.listDeliveredBookings();
+        if(bookings.iterator().hasNext()) {
+            final SelectWidget<Booking> selector = new SelectWidget<>("Bookings:", bookings, new BookingPrinter());
+            selector.show();
+            final Booking chosenBooking = selector.selectedElement();
+            
+            int rating = Integer.parseInt(Console.readLine("Rating (1-5): "));
+            while(rating < 1 && rating > 5) {
+                rating = Integer.parseInt(Console.readLine("Rating (1-5): "));
+            }
+            
+            final String comment = Console.readLine("Comment: ");
+            
+            try {
+                theController.mealEvaluation(chosenBooking, rating, comment);
+            } catch (DataConcurrencyException | DataIntegrityViolationException ex) {
+                Logger.getLogger(EvaluateMealUI.class.getName()).log(Level.FINEST, null, ex);
+            }
+            
+        } else {
+            System.out.println("There are no previous bookings available to rate.");
+        }
         System.out.println("Meal");
         return true;
     }

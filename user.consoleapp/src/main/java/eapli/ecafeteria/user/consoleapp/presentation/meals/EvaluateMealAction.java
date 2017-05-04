@@ -5,7 +5,6 @@
  */
 package eapli.ecafeteria.user.consoleapp.presentation.meals;
 
-import eapli.ecafeteria.application.meals.EvaluateMealController;
 import eapli.framework.actions.Action;
 
 /**
