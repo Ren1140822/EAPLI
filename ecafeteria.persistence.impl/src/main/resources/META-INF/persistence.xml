@@ -17,11 +17,15 @@
     <class>eapli.ecafeteria.domain.meals.Meal</class>
     <class>eapli.ecafeteria.domain.kitchen.Material</class>
     <class>eapli.ecafeteria.domain.kitchen.MealsPrepared</class>
-    <class>eapli.ecafeteria.domain.kitchen.Meal</class>
+    <class>eapli.ecafeteria.domain.meals.Meal</class>
     <class>eapli.ecafeteria.domain.meals.Allergen</class>
     <class>eapli.ecafeteria.domain.booking.Booking</class>
     <class>eapli.ecafeteria.domain.meals.MealEvaluation</class>
-    
+    <class>eapli.ecafeteria.domain.cafeteria.account.Transaction</class>
+    <class>eapli.ecafeteria.domain.cafeteria.account.TopUp</class>
+    <class>eapli.ecafeteria.domain.cafeteria.account.AccountCard</class>
+
+
     <!-- properties -->
     <properties>
       <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/ecafeteria"/>-->

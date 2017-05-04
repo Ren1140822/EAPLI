@@ -7,11 +7,9 @@ package eapli.ecafeteria.domain.booking;
 
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.ecafeteria.domain.meals.Meal;
+
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Version;
+import javax.persistence.*;
 
 /**
  * @TODO is this an Entity, a value object, an aggregate?
