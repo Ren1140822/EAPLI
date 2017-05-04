@@ -13,6 +13,6 @@ public class JpaAccountCardRepository extends CafeteriaJpaRepositoryBase<Account
     @Override
     public AccountCard findByMecanographicNumber(MecanographicNumber number) {
 
-        return matchOne("e.aMecanographicNumber=:number", "number", number);
+        return matchOne("e.mecanographicNumber.number='" + number + "'");
     }
 }

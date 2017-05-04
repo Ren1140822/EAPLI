@@ -5,7 +5,7 @@
  */
 package eapli.ecafeteria.domain.meals;
 
-import eapli.framework.domain.ValueObject;
+import eapli.framework.domain.ddd.ValueObject;
 import java.io.Serializable;
 import javax.persistence.Embeddable;
 
@@ -28,53 +28,53 @@ public class NutricionalInfo implements ValueObject, Serializable {
 
     public NutricionalInfo(Integer calories, Integer salt) {
 
-	if (calories == null || calories < 0) {
-	    throw new IllegalStateException("Calories can't be negative");
-	}
-	if (salt == null || salt < 0) {
-	    throw new IllegalStateException("Salt can't be negative");
-	}
+        if (calories == null || calories < 0) {
+            throw new IllegalStateException("Calories can't be negative");
+        }
+        if (salt == null || salt < 0) {
+            throw new IllegalStateException("Salt can't be negative");
+        }
 
-	this.calories = calories;
-	this.salt = salt;
+        this.calories = calories;
+        this.salt = salt;
     }
 
     protected NutricionalInfo() {
-	// for ORM
+        // for ORM
     }
 
     @Override
     public boolean equals(Object o) {
-	if (this == o) {
-	    return true;
-	}
-	if (!(o instanceof NutricionalInfo)) {
-	    return false;
-	}
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof NutricionalInfo)) {
+            return false;
+        }
 
-	final NutricionalInfo that = (NutricionalInfo) o;
+        final NutricionalInfo that = (NutricionalInfo) o;
 
-	if (!this.calories.equals(that.calories)) {
-	    return false;
-	}
-	return this.salt.equals(that.salt);
+        if (!this.calories.equals(that.calories)) {
+            return false;
+        }
+        return this.salt.equals(that.salt);
     }
 
     @Override
     public int hashCode() {
-	return this.calories.hashCode();
+        return this.calories.hashCode();
     }
 
     @Override
     public String toString() {
-	return this.calories + " " + this.salt;
+        return this.calories + " " + this.salt;
     }
 
     public Integer calories() {
-	return this.calories;
+        return this.calories;
     }
 
     public Integer salt() {
-	return this.salt;
+        return this.salt;
     }
 }

@@ -40,8 +40,13 @@ public class RegisterDishController implements Controller {
         return ret;
     }
 
-    private ListAllergensService svcAllergens = new ListAllergensService();
-
+    private ListAllergensController ctrlAllergens;
+    
+    public Iterable<Allergen> getAllergens(){
+        ctrlAllergens = new ListAllergensController();
+        return ctrlAllergens.allergens();
+    }
+    
     public void addAllergensToDish(final Set<Allergen>allergens, Dish dish){
         dish.addAllergens(allergens);
     }
@@ -49,6 +54,4 @@ public class RegisterDishController implements Controller {
     public Iterable<DishType> dishTypes() {
         return this.svcDishTypes.activeDishTypes();
     }
-
-    public Iterable<Allergen> allergens() { return this.svcAllergens.allAllergens(); }
 }

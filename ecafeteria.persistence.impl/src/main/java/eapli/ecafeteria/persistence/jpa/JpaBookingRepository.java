@@ -8,6 +8,7 @@ package eapli.ecafeteria.persistence.jpa;
 import eapli.ecafeteria.domain.booking.Booking;
 import eapli.ecafeteria.domain.booking.BookingState;
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
+import eapli.ecafeteria.domain.meals.Meal;
 import eapli.ecafeteria.persistence.BookingRepository;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +26,11 @@ public class JpaBookingRepository extends CafeteriaJpaRepositoryBase<Booking, Lo
         params.put("user", user);
         params.put("state", state);
         return match("e.user=:user and e.state=:state", params);
+    }
+
+    @Override
+    public Booking findBookingByUserAndMealAndState(CafeteriaUser user, Meal meal, BookingState state) {
+        return matchOne("e.user=:" + user + " and e.meal=:" + meal + " and e.state=:" + state);
     }
 
 }

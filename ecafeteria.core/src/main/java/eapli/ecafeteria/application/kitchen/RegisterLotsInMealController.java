@@ -7,16 +7,21 @@ package eapli.ecafeteria.application.kitchen;
 
 import eapli.ecafeteria.Application;
 import eapli.ecafeteria.domain.authz.ActionRight;
+import eapli.ecafeteria.domain.kitchen.BatchNumber;
 import eapli.ecafeteria.domain.kitchen.Material;
 import eapli.ecafeteria.domain.kitchen.MaterialUsed;
 import eapli.ecafeteria.domain.kitchen.MealsPrepared;
 import eapli.ecafeteria.domain.meals.Meal;
 import eapli.ecafeteria.persistence.MaterialRepository;
+import eapli.ecafeteria.persistence.MaterialUsedRepository;
 import eapli.ecafeteria.persistence.MealRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.framework.application.Controller;
+import eapli.framework.domain.TimePeriod2;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
+import eapli.util.DateTime;
+import java.util.Calendar;
 
 /**
  *
@@ -26,78 +31,86 @@ public class RegisterLotsInMealController implements Controller {
     
     private final MaterialRepository materialRepository = PersistenceContext.repositories().materials();
     private final MealRepository mealRepository = PersistenceContext.repositories().meals();
+//    private final MaterialUsedRepository = PersistenceContext.repositories().materialsUsed();
+   // private final MaterialUsedRepository materialUsedRepository= PersistenceContext.repositories().materialUsed();
     
     private Material material;
     private MaterialUsed materialUsed;
     private Meal meal;
+    private BatchNumber batchNumber;
     
     /**
-     * list of MealsPrepared the has not lotcode registration
+     * list of meals of day
      * @return 
      */
-    public Iterable<Meal> showMealsWithoutRegistration(){
+    public Iterable<Meal> showMealsOfDay(){
         Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
-
         
-        return this.mealRepository.findAll();
+       return this.mealRepository.findByDate(buildPeriodToday());
+ 
+    }
+    
+    // FIXME
+    //responsability of return time period of today isnt from controller 
+    private TimePeriod2 buildPeriodToday(){
+        Calendar start= DateTime.now();
+        Calendar end= DateTime.tomorrow();
+        TimePeriod2 today=new TimePeriod2(start, end);
+        return today;
+    }
+    
+    
+    /**
+     * Selection of meal to introduce material used
+     * @param acron acronym of meal
+     * @return true if valid, false if not
+     */
+    public boolean selectMeal(Long acron){    
+        this.meal=this.mealRepository.findByPk(acron);
+        return meal != null;
     }
     
     /**
-     * selected Mealprepared by the user
-     * @param preMeal
-     * @return 
+     * selection of raw material
+     * @param acronym of raw material
+     * @return true if valid, false if not
      */
-    public Meal selectedMeal(String preMeal){
-        
-        // FIX ME
-        meal = this.mealRepository.findByPk(Long.MIN_VALUE);
-                
-        return meal;
+    public boolean selectMaterial(String acronym){
+        this.material=this.materialRepository.findByAcronym(acronym);
+        return material!=null;
     }
     
     /**
-     * selected Material by the user
-     * @param material
-     * @return 
+     * selection of lot
+     * @param lot lot identification
+     * @return true if valid, false if not
      */
-    public Material selectedMaterial(String material){
-        
-        this.material = this.materialRepository.findByAcronym(material);
-        
-        return this.material;
+    public boolean selectLot(String lot){
+        this.batchNumber=new BatchNumber(lot);
+        return batchNumber!=null;
     }
     
     /**
      * insert material and lot in materialUsed
      * @param lotCode
-     * @return 
+     * @return true if material used is valid, false if not
      */
-    public boolean fillMaterialAndLotCode(String lotCode){
-        //FIXME
-       /* BatchNumber a = new BatchNumber(lotCode);
+    public boolean fillMaterialUsed(String lotCode){
         
-        if( a == null || material == null){
-            throw new IllegalStateException();
-        }
-        
-        materialUsed = new MaterialUsed(material, a);
-        
-        return mealsPrepared.addMaterialsUsed(materialUsed);     */
-       return true;
+        this.materialUsed = new MaterialUsed(meal,material,batchNumber);
+      
+       return materialUsed!=null;
     }
     
     /**
      * update the meal prepared object in repository
      * @return 
+     * @throws eapli.framework.persistence.DataConcurrencyException 
+     * @throws eapli.framework.persistence.DataIntegrityViolationException 
      */
     public boolean saveRegistration() throws DataConcurrencyException, DataIntegrityViolationException{
-        
-        if (meal == null){
-            return false;
-        }
-
-        this.mealRepository.save(meal);
-        
+       // FIXME
+//        materialUsedRepository.save(materialUsed);
         cleanObjects();
         
         return true;
