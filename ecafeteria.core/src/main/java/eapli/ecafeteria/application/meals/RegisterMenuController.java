@@ -23,7 +23,10 @@ public class RegisterMenuController implements Controller {
             throws DataIntegrityViolationException, DataConcurrencyException {
         Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_MENUS);
 
-        final Menu newMenu = new Menu(new MenuEntry(dish, mealType, timePeriod),systemUser);
+        final Menu newMenu = new Menu(systemUser);
+        final Meal meal = new Meal(dish, mealType, timePeriod);
+        newMenu.addMeal(meal);
+
         Menu menu = repository.save(newMenu);
         return menu;
     }

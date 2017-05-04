@@ -7,6 +7,9 @@ package eapli.ecafeteria.domain.meals;
 
 import eapli.ecafeteria.domain.authz.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 
 @Entity
@@ -18,8 +21,8 @@ public class Menu implements Serializable {
     @Version
     private Long version;
 
-    @OneToOne
-    private MenuEntry menuEntry;
+    @OneToMany
+    private Set<Meal> meals;
     @ManyToOne
     private SystemUser systemUser;
     private boolean published;
@@ -27,11 +30,11 @@ public class Menu implements Serializable {
     protected Menu() {
     } //for ORM
 
-    public Menu(MenuEntry menuEntry, SystemUser systemUser) {
-        if (menuEntry == null || systemUser==null) {
+    public Menu(SystemUser systemUser) {
+        if (systemUser==null) {
             throw new IllegalStateException();
         }
-        this.menuEntry = menuEntry;
+        this.meals = new HashSet<>();
         this.published = true;
         this.systemUser = systemUser;
     }
@@ -44,8 +47,12 @@ public class Menu implements Serializable {
         return pk;
     }
 
-    public MenuEntry getMenuEntry(){
-        return menuEntry;
+    public boolean addMeal(Meal meal){
+        return meals.add(meal);
+    }
+
+    public Iterable<Meal> getMeals(){
+        return meals;
     }
 
     public SystemUser systemUser() {
@@ -75,12 +82,12 @@ public class Menu implements Serializable {
         if (!systemUser.equals(((Menu) o).systemUser))
             return false;
 
-        return menuEntry.equals(menu.menuEntry);
+        return meals.containsAll(menu.meals);
     }
 
     @Override
     public int hashCode() {
-        int result = menuEntry.hashCode();
+        int result = meals.hashCode();
         result = 31 * result + (published ? 1 : 0);
         return result;
     }
