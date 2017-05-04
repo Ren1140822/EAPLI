@@ -30,7 +30,6 @@ public class RegistrationOfPreparedMealsController implements Controller {
     private final ListMealService listMealsSvc = new ListMealService();
 
     public Iterable<Meal> findMeals() {
-        //TODO check DateTime class in util library
         // today
         Calendar date  = DateTime.now();
         return this.listMealsSvc.listMealsByDate(date);

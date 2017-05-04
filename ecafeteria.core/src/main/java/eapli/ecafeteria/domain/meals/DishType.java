@@ -99,6 +99,11 @@ public class DishType implements AggregateRoot<String>, Serializable {
         return !Strings.isNullOrEmpty(description);
     }
 
+    public String acronym(){
+        return this.acronym;
+    }
+    
+    
     public String description() {
         return this.description;
     }

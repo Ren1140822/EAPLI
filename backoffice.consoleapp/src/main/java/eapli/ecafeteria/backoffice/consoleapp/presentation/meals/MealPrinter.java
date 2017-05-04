@@ -7,6 +7,8 @@ package eapli.ecafeteria.backoffice.consoleapp.presentation.meals;
 
 import eapli.ecafeteria.domain.meals.Meal;
 import eapli.framework.visitor.Visitor;
+import eapli.util.DateTime;
+import java.util.Locale;
 
 /**
  *
@@ -16,8 +18,8 @@ public class MealPrinter implements Visitor<Meal>{
 
     @Override
     public void visit(Meal visitee) {
-        System.out.printf("%-20%-15s%-10s%-4s\n", visitee.getDate(), visitee.dish().name(),
-                visitee.dish().dishType(), visitee.mealType().mealType());
+        System.out.printf("%-15s%-15s%-10s%-4s\n", DateTime.format(visitee.getDate()), visitee.dish().name(),
+                visitee.dish().dishType().acronym(), visitee.mealType().mealType());
     }
     
 }

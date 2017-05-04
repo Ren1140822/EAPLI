@@ -41,11 +41,20 @@ public class RegistrationOfPreparedMealsUI extends AbstractUI {
             if(selectedMeal == null){
                 return false;
             }
+            boolean parseSucess=false;
+            while (!parseSucess){
+            try {
             quantity = Integer.parseInt(Console.readLine("Quantity of Meals Prepared:"));
+            parseSucess=true;
+            } catch (NumberFormatException e){
+                System.out.println("The quantity of meals wasn't on the right format.");
+            }
+            }
         }
 
         try {
             this.controller.registerQuantityOfPreparedMeals(selectedMeal, quantity);
+            System.out.println("Registration suceeded.");
         } catch (final DataIntegrityViolationException | DataConcurrencyException e) {
             System.out.println("The quantity of prepared meals has already been introduced for this meal.");
         }
