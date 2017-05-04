@@ -1,10 +1,9 @@
 package eapli.ecafeteria.domain.cafeteria.account;
 
 import eapli.framework.domain.Money;
-import eapli.framework.domain.ValueObject;
-
-import javax.persistence.Embeddable;
+import eapli.framework.domain.ddd.ValueObject;
 import java.io.Serializable;
+import javax.persistence.Embeddable;
 
 /**
  * @author Ivo Ferro 1151159

@@ -2,12 +2,11 @@ package eapli.ecafeteria.domain.cafeteria.account;
 
 import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
 import eapli.framework.domain.Money;
-import eapli.framework.domain.ValueObject;
+import eapli.framework.domain.ddd.ValueObject;
 import eapli.util.DateTime;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Calendar;
+import javax.persistence.*;
 
 /**
  * @author Ivo Ferro 1151159
@@ -60,7 +59,7 @@ public abstract class Transaction implements ValueObject, Serializable {
         }
 
         final Transaction other = (Transaction) o;
-        return (this.aMecanographicNumber.equals(other.aMecanographicNumber)) &&
-                (this.aMoney.equals(other.aMoney)) && (this.date.equals(other.date));
+        return (this.aMecanographicNumber.equals(other.aMecanographicNumber))
+                && (this.aMoney.equals(other.aMoney)) && (this.date.equals(other.date));
     }
 }

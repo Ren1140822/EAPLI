@@ -1,11 +1,11 @@
 package eapli.ecafeteria.domain.cafeteria.cashregister;
 
+import eapli.framework.domain.ddd.AggregateRoot;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import eapli.framework.domain.AggregateRoot;
 
 /**
  *
