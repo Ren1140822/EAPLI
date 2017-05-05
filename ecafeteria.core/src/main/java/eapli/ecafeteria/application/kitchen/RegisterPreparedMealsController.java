@@ -28,22 +28,14 @@ public class RegisterPreparedMealsController implements Controller {
     private final MealsPreparedRepository repository = PersistenceContext.repositories().mealsPrepared();
     private final ListMealService listMealsSvc = new ListMealService();
 
-    //FIXME
-    //THIS RULE BELONGS TO SHIFT. IT SHOULD NOT BE HERE
-    private static final int START_LUNCH_SHIFT = 12;
-
     public Iterable<Meal> findMeals() {
 
         //FIXME controllers must not have business logic
         //TODO check DateTime class in util library
         // today
         Calendar date = DateTime.now();
-        int hours = date.get(Calendar.HOUR_OF_DAY);
-        if (hours < START_LUNCH_SHIFT) {
-            return this.listMealsSvc.listMealsByDate(date);
+        return this.listMealsSvc.listMealsByUntilDate(date);
         }
-        return this.listMealsSvc.listMealsByDateAndMealType(date, MealType.MealTypes.JANTAR);
-    }
 
     public MealsPrepared registerQuantityOfPreparedMeals(Meal meal, int quantity) throws DataConcurrencyException, DataIntegrityViolationException {
         Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);

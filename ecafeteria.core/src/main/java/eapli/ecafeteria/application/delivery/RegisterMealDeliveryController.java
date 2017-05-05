@@ -10,6 +10,8 @@ import eapli.ecafeteria.persistence.BookingRepository;
 import eapli.ecafeteria.persistence.CafeteriaUserRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.framework.application.Controller;
+import eapli.framework.persistence.DataConcurrencyException;
+import eapli.framework.persistence.DataIntegrityViolationException;
 import java.util.LinkedList;
 
 /**
@@ -47,8 +49,10 @@ public class RegisterMealDeliveryController implements Controller {
         if (!bookingList.isEmpty()) {
             Booking tempBooking = bookingList.getLast();
             try {
+            
                 tempBooking.deliver();
-            } catch (IllegalStateException ex) {
+                bookingRepo.save(tempBooking);
+            } catch (IllegalStateException |DataConcurrencyException | DataIntegrityViolationException ex) {
                 return false;
             }
 
@@ -56,6 +60,8 @@ public class RegisterMealDeliveryController implements Controller {
         }
         return false;
     }
+    
+    
 
     /**
      * Registers a specific meal of this user
