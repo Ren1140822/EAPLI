@@ -62,4 +62,14 @@ public abstract class Transaction implements ValueObject, Serializable {
         return (this.aMecanographicNumber.equals(other.aMecanographicNumber))
                 && (this.aMoney.equals(other.aMoney)) && (this.date.equals(other.date));
     }
+
+    /**
+     * The transacted money amount.
+     * 
+     * @return It returns the money value of the transaction.
+     */
+    public Money value(){
+        return aMoney;
+    }
+
 }
