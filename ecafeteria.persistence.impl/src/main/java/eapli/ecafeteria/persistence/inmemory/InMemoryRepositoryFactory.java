@@ -87,7 +87,7 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 
     @Override
     public TransactionalContext buildTransactionalContext() {
-	// in memory does not support transactions...
+        // in memory does not support transactions...
         return null;
     }
 
@@ -99,5 +99,10 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     @Override
     public MaterialUsedRepository materialUsed() {
         return new InMemoryMaterialUsedRepository();
+    }
+    
+    @Override
+    public CashRegisterRepository cashRegisters() {
+        return new InMemoryCashRegisterRepository();
     }
 }

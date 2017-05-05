@@ -6,8 +6,9 @@
 package eapli.ecafeteria.persistence.jpa;
 
 import eapli.ecafeteria.domain.meals.Meal;
+import eapli.ecafeteria.domain.meals.MealType;
 import eapli.ecafeteria.persistence.MealRepository;
-import eapli.framework.domain.TimePeriod2;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,10 +24,18 @@ public class JpaMealRepository extends CafeteriaJpaRepositoryBase<Meal, Long> im
     }
 
     @Override
-    public Iterable<Meal> findByDate(TimePeriod2 timePeriod) {
+    public Iterable<Meal> findByDate(Calendar date) {
         Map<String, Object> params = new HashMap<>();
-        params.put("timePeriod", timePeriod);
-        return match("e.timePeriod=:timePeriod", params);
+        params.put("date", date);
+        return match("e.date=:date", params);
+    }
+
+    @Override
+    public Iterable<Meal> findByDateAndMealType(Calendar date, MealType.MealTypes type) {
+         Map<String, Object> params = new HashMap<>();
+        params.put("date", date);
+        params.put("type", type);
+        return match("e.date=:date and e.mealType=:type", params);
     }
 
 

@@ -10,44 +10,37 @@ import eapli.ecafeteria.application.meals.ListMealService;
 import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.ecafeteria.domain.kitchen.MealsPrepared;
 import eapli.ecafeteria.domain.meals.Meal;
+import eapli.ecafeteria.domain.meals.MealType;
 import eapli.ecafeteria.persistence.MealsPreparedRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.framework.application.Controller;
-import eapli.framework.domain.TimePeriod2;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
+import eapli.util.DateTime;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 /**
  *
  * @author Diogo Santos
  */
-public class RegistrationOfPreparedMealsController implements Controller {
+public class RegisterPreparedMealsController implements Controller {
 
     private final MealsPreparedRepository repository = PersistenceContext.repositories().mealsPrepared();
     private final ListMealService listMealsSvc = new ListMealService();
 
+    //FIXME
+    //THIS RULE BELONGS TO SHIFT. IT SHOULD NOT BE HERE
+    private static final int START_LUNCH_SHIFT = 12;
+    
     public Iterable<Meal> findMeals() {
         //TODO check DateTime class in util library
         // today
-        Calendar date = new GregorianCalendar();
-        // reset hour, minutes, seconds and millis
-        date.set(Calendar.HOUR_OF_DAY, 0);
-        date.set(Calendar.MINUTE, 0);
-        date.set(Calendar.SECOND, 0);
-        date.set(Calendar.MILLISECOND, 0);
-
-        Calendar dateMidnight = new GregorianCalendar();
-        date.set(Calendar.HOUR_OF_DAY, 0);
-        date.set(Calendar.MINUTE, 0);
-        date.set(Calendar.SECOND, 0);
-        date.set(Calendar.MILLISECOND, 0);
-        // next day
-        date.add(Calendar.DAY_OF_MONTH, 1);
-
-        TimePeriod2 timePeriod2 = new TimePeriod2(date, dateMidnight);
-        return this.listMealsSvc.listMealsByDate(timePeriod2);
+        Calendar date  = DateTime.now();
+        int hours = date.get(Calendar.HOUR_OF_DAY);
+        if(hours < START_LUNCH_SHIFT){
+            return this.listMealsSvc.listMealsByDate(date);
+        }
+        return this.listMealsSvc.listMealsByDateAndMealType(date, MealType.MealTypes.JANTAR);
     }
 
     public MealsPrepared registerQuantityOfPreparedMeals(Meal meal, int quantity) throws DataConcurrencyException, DataIntegrityViolationException {

@@ -3,19 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen;
+package eapli.ecafeteria.backoffice.consoleapp.presentation.meals;
 
 import eapli.framework.actions.Action;
 
 /**
  *
- * @author Sofia Silva [1150690@isep.ipp.pt] Diogo Santos [1150451@isep.ipp.pt]
+ * @author Eduangelo Ferreira
  */
-public class RegistrationOfPreparedMealsAction implements Action {
+public class PublishedMenuAction implements Action{
 
     @Override
     public boolean execute() {
-        return new RegistrationOfPreparedMealsUI().show();
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

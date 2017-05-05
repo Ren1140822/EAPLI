@@ -89,8 +89,8 @@ public class MealEvaluationTest {
 
     @Test(expected = IllegalStateException.class)
     public void ensureMealEvaluationHasRating() {
-        new MealEvaluation(new Booking(client, new Meal(dish, mealType, timePeriod), BookingState.DELIVERED), null);
-        new MealEvaluation(new Booking(client, new Meal(dish, mealType, timePeriod), BookingState.DELIVERED), null, new Comment());
+        new MealEvaluation(new Booking(client, new Meal(dish, mealType, Calendar.getInstance()), BookingState.DELIVERED), null);
+        new MealEvaluation(new Booking(client, new Meal(dish, mealType, Calendar.getInstance()), BookingState.DELIVERED), null, new Comment());
 
     }
 

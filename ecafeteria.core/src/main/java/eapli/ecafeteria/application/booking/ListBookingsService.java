@@ -8,8 +8,11 @@ package eapli.ecafeteria.application.booking;
 import eapli.ecafeteria.domain.booking.Booking;
 import eapli.ecafeteria.domain.booking.BookingState;
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
+import eapli.ecafeteria.domain.meals.DishType;
+import eapli.ecafeteria.domain.meals.MealType;
 import eapli.ecafeteria.persistence.BookingRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
+import java.util.Date;
 
 /**
  *
@@ -35,8 +38,12 @@ public class ListBookingsService {
     }
 
     
-     public Iterable<Booking> findBookingsStateDefinitiveOf(CafeteriaUser user) {
+    public Iterable<Booking> findBookingsStateDefinitiveOf(CafeteriaUser user) {
         return this.repo.findBookingByUserAndState(user, BookingState.DEFINITIVE);
+    }
+     
+    public Iterable<Booking> listBookingsByDateMealAndDishType(Date date, MealType mealType, DishType dishType){
+        return this.repo.checkBookingsByDateMealAndDishType(date, mealType, dishType);
     }
     
 }

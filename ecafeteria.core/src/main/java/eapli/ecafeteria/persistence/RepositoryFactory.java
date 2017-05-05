@@ -71,4 +71,6 @@ public interface RepositoryFactory {
     MealsPreparedRepository mealsPrepared();
     
     MealEvaluationRepository mealEvaluations();
+    
+    CashRegisterRepository cashRegisters();
 }

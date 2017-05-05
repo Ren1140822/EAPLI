@@ -20,10 +20,10 @@ public class CafeteriaUserService {
     private final CafeteriaUserRepository repo = PersistenceContext.repositories().cafeteriaUsers(null);
 
     public CafeteriaUser findCafeteriaUserByMecNumber(String mecNumber) {
-	return this.repo.findByMecanographicNumber(new MecanographicNumber(mecNumber));
+        return this.repo.findByMecanographicNumber(new MecanographicNumber(mecNumber));
     }
 
     public CafeteriaUser findCafeteriaUserByUsername(Username user) {
-	return this.repo.findByUsername(user);
+        return this.repo.findByUsername(user);
     }
 }

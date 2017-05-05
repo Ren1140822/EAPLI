@@ -37,8 +37,8 @@ public class MaterialUsedBootstraper implements Action{
         final DishType meat = dishTypeRepo.findByAcronym("meat");
         final Dish dish1 = new Dish(fish, Designation.valueOf("Rodizio Peixe"), Money.euros(75.0));
         final Dish dish2 = new Dish(meat, Designation.valueOf("Francesinha Especial"), Money.euros(18.0));
-        final Meal meal1 = new Meal(dish1, new MealType(MealType.MealTypes.ALMOCO), new TimePeriod2(todaysCalendar(0, 10), todaysCalendar(0, 14)));
-        final Meal meal2 = new Meal(dish2, new MealType(MealType.MealTypes.JANTAR), new TimePeriod2(todaysCalendar(0, 11), todaysCalendar(0, 14)));
+        final Meal meal1 = new Meal(dish1, new MealType(MealType.MealTypes.ALMOCO), Calendar.getInstance());
+        final Meal meal2 = new Meal(dish2, new MealType(MealType.MealTypes.JANTAR), Calendar.getInstance());
         final Material material = new Material("ovos", "ovos aviario");
         final Material materia2 = new Material("pao", "pao forma");
         final String batchNumber1 = "kdsgf345";

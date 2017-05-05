@@ -17,7 +17,7 @@ public class BookingPrinter implements Visitor<Booking> {
     @Override
     public void visit(Booking visitee) {
         System.out.printf("%-10s%-10s%-10s\n", visitee.meal().mealType().mealType(),
-                visitee.meal().dish().name(), visitee.meal().timePeriod().start().getTime());
+                visitee.meal().dish().name(), visitee.meal().getDate().getTime());
     }
 
 }

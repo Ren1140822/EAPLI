@@ -1,9 +1,9 @@
 package eapli.ecafeteria.backoffice.consoleapp.presentation.meals;
 
-import eapli.ecafeteria.application.meals.ListAllergensController;
 import eapli.ecafeteria.application.meals.RegisterDishController;
 import eapli.ecafeteria.domain.meals.Allergen;
 import eapli.ecafeteria.domain.meals.Dish;
+import eapli.ecafeteria.domain.meals.DishAllergen;
 import eapli.ecafeteria.domain.meals.DishType;
 import eapli.framework.application.Controller;
 import eapli.framework.persistence.DataConcurrencyException;
@@ -11,7 +11,6 @@ import eapli.framework.persistence.DataIntegrityViolationException;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
 import eapli.util.io.Console;
-import org.eclipse.persistence.internal.oxm.schema.model.All;
 
 import java.util.*;
 

@@ -8,9 +8,11 @@ package eapli.ecafeteria.application.meals;
 import eapli.ecafeteria.Application;
 import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.ecafeteria.domain.meals.Meal;
+import eapli.ecafeteria.domain.meals.MealType;
 import eapli.ecafeteria.persistence.MealRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
-import eapli.framework.domain.TimePeriod2;
+
+import java.util.Calendar;
 
 /**
  *
@@ -20,10 +22,16 @@ public class ListMealService {
     
     private final MealRepository mealRepository = PersistenceContext.repositories().meals();
     
-    public Iterable<Meal> listMealsByDate(TimePeriod2 timePeriod) {
+    public Iterable<Meal> listMealsByDate(Calendar date) {
         Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
 
-        return this.mealRepository.findByDate(timePeriod);
+        return this.mealRepository.findByDate(date);
+    }
+    
+    public Iterable<Meal> listMealsByDateAndMealType(Calendar date, MealType.MealTypes type) {
+        Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
+
+        return this.mealRepository.findByDateAndMealType(date, type);
     }
     
 }

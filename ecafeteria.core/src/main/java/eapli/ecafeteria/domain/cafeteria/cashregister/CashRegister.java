@@ -8,13 +8,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- *
  * @author Eric Amaral - 1141570@isep.ipp.pt
  * @author Tiago Correia - 1151031@isep.ipp.pt
- *
  */
 @Entity
-public class CashRegister implements AggregateRoot<Shift>, Serializable {
+public class CashRegister implements AggregateRoot<CashRegisterId>, Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -23,20 +21,17 @@ public class CashRegister implements AggregateRoot<Shift>, Serializable {
 
     private CashRegisterId id;
     private CashRegisterState state;
-    //@OneToMany(cascade = CascadeType.MERGE)
-    private Shift shift;
 
     protected CashRegister() {
         // for ORM only
     }
 
-    public CashRegister(CashRegisterId id, Shift shift) {
-        if (id == null || shift == null) {
-            throw new IllegalStateException();
+    public CashRegister(CashRegisterId id) {
+        if (id == null) {
+            throw new IllegalStateException("A cash register must have an id!");
         }
         this.id = id;
         this.state = CashRegisterState.CLOSED;
-        this.shift = shift;
     }
 
     /**
@@ -49,14 +44,14 @@ public class CashRegister implements AggregateRoot<Shift>, Serializable {
         this.state = CashRegisterState.OPENED;
     }
 
-    @Override
-    public boolean is(Shift idShift) {
-        return id().equals(idShift);
-    }
-
-    @Override
-    public Shift id() {
-        return this.shift;
+    /**
+     * Modifies a cash register state to closed.
+     */
+    public void close() {
+        if (this.state != CashRegisterState.OPENED) {
+            throw new IllegalStateException("Cash Register must be opened before closing!");
+        }
+        this.state = CashRegisterState.CLOSED;
     }
 
     @Override
@@ -71,8 +66,17 @@ public class CashRegister implements AggregateRoot<Shift>, Serializable {
         CashRegister otherCashRegister = (CashRegister) otherObject;
 
         return this.id.equals(otherCashRegister.id)
-                && this.state.equals(otherCashRegister.state)
-                && this.shift.equals(otherCashRegister.shift);
+                && this.state.equals(otherCashRegister.state);
+    }
+
+    @Override
+    public boolean is(CashRegisterId id) {
+        return id().equals(id);
+    }
+
+    @Override
+    public CashRegisterId id() {
+        return this.id;
     }
 
     @Override
