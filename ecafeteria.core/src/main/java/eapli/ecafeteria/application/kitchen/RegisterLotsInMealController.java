@@ -24,110 +24,118 @@ import java.util.Calendar;
 
 /**
  *
- * @author Pedro Fernandes (1060503@isep.ipp.pt) Diana Silva (1151088@isep.ipp.pt)
+ * @author Pedro Fernandes (1060503@isep.ipp.pt) Diana Silva
+ * (1151088@isep.ipp.pt)
  */
 public class RegisterLotsInMealController implements Controller {
-    
+
     private final MaterialRepository materialRepository = PersistenceContext.repositories().materials();
     private final MealRepository mealRepository = PersistenceContext.repositories().meals();
-    private final MaterialUsedRepository materialUsedRepository= PersistenceContext.repositories().materialUsed();
-    
+    private final MaterialUsedRepository materialUsedRepository = PersistenceContext.repositories().materialUsed();
+
+    //TODO preferably, controllers should not have state
     private Material material;
     private MaterialUsed materialUsed;
     private Meal meal;
     private BatchNumber batchNumber;
-    
+
     /**
      * list of meals of day
-     * @return 
+     *
+     * @return
      */
-    public Iterable<Meal> showMealsOfDay(){
+    public Iterable<Meal> showMealsOfDay() {
         Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
 
         Calendar date = DateTime.now();
-       return this.mealRepository.findByDate(date);
- 
+        return this.mealRepository.findByDate(date);
+
     }
-    
+
     // FIXME
-    //responsability of return time period of today isnt from controller 
-    private TimePeriod2 buildPeriodToday(){
-        Calendar start= DateTime.now();
-        Calendar end= DateTime.tomorrow();
-        TimePeriod2 today=new TimePeriod2(start, end);
+    //responsability of return time period of today isnt from controller
+    private TimePeriod2 buildPeriodToday() {
+        Calendar start = DateTime.now();
+        Calendar end = DateTime.tomorrow();
+        TimePeriod2 today = new TimePeriod2(start, end);
         return today;
-    }   
-    
+    }
+
     /**
      * Selection of meal to introduce material used
+     *
      * @param acron acronym of meal
      * @return true if valid, false if not
      */
-    public boolean selectMeal(Long acron){    
-        this.meal=this.mealRepository.findByPk(acron);
+    public boolean selectMeal(Long acron) {
+        this.meal = this.mealRepository.findByPk(acron);
         return meal != null;
     }
-    
+
     /**
      * selection of raw material
+     *
      * @param acronym of raw material
      * @return true if valid, false if not
      */
-    public boolean selectMaterial(String acronym){
-        this.material=this.materialRepository.findByAcronym(acronym);
-        return material!=null;
+    public boolean selectMaterial(String acronym) {
+        this.material = this.materialRepository.findByAcronym(acronym);
+        return material != null;
     }
-    
+
     /**
      * insert material and lot in materialUsed
+     *
      * @param lotCode code of batch number (lot) to be created
      * @return true if material used is valid, false if not
      * @throws eapli.framework.persistence.DataIntegrityViolationException
      * @throws eapli.framework.persistence.DataConcurrencyException
      */
     public boolean fillMaterialUsed(String lotCode) throws DataIntegrityViolationException, DataConcurrencyException {
-	Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
-        
-        materialUsed =  new MaterialUsed(meal,material,lotCode);
-      
-       return materialUsed!=null;
+        Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
+
+        materialUsed = new MaterialUsed(meal, material, lotCode);
+
+        return materialUsed != null;
     }
-    
+
     /**
      * update the meal prepared object in repository
-     * @return 
-     * @throws eapli.framework.persistence.DataConcurrencyException 
-     * @throws eapli.framework.persistence.DataIntegrityViolationException 
+     *
+     * @return
+     * @throws eapli.framework.persistence.DataConcurrencyException
+     * @throws eapli.framework.persistence.DataIntegrityViolationException
      */
-    public boolean saveRegistration() throws DataConcurrencyException, DataIntegrityViolationException{
+    public boolean saveRegistration() throws DataConcurrencyException, DataIntegrityViolationException {
 
         materialUsedRepository.save(materialUsed);
         cleanObjects();
-        
+
         return true;
     }
-    
+
     /**
      * bootstrap uses
-     * @param meal meal 
+     *
+     * @param meal meal
      * @param material
-     * @param batchNumber 
-     * @throws eapli.framework.persistence.DataConcurrencyException 
-     * @throws eapli.framework.persistence.DataIntegrityViolationException 
+     * @param batchNumber
+     * @throws eapli.framework.persistence.DataConcurrencyException
+     * @throws eapli.framework.persistence.DataIntegrityViolationException
      */
-    public void registerMaterialUsed(Meal meal, Material material, String batchNumber) throws DataConcurrencyException, DataIntegrityViolationException{
+    public void registerMaterialUsed(Meal meal, Material material, String batchNumber) throws DataConcurrencyException, DataIntegrityViolationException {
         materialUsed = new MaterialUsed(meal, material, batchNumber);
         materialUsedRepository.save(materialUsed);
     }
-    
+
     /**
-     * put all objects null, to inicialize new registration without leaving use case
+     * put all objects null, to inicialize new registration without leaving use
+     * case
      */
-    private void cleanObjects(){
+    private void cleanObjects() {
         material = null;
         materialUsed = null;
         meal = null;
     }
-    
 
 }

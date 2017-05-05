@@ -31,13 +31,15 @@ public class RegisterPreparedMealsController implements Controller {
     //FIXME
     //THIS RULE BELONGS TO SHIFT. IT SHOULD NOT BE HERE
     private static final int START_LUNCH_SHIFT = 12;
-    
+
     public Iterable<Meal> findMeals() {
+
+        //FIXME controllers must not have business logic
         //TODO check DateTime class in util library
         // today
-        Calendar date  = DateTime.now();
+        Calendar date = DateTime.now();
         int hours = date.get(Calendar.HOUR_OF_DAY);
-        if(hours < START_LUNCH_SHIFT){
+        if (hours < START_LUNCH_SHIFT) {
             return this.listMealsSvc.listMealsByDate(date);
         }
         return this.listMealsSvc.listMealsByDateAndMealType(date, MealType.MealTypes.JANTAR);
@@ -47,7 +49,5 @@ public class RegisterPreparedMealsController implements Controller {
         Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
         final MealsPrepared mealsPrepared = new MealsPrepared(meal, quantity);
         return repository.save(mealsPrepared);
-
     }
-
 }

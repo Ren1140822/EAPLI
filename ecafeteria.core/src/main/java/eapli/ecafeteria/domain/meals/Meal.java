@@ -1,15 +1,12 @@
 package eapli.ecafeteria.domain.meals;
 
-import eapli.framework.domain.TimePeriod2;
-import eapli.util.DateTime;
-import sun.util.calendar.BaseCalendar;
-
 import javax.persistence.*;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
- * Created by pyska on 26-04-2017.
+ * @FIXME javadoc
+ * @FIXME is this an entity, a value object or an aggregate? Created by pyska on
+ * 26-04-2017.
  */
 @Entity
 public class Meal {
@@ -47,7 +44,7 @@ public class Meal {
         return pk;
     }
 
-    public Calendar getDate(){
+    public Calendar getDate() {
         return date;
     }
 

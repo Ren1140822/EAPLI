@@ -9,6 +9,7 @@ import java.util.Calendar;
 import javax.persistence.*;
 
 /**
+ * @FIXME javadoc
  * @author Ivo Ferro 1151159
  * @author Daniel Gonçalves 1151452
  */

@@ -9,6 +9,10 @@ import eapli.framework.domain.ddd.ValueObject;
 import java.io.Serializable;
 import javax.persistence.*;
 
+/**
+ *
+ * @FIXME javadoc
+ */
 @Embeddable
 public class MealType implements ValueObject, Serializable {
 

@@ -4,7 +4,6 @@ import eapli.ecafeteria.domain.meals.Allergen;
 import eapli.ecafeteria.domain.meals.Dish;
 import eapli.ecafeteria.domain.meals.DishAllergen;
 import eapli.framework.application.Controller;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,8 +13,9 @@ import java.util.Set;
 public class RegisterDishAllergenController implements Controller {
 
     public Set<DishAllergen> registerDishAllergens(Set<Allergen> allergens, Dish dish) {
-        Set<DishAllergen>dishAllergens = new HashSet<>();
-        for(Allergen a : allergens){
+        //FIXME controllers must not have business logic
+        Set<DishAllergen> dishAllergens = new HashSet<>();
+        for (Allergen a : allergens) {
             DishAllergen d = new DishAllergen(dish, a);
             dishAllergens.add(d);
         }

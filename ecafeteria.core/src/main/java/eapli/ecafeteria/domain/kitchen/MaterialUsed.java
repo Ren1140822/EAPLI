@@ -14,7 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.Version;
 
 /**
- *
+ * @FIXME javadoc
  * @author Pedro Fernandes (1060503@isep.ipp.pt) Diana Silva
  * (1151088@isep.ipp.pt)
  */
@@ -38,9 +38,9 @@ public class MaterialUsed implements AggregateRoot<BatchNumber>, Serializable {
             throw new IllegalStateException();
         }
         this.meal = meal;
-        this.material = material;  
-        this.batchNumber=new BatchNumber(lotCode);
-    
+        this.material = material;
+        this.batchNumber = new BatchNumber(lotCode);
+
     }
 
     protected MaterialUsed() {

@@ -6,6 +6,7 @@ import java.io.Serializable;
 import javax.persistence.Embeddable;
 
 /**
+ * @FIXME javadoc
  * @author Ivo Ferro 1151159
  * @author Daniel Gonçalves 1151452
  */

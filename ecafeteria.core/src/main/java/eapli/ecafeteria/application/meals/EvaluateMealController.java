@@ -16,7 +16,6 @@ import eapli.ecafeteria.domain.meals.Rating;
 import eapli.ecafeteria.persistence.CafeteriaUserRepository;
 import eapli.ecafeteria.persistence.MealEvaluationRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
-import eapli.ecafeteria.persistence.UserRepository;
 import eapli.framework.application.Controller;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
@@ -32,6 +31,7 @@ public class EvaluateMealController implements Controller {
     private final CafeteriaUserRepository userRepository = PersistenceContext.repositories().cafeteriaUsers(null);
 
     public Iterable<Booking> listDeliveredBookings() {
+        //TODO is the call to cafeteriauser repository really needed?
         CafeteriaUser user = userRepository.findByUsername(Application.session().session().authenticatedUser().username());
         return svc.findBookingsStateDeliveredOf(user);
     }

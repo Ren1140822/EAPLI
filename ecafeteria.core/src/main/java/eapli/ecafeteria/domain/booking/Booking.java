@@ -7,13 +7,12 @@ package eapli.ecafeteria.domain.booking;
 
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.ecafeteria.domain.meals.Meal;
-
 import java.io.Serializable;
 import javax.persistence.*;
 
 /**
  * @TODO is this an Entity, a value object, an aggregate?
- *
+ * @FIXME javadoc
  * @author Nuno Pinto [1150838@isep.ipp.pt] Henrique Oliveira
  * [1150738@isep.ipp.pt]
  */

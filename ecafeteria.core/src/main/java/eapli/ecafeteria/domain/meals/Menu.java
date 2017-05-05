@@ -6,12 +6,15 @@
 package eapli.ecafeteria.domain.meals;
 
 import eapli.framework.domain.TimePeriod2;
-
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
 
+/**
+ * @FIXME javadoc
+ * @FIXME is this an entity, a value object or an aggregate?
+ */
 @Entity
 public class Menu implements Serializable {
 
@@ -32,7 +35,7 @@ public class Menu implements Serializable {
     } //for ORM
 
     public Menu(TimePeriod2 period) {
-        if(period == null){
+        if (period == null) {
             throw new IllegalStateException();
         }
         this.meals = new HashSet<>();
@@ -57,8 +60,8 @@ public class Menu implements Serializable {
     }
 
     public boolean toogleState() {
-      this.published=true;
-      return isPublished();
+        this.published = true;
+        return isPublished();
     }
 
     @Override

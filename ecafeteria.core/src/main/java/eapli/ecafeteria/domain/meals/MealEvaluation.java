@@ -19,6 +19,7 @@ import javax.persistence.Version;
 /**
  * @TODO why is this an aggregate? are the decisions registered in the design of
  * the use case?
+ * @FIXME javadoc
  * @author Sofia Gonçalves [1150657@isep.ipp.pt] Pedro Chilro
  * [1150019@isep.ipp.pt]
  */
