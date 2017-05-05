@@ -87,4 +87,13 @@ public abstract class Transaction implements AggregateRoot<Long>, Serializable {
                 && (this.aMoney.equals(that.aMoney)) && (this.date.equals(that.aMoney));
     }
 
+    /**
+     * The transacted money amount.
+     *
+     * @return It returns the money value of the transaction.
+     */
+    public Money value() {
+        return aMoney;
+    }
+
 }

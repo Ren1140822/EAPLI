@@ -45,4 +45,11 @@ public class JpaBookingRepository extends CafeteriaJpaRepositoryBase<Booking, Lo
         return match("e.meal.mealType=:mealType and e.meal.date=:date and e.meal.dish.dishType=:dishType", params);
     }
 
+    @Override
+    public Iterable<Booking> allNonEvaluatedBy(CafeteriaUser user) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("user", user);
+        return match("e NOT IN (SELECT m.booking FROM MealEvaluation m WHERE m.booking.user = :user)", params);
+    }
+
 }
