@@ -1,41 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence">
-  <persistence-unit name="eapli.eCafeteriaPU">
-    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <persistence-unit name="eapli.eCafeteriaPU">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
-    <class>eapli.ecafeteria.domain.meals.DishType</class>
-    <class>eapli.ecafeteria.domain.cafeteria.OrganicUnit</class>
-    <class>eapli.ecafeteria.domain.authz.SystemUser</class>
-    <class>eapli.ecafeteria.domain.authz.Role</class>
-    <class>eapli.ecafeteria.domain.authz.RoleSet</class>
-    <class>eapli.ecafeteria.domain.cafeteria.Cafeteria</class>
-    <class>eapli.ecafeteria.domain.cafeteria.CafeteriaUser</class>
-    <class>eapli.ecafeteria.domain.cafeteria.SignupRequest</class>
-    <class>eapli.ecafeteria.domain.meals.Dish</class>
-    <class>eapli.ecafeteria.domain.meals.Menu</class>
-    <class>eapli.ecafeteria.domain.meals.Meal</class>
-    <class>eapli.ecafeteria.domain.kitchen.Material</class>
-    <class>eapli.ecafeteria.domain.kitchen.MealsPrepared</class>
-    <class>eapli.ecafeteria.domain.meals.Meal</class>
-    <class>eapli.ecafeteria.domain.meals.Allergen</class>
-    <class>eapli.ecafeteria.domain.booking.Booking</class>
-    <class>eapli.ecafeteria.domain.meals.MealEvaluation</class>
-    <class>eapli.ecafeteria.domain.cafeteria.account.Transaction</class>
-    <class>eapli.ecafeteria.domain.cafeteria.account.TopUp</class>
-    <class>eapli.ecafeteria.domain.cafeteria.account.AccountCard</class>
+        <class>eapli.ecafeteria.domain.meals.DishType</class>
+        <class>eapli.ecafeteria.domain.cafeteria.OrganicUnit</class>
+        <class>eapli.ecafeteria.domain.authz.SystemUser</class>
+        <class>eapli.ecafeteria.domain.authz.Role</class>
+        <class>eapli.ecafeteria.domain.authz.RoleSet</class>
+        <class>eapli.ecafeteria.domain.cafeteria.Cafeteria</class>
+        <class>eapli.ecafeteria.domain.cafeteria.CafeteriaUser</class>
+        <class>eapli.ecafeteria.domain.cafeteria.SignupRequest</class>
+        <class>eapli.ecafeteria.domain.meals.Dish</class>
+        <class>eapli.ecafeteria.domain.meals.Menu</class>
+        <class>eapli.ecafeteria.domain.meals.Meal</class>
+        <class>eapli.ecafeteria.domain.kitchen.Material</class>
+        <class>eapli.ecafeteria.domain.kitchen.MealsPrepared</class>
+        <class>eapli.ecafeteria.domain.meals.Meal</class>
+        <class>eapli.ecafeteria.domain.meals.Allergen</class>
+        <class>eapli.ecafeteria.domain.meals.DishAllergen</class>
+        <class>eapli.ecafeteria.domain.booking.Booking</class>
+        <class>eapli.ecafeteria.domain.meals.MealEvaluation</class>
+        <class>eapli.ecafeteria.domain.cafeteria.account.Transaction</class>
+        <class>eapli.ecafeteria.domain.cafeteria.account.TopUp</class>
+        <class>eapli.ecafeteria.domain.cafeteria.account.AccountCard</class>
 
-    <properties>
+        <properties>
 
-        <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://127.0.0.1/~/db/ecafeteria"/>
-        <property name="javax.persistence.jdbc.user" value="sa"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://127.0.0.1/~/db/ecafeteria"/>
+            <property name="javax.persistence.jdbc.user" value="sa"/>
 
-        <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:..\db_1\ecafeteria"/>-->
-        <!--<property name="javax.persistence.jdbc.user" value=""/>-->
-      <property name="javax.persistence.jdbc.password" value=""/>
-      <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
-      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
-      <!-- <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/> -->
-      <!--<property name="eclipselink.logging.level" value="FINE"/>-->
-    </properties>
-  </persistence-unit>
+            <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:..\db_1\ecafeteria"/>-->
+            <!--<property name="javax.persistence.jdbc.user" value=""/>-->
+            <property name="javax.persistence.jdbc.password" value=""/>
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+            <!-- <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/> -->
+            <!--<property name="eclipselink.logging.level" value="FINE"/>-->
+        </properties>
+    </persistence-unit>
 </persistence>
