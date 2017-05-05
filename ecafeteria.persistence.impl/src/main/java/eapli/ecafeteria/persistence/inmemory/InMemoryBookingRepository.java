@@ -39,5 +39,11 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
         //TODO: Implement the method
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public Iterable<Booking> allNonEvaluatedBy(CafeteriaUser user) {
+        //TODO
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

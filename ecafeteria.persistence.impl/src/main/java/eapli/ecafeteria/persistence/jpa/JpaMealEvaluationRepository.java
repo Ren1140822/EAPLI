@@ -8,6 +8,8 @@ package eapli.ecafeteria.persistence.jpa;
 import eapli.ecafeteria.domain.meals.Meal;
 import eapli.ecafeteria.domain.meals.MealEvaluation;
 import eapli.ecafeteria.persistence.MealEvaluationRepository;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -17,8 +19,9 @@ public class JpaMealEvaluationRepository extends CafeteriaJpaRepositoryBase<Meal
 
     @Override
     public Iterable<MealEvaluation> findByMeal(Meal meal) {
-        //TO DO
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Map<String, Object> params = new HashMap<>();
+        params.put("meal", meal);
+        return match("e.booking.meal = :meal", params);    
     }
     
 }
