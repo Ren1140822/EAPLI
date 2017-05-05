@@ -23,6 +23,7 @@ public class RegisterMealDeliveryController implements Controller {
     private final BookingRepository bookingRepo = PersistenceContext.repositories().bookings();
 
     private final CafeteriaUserRepository userRepo = PersistenceContext.repositories().cafeteriaUsers(null);
+    //TODO preferably, controllers should not have state
     private final CafeteriaUser user;
 
     public RegisterMealDeliveryController(String mecanographicNumberString) {
@@ -36,10 +37,12 @@ public class RegisterMealDeliveryController implements Controller {
     /**
      * Registers the last meal that this user booked.
      *
+     * @FIXME which use case does this method correspond?
      * @return true if meal delivery was registered
      */
     public boolean registerMealDelivery() {
 
+        //FIXME controllers must not have business logic
         ListBookingsService bookingsService = new ListBookingsService();
         LinkedList<Booking> bookingList = new LinkedList<>();
         bookingsService.findBookingsStateDefinitiveOf(user).iterator().forEachRemaining(bookingList::add);
@@ -69,6 +72,7 @@ public class RegisterMealDeliveryController implements Controller {
     public boolean registerMealDelivery(Meal meal) {
         Booking tempBooking = bookingRepo.findBookingByUserAndMealAndState(user, meal, BookingState.DEFINITIVE);
         tempBooking.deliver();
+        //TODO is a call to persistence missing here?
         return true;
     }
 
