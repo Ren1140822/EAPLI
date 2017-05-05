@@ -6,11 +6,8 @@
 package eapli.ecafeteria.pos.consoleapp.presentation;
 
 import eapli.ecafeteria.application.delivery.RegisterMealDeliveryController;
-import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.util.io.Console;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -26,7 +23,7 @@ public class RegisterMealDeliveryUI extends AbstractUI {
         final String mecanographicNumberString = Console
                 .readLine("Enter the Mecanographic Number to register meal delivery: ");
         controller = new RegisterMealDeliveryController(mecanographicNumberString);
-        System.out.println(this.controller.registerMealDelivery() ? "Meal delivery registered sucessfully." : "No bookings in the right state of this user were found. Operation failed.");
+        System.out.println(this.controller.registerMealDelivery() ? "Meal delivery registered sucessfully." : "No bookings in the right state of this user were found for this user. Operation failed.");
         return false;
     }
 
