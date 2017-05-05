@@ -25,4 +25,9 @@ public class InMemoryMenuRepository extends InMemoryRepositoryWithLongPK<Menu> i
         return match(e -> e.isPublished());
     }
 
+    @Override
+    public Iterable<Menu> notPublishedMenu() {
+        return match(e->!e.isPublished());
+    }
+
 }

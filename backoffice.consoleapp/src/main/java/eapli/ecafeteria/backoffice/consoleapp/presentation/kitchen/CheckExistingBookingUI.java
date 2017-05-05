@@ -25,7 +25,7 @@ public class CheckExistingBookingUI extends AbstractListUI<Booking> {
     
     @Override
     protected Iterable<Booking> listOfElements() {
-       return this.theController.all();
+       return this.theController.checkBookingsByDateMealAndDishType();
     }
 
     @Override

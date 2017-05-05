@@ -6,7 +6,7 @@
 package eapli.ecafeteria.bootstrapers;
 
 import eapli.ecafeteria.application.kitchen.RegisterMaterialController;
-import eapli.ecafeteria.application.kitchen.RegistrationOfPreparedMealsController;
+import eapli.ecafeteria.application.kitchen.RegisterPreparedMealsController;
 import eapli.ecafeteria.domain.meals.Dish;
 import eapli.ecafeteria.domain.meals.DishType;
 import eapli.ecafeteria.domain.meals.Meal;
@@ -39,8 +39,8 @@ public class MealsPreparedBootstraper implements Action {
         final Dish dish2 = new Dish(fish, Designation.valueOf("Cod Fish with Mashes Potatoes"), Money.euros(25.0));
         final Dish dish3 = new Dish(meat, Designation.valueOf("Francesinha"), Money.euros(16.0));
         final Dish dish4 = new Dish(fish, Designation.valueOf("Fish and Chips"), Money.euros(16.0));
-        final Meal meal1 = new Meal(dish1, new MealType(MealType.MealTypes.ALMOCO), new TimePeriod2(todaysCalendar(0, 10), todaysCalendar(1, 14)));
-        final Meal meal2 = new Meal(dish3, new MealType(MealType.MealTypes.JANTAR), new TimePeriod2(todaysCalendar(0, 10), todaysCalendar(1, 14)));
+        final Meal meal1 = new Meal(dish1, new MealType(MealType.MealTypes.ALMOCO), Calendar.getInstance());
+        final Meal meal2 = new Meal(dish3, new MealType(MealType.MealTypes.JANTAR), Calendar.getInstance());
         register(meal1, 100);
         register(meal2, 150);
         return false;
@@ -57,7 +57,7 @@ public class MealsPreparedBootstraper implements Action {
      *
      */
     private void register(Meal meal, int quantitity) {
-        final RegistrationOfPreparedMealsController controller = new RegistrationOfPreparedMealsController();
+        final RegisterPreparedMealsController controller = new RegisterPreparedMealsController();
         try {
             controller.registerQuantityOfPreparedMeals(meal, quantitity);
         } catch (final DataIntegrityViolationException | DataConcurrencyException e) {

@@ -30,8 +30,8 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
     private NutricionalInfo nutricionalInfo;
     private Money price;
     private boolean active;
-    @ManyToMany
-    private Set<Allergen> allergens = new HashSet<>();
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="dish")
+    private Set<DishAllergen> allergens = new HashSet<>();
 
     public Dish(final DishType dishType, final Designation name, final NutricionalInfo nutricionalInfo, Money price) {
         if (dishType == null || name == null || nutricionalInfo == null) {
@@ -120,7 +120,7 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
         return this.price;
     }
 
-    public Set<Allergen> allergens() { return this.allergens; }
+    public Set<DishAllergen> allergens() { return this.allergens; }
 
     public boolean hasAllergens() { return !allergens.isEmpty(); }
 
@@ -168,7 +168,7 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
         this.price = price;
     }
 
-    public void addAllergens(Set<Allergen> allergens) {
+    public void addAllergens(Set<DishAllergen> allergens) {
         this.allergens=allergens;
     }
 }

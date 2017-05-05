@@ -1,8 +1,12 @@
 package eapli.ecafeteria.domain.meals;
 
 import eapli.framework.domain.TimePeriod2;
+import eapli.util.DateTime;
+import sun.util.calendar.BaseCalendar;
 
 import javax.persistence.*;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by pyska on 26-04-2017.
@@ -23,30 +27,28 @@ public class Meal {
 
     @Embedded
     private MealType mealType;
-
-    //TODO why does a meal need a time period?
-    @Embedded
-    private TimePeriod2 timePeriod;
+    @Temporal(TemporalType.DATE)
+    private Calendar date;
 
     protected Meal() {
     } //for ORM
 
-    public Meal(Dish dish, MealType mealType, TimePeriod2 timePeriod) {
-        if (dish == null || mealType == null || timePeriod == null) {
+    public Meal(Dish dish, MealType mealType, Calendar date) {
+        if (dish == null || mealType == null || date == null) {
             throw new IllegalStateException();
         }
 
         this.dish = dish;
         this.mealType = mealType;
-        this.timePeriod = timePeriod;
+        this.date = date;
     }
 
     public Long pk() {
         return pk;
     }
 
-    public TimePeriod2 timePeriod() {
-        return this.timePeriod;
+    public Calendar getDate(){
+        return date;
     }
 
     public Dish dish() {
@@ -81,14 +83,14 @@ public class Meal {
         if (!mealType.equals(meal.mealType)) {
             return false;
         }
-        return timePeriod.equals(meal.timePeriod);
+        return date.equals(meal.date);
     }
 
     @Override
     public int hashCode() {
         int result = dish.hashCode();
         result = 31 * result + mealType.hashCode();
-        result = 31 * result + timePeriod.hashCode();
+        result = 31 * result + date.hashCode();
         return result;
     }
 }

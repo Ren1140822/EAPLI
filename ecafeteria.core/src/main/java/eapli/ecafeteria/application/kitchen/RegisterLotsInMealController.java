@@ -18,6 +18,7 @@ import eapli.ecafeteria.persistence.MealRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.framework.application.Controller;
 import eapli.framework.domain.TimePeriod2;
+import eapli.framework.domain.range.TimePeriod;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
 import eapli.util.DateTime;
@@ -31,8 +32,7 @@ public class RegisterLotsInMealController implements Controller {
     
     private final MaterialRepository materialRepository = PersistenceContext.repositories().materials();
     private final MealRepository mealRepository = PersistenceContext.repositories().meals();
-//    private final MaterialUsedRepository = PersistenceContext.repositories().materialsUsed();
-   // private final MaterialUsedRepository materialUsedRepository= PersistenceContext.repositories().materialUsed();
+    // private final MaterialUsedRepository materialUsedRepository= PersistenceContext.repositories().materialUsed();
     
     private Material material;
     private MaterialUsed materialUsed;
@@ -45,8 +45,9 @@ public class RegisterLotsInMealController implements Controller {
      */
     public Iterable<Meal> showMealsOfDay(){
         Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
-        
-       return this.mealRepository.findByDate(buildPeriodToday());
+
+        Calendar date = DateTime.now();
+       return this.mealRepository.findByDate(date);
  
     }
     

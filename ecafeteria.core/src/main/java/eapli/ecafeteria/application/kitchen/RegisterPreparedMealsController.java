@@ -16,6 +16,7 @@ import eapli.framework.application.Controller;
 import eapli.framework.domain.TimePeriod2;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
+import eapli.util.DateTime;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -23,31 +24,15 @@ import java.util.GregorianCalendar;
  *
  * @author Diogo Santos
  */
-public class RegistrationOfPreparedMealsController implements Controller {
+public class RegisterPreparedMealsController implements Controller {
 
     private final MealsPreparedRepository repository = PersistenceContext.repositories().mealsPrepared();
     private final ListMealService listMealsSvc = new ListMealService();
 
     public Iterable<Meal> findMeals() {
-        //TODO check DateTime class in util library
         // today
-        Calendar date = new GregorianCalendar();
-        // reset hour, minutes, seconds and millis
-        date.set(Calendar.HOUR_OF_DAY, 0);
-        date.set(Calendar.MINUTE, 0);
-        date.set(Calendar.SECOND, 0);
-        date.set(Calendar.MILLISECOND, 0);
-
-        Calendar dateMidnight = new GregorianCalendar();
-        date.set(Calendar.HOUR_OF_DAY, 0);
-        date.set(Calendar.MINUTE, 0);
-        date.set(Calendar.SECOND, 0);
-        date.set(Calendar.MILLISECOND, 0);
-        // next day
-        date.add(Calendar.DAY_OF_MONTH, 1);
-
-        TimePeriod2 timePeriod2 = new TimePeriod2(date, dateMidnight);
-        return this.listMealsSvc.listMealsByDate(timePeriod2);
+        Calendar date  = DateTime.now();
+        return this.listMealsSvc.listMealsByDate(date);
     }
 
     public MealsPrepared registerQuantityOfPreparedMeals(Meal meal, int quantity) throws DataConcurrencyException, DataIntegrityViolationException {

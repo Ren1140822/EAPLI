@@ -89,4 +89,10 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     public MealEvaluationRepository mealEvaluations() {
         return new JpaMealEvaluationRepository();
     }
+
+    @Override
+    public CashRegisterRepository cashRegisters() {
+        return new JpaCashRegisterRepository();
+    }
+
 }
