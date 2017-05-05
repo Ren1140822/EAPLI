@@ -1,25 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package eapli.ecafeteria.domain.kitchen;
 
 import eapli.ecafeteria.domain.meals.Meal;
 import eapli.framework.domain.ddd.AggregateRoot;
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+// import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+// import javax.persistence.OneToMany;
 import javax.persistence.Version;
 
 /**
- *
+ * A Material Used
+ * 
  * @author Pedro Fernandes (1060503@isep.ipp.pt) Diana Silva
  * (1151088@isep.ipp.pt)
  */
 @Entity
-public class MaterialUsed implements AggregateRoot<BatchNumber>, Serializable {
+public class MaterialUsed implements AggregateRoot<Long>, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -29,9 +29,12 @@ public class MaterialUsed implements AggregateRoot<BatchNumber>, Serializable {
     private Long pk;
     @Version
     private Long version;
+    //@OneToMany(fetch=FetchType.LAZY, mappedBy="XXXX")
     private Meal meal;
-    private Material material;
     private BatchNumber batchNumber;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private Material material;
+   
 
     public MaterialUsed(Meal meal, Material material, String lotCode) {
         if (meal == null || material == null) {
@@ -49,20 +52,27 @@ public class MaterialUsed implements AggregateRoot<BatchNumber>, Serializable {
 
     @Override
     public boolean sameAs(Object other) {
-        // TO DO
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(!(other instanceof MaterialUsed)){
+            return false;
+        }
+        
+        final MaterialUsed that= (MaterialUsed) other;
+        if(this==that){
+            return true;
+        }
+        
+         return id().equals(that.id()) && material.equals(that.material) 
+                 && meal.equals(that.meal) && batchNumber.equals(that.batchNumber);
     }
 
     @Override
-    public boolean is(BatchNumber t) {
-        // TO DO
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean is(Long t) {
+        return id().equals(t);
     }
 
     @Override
-    public BatchNumber id() {
-        // TO DO
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Long id() {
+       return this.pk;
     }
 
     @Override
