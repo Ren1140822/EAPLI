@@ -14,8 +14,10 @@ import eapli.ecafeteria.persistence.*;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
 import eapli.framework.persistence.repositories.TransactionalContext;
+import eapli.util.DateTime;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -54,6 +56,15 @@ public class CreateBookingController {
     public void registerBooking(CafeteriaUser user, Meal meal) throws DataConcurrencyException, DataIntegrityViolationException {
         Booking b = new Booking(user, meal, BookingState.DONE);
         bookingRepository.save(b);
+    }
+    
+    public Date transformDate(String dayToBook){
+        int year, month, day;
+        String tokens[] = dayToBook.split("-");
+        year = Integer.parseInt(tokens[0]);
+        month = Integer.parseInt(tokens[1]);
+        day = Integer.parseInt(tokens[2]);
+        return DateTime.newCalendar(year, month, day).getTime();
     }
 
 }

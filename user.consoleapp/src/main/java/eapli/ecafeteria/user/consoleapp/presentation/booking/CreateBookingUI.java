@@ -36,6 +36,7 @@ public class CreateBookingUI extends AbstractUI {
     public String headline() {
         return "Create Booking";
     }
+    
 
     public boolean validateInputDate(String dayToBook) {
         int year, month, day;
