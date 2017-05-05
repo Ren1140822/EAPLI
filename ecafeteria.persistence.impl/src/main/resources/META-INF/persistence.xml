@@ -27,7 +27,7 @@
     <class>eapli.ecafeteria.domain.kitchen.MaterialUsed</class>
 
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/db_2/ecafeteria"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/db/ecafeteria"/>
       <property name="javax.persistence.jdbc.user" value="sa"/>
       <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:..\db_1\ecafeteria"/>-->
       <property name="javax.persistence.jdbc.password" value=""/>
