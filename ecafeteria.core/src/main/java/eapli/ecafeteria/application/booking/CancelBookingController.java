@@ -9,6 +9,7 @@ import eapli.ecafeteria.Application;
 import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.ecafeteria.domain.booking.Booking;
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
+import eapli.ecafeteria.domain.cafeteria.account.Refund;
 import eapli.ecafeteria.persistence.BookingRepository;
 import eapli.ecafeteria.persistence.CafeteriaUserRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
@@ -27,13 +28,18 @@ public class CancelBookingController implements Controller {
     private final CafeteriaUserRepository userRepository = PersistenceContext.repositories().cafeteriaUsers(null);
 
     public Iterable<Booking> listBookings() {
+        //TODO is this call to the cafeteriauser repository really needed? or can we change the method parameter in the bookingService?
         CafeteriaUser client = userRepository.findByUsername(Application.session().session().authenticatedUser().username());
         return bookingsService.findBookingsStateDoneOf(client);
     }
 
     public void cancel(Booking booking) throws DataConcurrencyException, DataIntegrityViolationException {
         Application.ensurePermissionOfLoggedInUser(ActionRight.SELECT_MEAL);
-        booking.cancel();
+        Refund refund = booking.cancel();
         bookingsRepository.save(booking);
+        //FIXME
+        //@author Meireles
+        // How to save the refund?
+        // How to ensure that both saves work or both fail? (transactional control)
     }
 }

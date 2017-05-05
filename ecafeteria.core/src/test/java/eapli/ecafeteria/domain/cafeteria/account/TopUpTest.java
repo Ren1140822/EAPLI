@@ -12,7 +12,7 @@ import static org.junit.Assert.assertFalse;
 public class TopUpTest {
 
     @Test
-    public void ensureTopUpIsNotEqualsToAnotherTransaction() throws Exception {
+    public void ensureTopUpWithNullPkIsNotEqualToAnotherTopUpWithNullPk() throws Exception {
         final MecanographicNumber aMecanographicNumber = new MecanographicNumber("Dummy");
         final Money aMoney = Money.euros(50);
         TopUp aTopUp = new TopUp(aMecanographicNumber, aMoney);
@@ -21,19 +21,6 @@ public class TopUpTest {
         };
 
         assertFalse(aTopUp.equals(aTransaction));
-    }
-
-    @Test
-    public void ensureTopUpIsNotEqualsToAnotherTopUp() throws Exception {
-        final MecanographicNumber aMecanographicNumber = new MecanographicNumber("Dummy");
-        final Money aMoney = Money.euros(50);
-        TopUp aTopUp = new TopUp(aMecanographicNumber, aMoney);
-
-        final MecanographicNumber anotherMecanographicNumber = new MecanographicNumber("Another dummy");
-        final Money anotherMoney = Money.euros(50);
-        TopUp anotherTopUp = new TopUp(anotherMecanographicNumber, anotherMoney);
-
-        assertFalse(aTopUp.equals(anotherTopUp));
     }
 
 }
