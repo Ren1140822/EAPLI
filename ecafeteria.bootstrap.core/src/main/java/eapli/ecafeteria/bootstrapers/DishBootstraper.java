@@ -34,9 +34,9 @@ public class DishBootstraper implements Action {
         final DishType vegie = dishTypeRepo.findByAcronym("vegie");
         final DishType fish = dishTypeRepo.findByAcronym("fish");
         final DishType meat = dishTypeRepo.findByAcronym("meat");
-        final Allergen cerials = allergenRepository.allergens().iterator().next();
+        final Allergen cereals = allergenRepository.allergens().iterator().next();
         final Set<Allergen>allergenSet = new HashSet<>();
-        allergenSet.add(cerials);
+        allergenSet.add(cereals);
 
         register(vegie, "tofu grelhado", 10, 1, 2.99, null);
         register(vegie, "lentilhas salteadas", 10, 1, 2.85,null);

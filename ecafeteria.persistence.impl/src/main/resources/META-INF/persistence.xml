@@ -12,7 +12,7 @@
     <class>eapli.ecafeteria.domain.cafeteria.CafeteriaUser</class>
     <class>eapli.ecafeteria.domain.cafeteria.SignupRequest</class>
     <class>eapli.ecafeteria.domain.meals.Dish</class>
-    <class>eapli.ecafeteria.domain.meals.DishAllergen</class>
+    <class>eapli.ecafeteria.domain.meals.AllergenicInfo</class>
     <class>eapli.ecafeteria.domain.meals.Menu</class>
     <class>eapli.ecafeteria.domain.meals.Meal</class>
     <class>eapli.ecafeteria.domain.kitchen.Material</class>

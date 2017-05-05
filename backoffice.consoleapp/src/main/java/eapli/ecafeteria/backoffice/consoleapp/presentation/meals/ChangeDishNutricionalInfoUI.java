@@ -38,6 +38,9 @@ class ChangeDishNutricionalInfoUI extends AbstractUI {
 	    final SelectWidget<Dish> selector = new SelectWidget<>("Dishes:", allDishes, new DishPrinter());
 	    selector.show();
 	    final Dish selectedDish = selector.selectedElement();
+	    if(selectedDish==null){
+	    	return false;
+		}
 	    System.out.println("Current  nutricional information:" + selectedDish.nutricionalInfo().toString());
 	    try {
 		NutricionalInfoDataWidget newNutricionalData = new NutricionalInfoDataWidget();
