@@ -44,6 +44,7 @@ public class MealsPreparedBootstraper implements Action {
         final Meal meal3 = new Meal(dish4, new MealType(MealType.MealTypes.JANTAR), Calendar.getInstance());
         register(meal1, 100);
         register(meal2, 150);
+        register(meal3, 99);
         return false;
     }
 
