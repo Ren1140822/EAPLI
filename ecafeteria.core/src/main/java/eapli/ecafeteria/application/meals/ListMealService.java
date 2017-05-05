@@ -25,7 +25,13 @@ public class ListMealService {
     public Iterable<Meal> listMealsByDate(Calendar date) {
         Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
 
-        return this.mealRepository.findByDate(date);
+        return this.mealRepository.findByUntilDate(date);
+    }
+    
+    public Iterable<Meal> listMealsByUntilDate(Calendar date) {
+        Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
+
+        return this.mealRepository.findByUntilDate(date);
     }
     
     public Iterable<Meal> listMealsByDateAndMealType(Calendar date, MealType.MealTypes type) {
