@@ -95,4 +95,9 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     public MealEvaluationRepository mealEvaluations() {
         return new InMemoryMealEvaluationRepository();
     }
+
+    @Override
+    public MaterialUsedRepository materialUsed() {
+        return new InMemoryMaterialUsedRepository();
+    }
 }

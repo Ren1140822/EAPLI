@@ -89,4 +89,9 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     public MealEvaluationRepository mealEvaluations() {
         return new JpaMealEvaluationRepository();
     }
+
+    @Override
+    public MaterialUsedRepository materialUsed() {
+        return new JpaMaterialUsedRepository();
+    }
 }

@@ -10,7 +10,6 @@ import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.ecafeteria.domain.kitchen.BatchNumber;
 import eapli.ecafeteria.domain.kitchen.Material;
 import eapli.ecafeteria.domain.kitchen.MaterialUsed;
-import eapli.ecafeteria.domain.kitchen.MealsPrepared;
 import eapli.ecafeteria.domain.meals.Meal;
 import eapli.ecafeteria.persistence.MaterialRepository;
 import eapli.ecafeteria.persistence.MaterialUsedRepository;
@@ -31,8 +30,7 @@ public class RegisterLotsInMealController implements Controller {
     
     private final MaterialRepository materialRepository = PersistenceContext.repositories().materials();
     private final MealRepository mealRepository = PersistenceContext.repositories().meals();
-//    private final MaterialUsedRepository = PersistenceContext.repositories().materialsUsed();
-   // private final MaterialUsedRepository materialUsedRepository= PersistenceContext.repositories().materialUsed();
+    private final MaterialUsedRepository materialUsedRepository= PersistenceContext.repositories().materialUsed();
     
     private Material material;
     private MaterialUsed materialUsed;
@@ -109,11 +107,20 @@ public class RegisterLotsInMealController implements Controller {
      * @throws eapli.framework.persistence.DataIntegrityViolationException 
      */
     public boolean saveRegistration() throws DataConcurrencyException, DataIntegrityViolationException{
-       // FIXME
-//        materialUsedRepository.save(materialUsed);
+
+        materialUsedRepository.save(materialUsed);
         cleanObjects();
         
         return true;
+    }
+    
+    /**
+     * bootstrap uses
+     * @return 
+     */
+    public void registerMaterialUsed(Meal meal, Material material, String batchNumber) throws DataConcurrencyException, DataIntegrityViolationException{
+        materialUsed = new MaterialUsed(meal, material, new BatchNumber(batchNumber));
+        materialUsedRepository.save(materialUsed);
     }
     
     /**
