@@ -22,7 +22,7 @@ public class Meal {
     @Version
     private Long version;
 
-    @OneToOne
+    @ManyToOne
     private Dish dish;
 
     @Embedded
