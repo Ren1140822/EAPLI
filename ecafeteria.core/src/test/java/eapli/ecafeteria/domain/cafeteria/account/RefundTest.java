@@ -67,6 +67,7 @@ public class RefundTest {
         RefundBuilder refund = new RefundBuilder();
         refund.withMecanographicNumber(number);
         refund.withMoney(amount);
+        cancellationDate.set(Calendar.AM_PM, Calendar.AM);
         cancellationDate.set(Calendar.HOUR, 9);
         refund.withPenalty(mealDate, lunch, cancellationDate);
         assertTrue(amount.equals(refund.build().value()));
@@ -77,6 +78,7 @@ public class RefundTest {
         RefundBuilder refund = new RefundBuilder();
         refund.withMecanographicNumber(number);
         refund.withMoney(amount);
+        cancellationDate.set(Calendar.AM_PM, Calendar.AM);
         cancellationDate.set(Calendar.HOUR, 11);
         refund.withPenalty(mealDate, lunch, cancellationDate);
         assertFalse(amount.equals(refund.build().value()));
@@ -87,7 +89,8 @@ public class RefundTest {
         RefundBuilder refund = new RefundBuilder();
         refund.withMecanographicNumber(number);
         refund.withMoney(amount);
-        cancellationDate.set(Calendar.HOUR, 15);
+        cancellationDate.set(Calendar.AM_PM, Calendar.PM);
+        cancellationDate.set(Calendar.HOUR, 3);
         refund.withPenalty(mealDate, dinner, cancellationDate);
         assertTrue(amount.equals(refund.build().value()));
     }
@@ -97,7 +100,8 @@ public class RefundTest {
         RefundBuilder refund = new RefundBuilder();
         refund.withMecanographicNumber(number);
         refund.withMoney(amount);
-        cancellationDate.set(Calendar.HOUR, 16);
+        cancellationDate.set(Calendar.AM_PM, Calendar.PM);
+        cancellationDate.set(Calendar.HOUR, 5);
         refund.withPenalty(mealDate, dinner, cancellationDate);
         assertFalse(amount.equals(refund.build().value()));
     }
