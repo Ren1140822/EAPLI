@@ -38,15 +38,15 @@ public class TransactionTest {
     }
 
     @Test
-    public void ensureTransactionEqualsFailsForDifferentTransaction() {
+    public void ensureTransactionWithNullPkIsNotEqualToAnotherTransactionWithNullPk() throws Exception {
         final MecanographicNumber aMecanographicNumber = new MecanographicNumber("Dummy");
         final Money aMoney = Money.euros(50);
-        final Transaction aTransaction = new Transaction(aMecanographicNumber, aMoney) {
+        Transaction aTransaction = new Transaction(aMecanographicNumber, aMoney) {
         };
 
         final MecanographicNumber anotherMecanographicNumber = new MecanographicNumber("Another dummy");
-        final Money anotherMoney = Money.euros(50);
-        final Transaction anotherTransaction = new Transaction(anotherMecanographicNumber, anotherMoney) {
+        final Money anotherMoney = Money.euros(100);
+        Transaction anotherTransaction = new Transaction(anotherMecanographicNumber, anotherMoney) {
         };
 
         assertFalse(aTransaction.equals(anotherTransaction));
