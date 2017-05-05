@@ -28,6 +28,7 @@ public class CancelBookingController implements Controller {
     private final CafeteriaUserRepository userRepository = PersistenceContext.repositories().cafeteriaUsers(null);
 
     public Iterable<Booking> listBookings() {
+        //TODO is this call to the cafeteriauser repository really needed? or can we change the method parameter in the bookingService?
         CafeteriaUser client = userRepository.findByUsername(Application.session().session().authenticatedUser().username());
         return bookingsService.findBookingsStateDoneOf(client);
     }

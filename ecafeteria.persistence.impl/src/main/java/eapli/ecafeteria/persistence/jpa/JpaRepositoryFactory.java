@@ -95,4 +95,8 @@ public class JpaRepositoryFactory implements RepositoryFactory {
         return new JpaCashRegisterRepository();
     }
 
+    @Override
+    public MaterialUsedRepository materialUsed() {
+        return new JpaMaterialUsedRepository();
+    }
 }

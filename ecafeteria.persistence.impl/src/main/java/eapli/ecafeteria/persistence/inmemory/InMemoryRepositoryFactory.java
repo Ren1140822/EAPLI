@@ -97,6 +97,11 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     }
 
     @Override
+    public MaterialUsedRepository materialUsed() {
+        return new InMemoryMaterialUsedRepository();
+    }
+    
+    @Override
     public CashRegisterRepository cashRegisters() {
         return new InMemoryCashRegisterRepository();
     }

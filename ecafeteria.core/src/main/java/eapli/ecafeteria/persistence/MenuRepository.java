@@ -19,5 +19,5 @@ public interface MenuRepository extends DataRepository<Menu, Long> {
     public Menu findByPk(Long pk);
     public Iterable<Menu> publishedMenu();
     public Iterable<Menu> notPublishedMenu();
-   // public Iterable<Menu> publishedMenusOfDay(Calendar day);
+    /*public Iterable<Menu> publishedMenusOfDay(Calendar day);*/
 }

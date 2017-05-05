@@ -8,6 +8,7 @@ package eapli.ecafeteria.bootstrapers;
 import eapli.ecafeteria.application.meals.RegisterMenuController;
 import eapli.ecafeteria.domain.authz.RoleType;
 import eapli.ecafeteria.domain.authz.SystemUser;
+import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
 import eapli.ecafeteria.persistence.*;
 import eapli.framework.actions.Action;
 import eapli.ecafeteria.domain.meals.*;
@@ -40,20 +41,22 @@ public class MenuBootstraper implements Action {
         roles.add(RoleType.ADMIN);
         roles.add(RoleType.MENU_MANAGER);
         roles.add(RoleType.KITCHEN_MANAGER);
+        final OrganicUnitRepository organicUnitRepository = PersistenceContext.repositories().organicUnits();
+        final OrganicUnit organicUnit = organicUnitRepository.findByAcronym("ISEP");
         final SystemUser systemUser= new SystemUser("poweruser", "poweruserA1", "joe", "doe", "joe@email.org", roles);
-        register(dishTofu, mealType, timePeriod, Calendar.getInstance());
+        register(dishTofu, mealType, timePeriod, Calendar.getInstance(), organicUnit);
         return false;
     }
 
     /**
      *
      */
-    private void register(Dish dish, MealType mealType, TimePeriod2 timePeriod, Calendar date) {
+    private void register(Dish dish, MealType mealType, TimePeriod2 timePeriod, Calendar date, OrganicUnit organicUnit) {
 
         final RegisterMenuController controller = new RegisterMenuController();
 
         try {
-            controller.registerMenu(dish, mealType, timePeriod, date);
+            controller.registerMenu(dish, mealType, organicUnit, timePeriod, date);
         } catch (final DataIntegrityViolationException | DataConcurrencyException e) {
 
             // ignoring exception. assuming it is just a primary key violation

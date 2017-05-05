@@ -6,6 +6,7 @@
 package eapli.ecafeteria.persistence.inmemory;
 
 import eapli.ecafeteria.domain.meals.Meal;
+import eapli.ecafeteria.domain.meals.MealType;
 import eapli.ecafeteria.persistence.MealRepository;
 import eapli.framework.persistence.repositories.impl.inmemory.InMemoryRepositoryWithLongPK;
 import java.util.Calendar;
@@ -24,7 +25,17 @@ public class InMemoryMealRepository extends InMemoryRepositoryWithLongPK<Meal> i
 
     @Override
     public Iterable<Meal> findByDate(Calendar date) {
-        return match(e -> e.getDate().compareTo(date) > 0);
+        return match(e -> e.getDate().compareTo(date) == 0);
+    }
+    
+    @Override
+    public Iterable<Meal> findByUntilDate(Calendar date) {
+        return match(e -> e.getDate().compareTo(date) <= 0);
+    }
+
+    @Override
+    public Iterable<Meal> findByDateAndMealType(Calendar date, MealType.MealTypes type) {
+        return match(e -> (e.getDate().compareTo(date) > 0 && e.mealType().equals(type)));
     }
 
 }
