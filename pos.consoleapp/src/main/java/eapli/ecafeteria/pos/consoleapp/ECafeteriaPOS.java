@@ -6,7 +6,6 @@
 package eapli.ecafeteria.pos.consoleapp;
 
 import eapli.cafeteria.consoleapp.presentation.authz.LoginAction;
-import eapli.ecafeteria.bootstrapers.ECafeteriaBootstraper;
 import eapli.ecafeteria.pos.consoleapp.presentation.MainMenu;
 
 /**
@@ -26,9 +25,6 @@ public final class ECafeteriaPOS {
      */
     public static void main(final String[] args) {
 
-        //FIXME bootstrapapp should be called independently when needed. the other applications must not call the bootstrapper
-        ECafeteriaBootstraper bootstraper = new ECafeteriaBootstraper();
-        bootstraper.execute();
         // login and go to main menu
         // TODO should provide three attempts
         if (new LoginAction().execute()) {
