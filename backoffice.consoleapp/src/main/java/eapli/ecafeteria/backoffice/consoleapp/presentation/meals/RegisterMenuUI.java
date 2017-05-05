@@ -3,7 +3,9 @@ package eapli.ecafeteria.backoffice.consoleapp.presentation.meals;
 import eapli.ecafeteria.Application;
 import eapli.ecafeteria.application.meals.RegisterDishController;
 import eapli.ecafeteria.application.meals.RegisterMenuController;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.cafeteria.OrganicUnitPrinter;
 import eapli.ecafeteria.domain.authz.SystemUser;
+import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
 import eapli.ecafeteria.domain.meals.Dish;
 import eapli.ecafeteria.domain.meals.DishType;
 import eapli.ecafeteria.domain.meals.MealType;
@@ -75,10 +77,13 @@ public class RegisterMenuUI extends AbstractUI {
             selector2.show();
             final Dish theDish = selector2.selectedElement();
 
-            SystemUser user = Application.session().session().authenticatedUser();
+            final Iterable<OrganicUnit> organicUnits = this.theController.allOrganicUnits();
+            final SelectWidget<OrganicUnit> selector3 = new SelectWidget<OrganicUnit>("Organic Units:", organicUnits, new OrganicUnitPrinter());
+            selector3.show();
+            final OrganicUnit organicUnit = selector3.selectedElement();
 
             try {
-                this.theController.registerMenu(theDish, theMealType, theTimePeriod2, Calendar.getInstance());
+                this.theController.registerMenu(theDish, theMealType, organicUnit, theTimePeriod2, Calendar.getInstance());
                 System.out.printf("Menu registered successfully.\n");
             } catch (final DataIntegrityViolationException | DataConcurrencyException e) {
                 System.out.println("You tried to enter a dish which already exists in the database.");
