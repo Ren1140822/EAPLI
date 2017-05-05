@@ -67,22 +67,27 @@ public class MaterialUsedTest {
 
     @Test(expected = IllegalStateException.class)
     public void ensureMaterialIsNotNull() {
-        MaterialUsed m = new MaterialUsed(meal, null, new BatchNumber("abc23"));
+        MaterialUsed m = new MaterialUsed(meal, null, "abc23");
     }
     
     @Test(expected = IllegalStateException.class)
     public void ensureBatchNumberIsNotNull() {
         MaterialUsed m = new MaterialUsed(meal,new Material("abc", "description"), null);
     }
+       
+    @Test(expected = IllegalStateException.class)
+    public void ensureBatchNumberIsValid() {
+        MaterialUsed m = new MaterialUsed(meal,new Material("abc", "description"), " ");
+    }
     
     @Test(expected = IllegalStateException.class)
     public void ensureMealIsNotNull() {
-        MaterialUsed m = new MaterialUsed(null,new Material("abc", "description"), new BatchNumber("abc23"));
+        MaterialUsed m = new MaterialUsed(null,new Material("abc", "description"), "abc23");
     }
     
     @Test
     public void testMaterialUsedOk() {
         
-        MaterialUsed m = new MaterialUsed(meal, new Material("abc", "description"), new BatchNumber("abc23"));
+        MaterialUsed m = new MaterialUsed(meal, new Material("abc", "description"), "abc23");
     }
 }

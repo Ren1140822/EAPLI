@@ -29,18 +29,18 @@ public class MaterialUsed implements AggregateRoot<BatchNumber>, Serializable {
     private Long pk;
     @Version
     private Long version;
-
     private Meal meal;
     private Material material;
     private BatchNumber batchNumber;
 
-    public MaterialUsed(Meal meal, Material material, BatchNumber batchNumber) {
-        if (meal == null || material == null || batchNumber == null) {
+    public MaterialUsed(Meal meal, Material material, String lotCode) {
+        if (meal == null || material == null) {
             throw new IllegalStateException();
         }
         this.meal = meal;
-        this.material = material;
-        this.batchNumber = batchNumber;
+        this.material = material;  
+        this.batchNumber=new BatchNumber(lotCode);
+    
     }
 
     protected MaterialUsed() {
