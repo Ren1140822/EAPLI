@@ -7,7 +7,6 @@ package eapli.ecafeteria.backoffice.consoleapp;
 
 import eapli.cafeteria.consoleapp.presentation.authz.LoginAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.MainMenu;
-import eapli.ecafeteria.bootstrapers.ECafeteriaBootstraper;
 
 /**
  *
@@ -16,24 +15,21 @@ import eapli.ecafeteria.bootstrapers.ECafeteriaBootstraper;
 public final class ECafeteriaBackoffice {
 
     /**
+     * Empty constructor is private to avoid instantiation of this class.
+     */
+    private ECafeteriaBackoffice() {
+    }
+
+    /**
      * @param args the command line arguments
      */
     public static void main(final String[] args) {
         // login and go to main menu
 
-        //FIXME bootstrapapp should be called independently when needed. the other applications must not call the bootstrapper
-        ECafeteriaBootstraper bootstraper = new ECafeteriaBootstraper();
-        bootstraper.execute();
         // TODO should provide three attempts
         if (new LoginAction().execute()) {
             final MainMenu menu = new MainMenu();
             menu.mainLoop();
         }
-    }
-
-    /**
-     * Empty constructor is private to avoid instantiation of this class.
-     */
-    private ECafeteriaBackoffice() {
     }
 }
