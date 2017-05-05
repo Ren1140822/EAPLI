@@ -9,7 +9,6 @@ import eapli.cafeteria.consoleapp.presentation.authz.LoginAction;
 import eapli.ecafeteria.pos.consoleapp.presentation.MainMenu;
 
 /**
- *
  * @author Paulo Gandra Sousa
  */
 public final class ECafeteriaPOS {
