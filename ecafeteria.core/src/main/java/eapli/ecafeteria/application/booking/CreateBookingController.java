@@ -53,9 +53,9 @@ public class CreateBookingController {
         registerBooking(user, meal);
     }
 
-    public void registerBooking(CafeteriaUser user, Meal meal) throws DataConcurrencyException, DataIntegrityViolationException {
+    public Booking registerBooking(CafeteriaUser user, Meal meal) throws DataConcurrencyException, DataIntegrityViolationException {
         Booking b = new Booking(user, meal);
-        bookingRepository.save(b);
+        return bookingRepository.save(b);
     }
     
     public Date transformDate(String dayToBook){
