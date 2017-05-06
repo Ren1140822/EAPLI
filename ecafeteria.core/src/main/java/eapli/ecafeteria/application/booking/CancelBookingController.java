@@ -6,40 +6,67 @@
 package eapli.ecafeteria.application.booking;
 
 import eapli.ecafeteria.Application;
+import eapli.ecafeteria.application.cafeteria.CafeteriaUserService;
 import eapli.ecafeteria.domain.authz.ActionRight;
+import eapli.ecafeteria.domain.authz.Username;
 import eapli.ecafeteria.domain.booking.Booking;
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.ecafeteria.domain.cafeteria.account.Refund;
 import eapli.ecafeteria.persistence.BookingRepository;
-import eapli.ecafeteria.persistence.CafeteriaUserRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
+import eapli.ecafeteria.persistence.TransactionRepository;
 import eapli.framework.application.Controller;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
+import eapli.framework.persistence.repositories.TransactionalContext;
 
 /**
+ * The controller to select and cancel a booking of the system user.
  *
  * @author Miguel Silva - 1150901
  */
 public class CancelBookingController implements Controller {
 
+    private final CafeteriaUserService usersService = new CafeteriaUserService();
     private final ListBookingsService bookingsService = new ListBookingsService();
+    private final TransactionalContext txCtx = PersistenceContext.repositories().buildTransactionalContext();
+    //TODO
+    //@author Meireles
+    // These repositories should not handle the Transactional Context by themselves.
     private final BookingRepository bookingsRepository = PersistenceContext.repositories().bookings();
-    private final CafeteriaUserRepository userRepository = PersistenceContext.repositories().cafeteriaUsers(null);
+    private final TransactionRepository transactionsRepository = PersistenceContext.repositories().transactions();
 
+    /**
+     * It provides all cancelable bookings of the current system user.
+     *
+     * @return It returns an iterable with all the cancelable bookings of the
+     * current system user.
+     */
     public Iterable<Booking> listBookings() {
-        //TODO is this call to the cafeteriauser repository really needed? or can we change the method parameter in the bookingService?
-        CafeteriaUser client = userRepository.findByUsername(Application.session().session().authenticatedUser().username());
+        Username username = Application.session().session().authenticatedUser().username();
+        CafeteriaUser client = usersService.findCafeteriaUserByUsername(username);
         return bookingsService.findBookingsStateDoneOf(client);
     }
 
+    /**
+     * It cancels the booking and refunds the cafeteria user.
+     *
+     * @param booking The booking to be canceled.
+     * @throws DataConcurrencyException
+     * @throws DataIntegrityViolationException
+     */
     public void cancel(Booking booking) throws DataConcurrencyException, DataIntegrityViolationException {
         Application.ensurePermissionOfLoggedInUser(ActionRight.SELECT_MEAL);
         Refund refund = booking.cancel();
+        //FIXME
+        //@author Meireles
+        // The current repositories have their own transactional context.
+        txCtx.beginTransaction();
         bookingsRepository.save(booking);
         //FIXME
         //@author Meireles
-        // How to save the refund?
-        // How to ensure that both saves work or both fail? (transactional control)
+        // The Transaction PK is null and launches a NullPointerException on save (Transaction, hashCode).
+//        transactionsRepository.save(refund);
+        txCtx.commit();
     }
 }
