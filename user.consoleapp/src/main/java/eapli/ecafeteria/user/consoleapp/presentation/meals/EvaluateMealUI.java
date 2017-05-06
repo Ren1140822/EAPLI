@@ -23,6 +23,9 @@ import java.util.logging.Logger;
  */
 public class EvaluateMealUI extends AbstractUI {
 
+    //FIXME
+    //@author Meireles
+    // Is this not business logic? Should it be here?
     private static final int MINIMUM_RATING = 1;
     private static final int MAXIMUM_RATING = 5;
 
