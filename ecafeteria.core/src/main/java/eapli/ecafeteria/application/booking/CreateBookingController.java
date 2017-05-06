@@ -54,7 +54,7 @@ public class CreateBookingController {
     }
 
     public void registerBooking(CafeteriaUser user, Meal meal) throws DataConcurrencyException, DataIntegrityViolationException {
-        Booking b = new Booking(user, meal, BookingState.DONE);
+        Booking b = new Booking(user, meal);
         bookingRepository.save(b);
     }
     
