@@ -23,6 +23,9 @@ import java.util.logging.Logger;
  */
 public class EvaluateMealUI extends AbstractUI {
 
+    private static final int MINIMUM_RATING = 1;
+    private static final int MAXIMUM_RATING = 5;
+
     private final EvaluateMealController theController = new EvaluateMealController();
 
     protected Controller controller() {
@@ -34,23 +37,24 @@ public class EvaluateMealUI extends AbstractUI {
         final Iterable<Booking> bookings = theController.listDeliveredBookings();
         if (bookings.iterator().hasNext()) {
             final SelectWidget<Booking> selector = new SelectWidget<>("Bookings:", bookings, new BookingPrinter());
-            selector.show();
-            final Booking chosenBooking = selector.selectedElement();
+            do {
+                selector.show();
+                final Booking chosenBooking = selector.selectedElement();
+                if (chosenBooking != null) {
+                    int rating = Integer.parseInt(Console.readLine("Rating (1-5): "));
+                    while (rating < MINIMUM_RATING || rating > MAXIMUM_RATING) {
+                        rating = Integer.parseInt(Console.readLine("Rating (1-5): "));
+                    }
 
-            if (chosenBooking != null) {
-                int rating = Integer.parseInt(Console.readLine("Rating (1-5): "));
-                while (rating < 1 || rating > 5) {
-                    rating = Integer.parseInt(Console.readLine("Rating (1-5): "));
+                    final String comment = Console.readLine("Comment: ");
+
+                    try {
+                        theController.mealEvaluation(chosenBooking, rating, comment);
+                    } catch (DataConcurrencyException | DataIntegrityViolationException ex) {
+                        Logger.getLogger(EvaluateMealUI.class.getName()).log(Level.FINEST, null, ex);
+                    }
                 }
-
-                final String comment = Console.readLine("Comment: ");
-
-                try {
-                    theController.mealEvaluation(chosenBooking, rating, comment);
-                } catch (DataConcurrencyException | DataIntegrityViolationException ex) {
-                    Logger.getLogger(EvaluateMealUI.class.getName()).log(Level.FINEST, null, ex);
-                }
-            }
+            } while (selector.selectedOption() != 0);
 
         } else {
             System.out.println("There are no previous bookings available to rate.");
