@@ -56,9 +56,13 @@ class MainMenu extends CafeteriaUserBaseUI {
      */
     @Override
     public boolean doShow() {
-        final Menu menu = buildMainMenu();
-        final MenuRenderer renderer = new VerticalMenuRenderer(menu);
-        return renderer.show();
+        boolean wantsToExit = false;
+        do {
+            final Menu menu = buildMainMenu();
+            final MenuRenderer renderer = new VerticalMenuRenderer(menu);
+            wantsToExit = renderer.show();
+        } while (!wantsToExit);
+        return wantsToExit;
     }
 
     private Menu buildMainMenu() {
