@@ -107,6 +107,10 @@ public class RefundBuilder implements Factory<Refund> {
      */
     public RefundBuilder withPenalty(Calendar mealDate, MealType mealType, Calendar cancelDate) {
         if (isAtSameDay(mealDate, cancelDate) && isAfterTimeLimit(mealType, cancelDate)) {
+            //TODO
+            //@author Meireles
+            // maybe use property instead for higher maintainability?
+//            penalty = (PenaltyStrategy) Class.forName(System.getProperty("penalty")).newInstance();
             penalty = new PenaltyFiftyPercent();
         } else {
             penalty = new PenaltyFree();
