@@ -16,8 +16,7 @@ import eapli.framework.actions.Action;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Logger;
 
 /**
@@ -34,24 +33,28 @@ public class DishBootstraper implements Action {
         final DishType vegie = dishTypeRepo.findByAcronym("vegie");
         final DishType fish = dishTypeRepo.findByAcronym("fish");
         final DishType meat = dishTypeRepo.findByAcronym("meat");
-        final Allergen cereals = allergenRepository.allergens().iterator().next();
-        final Set<Allergen>allergenSet = new HashSet<>();
-        allergenSet.add(cereals);
+        final List<Allergen> allergens= (List<Allergen>) allergenRepository.allergens();
+        final Allergen molluscs = allergens.get(13);
+        final Allergen cereals = allergens.get(0);
+        final List<Allergen>allergenSet1 = new ArrayList<>();
+        final List<Allergen>allergenSet2 = new ArrayList<>();
+        allergenSet1.add(cereals);
+        allergenSet2.add(molluscs);
 
         register(vegie, "tofu grelhado", 10, 1, 2.99, null);
-        register(vegie, "lentilhas salteadas", 10, 1, 2.85,null);
-        register(fish, "bacalhau à braz", 50, 2, 3.99,null);
+        register(vegie, "lentilhas salteadas", 10, 1, 2.85,allergenSet1);
+        register(fish, "bacalhau à braz", 50, 2, 3.99,allergenSet1);
         register(fish, "lagosta suada", 50, 2, 24.99,null);
         register(meat, "picanha", 75, 2, 4.99,null);
         register(meat, "costeleta à salsicheiro", 75, 2, 3.99,null);
-        register(fish, "pão de cereais com pescada frita", 50, 10, 10.00, allergenSet);
+        register(fish, "camarões grelhados", 50, 10, 10.00, allergenSet2);
         return false;
     }
 
     /**
      *
      */
-    private void register(DishType dishType, String description, int cal, int salt, double price, Set<Allergen>allergens) {
+    private void register(DishType dishType, String description, int cal, int salt, double price, List<Allergen>allergens) {
         final RegisterDishController controller = new RegisterDishController();
         try {
             Dish dish;
