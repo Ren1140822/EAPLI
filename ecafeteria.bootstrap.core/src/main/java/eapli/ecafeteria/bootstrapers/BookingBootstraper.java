@@ -5,6 +5,7 @@
  */
 package eapli.ecafeteria.bootstrapers;
 
+import eapli.ecafeteria.application.booking.CreateBookingController;
 import eapli.ecafeteria.domain.authz.Username;
 import eapli.ecafeteria.domain.booking.Booking;
 import eapli.ecafeteria.domain.booking.BookingState;
@@ -16,6 +17,8 @@ import eapli.ecafeteria.domain.meals.MealType;
 import eapli.ecafeteria.domain.meals.MealType.MealTypes;
 import eapli.ecafeteria.persistence.BookingRepository;
 import eapli.ecafeteria.persistence.CafeteriaUserRepository;
+import eapli.ecafeteria.persistence.DishRepository;
+import eapli.ecafeteria.persistence.DishTypeRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.framework.actions.Action;
 import eapli.framework.domain.Designation;
@@ -31,56 +34,71 @@ import java.util.logging.Logger;
  */
 public class BookingBootstraper implements Action {
 
+    private final CreateBookingController theBookingController = new CreateBookingController();
+
     @Override
     public boolean execute() {
-        final Username username = new Username("900330");
-        final CafeteriaUserRepository users = PersistenceContext.repositories().cafeteriaUsers(null);
-
         //FIXME
         //@author Meireles
         // Use meals from bootstrap.
+        final DishRepository dishes = PersistenceContext.repositories().dishes();
+        final Dish dish1 = dishes.findByName(Designation.valueOf("costeleta à salsicheiro"));
+        final Dish dish2 = dishes.findByName(Designation.valueOf("picanha"));
+        final MealType lunch = new MealType(MealTypes.ALMOCO);
+        final MealType dinner = new MealType(MealTypes.ALMOCO);
+        final Calendar start = Calendar.getInstance();
+        final Meal mealA = new Meal(dish1, lunch, start);
+        final Meal mealB = new Meal(dish2, dinner, start);
         //final MealRepository meals = PersistenceContext.repositories().meals();
-        DishType dishType = new DishType("Special Type", "Bootstrap special type. Please delete me.");
-        Designation name = Designation.valueOf("Bootstrapalicious");
-        Money price = new Money(20, Currency.getInstance("EUR"));
-        Dish dish = new Dish(dishType, name, price);
-        MealType mealType = new MealType(MealTypes.ALMOCO);
-        Calendar start = Calendar.getInstance();
-        Meal meal = new Meal(dish, mealType, start);
 
-        register(users.findByUsername(username), meal, BookingState.DONE);
-        register(users.findByUsername(username), meal, BookingState.DONE);
-        register(users.findByUsername(username), meal, BookingState.DELIVERED);
-        register(users.findByUsername(username), meal, BookingState.DELIVERED);
+        final Meal meal1 = mealA;
+        final Meal meal2 = mealB;
+        final Meal meal3 = mealA;
+        final Meal meal4 = mealB;
+        final Meal meal5 = mealA;
+        final Meal meal6 = mealA;
+        final Meal meal7 = mealA;
+        final Meal meal8 = mealB;
+        final Meal meal9 = mealA;
+        final Meal meal10 = mealB;
+
+        final CafeteriaUserRepository users = PersistenceContext.repositories().cafeteriaUsers(null);
+        final CafeteriaUser user1 = users.findByUsername(new Username("900330"));
+        final CafeteriaUser user2 = users.findByUsername(new Username("900331"));
+
+        register(user1, meal1, BookingState.DONE);
+        register(user1, meal2, BookingState.DONE);
+        register(user1, meal3, BookingState.CANCELED);
+        register(user1, meal4, BookingState.CANCELED);
+        register(user1, meal5, BookingState.DEFINITIVE);
+        register(user1, meal6, BookingState.DEFINITIVE);
+        register(user1, meal7, BookingState.DELIVERED);
+        register(user1, meal8, BookingState.DELIVERED);
+        register(user1, meal9, BookingState.WASTED);
+        register(user1, meal10, BookingState.WASTED);
+
+        register(user2, meal1, BookingState.DONE);
+        register(user2, meal2, BookingState.DONE);
+        register(user2, meal3, BookingState.CANCELED);
+        register(user2, meal4, BookingState.CANCELED);
+        register(user2, meal5, BookingState.DEFINITIVE);
+        register(user2, meal6, BookingState.DEFINITIVE);
+        register(user2, meal7, BookingState.DELIVERED);
+        register(user2, meal8, BookingState.DELIVERED);
+        register(user2, meal9, BookingState.WASTED);
+        register(user2, meal10, BookingState.WASTED);
 
         return false;
     }
 
     /**
-     * It registers a booking.
+     * It registers a booking at a certain state.
      */
-    private void register(CafeteriaUser user, Meal meal, BookingState actualState) {
-
-        //FIXME
-        //@author Meireles
-        // Use the controller to create a booking.
+    private void register(CafeteriaUser user, Meal meal, BookingState state) {
         final BookingRepository bookings = PersistenceContext.repositories().bookings();
         try {
-            Booking b = new Booking(user, meal);
-            if (!BookingState.DONE.equals(actualState)) {
-                if (BookingState.CANCELED.equals(actualState)) {
-                    b.cancel();
-                } else {
-                    b.makeDefinitive();
-                }
-                if (!BookingState.DEFINITIVE.equals(actualState)) {
-                    if (BookingState.WASTED.equals(actualState)) {
-                        b.waste();
-                    } else {
-                        b.deliver();
-                    }
-                }
-            }
+            Booking b = theBookingController.registerBooking(user, meal);
+            changeToState(b, state);
             bookings.save(b);
         } catch (final DataIntegrityViolationException | DataConcurrencyException e) {
             // ignoring exception. assuming it is just a primary key violation
@@ -88,6 +106,35 @@ public class BookingBootstraper implements Action {
             Logger.getLogger(ECafeteriaBootstraper.class.getSimpleName())
                     .info("EAPLI-BO001: bootstrapping existing record");
         }
+    }
+
+    /**
+     * It changes a booking to the wanted state.
+     *
+     * @param booking The booking to be changed.
+     * @param wanted The wanted BookingState.
+     * @return It returns the booking at the wanted state.
+     */
+    private Booking changeToState(Booking booking, BookingState wanted) {
+        switch (wanted) {
+            case CANCELED:
+                booking.cancel();
+                break;
+            case DEFINITIVE:
+                booking.makeDefinitive();
+                break;
+            case WASTED:
+                booking.makeDefinitive();
+                booking.waste();
+                break;
+            case DELIVERED:
+                booking.makeDefinitive();
+                booking.deliver();
+                break;
+            default:
+                break;
+        }
+        return booking;
     }
 
 }
