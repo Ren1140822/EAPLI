@@ -11,66 +11,99 @@ import java.io.Serializable;
 import java.util.Calendar;
 
 /**
- * @FIXME javadoc
  * @author Ivo Ferro 1151159
  * @author Daniel Gonçalves 1151452
+ *         <p>
+ *         Represents a generic transaction.
  */
 @Entity
-public abstract class Transaction implements AggregateRoot<Long>, Serializable {
+public abstract class Transaction implements AggregateRoot<TransactionId>, Serializable {
 
     private static final long serialVersionUID = 1L;
-
     @Version
     private Long version;
-
     @Id
     @GeneratedValue
     private Long pk;
-    private MecanographicNumber aMecanographicNumber;
-    private Money aMoney;
 
+    /**
+     * The domain identifier for the transaction.
+     */
+    private TransactionId aTransactionId;
+    /**
+     * The mecanographic number of the card account.
+     */
+    private MecanographicNumber aMecanographicNumber;
+    /**
+     * The amount of money.
+     */
+    private Money aMoney;
+    /**
+     * The date when the transaction occurred.
+     */
     @Temporal(TemporalType.DATE)
     private Calendar date;
 
+    /**
+     * Default constructor for object-relational mapping.
+     */
     protected Transaction() {
         // for ORM only
     }
 
+    /**
+     * Creates a transaction receiving the destination mecanographic number and the amount to move.
+     *
+     * @param destinationMecanographicNumber the destination mecanographic number
+     * @param amount                         the amount of the transaction.
+     */
     public Transaction(MecanographicNumber destinationMecanographicNumber, Money amount) {
         if ((destinationMecanographicNumber == null) || (amount == null)) {
             throw new IllegalStateException("Parameters can't be null.");
         }
+        this.aTransactionId = new TransactionId();
         this.aMoney = amount;
         this.aMecanographicNumber = destinationMecanographicNumber;
         this.date = DateTime.now();
     }
 
+    /**
+     * Returns a hash code value for the object.
+     *
+     * @return a hash code value for this object
+     */
     @Override
     public int hashCode() {
-        return pk.hashCode();
+        return aTransactionId.hashCode();
     }
 
+    /**
+     * Compares if the transaction is equals to other transaction.
+     *
+     * @param o other transaction to be compared.
+     * @return true if they are equals, false otherwise
+     */
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
         if ((o == null) || !(o instanceof Transaction)) {
             return false;
         }
+        if (this == o) {
+            return true;
+        }
 
         final Transaction other = (Transaction) o;
-        return (this.id() != null) && (other.id() != null) && (this.id().equals(other.id()));
+        return (this.aTransactionId.equals(other.aTransactionId));
     }
 
     @Override
-    public boolean is(Long id) {
+    public boolean is(TransactionId id) {
         return id().equals(id);
     }
 
     @Override
-    public Long id() {
-        return pk;
+    public TransactionId id() {
+        return aTransactionId;
     }
 
     @Override
@@ -83,7 +116,8 @@ public abstract class Transaction implements AggregateRoot<Long>, Serializable {
         if (this == that) {
             return true;
         }
-        return (this.pk.equals(that.pk)) && (this.aMecanographicNumber.equals(that.aMecanographicNumber))
+        return (this.aTransactionId.equals(((Transaction) other).aTransactionId))
+                && (this.aMecanographicNumber.equals(that.aMecanographicNumber))
                 && (this.aMoney.equals(that.aMoney)) && (this.date.equals(that.aMoney));
     }
 
