@@ -2,10 +2,11 @@ package eapli.ecafeteria.domain.cafeteria.account;
 
 import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
 import eapli.framework.domain.Money;
-
 import javax.persistence.Entity;
 
 /**
+ * @FIXME javadoc
+ * @FIXME is this an entity, a value object or an aggregate?
  * @author Ivo Ferro 1151159
  * @author Daniel Gonçalves 1151452
  */

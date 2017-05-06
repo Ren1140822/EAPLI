@@ -1,30 +1,34 @@
 package eapli.ecafeteria.domain.cafeteria.account;
 
+import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
 import eapli.framework.domain.Money;
-import eapli.framework.domain.ddd.ValueObject;
+import eapli.framework.domain.ddd.AggregateRoot;
 import eapli.util.DateTime;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Calendar;
-import javax.persistence.*;
 
 /**
+ * @FIXME javadoc
  * @author Ivo Ferro 1151159
  * @author Daniel Gonçalves 1151452
  */
 @Entity
-public abstract class Transaction implements ValueObject, Serializable {
+public abstract class Transaction implements AggregateRoot<Long>, Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Version
     private Long version;
+
     @Id
     @GeneratedValue
     private Long pk;
-
     private MecanographicNumber aMecanographicNumber;
     private Money aMoney;
+
     @Temporal(TemporalType.DATE)
     private Calendar date;
 
@@ -43,10 +47,7 @@ public abstract class Transaction implements ValueObject, Serializable {
 
     @Override
     public int hashCode() {
-        int result = aMecanographicNumber.hashCode();
-        result = 31 * result + aMoney.hashCode();
-        result = 31 * result + date.hashCode();
-        return result;
+        return pk.hashCode();
     }
 
     @Override
@@ -59,7 +60,40 @@ public abstract class Transaction implements ValueObject, Serializable {
         }
 
         final Transaction other = (Transaction) o;
-        return (this.aMecanographicNumber.equals(other.aMecanographicNumber))
-                && (this.aMoney.equals(other.aMoney)) && (this.date.equals(other.date));
+        return (this.id() != null) && (other.id() != null) && (this.id().equals(other.id()));
     }
+
+    @Override
+    public boolean is(Long id) {
+        return id().equals(id);
+    }
+
+    @Override
+    public Long id() {
+        return pk;
+    }
+
+    @Override
+    public boolean sameAs(Object other) {
+        if (!(other instanceof CafeteriaUser)) {
+            return false;
+        }
+
+        final Transaction that = (Transaction) other;
+        if (this == that) {
+            return true;
+        }
+        return (this.pk.equals(that.pk)) && (this.aMecanographicNumber.equals(that.aMecanographicNumber))
+                && (this.aMoney.equals(that.aMoney)) && (this.date.equals(that.aMoney));
+    }
+
+    /**
+     * The transacted money amount.
+     *
+     * @return It returns the money value of the transaction.
+     */
+    public Money value() {
+        return aMoney;
+    }
+
 }

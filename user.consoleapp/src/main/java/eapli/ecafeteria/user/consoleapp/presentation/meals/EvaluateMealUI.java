@@ -37,6 +37,7 @@ public class EvaluateMealUI extends AbstractUI {
         final Iterable<Booking> bookings = theController.listDeliveredBookings();
         if (bookings.iterator().hasNext()) {
             final SelectWidget<Booking> selector = new SelectWidget<>("Bookings:", bookings, new BookingPrinter());
+
             do {
                 selector.show();
                 final Booking chosenBooking = selector.selectedElement();
@@ -45,7 +46,6 @@ public class EvaluateMealUI extends AbstractUI {
                     while (rating < MINIMUM_RATING || rating > MAXIMUM_RATING) {
                         rating = Integer.parseInt(Console.readLine("Rating (1-5): "));
                     }
-
                     final String comment = Console.readLine("Comment: ");
 
                     try {
@@ -55,7 +55,6 @@ public class EvaluateMealUI extends AbstractUI {
                     }
                 }
             } while (selector.selectedOption() != 0);
-
         } else {
             System.out.println("There are no previous bookings available to rate.");
         }

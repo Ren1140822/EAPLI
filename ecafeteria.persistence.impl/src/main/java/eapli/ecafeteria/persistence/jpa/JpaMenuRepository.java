@@ -8,6 +8,7 @@ package eapli.ecafeteria.persistence.jpa;
 import eapli.ecafeteria.domain.meals.*;
 import eapli.ecafeteria.persistence.*;
 import java.io.Serializable;
+import java.util.Calendar;
 
 /**
  *
@@ -28,6 +29,11 @@ public class JpaMenuRepository extends CafeteriaJpaRepositoryBase<Menu, Long> im
     @Override
     public Iterable<Menu> notPublishedMenu() {
        return match("e.published=false");
+    }
+
+    @Override
+    public Iterable<Menu> publishedMenusOfDay(Calendar day) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

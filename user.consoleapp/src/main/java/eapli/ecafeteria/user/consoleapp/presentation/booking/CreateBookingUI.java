@@ -7,7 +7,10 @@ package eapli.ecafeteria.user.consoleapp.presentation.booking;
 
 import eapli.ecafeteria.application.booking.CreateBookingController;
 import eapli.framework.presentation.console.AbstractUI;
+import eapli.util.DateTime;
 import eapli.util.io.Console;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -16,18 +19,16 @@ import eapli.util.io.Console;
 public class CreateBookingUI extends AbstractUI {
 
     private final CreateBookingController controller = new CreateBookingController();
-    
-    
-    
+
     @Override
     protected boolean doShow() {
         String dayToBook;
-        do{
-            dayToBook = Console.readLine("Insert the day (YYYY-MM-DD):");
-        }while(validateInputDate(dayToBook));
-        
-        
-        
+        do {
+            dayToBook = Console.readLine("Insert the date (YYYY-MM-DD):");
+        } while (!validateInputDate(dayToBook));
+
+        System.out.println("NOT SUPPORTED YET");
+
         return true;
     }
 
@@ -36,23 +37,31 @@ public class CreateBookingUI extends AbstractUI {
         return "Create Booking";
     }
     
-    public boolean validateInputDate(String dayToBook){
-        int year,month,day;
-        String tokens[]=dayToBook.split("-");
-        if(tokens.length!=3) return false;
-        
-        try{
+
+    public boolean validateInputDate(String dayToBook) {
+        int year, month, day;
+        String tokens[] = dayToBook.split("-");
+        if (tokens.length != 3) {
+            return false;
+        }
+
+        try {
             year = Integer.parseInt(tokens[0]);
             month = Integer.parseInt(tokens[1]);
             day = Integer.parseInt(tokens[2]);
-        }catch(NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             return false;
         }
-        
-        return (year>=0 ) &&
-               (month>0 && month<=12)&&
-               (day>=0 && day <=31 );
-        
+
+        try {
+            Calendar cal = DateTime.newCalendar(year, month, day);
+            cal.setLenient(false);
+            cal.getTime();
+        } catch (Exception e) {
+            System.out.println("Invalid Date!");
+            return false;
+        }
+        return true;
     }
-    
+
 }

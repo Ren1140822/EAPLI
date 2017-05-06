@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
+ * @FIXME javadoc
  * @author Eric Amaral - 1141570@isep.ipp.pt
  * @author Tiago Correia - 1151031@isep.ipp.pt
  */
@@ -19,6 +20,7 @@ public class CashRegister implements AggregateRoot<CashRegisterId>, Serializable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pk;
 
+    //FIXME if this is the bnusiness id it must be unique
     private CashRegisterId id;
     private CashRegisterState state;
 

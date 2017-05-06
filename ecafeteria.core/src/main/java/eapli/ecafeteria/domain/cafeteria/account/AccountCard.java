@@ -9,6 +9,7 @@ import javax.persistence.*;
 /**
  * @TODO why is the AccountCard a separate aggregate? is this justified in the
  * design of the use case?
+ * @FIXME javadoc
  *
  * @author Ivo Ferro 1151159
  * @author Daniel Gonçalves 1151452

@@ -46,8 +46,8 @@ public class RegisterDishController implements Controller {
     private RegisterDishAllergenController ctrlRegDishAllergen;
     public void addAllergensToDish(final Set<Allergen>allergens, Dish dish){
         ctrlRegDishAllergen = new RegisterDishAllergenController();
-        Set<DishAllergen>dishAllergens =  ctrlRegDishAllergen.registerDishAllergens(allergens, dish);
-        dish.addAllergens(dishAllergens);
+        AllergenicInfo allergenicInfo =  ctrlRegDishAllergen.registerDishAllergens(allergens);
+        dish.addAllergenicInfo(allergenicInfo);
     }
 
     public Iterable<DishType> dishTypes() {

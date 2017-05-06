@@ -12,6 +12,7 @@ import java.util.Calendar;
  */
 public interface MealRepository extends DataRepository<Meal, Long> {
     
+    public Iterable<Meal> findByUntilDate(Calendar date);
     public Iterable<Meal> findByDate(Calendar date);
     public Iterable<Meal> findByDateAndMealType(Calendar date, MealType.MealTypes type);
     public Meal findByPk(Long pk);

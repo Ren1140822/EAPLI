@@ -3,10 +3,11 @@ package eapli.ecafeteria.domain.meals;
 import eapli.framework.domain.Designation;
 import eapli.framework.domain.Money;
 import eapli.framework.domain.ddd.AggregateRoot;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.*;
 
 /**
  * A Dish
@@ -30,8 +31,8 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
     private NutricionalInfo nutricionalInfo;
     private Money price;
     private boolean active;
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="dish")
-    private Set<DishAllergen> allergens = new HashSet<>();
+    @OneToOne(cascade = CascadeType.ALL)
+    private AllergenicInfo allergens;
 
     public Dish(final DishType dishType, final Designation name, final NutricionalInfo nutricionalInfo, Money price) {
         if (dishType == null || name == null || nutricionalInfo == null) {
@@ -120,9 +121,11 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
         return this.price;
     }
 
-    public Set<DishAllergen> allergens() { return this.allergens; }
+    public AllergenicInfo allergens() { return this.allergens; }
 
-    public boolean hasAllergens() { return !allergens.isEmpty(); }
+    public boolean hasAllergens() {
+        return allergens != null;
+    }
 
     /**
      *
@@ -168,7 +171,7 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
         this.price = price;
     }
 
-    public void addAllergens(Set<DishAllergen> allergens) {
+    public void addAllergenicInfo(AllergenicInfo allergens) {
         this.allergens=allergens;
     }
 }

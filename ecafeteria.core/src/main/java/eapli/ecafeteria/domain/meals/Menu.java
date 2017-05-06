@@ -5,13 +5,17 @@
  */
 package eapli.ecafeteria.domain.meals;
 
+import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
 import eapli.framework.domain.TimePeriod2;
-
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
 
+/**
+ * @FIXME javadoc
+ * @FIXME is this an entity, a value object or an aggregate?
+ */
 @Entity
 public class Menu implements Serializable {
 
@@ -25,16 +29,20 @@ public class Menu implements Serializable {
     private Set<Meal> meals;
     private boolean published;
 
+    @OneToOne
+    private OrganicUnit organicUnit;
+
     @Embedded
     private TimePeriod2 period;
 
     protected Menu() {
     } //for ORM
 
-    public Menu(TimePeriod2 period) {
-        if(period == null){
+    public Menu(TimePeriod2 period, OrganicUnit organicUnit) {
+        if(period == null || organicUnit == null){
             throw new IllegalStateException();
         }
+        this.organicUnit = organicUnit;
         this.meals = new HashSet<>();
         this.published = true;
         this.period = period;
@@ -56,9 +64,13 @@ public class Menu implements Serializable {
         return meals;
     }
 
+    public OrganicUnit organicUnit(){
+        return organicUnit;
+    }
+
     public boolean toogleState() {
-      this.published=true;
-      return isPublished();
+        this.published = true;
+        return isPublished();
     }
 
     @Override

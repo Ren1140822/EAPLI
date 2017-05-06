@@ -38,8 +38,18 @@ public class JpaBookingRepository extends CafeteriaJpaRepositoryBase<Booking, Lo
 
     @Override
     public Iterable<Booking> checkBookingsByDateMealAndDishType(Date date, MealType mealType, DishType dishType) {
-        //TODO implement the query to get the wanted bookings
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       Map<String, Object> params = new HashMap<>();
+        params.put("date",date);
+        params.put("mealType",mealType);
+        params.put("dishType",dishType);
+        return match("e.meal.mealType=:mealType and e.meal.date=:date and e.meal.dish.dishType=:dishType", params);
+    }
+
+    @Override
+    public Iterable<Booking> allNonEvaluatedBy(CafeteriaUser user) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("user", user);
+        return match("e NOT IN (SELECT m.booking FROM MealEvaluation m WHERE m.booking.user = :user)", params);
     }
 
 }

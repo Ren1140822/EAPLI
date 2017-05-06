@@ -16,6 +16,7 @@ import eapli.ecafeteria.backoffice.consoleapp.presentation.authz.ListUsersAction
 import eapli.ecafeteria.backoffice.consoleapp.presentation.cafeteria.AddOrganicUnitUI;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.cafeteria.OrganicUnitPrinter;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen.ListMaterialAction;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen.RegisterLotsInMealAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen.RegisterMaterialAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen.RegisterPreparedMealsAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.*;
@@ -78,6 +79,7 @@ public class MainMenu extends AbstractUI {
     // MATERIALS
     private static final int MATERIAL_REGISTER_OPTION = 1;
     private static final int MATERIAL_LIST_OPTION = 2;
+    private static final int MATERIAL_USED_REGISTER_OPTION=3;
     
     //MEALS
     private static final int REGISTER_PREPARED_MEALS = 2;
@@ -254,6 +256,7 @@ public class MainMenu extends AbstractUI {
 
         menu.add(new MenuItem(MATERIAL_REGISTER_OPTION, "Register new material", new RegisterMaterialAction()));
         menu.add(new MenuItem(MATERIAL_LIST_OPTION, "List all materials", new ListMaterialAction()));
+        menu.add(new MenuItem(MATERIAL_USED_REGISTER_OPTION, "Register lots used in meal", new RegisterLotsInMealAction()));
 
         menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
 
