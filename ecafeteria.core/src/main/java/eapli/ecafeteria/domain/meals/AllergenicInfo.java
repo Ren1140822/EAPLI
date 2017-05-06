@@ -2,7 +2,9 @@ package eapli.ecafeteria.domain.meals;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -21,9 +23,9 @@ public class AllergenicInfo implements Serializable {
     private Long pk;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private Set<Allergen> allergens = new HashSet<>();
+    private List<Allergen> allergens = new ArrayList<>();
 
-    public AllergenicInfo(Set<Allergen> allergens){
+    public AllergenicInfo(List<Allergen> allergens){
         if(allergens==null || allergens.isEmpty()){
             throw new IllegalStateException();
         }
@@ -31,7 +33,7 @@ public class AllergenicInfo implements Serializable {
     }
 
 
-    public Set<Allergen> allergens(){ return allergens;}
+    public List<Allergen> allergens(){ return allergens;}
 
     protected AllergenicInfo() {
         // for ORM only

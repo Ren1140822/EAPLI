@@ -3,7 +3,9 @@ package eapli.ecafeteria.domain.meals;
 import eapli.framework.domain.Designation;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -11,7 +13,7 @@ import java.util.Set;
  */
 public class AllergenicInfoTest {
 
-    private Set<Allergen>set1 = new HashSet<>();
+    private List<Allergen> set1 = new ArrayList<>();
 
     @Test(expected = IllegalStateException.class)
     public void testAllergenListMustNotBeNull() {
