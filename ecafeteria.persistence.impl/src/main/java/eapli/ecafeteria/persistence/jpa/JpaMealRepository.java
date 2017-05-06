@@ -31,10 +31,10 @@ public class JpaMealRepository extends CafeteriaJpaRepositoryBase<Meal, Long> im
     }
     
     @Override
-    public Iterable<Meal> findByUntilDate(Calendar date) {
+    public Iterable<Meal> findByUntilDateAndWithoutAmountOfMealsPrepared(Calendar date) {
         Map<String, Object> params = new HashMap<>();
         params.put("date", date);
-        return match("e.date<=:date", params);
+        return match("e.date<=:date AND e NOT IN(SELECT m.meal FROM MealsPrepared m)", params);
     }
 
     @Override

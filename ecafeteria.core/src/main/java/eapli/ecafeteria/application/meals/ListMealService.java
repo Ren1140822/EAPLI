@@ -25,13 +25,13 @@ public class ListMealService {
     public Iterable<Meal> listMealsByDate(Calendar date) {
         Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
 
-        return this.mealRepository.findByUntilDate(date);
+        return this.mealRepository.findByDate(date);
     }
     
-    public Iterable<Meal> listMealsByUntilDate(Calendar date) {
+    public Iterable<Meal> listMealsByUntilDateAndWithoutAmountOfMealsPrepared(Calendar date) {
         Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
 
-        return this.mealRepository.findByUntilDate(date);
+        return this.mealRepository.findByUntilDateAndWithoutAmountOfMealsPrepared(date);
     }
     
     public Iterable<Meal> listMealsByDateAndMealType(Calendar date, MealType.MealTypes type) {
