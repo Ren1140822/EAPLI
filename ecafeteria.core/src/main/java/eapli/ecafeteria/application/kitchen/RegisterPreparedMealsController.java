@@ -10,7 +10,6 @@ import eapli.ecafeteria.application.meals.ListMealService;
 import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.ecafeteria.domain.kitchen.MealsPrepared;
 import eapli.ecafeteria.domain.meals.Meal;
-import eapli.ecafeteria.domain.meals.MealType;
 import eapli.ecafeteria.persistence.MealsPreparedRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.framework.application.Controller;
@@ -34,8 +33,8 @@ public class RegisterPreparedMealsController implements Controller {
         //TODO check DateTime class in util library
         // today
         Calendar date = DateTime.now();
-        return this.listMealsSvc.listMealsByUntilDate(date);
-        }
+        return this.listMealsSvc.listMealsByUntilDateAndWithoutAmountOfMealsPrepared(date);
+    }
 
     public MealsPrepared registerQuantityOfPreparedMeals(Meal meal, int quantity) throws DataConcurrencyException, DataIntegrityViolationException {
         Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);

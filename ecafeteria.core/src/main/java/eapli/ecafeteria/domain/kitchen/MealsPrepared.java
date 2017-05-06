@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package eapli.ecafeteria.domain.kitchen;
 
 import eapli.ecafeteria.domain.meals.Meal;
@@ -15,7 +10,8 @@ import javax.persistence.Version;
 /**
  * @TODO why is this an aggregate? are the decisions registered in the design of
  * the use case?
- * @FIXME javadoc
+ * 
+ * The quantity of meals prepared from a Meal.
  *
  * @author Diogo Santos [1150451@isep.ipp.pt] Sofia Silva [1150690@isep.ipp.pt]
  */
@@ -30,9 +26,11 @@ public class MealsPrepared implements AggregateRoot<Meal> {
     private Long version;
 
     private Meal meal;
-
     private int quantity;
 
+    /**
+     * Protect Construtor for ORM
+     */
     protected MealsPrepared() {
         // for ORM
     }
@@ -54,6 +52,9 @@ public class MealsPrepared implements AggregateRoot<Meal> {
         this.meal = meal;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean sameAs(Object other) {
         if (!(other instanceof MealsPrepared)) {
@@ -70,11 +71,17 @@ public class MealsPrepared implements AggregateRoot<Meal> {
         return this.quantity == that.quantity;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean is(Meal id) {
         return this.meal.equals(id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Meal id() {
         return this.meal;

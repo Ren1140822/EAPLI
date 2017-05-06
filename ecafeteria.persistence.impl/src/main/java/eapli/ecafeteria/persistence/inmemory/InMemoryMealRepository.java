@@ -29,7 +29,7 @@ public class InMemoryMealRepository extends InMemoryRepositoryWithLongPK<Meal> i
     }
     
     @Override
-    public Iterable<Meal> findByUntilDate(Calendar date) {
+    public Iterable<Meal> findByUntilDateAndWithoutAmountOfMealsPrepared(Calendar date) {
         return match(e -> e.getDate().compareTo(date) <= 0);
     }
 
