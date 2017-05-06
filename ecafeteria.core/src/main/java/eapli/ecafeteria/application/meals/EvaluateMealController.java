@@ -34,7 +34,7 @@ public class EvaluateMealController implements Controller {
     private final ListBookingsService svc = new ListBookingsService();
     private final MealEvaluationRepository mealEvaluationRepository = PersistenceContext.repositories().mealEvaluations();
     private final CafeteriaUserRepository userRepository = PersistenceContext.repositories().cafeteriaUsers(null);
-    private final BookingRepository bookingRepository = PersistenceContext.repositories().bookings();
+    private final BookingRepository bookingRepository = PersistenceContext.repositories().bookings(null);
 
     /*
     public Iterable<Booking> listDeliveredBookings() {

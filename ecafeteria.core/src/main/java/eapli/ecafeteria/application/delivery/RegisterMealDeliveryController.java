@@ -20,7 +20,7 @@ import java.util.LinkedList;
  */
 public class RegisterMealDeliveryController implements Controller {
 
-    private final BookingRepository bookingRepo = PersistenceContext.repositories().bookings();
+    private final BookingRepository bookingRepo = PersistenceContext.repositories().bookings(null);
 
     private final CafeteriaUserRepository userRepo = PersistenceContext.repositories().cafeteriaUsers(null);
     //TODO preferably, controllers should not have state

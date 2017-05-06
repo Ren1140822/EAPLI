@@ -30,11 +30,8 @@ public class CancelBookingController implements Controller {
     private final CafeteriaUserService usersService = new CafeteriaUserService();
     private final ListBookingsService bookingsService = new ListBookingsService();
     private final TransactionalContext txCtx = PersistenceContext.repositories().buildTransactionalContext();
-    //TODO
-    //@author Meireles
-    // These repositories should not handle the Transactional Context by themselves.
-    private final BookingRepository bookingsRepository = PersistenceContext.repositories().bookings();
-    private final TransactionRepository transactionsRepository = PersistenceContext.repositories().transactions();
+    private final BookingRepository bookingsRepository = PersistenceContext.repositories().bookings(txCtx);
+    private final TransactionRepository transactionsRepository = PersistenceContext.repositories().transactions(txCtx);
 
     /**
      * It provides all cancelable bookings of the current system user.
@@ -58,9 +55,6 @@ public class CancelBookingController implements Controller {
     public void cancel(Booking booking) throws DataConcurrencyException, DataIntegrityViolationException {
         Application.ensurePermissionOfLoggedInUser(ActionRight.SELECT_MEAL);
         Refund refund = booking.cancel();
-        //FIXME
-        //@author Meireles
-        // The current repositories have their own transactional context.
         txCtx.beginTransaction();
         bookingsRepository.save(booking);
         //FIXME

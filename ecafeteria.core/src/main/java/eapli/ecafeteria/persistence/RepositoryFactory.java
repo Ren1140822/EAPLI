@@ -58,9 +58,9 @@ public interface RepositoryFactory {
 
     AccountCardRepository accountCards();
 
-    TransactionRepository transactions();
+    TransactionRepository transactions(TransactionalContext autoTx);
     
-    BookingRepository bookings();
+    BookingRepository bookings(TransactionalContext autoTx);
 
     MealRepository meals();
     

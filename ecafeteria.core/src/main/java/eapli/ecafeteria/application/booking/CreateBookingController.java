@@ -31,7 +31,7 @@ public class CreateBookingController {
 
     private final CafeteriaUserRepository cafuserRepository = PersistenceContext.repositories().cafeteriaUsers(TxCtx);
     private final MenuRepository menuRepository = PersistenceContext.repositories().menus();
-    private final BookingRepository bookingRepository = PersistenceContext.repositories().bookings();
+    private final BookingRepository bookingRepository = PersistenceContext.repositories().bookings(null);
 
     public List<Meal> menusOfDay(Calendar day) {
         /*List<Meal> mealsOfDay = new LinkedList<>();

@@ -95,7 +95,7 @@ public class BookingBootstraper implements Action {
      * It registers a booking at a certain state.
      */
     private void register(CafeteriaUser user, Meal meal, BookingState state) {
-        final BookingRepository bookings = PersistenceContext.repositories().bookings();
+        final BookingRepository bookings = PersistenceContext.repositories().bookings(null);
         try {
             Booking b = theBookingController.registerBooking(user, meal);
             changeToState(b, state);
