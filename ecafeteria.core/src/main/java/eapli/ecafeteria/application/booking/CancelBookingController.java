@@ -57,10 +57,7 @@ public class CancelBookingController implements Controller {
         Refund refund = booking.cancel();
         txCtx.beginTransaction();
         bookingsRepository.save(booking);
-        //FIXME
-        //@author Meireles
-        // The Transaction PK is null and launches a NullPointerException on save (Transaction, hashCode).
-//        transactionsRepository.save(refund);
+        transactionsRepository.save(refund);
         txCtx.commit();
     }
 }

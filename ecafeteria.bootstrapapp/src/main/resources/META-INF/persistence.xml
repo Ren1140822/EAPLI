@@ -22,6 +22,7 @@
     <class>eapli.ecafeteria.domain.meals.MealEvaluation</class>
     <class>eapli.ecafeteria.domain.cafeteria.account.Transaction</class>
     <class>eapli.ecafeteria.domain.cafeteria.account.TopUp</class>
+    <class>eapli.ecafeteria.domain.cafeteria.account.Refund</class>
     <class>eapli.ecafeteria.domain.cafeteria.account.AccountCard</class>
     <class>eapli.ecafeteria.domain.kitchen.MaterialUsed</class>
     <properties>
