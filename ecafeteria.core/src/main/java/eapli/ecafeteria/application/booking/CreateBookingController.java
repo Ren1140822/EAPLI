@@ -10,6 +10,8 @@ import eapli.ecafeteria.domain.booking.Booking;
 import eapli.ecafeteria.domain.booking.BookingState;
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.ecafeteria.domain.meals.Meal;
+import eapli.ecafeteria.domain.meals.MealType;
+import eapli.ecafeteria.domain.meals.Menu;
 import eapli.ecafeteria.persistence.*;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
@@ -18,6 +20,7 @@ import eapli.util.DateTime;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -25,7 +28,7 @@ import java.util.List;
  * @author PC
  */
 public class CreateBookingController {
-
+    
     private final TransactionalContext TxCtx
             = PersistenceContext.repositories().buildTransactionalContext();
 
@@ -34,15 +37,25 @@ public class CreateBookingController {
     private final BookingRepository bookingRepository = PersistenceContext.repositories().bookings(null);
 
     public List<Meal> menusOfDay(Calendar day) {
-        /*List<Meal> mealsOfDay = new LinkedList<>();
-        Iterable<Menu> menus = menuRepository.publishedMenusOfDay(day);
+        List<Meal> mealsOfDay = new LinkedList<>();
+        CafeteriaUser user = cafuserRepository.findByUsername(Application.session().session().authenticatedUser().id());
+        Iterable<Menu> menus = menuRepository.publishedMenusOfDay(day,user);
+        Calendar cal = Calendar.getInstance();
         for(Menu m: menus){
-            if( (m.getMenuEntry().timePeriod().start().before(day) || m.menuEntry().timePeriod().start().equals(day))
-                    && (m.menuEntry().timePeriod().end().after(day) || m.menuEntry().timePeriod().start().equals(day) )){
-                mealsOfDay.add(new Meal(m.menuEntry().dish(), m.menuEntry().mealType(), new TimePeriod2(day,day)));
+            for (Meal meal : m.getMeals()) {
+                Calendar mealDate = meal.getDate();
+                if(mealDate.get(Calendar.DAY_OF_MONTH)==cal.get(Calendar.DAY_OF_MONTH)
+                   && mealDate.get(Calendar.YEAR)==cal.get(Calendar.YEAR)
+                   && mealDate.get(Calendar.MONTH)==cal.get(Calendar.MONTH)){
+                    if(cal.get(Calendar.HOUR_OF_DAY)<meal.mealType().freeBookingCancellationTimeLimit().get(Calendar.HOUR_OF_DAY)){
+                        mealsOfDay.add(meal);
+                    }
+                }else{
+                    mealsOfDay.add(meal);
+                }
             }
-        }*/
-        throw new UnsupportedOperationException("Not Implemented Yet");
+        }
+        return mealsOfDay;
     }
 
     public void book(Meal meal) throws DataConcurrencyException, DataIntegrityViolationException {
@@ -58,13 +71,13 @@ public class CreateBookingController {
         return bookingRepository.save(b);
     }
     
-    public Date transformDate(String dayToBook){
+    public Calendar transformDate(String dayToBook){
         int year, month, day;
         String tokens[] = dayToBook.split("-");
         year = Integer.parseInt(tokens[0]);
         month = Integer.parseInt(tokens[1]);
         day = Integer.parseInt(tokens[2]);
-        return DateTime.newCalendar(year, month, day).getTime();
+        return DateTime.newCalendar(year, month, day);
     }
 
 }

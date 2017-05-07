@@ -6,10 +6,14 @@
 package eapli.ecafeteria.user.consoleapp.presentation.booking;
 
 import eapli.ecafeteria.application.booking.CreateBookingController;
+import eapli.ecafeteria.domain.meals.Meal;
+import eapli.ecafeteria.persistence.MenuRepository;
+import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.util.DateTime;
 import eapli.util.io.Console;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  *
@@ -18,6 +22,7 @@ import java.util.Calendar;
 public class CreateBookingUI extends AbstractUI {
 
     private final CreateBookingController controller = new CreateBookingController();
+    private final MenuRepository menuRepository = PersistenceContext.repositories().menus();
 
     @Override
     protected boolean doShow() {
@@ -25,6 +30,15 @@ public class CreateBookingUI extends AbstractUI {
         do {
             dayToBook = Console.readLine("Insert the date (YYYY-MM-DD):");
         } while (!validateInputDate(dayToBook));
+        
+        List<Meal> meals = controller.menusOfDay(controller.transformDate(dayToBook));
+        
+        for (Meal meal : meals) {
+            System.out.println(meal.dish().dishType().acronym());
+            System.out.println(meal.mealType().mealType());
+        }
+        
+
 
         return true;
     }
