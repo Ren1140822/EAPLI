@@ -36,7 +36,7 @@ public class CreateBookingUI extends AbstractUI {
         do {
             dayToBook = Console.readLine("Insert the date (YYYY-MM-DD):");
         } while (!validateInputDate(dayToBook));
-
+        System.out.println("");
         List<Meal> meals = controller.menusOfDay(controller.transformDate(dayToBook));
         Meal choosedMeal;
         SelectWidget<Meal> selector = new SelectWidget<>("Meals:", meals, new MealPrinter());

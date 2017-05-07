@@ -44,6 +44,7 @@ public class Booking implements Serializable {
         if (user == null || meal == null) {
             throw new IllegalStateException();
         }
+        
         this.user = user;
         this.meal = meal;
         this.state = BookingState.DONE;
@@ -88,9 +89,9 @@ public class Booking implements Serializable {
     }
 
     /**
-     * It makes the booking definitive by changing it state from "Done" to "Definitive".
-     * A booking is considered to be definitive when the shift of the matching meal
-     * is opened without it being canceled.
+     * It makes the booking definitive by changing it state from "Done" to
+     * "Definitive". A booking is considered to be definitive when the shift of
+     * the matching meal is opened without it being canceled.
      */
     public void makeDefinitive() {
         //TODO
@@ -144,4 +145,15 @@ public class Booking implements Serializable {
         return this.state;
     }
 
+//    public void validateBookingDate(Meal meal) {
+//        Calendar cal = Calendar.getInstance();
+//        Calendar mealDate = meal.getDate();
+//        if (mealDate.get(Calendar.DAY_OF_MONTH) == cal.get(Calendar.DAY_OF_MONTH)
+//                && mealDate.get(Calendar.YEAR) == cal.get(Calendar.YEAR)
+//                && mealDate.get(Calendar.MONTH) == cal.get(Calendar.MONTH)) {
+//            if (cal.get(Calendar.HOUR_OF_DAY) > meal.mealType().freeBookingCancellationTimeLimit().get(Calendar.HOUR_OF_DAY)) {
+//                throw new IllegalStateException();
+//            }
+//        }
+//    }
 }
