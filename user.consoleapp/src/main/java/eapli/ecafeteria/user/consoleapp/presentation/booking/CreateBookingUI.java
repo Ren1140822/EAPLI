@@ -9,11 +9,17 @@ import eapli.ecafeteria.application.booking.CreateBookingController;
 import eapli.ecafeteria.domain.meals.Meal;
 import eapli.ecafeteria.persistence.MenuRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
+import eapli.ecafeteria.user.consoleapp.presentation.meals.MealPrinter;
+import eapli.framework.persistence.DataConcurrencyException;
+import eapli.framework.persistence.DataIntegrityViolationException;
 import eapli.framework.presentation.console.AbstractUI;
+import eapli.framework.presentation.console.SelectWidget;
 import eapli.util.DateTime;
 import eapli.util.io.Console;
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -30,16 +36,23 @@ public class CreateBookingUI extends AbstractUI {
         do {
             dayToBook = Console.readLine("Insert the date (YYYY-MM-DD):");
         } while (!validateInputDate(dayToBook));
-        
+
         List<Meal> meals = controller.menusOfDay(controller.transformDate(dayToBook));
-        
-        for (Meal meal : meals) {
-            System.out.println(meal.dish().dishType().acronym());
-            System.out.println(meal.mealType().mealType());
+        Meal choosedMeal;
+        SelectWidget<Meal> selector = new SelectWidget<>("Meals:", meals, new MealPrinter());
+        selector.show();
+        choosedMeal = selector.selectedElement();
+        if(choosedMeal==null) return true;
+        try {
+            controller.book(choosedMeal);
+        } catch (DataConcurrencyException ex) {
+             System.out.println("The meal has suffered some changes and it was not possible to book. Please try again.");
+        } catch (DataIntegrityViolationException ex) {
+            Logger.getLogger(CreateBookingUI.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-
-
+        System.out.println("");
+        System.out.println("Meal booked!");
+        System.out.println("");
         return true;
     }
 
@@ -47,7 +60,6 @@ public class CreateBookingUI extends AbstractUI {
     public String headline() {
         return "Create Booking";
     }
-    
 
     public boolean validateInputDate(String dayToBook) {
         int year, month, day;
