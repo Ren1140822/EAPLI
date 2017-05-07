@@ -10,7 +10,6 @@ import eapli.framework.presentation.console.AbstractUI;
 import eapli.util.DateTime;
 import eapli.util.io.Console;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  *
@@ -26,8 +25,6 @@ public class CreateBookingUI extends AbstractUI {
         do {
             dayToBook = Console.readLine("Insert the date (YYYY-MM-DD):");
         } while (!validateInputDate(dayToBook));
-
-        System.out.println("NOT SUPPORTED YET");
 
         return true;
     }
