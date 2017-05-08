@@ -8,8 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.Version;
 
 /**
- * @TODO why is this an aggregate? are the decisions registered in the design of
- * the use case?
  * 
  * The quantity of meals prepared from a Meal.
  *

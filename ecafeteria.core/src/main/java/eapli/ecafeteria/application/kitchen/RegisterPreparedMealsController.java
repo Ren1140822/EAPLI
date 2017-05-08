@@ -27,11 +27,11 @@ public class RegisterPreparedMealsController implements Controller {
     private final MealsPreparedRepository repository = PersistenceContext.repositories().mealsPrepared();
     private final ListMealService listMealsSvc = new ListMealService();
 
+    /*
+     * Finds the meals without the quantity of preparation and until this day.
+     * @return 
+     */
     public Iterable<Meal> findMeals() {
-
-        //FIXME controllers must not have business logic
-        //TODO check DateTime class in util library
-        // today
         Calendar date = DateTime.now();
         return this.listMealsSvc.listMealsByUntilDateAndWithoutAmountOfMealsPrepared(date);
     }

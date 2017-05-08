@@ -15,29 +15,28 @@ import eapli.ecafeteria.persistence.PersistenceContext;
 import java.util.Calendar;
 
 /**
- *
- * @author Sofia Silva
+ * an application service to avoid code duplication.
  */
 public class ListMealService {
-    
+
     private final MealRepository mealRepository = PersistenceContext.repositories().meals();
-    
+
     public Iterable<Meal> listMealsByDate(Calendar date) {
         Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
 
         return this.mealRepository.findByDate(date);
     }
-    
+
     public Iterable<Meal> listMealsByUntilDateAndWithoutAmountOfMealsPrepared(Calendar date) {
         Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
 
         return this.mealRepository.findByUntilDateAndWithoutAmountOfMealsPrepared(date);
     }
-    
+
     public Iterable<Meal> listMealsByDateAndMealType(Calendar date, MealType.MealTypes type) {
         Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
 
         return this.mealRepository.findByDateAndMealType(date, type);
     }
-    
+
 }
