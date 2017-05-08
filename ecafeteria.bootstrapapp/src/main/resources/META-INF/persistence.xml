@@ -25,6 +25,7 @@
     <class>eapli.ecafeteria.domain.cafeteria.account.Refund</class>
     <class>eapli.ecafeteria.domain.cafeteria.account.AccountCard</class>
     <class>eapli.ecafeteria.domain.kitchen.MaterialUsed</class>
+     <class>eapli.ecafeteria.domain.cafeteria.cashregister.CashRegister</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/db/ecafeteria"/>
       <property name="javax.persistence.jdbc.user" value="sa"/>
