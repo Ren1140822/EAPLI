@@ -100,9 +100,14 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     public MaterialUsedRepository materialUsed() {
         return new InMemoryMaterialUsedRepository();
     }
-    
+
     @Override
     public CashRegisterRepository cashRegisters() {
         return new InMemoryCashRegisterRepository();
+    }
+
+    @Override
+    public ShiftRepository shifts() {
+        return new InMemoryShiftRepository();
     }
 }

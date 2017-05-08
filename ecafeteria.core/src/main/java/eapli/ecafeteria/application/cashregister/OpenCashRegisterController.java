@@ -5,6 +5,7 @@ import eapli.ecafeteria.domain.cafeteria.cashregister.CashRegisterId;
 import eapli.ecafeteria.domain.meals.MealType;
 import eapli.ecafeteria.persistence.CashRegisterRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
+import eapli.ecafeteria.persistence.ShiftRepository;
 import eapli.framework.application.Controller;
 import java.util.Calendar;
 
@@ -15,10 +16,10 @@ import java.util.Calendar;
 public class OpenCashRegisterController implements Controller {
 
     private final CashRegisterRepository cashRegisterRepository = PersistenceContext.repositories().cashRegisters();
-    //TODO: private final ShiftRepository shiftRepository = PersistenceContext.repositories().shifts();
+    private final ShiftRepository shiftRepository = PersistenceContext.repositories().shifts();
 
     public void openCashRegister(CashRegisterId cashRegisterId, MealType mealType, Calendar date) {
-        //TODO: Shift shift = shiftRepository.findByDateAndMealType(mealType, date);
+        //TODO Shift shift = shiftRepository.findByDateAndMealType(date, mealType);
         CashRegister cashRegister = cashRegisterRepository.findByCashRegisterId(cashRegisterId);
         cashRegister.open();
     }

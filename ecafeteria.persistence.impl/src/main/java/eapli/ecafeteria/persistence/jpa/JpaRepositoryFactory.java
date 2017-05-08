@@ -100,4 +100,9 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     public MaterialUsedRepository materialUsed() {
         return new JpaMaterialUsedRepository();
     }
+
+    @Override
+    public ShiftRepository shifts() {
+        return new JpaShiftRepository();
+    }
 }
