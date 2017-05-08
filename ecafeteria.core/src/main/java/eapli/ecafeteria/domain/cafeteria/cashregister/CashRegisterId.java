@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Embeddable;
 
 /**
+ * @FIXME javadoc
  * @author Eric Amaral - 1141570@isep.ipp.pt
  * @author Tiago Correia - 1151031@isep.ipp.pt
  */
@@ -20,6 +21,7 @@ public class CashRegisterId implements ValueObject, Serializable {
     }
 
     public CashRegisterId(String identifier) {
+        //TODO is an empty string allowed?
         if (identifier == null) {
             throw new IllegalArgumentException("Identifier must be defined");
         }

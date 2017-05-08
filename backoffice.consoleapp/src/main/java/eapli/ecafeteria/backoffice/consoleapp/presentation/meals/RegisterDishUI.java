@@ -3,7 +3,6 @@ package eapli.ecafeteria.backoffice.consoleapp.presentation.meals;
 import eapli.ecafeteria.application.meals.RegisterDishController;
 import eapli.ecafeteria.domain.meals.Allergen;
 import eapli.ecafeteria.domain.meals.Dish;
-import eapli.ecafeteria.domain.meals.DishAllergen;
 import eapli.ecafeteria.domain.meals.DishType;
 import eapli.framework.application.Controller;
 import eapli.framework.persistence.DataConcurrencyException;
@@ -55,8 +54,8 @@ public class RegisterDishUI extends AbstractUI {
 
         if(hasAllergens){
             boolean stop = false;
-            Collection<Allergen> allergens = (Collection<Allergen>) theController.getAllergens();
-            Set<Allergen> allergensToAdd = new HashSet<>();
+            List<Allergen> allergens = (List<Allergen>) theController.getAllergens();
+            List<Allergen> allergensToAdd = new ArrayList<>();
             ListAllergenUI listAllergens = new ListAllergenUI();
             System.out.println("Select allergens contained in the new dish\n");
             listAllergens.show();
@@ -87,8 +86,12 @@ public class RegisterDishUI extends AbstractUI {
                 System.out.println("Insert another index to add or type -1 to finish\n");
             }while(!stop);
             if(!allergensToAdd.isEmpty()) {
-                theController.addAllergensToDish(allergensToAdd, createdDish);
-                System.out.println("Allergens added to dish\n");
+                try {
+                    theController.addAllergensToDish(allergensToAdd, createdDish);
+                    System.out.println("Allergens added to dish\n");
+                } catch (final DataIntegrityViolationException | DataConcurrencyException e) {
+                        System.out.println("You tried to enter a dish which already exists in the database.");
+                    }
             }
         }
         return false;

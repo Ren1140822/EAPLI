@@ -10,6 +10,8 @@ import eapli.ecafeteria.persistence.BookingRepository;
 import eapli.ecafeteria.persistence.CafeteriaUserRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.framework.application.Controller;
+import eapli.framework.persistence.DataConcurrencyException;
+import eapli.framework.persistence.DataIntegrityViolationException;
 import java.util.LinkedList;
 
 /**
@@ -18,9 +20,10 @@ import java.util.LinkedList;
  */
 public class RegisterMealDeliveryController implements Controller {
 
-    private final BookingRepository bookingRepo = PersistenceContext.repositories().bookings();
+    private final BookingRepository bookingRepo = PersistenceContext.repositories().bookings(null);
 
     private final CafeteriaUserRepository userRepo = PersistenceContext.repositories().cafeteriaUsers(null);
+    //TODO preferably, controllers should not have state
     private final CafeteriaUser user;
 
     public RegisterMealDeliveryController(String mecanographicNumberString) {
@@ -34,18 +37,22 @@ public class RegisterMealDeliveryController implements Controller {
     /**
      * Registers the last meal that this user booked.
      *
+     * @FIXME which use case does this method correspond?
      * @return true if meal delivery was registered
      */
     public boolean registerMealDelivery() {
 
+        //FIXME controllers must not have business logic
         ListBookingsService bookingsService = new ListBookingsService();
         LinkedList<Booking> bookingList = new LinkedList<>();
         bookingsService.findBookingsStateDefinitiveOf(user).iterator().forEachRemaining(bookingList::add);
         if (!bookingList.isEmpty()) {
             Booking tempBooking = bookingList.getLast();
             try {
+            
                 tempBooking.deliver();
-            } catch (IllegalStateException ex) {
+                bookingRepo.save(tempBooking);
+            } catch (IllegalStateException |DataConcurrencyException | DataIntegrityViolationException ex) {
                 return false;
             }
 
@@ -53,6 +60,8 @@ public class RegisterMealDeliveryController implements Controller {
         }
         return false;
     }
+    
+    
 
     /**
      * Registers a specific meal of this user
@@ -63,6 +72,7 @@ public class RegisterMealDeliveryController implements Controller {
     public boolean registerMealDelivery(Meal meal) {
         Booking tempBooking = bookingRepo.findBookingByUserAndMealAndState(user, meal, BookingState.DEFINITIVE);
         tempBooking.deliver();
+        //TODO is a call to persistence missing here?
         return true;
     }
 

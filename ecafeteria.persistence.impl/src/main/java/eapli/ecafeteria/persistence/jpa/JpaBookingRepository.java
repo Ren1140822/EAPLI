@@ -5,6 +5,7 @@
  */
 package eapli.ecafeteria.persistence.jpa;
 
+import eapli.ecafeteria.Application;
 import eapli.ecafeteria.domain.booking.Booking;
 import eapli.ecafeteria.domain.booking.BookingState;
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
@@ -12,6 +13,8 @@ import eapli.ecafeteria.domain.meals.DishType;
 import eapli.ecafeteria.domain.meals.Meal;
 import eapli.ecafeteria.domain.meals.MealType;
 import eapli.ecafeteria.persistence.BookingRepository;
+import eapli.framework.persistence.repositories.TransactionalContext;
+import eapli.framework.persistence.repositories.impl.jpa.JpaAutoTxRepository;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,26 +23,40 @@ import java.util.Map;
  *
  * @author Miguel Silva - 1150901
  */
-public class JpaBookingRepository extends CafeteriaJpaRepositoryBase<Booking, Long>
+public class JpaBookingRepository extends JpaAutoTxRepository<Booking, Long>
         implements BookingRepository {
+
+    public JpaBookingRepository(TransactionalContext autoTx) {
+	super(Application.settings().getPersistenceUnitName(), autoTx);
+    }
 
     @Override
     public Iterable<Booking> findBookingByUserAndState(CafeteriaUser user, BookingState state) {
         Map<String, Object> params = new HashMap<>();
         params.put("user", user);
         params.put("state", state);
-        return match("e.user=:user and e.state=:state", params);
+        return repo.match("e.user=:user and e.state=:state", params);
     }
 
     @Override
     public Booking findBookingByUserAndMealAndState(CafeteriaUser user, Meal meal, BookingState state) {
-        return matchOne("e.user=:" + user + " and e.meal=:" + meal + " and e.state=:" + state);
+        return repo.matchOne("e.user=:" + user + " and e.meal=:" + meal + " and e.state=:" + state);
     }
 
     @Override
     public Iterable<Booking> checkBookingsByDateMealAndDishType(Date date, MealType mealType, DishType dishType) {
-        //TODO implement the query to get the wanted bookings
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       Map<String, Object> params = new HashMap<>();
+        params.put("date",date);
+        params.put("mealType",mealType);
+        params.put("dishType",dishType);
+        return repo.match("e.meal.mealType=:mealType and e.meal.date=:date and e.meal.dish.dishType=:dishType", params);
+    }
+
+    @Override
+    public Iterable<Booking> allNonEvaluatedBy(CafeteriaUser user) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("user", user);
+        return repo.match("e NOT IN (SELECT m.booking FROM MealEvaluation m WHERE m.booking.user = :user)", params);
     }
 
 }

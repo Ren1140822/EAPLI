@@ -5,6 +5,7 @@
  */
 package eapli.ecafeteria.persistence;
 
+import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.ecafeteria.domain.meals.Menu;
 import eapli.framework.persistence.repositories.DataRepository;
 
@@ -19,5 +20,5 @@ public interface MenuRepository extends DataRepository<Menu, Long> {
     public Menu findByPk(Long pk);
     public Iterable<Menu> publishedMenu();
     public Iterable<Menu> notPublishedMenu();
-    /*public Iterable<Menu> publishedMenusOfDay(Calendar day);*/
+    public Iterable<Menu> publishedMenusOfDay(Calendar day,CafeteriaUser user);
 }

@@ -12,6 +12,7 @@ import javax.persistence.Embeddable;
 
 /**
  *
+ * @FIXME javadoc
  * @author Pedro Fernandes (1060503@isep.ipp.pt) Diana Silva
  * (1151088@isep.ipp.pt)
  */

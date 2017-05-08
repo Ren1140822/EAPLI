@@ -11,7 +11,7 @@ import eapli.framework.domain.Money;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  *
@@ -44,10 +44,11 @@ public class RegisterDishController implements Controller {
     }
 
     private RegisterDishAllergenController ctrlRegDishAllergen;
-    public void addAllergensToDish(final Set<Allergen>allergens, Dish dish){
+    public void addAllergensToDish(final List<Allergen> allergens, Dish dish) throws DataConcurrencyException, DataIntegrityViolationException {
         ctrlRegDishAllergen = new RegisterDishAllergenController();
-        Set<DishAllergen>dishAllergens =  ctrlRegDishAllergen.registerDishAllergens(allergens, dish);
-        dish.addAllergens(dishAllergens);
+        AllergenicInfo allergenicInfo =  ctrlRegDishAllergen.registerDishAllergens(allergens);
+        dish.addAllergenicInfo(allergenicInfo);
+        this.dishRepository.save(dish);
     }
 
     public Iterable<DishType> dishTypes() {

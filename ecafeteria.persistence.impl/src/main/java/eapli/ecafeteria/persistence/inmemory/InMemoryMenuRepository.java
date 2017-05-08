@@ -5,9 +5,11 @@
  */
 package eapli.ecafeteria.persistence.inmemory;
 
+import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.ecafeteria.domain.meals.*;
 import eapli.ecafeteria.persistence.MenuRepository;
 import eapli.framework.persistence.repositories.impl.inmemory.InMemoryRepositoryWithLongPK;
+import java.util.Calendar;
 
 /**
  *
@@ -28,6 +30,11 @@ public class InMemoryMenuRepository extends InMemoryRepositoryWithLongPK<Menu> i
     @Override
     public Iterable<Menu> notPublishedMenu() {
         return match(e->!e.isPublished());
+    }
+
+    @Override
+    public Iterable<Menu> publishedMenusOfDay(Calendar day, CafeteriaUser user) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

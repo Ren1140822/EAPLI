@@ -10,6 +10,7 @@ import eapli.cafeteria.consoleapp.presentation.MyUserMenu;
 import eapli.ecafeteria.application.CafeteriaUserBaseController;
 import eapli.ecafeteria.user.consoleapp.presentation.meals.EvaluateMealAction;
 import eapli.ecafeteria.user.consoleapp.presentation.booking.CancelBookingAction;
+import eapli.ecafeteria.user.consoleapp.presentation.booking.CreateBookingAction;
 import eapli.framework.actions.ReturnAction;
 import eapli.framework.presentation.console.Menu;
 import eapli.framework.presentation.console.MenuItem;
@@ -39,8 +40,7 @@ class MainMenu extends CafeteriaUserBaseUI {
     private static final int CANCEL_BOOKINGS_OPTION = 3;
 
     //EVALUATE MEAL
-    private static final int LIST_BOOKING = 1;
-    private static final int CHOOSE_BOOKING_TO_EVALUATE = 2;
+    private static final int CHOOSE_BOOKING_TO_EVALUATE = 1;
 
     // ACCOUNT MENU
     private static final int LIST_MOVEMENTS_OPTION = 1;
@@ -56,9 +56,13 @@ class MainMenu extends CafeteriaUserBaseUI {
      */
     @Override
     public boolean doShow() {
-        final Menu menu = buildMainMenu();
-        final MenuRenderer renderer = new VerticalMenuRenderer(menu);
-        return renderer.show();
+        boolean wantsToExit = false;
+        do {
+            final Menu menu = buildMainMenu();
+            final MenuRenderer renderer = new VerticalMenuRenderer(menu);
+            wantsToExit = renderer.show();
+        } while (!wantsToExit);
+        return wantsToExit;
     }
 
     private Menu buildMainMenu() {
@@ -100,7 +104,7 @@ class MainMenu extends CafeteriaUserBaseUI {
     private Menu buildBookingsMenu() {
         final Menu menu = new Menu("Bookings");
         menu.add(new MenuItem(LIST_MENUS_OPTION, "List menus", new ShowMessageAction("Not implemented yet")));
-        menu.add(new MenuItem(BOOK_A_MEAL_OPTION, "Book a meal", new ShowMessageAction("Not implemented yet")));
+        menu.add(new MenuItem(BOOK_A_MEAL_OPTION, "Book a meal", new CreateBookingAction()));
         menu.add(new MenuItem(CANCEL_BOOKINGS_OPTION, "Cancel Booking", new CancelBookingAction()));
         menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
         return menu;
@@ -108,7 +112,6 @@ class MainMenu extends CafeteriaUserBaseUI {
 
     private Menu buildEvaluateMealMenu() {
         final Menu menu = new Menu("Evaluate Meal");
-        menu.add(new MenuItem(LIST_BOOKING, "List booked meals", new ShowMessageAction("Not implemented yet")));
         menu.add(new MenuItem(CHOOSE_BOOKING_TO_EVALUATE, "Choose meal to evaluate", new EvaluateMealAction()));
         menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
         return menu;

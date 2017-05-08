@@ -29,10 +29,17 @@ public class JpaMealRepository extends CafeteriaJpaRepositoryBase<Meal, Long> im
         params.put("date", date);
         return match("e.date=:date", params);
     }
+    
+    @Override
+    public Iterable<Meal> findByUntilDateAndWithoutAmountOfMealsPrepared(Calendar date) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("date", date);
+        return match("e.date<=:date AND e NOT IN(SELECT m.meal FROM MealsPrepared m)", params);
+    }
 
     @Override
     public Iterable<Meal> findByDateAndMealType(Calendar date, MealType.MealTypes type) {
-         Map<String, Object> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>();
         params.put("date", date);
         params.put("type", type);
         return match("e.date=:date and e.mealType=:type", params);

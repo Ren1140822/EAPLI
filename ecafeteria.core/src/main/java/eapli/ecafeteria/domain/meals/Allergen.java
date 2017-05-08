@@ -5,6 +5,10 @@ import eapli.framework.domain.ddd.AggregateRoot;
 import java.io.Serializable;
 import javax.persistence.*;
 
+/**
+ * @FIXME javadoc
+ *
+ */
 @Entity
 public class Allergen implements AggregateRoot<Designation>, Serializable {
 

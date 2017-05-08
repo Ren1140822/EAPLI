@@ -57,8 +57,8 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     }
 
     @Override
-    public TransactionRepository transactions() {
-        return new JpaTransactionRepository();
+    public TransactionRepository transactions(TransactionalContext autoTx) {
+        return new JpaTransactionRepository(autoTx);
     }
 
     @Override
@@ -66,8 +66,9 @@ public class JpaRepositoryFactory implements RepositoryFactory {
         return new JpaMealRepository();
     }
 
-    public BookingRepository bookings() {
-        return new JpaBookingRepository();
+    @Override
+    public BookingRepository bookings(TransactionalContext autoTx) {
+        return new JpaBookingRepository(autoTx);
     }
 
     @Override

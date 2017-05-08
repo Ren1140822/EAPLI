@@ -22,8 +22,10 @@ import java.util.Date;
  */
 public class CheckExistingBookingController implements Controller {
 
-    private final BookingRepository repository = PersistenceContext.repositories().bookings();
+    private final BookingRepository repository = PersistenceContext.repositories().bookings(null);
     private final ListBookingsService bookingsService = new ListBookingsService();
+
+    //TODO preferably, controllers should not have state
     private Date date;
     private MealType mealType;
     private DishType dishType;

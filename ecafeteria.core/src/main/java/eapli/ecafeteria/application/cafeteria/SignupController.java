@@ -28,8 +28,6 @@ public class SignupController implements Controller {
 	    final String lastName, final String email, OrganicUnit organicUnit, String mecanographicNumber,
 	    final Calendar createdOn) throws DataIntegrityViolationException, DataConcurrencyException {
 
-	Application.ensurePermissionOfLoggedInUser(ActionRight.ADMINISTER);
-
 	final SignupRequestBuilder signupRequestBuilder = new SignupRequestBuilder();
 	signupRequestBuilder.withUsername(username).withPassword(password).withFirstName(firstName)
 		.withLastName(lastName).withEmail(email).withCreatedOn(createdOn).withOrganicUnit(organicUnit)

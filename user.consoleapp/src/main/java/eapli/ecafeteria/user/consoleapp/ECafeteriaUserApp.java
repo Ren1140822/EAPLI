@@ -15,6 +15,7 @@ public final class ECafeteriaUserApp {
 
     public static void main(final String[] args) {
 
-        new FrontMenu().show();
+        new FrontMenu().mainLoop();
+        
     }
 }

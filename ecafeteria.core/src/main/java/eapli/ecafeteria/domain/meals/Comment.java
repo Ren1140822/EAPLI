@@ -10,6 +10,8 @@ import javax.persistence.Embeddable;
 
 /**
  *
+ * @FIXME javadoc
+ * @FIXME is this an entity, a value object or an aggregate?
  * @author Sofia Gonçalves [1150657@isep.ipp.pt] Pedro Chilro
  * [1150019@isep.ipp.pt]
  */

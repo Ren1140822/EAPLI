@@ -4,6 +4,9 @@
  */
 package eapli.framework.presentation.console;
 
+import eapli.framework.persistence.DataConcurrencyException;
+import eapli.framework.persistence.DataIntegrityViolationException;
+
 /**
  *
  * @author Paulo Gandra Sousa

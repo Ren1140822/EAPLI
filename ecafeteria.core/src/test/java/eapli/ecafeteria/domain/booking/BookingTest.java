@@ -16,7 +16,6 @@ import eapli.ecafeteria.domain.meals.Meal;
 import eapli.ecafeteria.domain.meals.MealType;
 import eapli.framework.domain.Designation;
 import eapli.framework.domain.Money;
-import eapli.framework.domain.TimePeriod2;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -25,6 +24,7 @@ import org.junit.Test;
 import java.util.Calendar;
 import java.util.Currency;
 import java.util.HashSet;
+import static org.junit.Assert.assertTrue;
 
 /**
  *
@@ -77,53 +77,55 @@ public class BookingTest {
 
     @Test(expected = IllegalStateException.class)
     public void ensureBookingHasUser() {
-        new Booking(null, new Meal(dish, mealType, start), BookingState.DONE);
+        new Booking(null, new Meal(dish, mealType, start));
     }
 
     @Test(expected = IllegalStateException.class)
     public void ensureBookingHasMeal() {
-        new Booking(cafeteriaUser, null, BookingState.DONE);
-    }
-
-    @Test(expected = IllegalStateException.class)
-    public void ensureBookingStateIsDone() {
-        Booking b = new Booking(cafeteriaUser, new Meal(dish, mealType, start), BookingState.DELIVERED);
-        b.cancel();
+        new Booking(cafeteriaUser, null);
     }
 
     @Test
     public void ensureBookingIsCanceled() {
-        Booking b = new Booking(cafeteriaUser, new Meal(dish, mealType, start), BookingState.DONE);
+        Booking b = new Booking(cafeteriaUser, new Meal(dish, mealType, start));
         b.cancel();
+        assertTrue(b.isAtState(BookingState.CANCELED));
     }
 
     @Test(expected = IllegalStateException.class)
     public void ensureCanceledBookingsAreNotCanceled() {
-        Booking b = new Booking(cafeteriaUser, new Meal(dish, mealType, start), BookingState.CANCELED);
+        Booking b = new Booking(cafeteriaUser, new Meal(dish, mealType, start));
+        b.cancel();
         b.cancel();
     }
 
     @Test(expected = IllegalStateException.class)
     public void ensureDefinitiveBookingsAreNotCanceled() {
-        Booking b = new Booking(cafeteriaUser, new Meal(dish, mealType, start), BookingState.DEFINITIVE);
+        Booking b = new Booking(cafeteriaUser, new Meal(dish, mealType, start));
+        b.makeDefinitive();
         b.cancel();
     }
 
     @Test(expected = IllegalStateException.class)
     public void ensureDeliveredBookingsAreNotCanceled() {
-        Booking b = new Booking(cafeteriaUser, new Meal(dish, mealType, start), BookingState.DELIVERED);
+        Booking b = new Booking(cafeteriaUser, new Meal(dish, mealType, start));
+        b.makeDefinitive();
+        b.deliver();
         b.cancel();
     }
 
     @Test(expected = IllegalStateException.class)
     public void ensureWastedBookingsAreNotCanceled() {
-        Booking b = new Booking(cafeteriaUser, new Meal(dish, mealType, start), BookingState.WASTED);
+        Booking b = new Booking(cafeteriaUser, new Meal(dish, mealType, start));
+        b.makeDefinitive();
+        b.waste();
         b.cancel();
     }
 
     @Test(expected = IllegalStateException.class)
     public void ensureDeliveredMealCannotBeRegisteredMoreThanOnceForSameClient() {
-        Booking b = new Booking(cafeteriaUser, new Meal(dish, mealType, start), BookingState.DEFINITIVE);
+        Booking b = new Booking(cafeteriaUser, new Meal(dish, mealType, start));
+        b.makeDefinitive();
         b.deliver();
         b.deliver();
     }

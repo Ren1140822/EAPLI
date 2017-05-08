@@ -62,7 +62,7 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     }
 
     @Override
-    public TransactionRepository transactions() {
+    public TransactionRepository transactions(TransactionalContext autoTx) {
         return new InMemoryTransactionRepository();
     }
 
@@ -72,7 +72,7 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     }
 
     @Override
-    public BookingRepository bookings() {
+    public BookingRepository bookings(TransactionalContext tx) {
         return new InMemoryBookingRepository();
     }
 

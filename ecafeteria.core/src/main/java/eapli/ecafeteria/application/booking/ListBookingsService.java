@@ -20,7 +20,7 @@ import java.util.Date;
  */
 public class ListBookingsService {
 
-    private final BookingRepository repo = PersistenceContext.repositories().bookings();
+    private final BookingRepository repo = PersistenceContext.repositories().bookings(null);
 
     /**
      * It lists all bookings that are currently at the state "Done" and are

@@ -21,7 +21,7 @@ import eapli.framework.persistence.DataIntegrityViolationException;
 public class TopUpAccountCardController implements Controller {
 
     private final AccountCardRepository accountCardsRepo = PersistenceContext.repositories().accountCards();
-    private final TransactionRepository transactionRepo = PersistenceContext.repositories().transactions();
+    private final TransactionRepository transactionRepo = PersistenceContext.repositories().transactions(null);
 
     //FIXME you are updating more than one aggregate in the same controller but there is no transactional control
     public void topUpCard(String mecanographicNumber, Double eurosValue)
