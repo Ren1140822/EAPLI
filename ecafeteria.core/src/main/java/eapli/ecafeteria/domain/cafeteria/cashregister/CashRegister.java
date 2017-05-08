@@ -2,6 +2,7 @@ package eapli.ecafeteria.domain.cafeteria.cashregister;
 
 import eapli.framework.domain.ddd.AggregateRoot;
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +21,7 @@ public class CashRegister implements AggregateRoot<CashRegisterId>, Serializable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pk;
 
-    //FIXME if this is the bnusiness id it must be unique
+    @Column(unique = true)
     private CashRegisterId id;
     private CashRegisterState state;
 

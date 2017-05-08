@@ -1,10 +1,15 @@
 package eapli.ecafeteria.domain.cafeteria.cashregister;
 
+import eapli.ecafeteria.domain.meals.MealType;
 import java.io.Serializable;
+import java.util.Calendar;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * @FIXME javadoc
@@ -22,6 +27,25 @@ public class Shift implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Embedded
+    private MealType mealType;
+    @Temporal(TemporalType.DATE)
+    private Calendar date;
+    private ShiftState state;
+
+    protected Shift() {
+        // for ORM only
+    }
+
+    public Shift(Calendar date, MealType mealType) {
+        if (date == null || mealType == null) {
+            throw new IllegalStateException("A shift must have a date and a meal type!");
+        }
+        this.date = date;
+        this.mealType = mealType;
+        this.state = ShiftState.CLOSED;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -30,16 +54,17 @@ public class Shift implements Serializable {
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Shift)) {
+    public boolean equals(Object otherObject) {
+        if ((otherObject == null) || !(otherObject instanceof Shift)) {
             return false;
         }
-        Shift other = (Shift) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
+        if (this == otherObject) {
+            return true;
         }
-        return true;
+
+        final Shift otherShift = (Shift) otherObject;
+
+        return this.date.equals(otherShift.date) && this.mealType.equals(otherShift.mealType);
     }
 
 }

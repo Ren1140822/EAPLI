@@ -22,7 +22,7 @@ public class CashRegisterId implements ValueObject, Serializable {
 
     public CashRegisterId(String identifier) {
         //TODO is an empty string allowed?
-        if (identifier == null) {
+        if (identifier == null || identifier == "") {
             throw new IllegalArgumentException("Identifier must be defined");
         }
         this.identifier = identifier;

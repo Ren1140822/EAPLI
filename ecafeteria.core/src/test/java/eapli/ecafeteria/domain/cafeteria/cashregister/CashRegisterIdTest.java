@@ -9,8 +9,13 @@ import org.junit.Test;
 public class CashRegisterIdTest {
 
     @Test(expected = IllegalArgumentException.class)
-    public void ensureCashRegisterIdIsDefined() {
+    public void ensureCashRegisterIdCannotBeNull() {
         new CashRegisterId(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCashRegisterIdCannotBeEmpty() {
+        new CashRegisterId("");
     }
 
 }
