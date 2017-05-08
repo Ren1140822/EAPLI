@@ -36,14 +36,26 @@ public class TopUpAccountCardUI extends AbstractUI {
         final Double eurosValue = Console
                 .readDouble("TopUp Amount (in Euros): ");
 
+        boolean success = false;
         try {
             this.theController.topUpCard(mecanographicNumberString, eurosValue);
+
+            success = !success; // Turn to success to true
+
         } catch (DataConcurrencyException ex) {
             System.out.println("That entity has already been changed or deleted since you last read it");
             Logger.getLogger(TopUpAccountCardUI.class.getName()).log(Level.SEVERE, null, ex);
         } catch (DataIntegrityViolationException ex) {
             System.out.println("That entity ID is already in use");
             Logger.getLogger(TopUpAccountCardUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (success) {
+            // Success message
+            System.out.println("TopUp was successfull.");
+        } else {
+            // Unuccess message
+            System.out.println("TopUp was unsuccessfull.");
         }
 
         return false;

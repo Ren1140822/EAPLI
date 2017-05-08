@@ -8,7 +8,7 @@ import eapli.framework.persistence.repositories.DataRepository;
  * @author Ivo Ferro 1151159
  * @author Daniel Gonçalves 1151452
  */
-public interface AccountCardRepository extends DataRepository<AccountCard, Long> {
+public interface AccountCardRepository extends DataRepository<AccountCard, MecanographicNumber> {
 
     /**
      * returns the account card for the cafeteria user with the given

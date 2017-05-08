@@ -15,6 +15,7 @@ import java.util.Calendar;
  * @author Daniel Gonçalves 1151452
  *         <p>
  *         Represents a generic transaction.
+ *         </p>
  */
 @Entity
 public abstract class Transaction implements AggregateRoot<TransactionId>, Serializable {
