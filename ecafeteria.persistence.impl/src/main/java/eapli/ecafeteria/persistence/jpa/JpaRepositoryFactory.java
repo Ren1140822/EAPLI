@@ -52,8 +52,8 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     }
 
     @Override
-    public AccountCardRepository accountCards() {
-        return new JpaAccountCardRepository();
+    public AccountCardRepository accountCards(TransactionalContext autoTx) {
+        return new JpaAccountCardRepository(autoTx);
     }
 
     @Override

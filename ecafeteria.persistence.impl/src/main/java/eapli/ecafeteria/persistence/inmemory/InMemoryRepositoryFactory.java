@@ -57,7 +57,7 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     }
 
     @Override
-    public AccountCardRepository accountCards() {
+    public AccountCardRepository accountCards(TransactionalContext autoTx) {
         return new InMemoryAccountCardRepository();
     }
 

@@ -69,7 +69,7 @@ public class CafeteriaUserBootstraper implements Action {
 
         // FIXME : Refactor account card bootstrap
 
-        final AccountCardRepository accountCardRepo = PersistenceContext.repositories().accountCards();
+        final AccountCardRepository accountCardRepo = PersistenceContext.repositories().accountCards(null);
 
         final MecanographicNumber aMecanographicNumber = new MecanographicNumber(mecanographicNumber);
 

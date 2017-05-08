@@ -56,7 +56,7 @@ public interface RepositoryFactory {
 
     MenuRepository menus();
 
-    AccountCardRepository accountCards();
+    AccountCardRepository accountCards(TransactionalContext autoTx);
 
     TransactionRepository transactions(TransactionalContext autoTx);
     

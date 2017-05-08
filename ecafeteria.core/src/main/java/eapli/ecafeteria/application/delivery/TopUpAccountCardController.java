@@ -13,6 +13,7 @@ import eapli.framework.application.Controller;
 import eapli.framework.domain.Money;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
+import eapli.framework.persistence.repositories.TransactionalContext;
 
 /**
  * @author Ivo Ferro 1151159
@@ -20,12 +21,13 @@ import eapli.framework.persistence.DataIntegrityViolationException;
  */
 public class TopUpAccountCardController implements Controller {
 
-    private final AccountCardRepository accountCardsRepo = PersistenceContext.repositories().accountCards();
-    private final TransactionRepository transactionRepo = PersistenceContext.repositories().transactions(null);
+    private final TransactionalContext txCtx = PersistenceContext.repositories().buildTransactionalContext();
+    private final AccountCardRepository accountCardsRepo = PersistenceContext.repositories().accountCards(txCtx);
+    private final TransactionRepository transactionRepo = PersistenceContext.repositories().transactions(txCtx);
 
-    //FIXME you are updating more than one aggregate in the same controller but there is no transactional control
     public void topUpCard(String mecanographicNumber, Double eurosValue)
             throws DataConcurrencyException, DataIntegrityViolationException {
+
         Application.ensurePermissionOfLoggedInUser(ActionRight.SALE);
 
         MecanographicNumber aMecanographicNumber = new MecanographicNumber(mecanographicNumber);
@@ -34,11 +36,17 @@ public class TopUpAccountCardController implements Controller {
 
         Money aMoney = Money.euros(eurosValue);
 
+        //explicitly begin a transaction
+        txCtx.beginTransaction();
+        /********************************/
         // Save new transaction
         Transaction aTransaction = new TopUp(aMecanographicNumber, aMoney);
         transactionRepo.save(aTransaction);
         // Add to card's balance
         card.topUp(aMoney);
         accountCardsRepo.save(card);
+        /********************************/
+        //explicitly commit the transaction
+        txCtx.commit();
     }
 }
