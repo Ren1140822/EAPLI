@@ -6,6 +6,7 @@ import eapli.framework.domain.ddd.AggregateRoot;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -38,7 +39,7 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
         if (dishType == null || name == null || nutricionalInfo == null) {
             throw new IllegalStateException();
         }
-
+        this.allergens = new AllergenicInfo(new ArrayList<>());
         this.dishType = dishType;
         this.name = name;
         this.nutricionalInfo = nutricionalInfo;
@@ -124,7 +125,7 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
     public AllergenicInfo allergens() { return this.allergens; }
 
     public boolean hasAllergens() {
-        return allergens != null;
+        return !allergens.allergens().isEmpty();
     }
 
     /**
