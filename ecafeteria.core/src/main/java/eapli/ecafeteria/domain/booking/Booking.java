@@ -89,6 +89,17 @@ public class Booking implements Serializable {
     }
 
     /**
+     * It checks if the booking's meal occurs until a certain date.
+     *
+     * @param date The limit date.
+     * @return It returns "true" if the meal date occurs before or at the same
+     * day as the limit date or "false" otherwise.
+     */
+    public boolean isUntilDate(Calendar date) {
+        return meal.getDate().before(date) || meal.getDate().equals(date);
+    }
+
+    /**
      * It makes the booking definitive by changing it state from "Done" to
      * "Definitive". A booking is considered to be definitive when the shift of
      * the matching meal is opened without it being canceled.

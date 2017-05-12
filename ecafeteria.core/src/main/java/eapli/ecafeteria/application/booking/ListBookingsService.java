@@ -12,7 +12,9 @@ import eapli.ecafeteria.domain.meals.DishType;
 import eapli.ecafeteria.domain.meals.MealType;
 import eapli.ecafeteria.persistence.BookingRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -45,5 +47,21 @@ public class ListBookingsService {
     public Iterable<Booking> listBookingsByDateMealAndDishType(Date date, MealType mealType, DishType dishType){
         return this.repo.checkBookingsByDateMealAndDishType(date, mealType, dishType);
     }
-    
+
+    /**
+     * It lists all bookings that are currently at the state "Done" or
+     * "Definitive", whose meal happens within a specified number of days and
+     * are owned by a certain CafeteriaUser.
+     *
+     * @param user The owner of the bookings to be searched for.
+     * @param days The number of days within the bookings' meal should occur.
+     * @return It returns an iterable with all the matching bookings.
+     */
+    public Iterable<Booking> findActiveBookingsFromNextDaysOf(CafeteriaUser user, int days) {
+        List<BookingState> states = new ArrayList<>();
+        states.add(BookingState.DONE);
+        states.add(BookingState.DEFINITIVE);
+        return this.repo.findBookingByUserAndStatesAndWithinDays(user, states, days);
+    }
+
 }
