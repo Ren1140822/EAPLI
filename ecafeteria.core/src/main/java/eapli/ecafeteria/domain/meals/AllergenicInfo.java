@@ -26,7 +26,7 @@ public class AllergenicInfo implements Serializable {
     private List<Allergen> allergens = new ArrayList<>();
 
     public AllergenicInfo(List<Allergen> allergens){
-        if(allergens==null || allergens.isEmpty()){
+        if(allergens==null){
             throw new IllegalStateException();
         }
         this.allergens = allergens;
