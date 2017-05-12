@@ -2,6 +2,7 @@ package eapli.ecafeteria.domain.kitchen;
 
 import eapli.ecafeteria.domain.meals.Meal;
 import eapli.framework.domain.ddd.AggregateRoot;
+import eapli.util.Strings;
 import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -37,7 +38,7 @@ public class MaterialUsed implements AggregateRoot<Long>, Serializable {
 
 
     public MaterialUsed(Meal meal, Material material, String lotCode) {
-        if (meal == null || material == null) {
+        if (meal == null || material == null || lotCode==null || Strings.isNullOrEmpty(lotCode)) {
             throw new IllegalStateException();
         }
         this.meal = meal;
