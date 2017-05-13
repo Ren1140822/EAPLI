@@ -28,7 +28,7 @@ public class JpaBookingRepository extends JpaAutoTxRepository<Booking, Long>
         implements BookingRepository {
 
     public JpaBookingRepository(TransactionalContext autoTx) {
-	super(Application.settings().getPersistenceUnitName(), autoTx);
+        super(Application.settings().getPersistenceUnitName(), autoTx);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class JpaBookingRepository extends JpaAutoTxRepository<Booking, Long>
                     query.append(stateName);
                     params.put(stateName, state);
                 }
-                i ++;
+                i++;
             }
             query.append(" ) ");
         }
@@ -82,7 +82,11 @@ public class JpaBookingRepository extends JpaAutoTxRepository<Booking, Long>
         query.append(" and e.meal.date <= '");
         query.append(date.get(Calendar.YEAR));
         query.append("-");
-        query.append(date.get(Calendar.MONTH));
+        //INFO
+        //@author Meireles
+        // Remember that the first month (January) is number 0 in Calendar class.
+        // That justifies the +1.
+        query.append((date.get(Calendar.MONTH) + 1));
         query.append("-");
         query.append(date.get(Calendar.DAY_OF_MONTH));
         query.append("'");
@@ -97,10 +101,10 @@ public class JpaBookingRepository extends JpaAutoTxRepository<Booking, Long>
 
     @Override
     public Iterable<Booking> checkBookingsByDateMealAndDishType(Date date, MealType mealType, DishType dishType) {
-       Map<String, Object> params = new HashMap<>();
-        params.put("date",date);
-        params.put("mealType",mealType);
-        params.put("dishType",dishType);
+        Map<String, Object> params = new HashMap<>();
+        params.put("date", date);
+        params.put("mealType", mealType);
+        params.put("dishType", dishType);
         return repo.match("e.meal.mealType=:mealType and e.meal.date=:date and e.meal.dish.dishType=:dishType", params);
     }
 
