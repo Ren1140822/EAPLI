@@ -7,6 +7,7 @@ package eapli.ecafeteria.user.consoleapp.presentation.booking;
 
 import eapli.ecafeteria.domain.booking.Booking;
 import eapli.framework.visitor.Visitor;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -16,8 +17,12 @@ public class BookingPrinter implements Visitor<Booking> {
 
     @Override
     public void visit(Booking visitee) {
-        System.out.printf("%-10s%-10s%-10s\n", visitee.meal().mealType().mealType(),
-                visitee.meal().dish().name(), visitee.meal().getDate().getTime());
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        System.out.printf("%-11s%-8s%-30s%-10s\n",
+                formatter.format(visitee.meal().getDate().getTime()),
+                visitee.meal().mealType().mealType(),
+                visitee.meal().dish().name(), 
+                visitee.meal().dish().currentPrice());
     }
 
 }
