@@ -1,5 +1,7 @@
 package eapli.ecafeteria.domain.cafeteria.cashregister;
 
+import eapli.ecafeteria.domain.booking.BookingState;
+import eapli.ecafeteria.domain.meals.Meal;
 import eapli.ecafeteria.domain.meals.MealType;
 import java.io.Serializable;
 import java.util.Calendar;
@@ -44,6 +46,25 @@ public class Shift implements Serializable {
         this.date = date;
         this.mealType = mealType;
         this.state = ShiftState.CLOSED;
+    }
+
+    public boolean isOfMealType(MealType mealType) {
+        return this.mealType.equals(mealType);
+    }
+
+    /**
+     * Checks if the Shift is currently at a certain state.
+     *
+     * @param state The state to be compared to.
+     * @return returns true if the shift is currently at the received state,
+     * false otherwise.
+     */
+    public boolean isAtState(ShiftState state) {
+        return this.state.equals(state);
+    }
+
+    public boolean isAtDate(Calendar date) {
+        return this.date.equals(date);
     }
 
     @Override
