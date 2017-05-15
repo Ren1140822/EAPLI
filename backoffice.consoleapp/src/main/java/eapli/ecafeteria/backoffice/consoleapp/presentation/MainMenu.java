@@ -75,6 +75,7 @@ public class MainMenu extends AbstractUI {
 
     // MENUS
     private static final int REGISTER_MENU_OPTION = 1;
+    private static final int PUBLISH_MENU_OPTION=2;
 
     // MATERIALS
     private static final int MATERIAL_REGISTER_OPTION = 1;
@@ -214,6 +215,7 @@ public class MainMenu extends AbstractUI {
         final Menu menu = new Menu("Menus >");
 
         menu.add(new MenuItem(REGISTER_MENU_OPTION, "Register simple menu", new RegisterMenuAction()));
+        menu.add(new MenuItem(PUBLISH_MENU_OPTION, "Publish Menu", new PublishMenuAction()));
         menu.add(new MenuItem(EXIT_OPTION, "Return", new ReturnAction()));
 
         return menu;
