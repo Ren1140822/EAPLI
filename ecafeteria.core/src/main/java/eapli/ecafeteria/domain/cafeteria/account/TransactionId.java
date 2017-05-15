@@ -25,6 +25,9 @@ public class TransactionId implements ValueObject, Serializable {
      * Constructs a unique identifier for a transaction.
      */
     public TransactionId() {
+        //FIXME
+        //@Meireles
+        // Check method "randomString" from Strings class (eapli.util.Strings)
         this.identifier = UUID.randomUUID();
     }
 

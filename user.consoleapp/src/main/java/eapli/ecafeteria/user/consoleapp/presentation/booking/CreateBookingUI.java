@@ -34,6 +34,9 @@ public class CreateBookingUI extends AbstractUI {
     protected boolean doShow() {
         String dayToBook;
         do {
+            //FIXEME
+            //@author Meireles
+            // Check method "readDate" from Console class
             dayToBook = Console.readLine("Insert the date (YYYY-MM-DD):");
         } while (!validateInputDate(dayToBook));
         System.out.println("");
