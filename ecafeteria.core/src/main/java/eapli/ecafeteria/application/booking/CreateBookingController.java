@@ -50,8 +50,6 @@ public class CreateBookingController {
                     if(cal.get(Calendar.HOUR_OF_DAY)<meal.mealType().freeBookingCancellationTimeLimit().get(Calendar.HOUR_OF_DAY)){
                         mealsOfDay.add(meal);
                     }
-                }else{
-                    mealsOfDay.add(meal);
                 }
             }
         }
