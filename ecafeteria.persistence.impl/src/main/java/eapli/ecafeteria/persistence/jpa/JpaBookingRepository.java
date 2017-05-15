@@ -78,18 +78,8 @@ public class JpaBookingRepository extends JpaAutoTxRepository<Booking, Long>
 
         Calendar date = Calendar.getInstance();
         date.add(Calendar.DAY_OF_MONTH, days);
-
-        query.append(" and e.meal.date <= '");
-        query.append(date.get(Calendar.YEAR));
-        query.append("-");
-        //INFO
-        //@author Meireles
-        // Remember that the first month (January) is number 0 in Calendar class.
-        // That justifies the +1.
-        query.append((date.get(Calendar.MONTH) + 1));
-        query.append("-");
-        query.append(date.get(Calendar.DAY_OF_MONTH));
-        query.append("'");
+        params.put("date", new java.sql.Date(date.getTimeInMillis()));
+        query.append(" and e.meal.date <= :date");
 
         return repo.match(query.toString(), params);
     }
