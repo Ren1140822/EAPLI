@@ -2,6 +2,7 @@ package eapli.ecafeteria.persistence.inmemory;
 
 import eapli.ecafeteria.domain.cafeteria.cashregister.CashRegister;
 import eapli.ecafeteria.domain.cafeteria.cashregister.Shift;
+import eapli.ecafeteria.domain.cafeteria.cashregister.ShiftState;
 import eapli.ecafeteria.domain.meals.MealType;
 import eapli.ecafeteria.persistence.ShiftRepository;
 import eapli.framework.persistence.repositories.impl.inmemory.InMemoryRepositoryWithLongPK;
@@ -16,8 +17,23 @@ public class InMemoryShiftRepository extends InMemoryRepositoryWithLongPK<Shift>
 
     @Override
     public Shift findByDateAndMealType(Calendar date, MealType mealType) {
-        //TODO
-        throw new UnsupportedOperationException("Not supported yet.");
+        return matchOne(e -> (e.isAtDate(date) && e.isOfMealType(mealType)));
+    }
+
+    public Shift findByDateAndMealTypeAndState(Calendar date, MealType mealType, ShiftState state) {
+        return matchOne(e -> (e.isAtDate(date) && e.isOfMealType(mealType) && e.isAtState(state)));
+    }
+
+    public Iterable<Shift> findByDate(Calendar date) {
+        return match(e -> (e.isAtDate(date)));
+    }
+
+    public Iterable<Shift> findByMealType(MealType mealType) {
+        return match(e -> (e.isOfMealType(mealType)));
+    }
+
+    public Iterable<Shift> findByState(ShiftState state) {
+        return match(e -> (e.isAtState(state)));
     }
 
 }
