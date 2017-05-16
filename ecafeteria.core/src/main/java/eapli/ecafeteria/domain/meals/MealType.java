@@ -82,4 +82,14 @@ public class MealType implements ValueObject, Serializable {
         return limit;
     }
 
+    /**
+     * It checks if the meal type (enum) is the same as this meal type.
+     * 
+     * @param type The meal type (enum) to check.
+     * @return It returns "true" if this meal type has the same meal type (enum) or "false" otherwise.
+     */
+    public boolean isOf(MealTypes type) {
+        return type!=null && mealType.equals(type);
+    }
+
 }
