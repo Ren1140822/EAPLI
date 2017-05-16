@@ -45,49 +45,48 @@ public class BookingBootstraper implements Action {
         final Dish dish1 = dishes.findByName(Designation.valueOf("costeleta à salsicheiro"));
         final Dish dish2 = dishes.findByName(Designation.valueOf("picanha"));
         final MealType lunch = new MealType(MealTypes.ALMOCO);
-        final MealType dinner = new MealType(MealTypes.ALMOCO);
-        final Calendar start = Calendar.getInstance();
-        final Meal mealA = new Meal(dish1, lunch, start);
-        final Meal mealB = new Meal(dish2, dinner, start);
+        final MealType dinner = new MealType(MealTypes.JANTAR);
+        final Calendar t1 = Calendar.getInstance();
+        final Calendar t2 = Calendar.getInstance();
+        final Calendar t3 = Calendar.getInstance();
+        final Calendar t4 = Calendar.getInstance();
+        t1.add(Calendar.DATE, -1);
+        t3.add(Calendar.DATE, 1);
+        t4.add(Calendar.DATE, 6);
         //final MealRepository meals = PersistenceContext.repositories().meals();
-
-        final Meal meal1 = mealA;
-        final Meal meal2 = mealB;
-        final Meal meal3 = mealA;
-        final Meal meal4 = mealB;
-        final Meal meal5 = mealA;
-        final Meal meal6 = mealA;
-        final Meal meal7 = mealA;
-        final Meal meal8 = mealB;
-        final Meal meal9 = mealA;
-        final Meal meal10 = mealB;
+        
+        
+        
+        final Meal mealA = new Meal(dish1, lunch, t1);
+        final Meal mealB = new Meal(dish2, dinner, t1);
+        final Meal mealC = new Meal(dish1, lunch, t2);
+        final Meal mealD = new Meal(dish2, dinner, t2);
+        final Meal mealE = new Meal(dish2, lunch, t3);
+        final Meal mealF = new Meal(dish1, dinner, t3);
+        final Meal mealG = new Meal(dish1, lunch, t4);
 
         final CafeteriaUserRepository users = PersistenceContext.repositories().cafeteriaUsers(null);
         final CafeteriaUser user1 = users.findByUsername(new Username("900330"));
         final CafeteriaUser user2 = users.findByUsername(new Username("900331"));
-
-        register(user1, meal1, BookingState.DONE);
-        register(user1, meal2, BookingState.DONE);
-        register(user1, meal3, BookingState.CANCELED);
-        register(user1, meal4, BookingState.CANCELED);
-        register(user1, meal5, BookingState.DEFINITIVE);
-        register(user1, meal6, BookingState.DEFINITIVE);
-        register(user1, meal7, BookingState.DELIVERED);
-        register(user1, meal8, BookingState.DELIVERED);
-        register(user1, meal9, BookingState.WASTED);
-        register(user1, meal10, BookingState.WASTED);
-
-        register(user2, meal1, BookingState.DONE);
-        register(user2, meal2, BookingState.DONE);
-        register(user2, meal3, BookingState.CANCELED);
-        register(user2, meal4, BookingState.CANCELED);
-        register(user2, meal5, BookingState.DEFINITIVE);
-        register(user2, meal6, BookingState.DEFINITIVE);
-        register(user2, meal7, BookingState.DELIVERED);
-        register(user2, meal8, BookingState.DELIVERED);
-        register(user2, meal9, BookingState.WASTED);
-        register(user2, meal10, BookingState.WASTED);
-
+        
+        register(user1, mealA, BookingState.DELIVERED);
+        register(user1, mealB, BookingState.DELIVERED);
+        register(user1, mealC, BookingState.DEFINITIVE);
+        register(user1, mealD, BookingState.DONE);
+        register(user1, mealE, BookingState.CANCELED);
+        register(user1, mealE, BookingState.DONE);
+        register(user1, mealF, BookingState.DONE);
+        register(user1, mealG, BookingState.DONE);
+        
+        register(user2, mealA, BookingState.DELIVERED);
+        register(user2, mealB, BookingState.WASTED);
+        register(user2, mealC, BookingState.DEFINITIVE);
+        register(user2, mealD, BookingState.DONE);
+        register(user2, mealE, BookingState.DONE);
+        register(user2, mealF, BookingState.DONE);
+        register(user2, mealF, BookingState.CANCELED);
+        register(user2, mealG, BookingState.DONE);
+        
         return false;
     }
 
