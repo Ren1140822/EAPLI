@@ -50,6 +50,10 @@ public class AccountCard implements AggregateRoot<MecanographicNumber>, Serializ
     public void topUp(Money aMoney) {
         this.balance = this.balance.add(aMoney);
     }
+    
+    public Balance balance(){
+        return this.balance;
+    }
 
     @Override
     public boolean is(MecanographicNumber id) {

@@ -20,7 +20,7 @@ public abstract class CafeteriaUserBaseUI extends AbstractUI {
     protected abstract CafeteriaUserBaseController controller();
 
     public String showBalance() {
-        return "CURRENT BALANCE OF YOUR USERCARD: " + controller().balance().toString();
+        return "CURRENT BALANCE OF YOUR USERCARD: " + "\n" + controller().balance().toString();
     }
 
     public String showNextBooking() {
@@ -39,7 +39,7 @@ public abstract class CafeteriaUserBaseUI extends AbstractUI {
 
     @Override
     public String headline() {
-        return "eCAFETERIA [@" + Application.session().session().authenticatedUser().id() + "]   " + showBalance() + "\n\n"
+        return "eCAFETERIA [@" + Application.session().session().authenticatedUser().id() + "]   " + "\n\n" + showBalance() + "\n\n"
                 + showNextBooking();
     }
 

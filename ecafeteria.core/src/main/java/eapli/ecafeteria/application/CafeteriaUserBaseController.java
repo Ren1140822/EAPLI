@@ -11,6 +11,10 @@ import eapli.ecafeteria.application.cafeteria.CafeteriaUserService;
 import eapli.ecafeteria.domain.authz.Username;
 import eapli.ecafeteria.domain.booking.Booking;
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
+import eapli.ecafeteria.domain.cafeteria.account.AccountCard;
+import eapli.ecafeteria.domain.cafeteria.account.Balance;
+import eapli.ecafeteria.persistence.AccountCardRepository;
+import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.framework.application.Controller;
 import eapli.framework.domain.Money;
 
@@ -22,10 +26,20 @@ public class CafeteriaUserBaseController implements Controller {
 
     private final CafeteriaUserService usersService = new CafeteriaUserService();
     private final ListBookingsService bookingsService = new ListBookingsService();
+    private final AccountCardRepository accountCardRepository = PersistenceContext.repositories().accountCards(null);
 
+    /**
+     * It provides the current balance of the current system user.
+     *
+     * @return It returns the amount that the current system user has available
+     * in his account.
+     */
     public Money balance() {
-        // TODO get the actual balance of the user
-        return Money.euros(0);
+        Username username = Application.session().session().authenticatedUser().username();
+        CafeteriaUser client = usersService.findCafeteriaUserByUsername(username);
+        AccountCard accountCard = accountCardRepository.findByMecanographicNumber(client.mecanographicNumber());
+        Balance balance = accountCard.balance();
+        return balance.amount();
     }
 
     /**
