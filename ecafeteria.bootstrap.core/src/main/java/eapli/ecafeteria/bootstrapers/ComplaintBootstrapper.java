@@ -9,8 +9,6 @@ import eapli.ecafeteria.application.cashregister.RegisterComplaintController;
 import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
 import eapli.ecafeteria.domain.meals.Dish;
 import eapli.ecafeteria.domain.meals.DishType;
-import eapli.ecafeteria.domain.meals.Meal;
-import eapli.ecafeteria.domain.meals.MealType;
 import eapli.ecafeteria.persistence.DishTypeRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.framework.actions.Action;
@@ -18,7 +16,6 @@ import eapli.framework.domain.Designation;
 import eapli.framework.domain.Money;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
-import java.util.Calendar;
 import java.util.logging.Logger;
 
 /**
@@ -32,12 +29,11 @@ public class ComplaintBootstrapper implements Action {
         final DishTypeRepository dishTypeRepo = PersistenceContext.repositories().dishTypes();
         final DishType vegie = dishTypeRepo.findByAcronym("vegie");
         final Dish dish = new Dish(vegie, Designation.valueOf("Summer Salad"), Money.euros(55.0));
-        final MecanographicNumber number = new MecanographicNumber("11111");
-        register("I did not like the dish!", dish, number);
+        register("I did not like the dish!", dish, 11111);
         return false;
     }
 
-    private void register(String complaint, Dish dish, MecanographicNumber number) {
+    private void register(String complaint, Dish dish, int number) {
         final RegisterComplaintController controller = new RegisterComplaintController();
         try {
             controller.insertComplaint(complaint);
