@@ -13,6 +13,7 @@ import eapli.ecafeteria.domain.meals.DishType;
 import eapli.ecafeteria.domain.meals.Meal;
 import eapli.ecafeteria.domain.meals.MealType;
 import eapli.framework.persistence.repositories.DataRepository;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -58,4 +59,6 @@ public interface BookingRepository extends DataRepository<Booking, Long> {
      * @return 
      */
     Iterable<Booking> allNonEvaluatedBy(CafeteriaUser user);
+
+    public Iterable<Booking> findBookingsByDateAndMealTypeAndState(Calendar date, MealType mealType, BookingState state);
 }

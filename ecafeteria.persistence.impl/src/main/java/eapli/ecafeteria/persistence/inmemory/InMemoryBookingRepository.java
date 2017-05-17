@@ -5,10 +5,8 @@
  */
 package eapli.ecafeteria.persistence.inmemory;
 
-import eapli.ecafeteria.domain.booking.Booking;
 import eapli.ecafeteria.domain.booking.BookingState;
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
-import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
 import eapli.ecafeteria.domain.meals.Meal;
 import eapli.ecafeteria.domain.booking.Booking;
 import eapli.ecafeteria.domain.meals.DishType;
@@ -115,6 +113,11 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
             }
         }
         return false;
+    }
+
+    @Override
+    public Iterable<Booking> findBookingsByDateAndMealTypeAndState(Calendar date, MealType mealType, BookingState state) {
+        return match(e -> e.meal().getDate().compareTo(date) == 0 && e.meal().mealType().isOf(MealType.MealTypes.valueOf(mealType.mealType())) && e.isAtState(state));
     }
 
 }

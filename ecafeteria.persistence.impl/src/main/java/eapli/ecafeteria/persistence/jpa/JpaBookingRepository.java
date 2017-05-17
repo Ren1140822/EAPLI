@@ -88,11 +88,12 @@ public class JpaBookingRepository extends JpaAutoTxRepository<Booking, Long>
     }
 
     /**
-     * It finds the bookings of a given Cafeteria User that are at a given state.
-     * 
+     * It finds the bookings of a given Cafeteria User that are at a given
+     * state.
+     *
      * @param user The Cafeteria User that owns the booking.
      * @param state The state of the bookings to search for.
-     * @return 
+     * @return
      */
     @Override
     public Iterable<Booking> findBookingByUserAndState(CafeteriaUser user, BookingState state) {
@@ -166,6 +167,15 @@ public class JpaBookingRepository extends JpaAutoTxRepository<Booking, Long>
         Map<String, Object> params = new HashMap<>();
         params.put("user", user);
         return repo.match("e NOT IN (SELECT m.booking FROM MealEvaluation m WHERE m.booking.user = :user)", params);
+    }
+
+    @Override
+    public Iterable<Booking> findBookingsByDateAndMealTypeAndState(Calendar date, MealType mealType, BookingState state) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("date", date);
+        params.put("mealType", mealType);
+        params.put("state", state);
+        return repo.match("e.meal.date=:date and e.meal.mealType=:mealType and e.state=:state", params);
     }
 
 }
