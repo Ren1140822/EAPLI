@@ -26,14 +26,13 @@ import eapli.framework.persistence.repositories.TransactionalContext;
  * @author Diogo Santos
  */
 public class RegisterComplaintController implements Controller {
-   
+
     private final TransactionalContext TxCtx = PersistenceContext.repositories().buildTransactionalContext();
     private final DishRepository dishRepository = PersistenceContext.repositories().dishes();
     private final CafeteriaUserRepository userRepository = PersistenceContext.repositories().cafeteriaUsers(TxCtx);
     private final ComplaintRepository complaintRepository = PersistenceContext.repositories().complaints();
     private ComplaintBuilder builder = new ComplaintBuilder();
-    
-    
+
     public RegisterComplaintController() {
 
     }
@@ -42,25 +41,29 @@ public class RegisterComplaintController implements Controller {
         builder.withText(text);
     }
 
-    public Iterable<Dish> listDishes(){
+    public Iterable<Dish> listDishes() {
         return dishRepository.findAll();
     }
+
     public void insertDish(Dish dish) {
         builder.withDish(dish);
     }
 
-    public void insertMecanograficNumber(int number) {
-        CafeteriaUser user = userRepository.findByMecanographicNumber(new MecanographicNumber(String.valueOf(number)));
-        if(user != null){
+    public boolean insertMecanograficNumber(int number) {
+        try {
+            CafeteriaUser user = userRepository.findByMecanographicNumber(new MecanographicNumber(String.valueOf(number)));
             builder.withMecanograficNumber(number);
-        }  
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
     }
-    
-    public Complaint saveComplaint() throws DataConcurrencyException, DataIntegrityViolationException{
+
+    public Complaint saveComplaint() throws DataConcurrencyException, DataIntegrityViolationException {
         //Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_DELIVERY);
         Complaint c = builder.build();
         return complaintRepository.save(c);
     }
-    
 
 }

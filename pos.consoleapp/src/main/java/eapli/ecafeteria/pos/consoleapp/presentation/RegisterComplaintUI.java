@@ -44,17 +44,23 @@ public class RegisterComplaintUI extends AbstractUI {
             if (!dishes.iterator().hasNext()) {
                 System.out.println("There are no registered dishes!");
             } else {
+                do {
                 final SelectWidget<Dish> selector = new SelectWidget<>("Dishes:", dishes, new DishPrinter());
                 selector.show();
                 selectedDish = selector.selectedElement();
+                } while (selectedDish==null);
                 this.controller.insertDish(selectedDish);
             }
         }
 
         optNumber = Console.readInteger("Do you want to insert your mecanographic mumber on complaint?\n1.Yes\n2.No");
         if (optNumber == 1) {
-            int number = Console.readInteger("Insert your number:");
-            this.controller.insertMecanograficNumber(number);
+            boolean res = false;
+            do {
+                int number = Console.readInteger("Insert your number:");
+
+                res = this.controller.insertMecanograficNumber(number);
+            } while (!res);
         }
 
         try {
