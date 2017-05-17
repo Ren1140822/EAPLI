@@ -42,6 +42,7 @@ public class ECafeteriaBootstraper implements Action {
         roles.add(RoleType.ADMIN);
         roles.add(RoleType.MENU_MANAGER);
         roles.add(RoleType.KITCHEN_MANAGER);
+        roles.add(RoleType.CASHIER);
         final UserSession adminSession = new UserSession(
                 new SystemUser("poweruser", "poweruserA1", "joe", "doe", "joe@email.org", roles));
         Application.session().setSession(adminSession);

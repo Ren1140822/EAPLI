@@ -29,20 +29,16 @@ import java.util.logging.Logger;
 public class CreateBookingUI extends AbstractUI {
 
     private final CreateBookingController controller = new CreateBookingController();
-    private final MenuRepository menuRepository = PersistenceContext.repositories().menus();
 
     @Override
     protected boolean doShow() {
         Date dayToBook;
         do {
-            //FIXEME
-            //@author Meireles
-            // Check method "readDate" from Console class
+
             dayToBook = Console.readDate("Insert the date(YYYY/MM/DD):");
 
         } while (!validateInputDate(dayToBook));
 
-        System.out.println("");
         List<Meal> meals = controller.menusOfDay(dayToBook);
         Meal choosedMeal;
         SelectWidget<Meal> selector = new SelectWidget<>("Meals:", meals, new MealPrinter());
@@ -51,13 +47,22 @@ public class CreateBookingUI extends AbstractUI {
         if (choosedMeal == null) {
             return true;
         }
+        
+        if(!controller.hasEnoughMoney( choosedMeal)){
+            System.out.println("");
+            System.out.println("Not enough money to book");
+            System.out.println("");
+        }
+     
         try {
-            controller.book(choosedMeal);
+            controller.save(choosedMeal);
         } catch (DataConcurrencyException ex) {
             System.out.println("The meal has suffered some changes and it was not possible to book. Please try again.");
         } catch (DataIntegrityViolationException ex) {
             Logger.getLogger(CreateBookingUI.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
         System.out.println("");
         System.out.println("Meal booked!");
         System.out.println("");

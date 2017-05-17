@@ -114,4 +114,9 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
         return false;
     }
 
+    @Override
+    public Iterable<Booking> findBookingsByDateAndMealTypeAndState(Calendar date, MealType mealType, BookingState state) {
+        return match(e -> e.meal().getDate().compareTo(date) == 0 && e.meal().mealType().isOf(MealType.MealTypes.valueOf(mealType.mealType())) && e.isAtState(state));
+    }
+
 }
