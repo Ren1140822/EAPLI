@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates and open the template
- * in the editor.
- */
 package eapli.ecafeteria.pos.consoleapp.presentation;
 
 import eapli.cafeteria.consoleapp.presentation.ExitWithMessageAction;
@@ -23,11 +18,12 @@ public class MainMenu extends AbstractUI {
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
     private static final int SALES_OPTION = 2;
+    private static final int CASH_REGISTER_OPTION = 3;
 
     @Override
     public boolean show() {
-	drawFormTitle();
-	return doShow();
+        drawFormTitle();
+        return doShow();
     }
 
     /**
@@ -35,43 +31,49 @@ public class MainMenu extends AbstractUI {
      */
     @Override
     public boolean doShow() {
-	final Menu menu = buildMainMenu();
-	final MenuRenderer renderer;
-	if (Application.settings().isMenuLayoutHorizontal()) {
-	    renderer = new HorizontalMenuRenderer(menu);
-	} else {
-	    renderer = new VerticalMenuRenderer(menu);
-	}
-	return renderer.show();
+        final Menu menu = buildMainMenu();
+        final MenuRenderer renderer;
+        if (Application.settings().isMenuLayoutHorizontal()) {
+            renderer = new HorizontalMenuRenderer(menu);
+        } else {
+            renderer = new VerticalMenuRenderer(menu);
+        }
+        return renderer.show();
     }
 
     @Override
     public String headline() {
-	return "eCafeteria POS [@" + Application.session().session().authenticatedUser().id() + "]";
+        return "eCafeteria POS [@" + Application.session().session().authenticatedUser().id() + "]";
     }
 
     private Menu buildMainMenu() {
-	final Menu mainMenu = new Menu();
+        final Menu mainMenu = new Menu();
 
-	final Menu myUserMenu = new MyUserMenu();
-	mainMenu.add(new SubMenu(MY_USER_OPTION, myUserMenu, new ShowVerticalSubMenuAction(myUserMenu)));
+        final Menu myUserMenu = new MyUserMenu();
+        mainMenu.add(new SubMenu(MY_USER_OPTION, myUserMenu, new ShowVerticalSubMenuAction(myUserMenu)));
 
-	if (!Application.settings().isMenuLayoutHorizontal()) {
-	    mainMenu.add(VerticalSeparator.separator());
-	}
+        if (!Application.settings().isMenuLayoutHorizontal()) {
+            mainMenu.add(VerticalSeparator.separator());
+        }
 
-	if (Application.session().session().authenticatedUser().isAuthorizedTo(ActionRight.SALE)) {
-	    // TODO
-        final Menu salesMenu = new SalesMenu();
-        mainMenu.add(new SubMenu(SALES_OPTION, salesMenu, new ShowVerticalSubMenuAction(salesMenu)));
-    }
+        if (Application.session().session().authenticatedUser().isAuthorizedTo(ActionRight.SALE)) {
+            // TODO
+            final Menu salesMenu = new SalesMenu();
+            mainMenu.add(new SubMenu(SALES_OPTION, salesMenu, new ShowVerticalSubMenuAction(salesMenu)));
+        }
 
-	if (!Application.settings().isMenuLayoutHorizontal()) {
-	    mainMenu.add(VerticalSeparator.separator());
-	}
+        if (Application.session().session().authenticatedUser().isAuthorizedTo(ActionRight.SALE)) {
+            // TODO
+            final Menu cashRegisterMenu = new CashRegisterMenu();
+            mainMenu.add(new SubMenu(CASH_REGISTER_OPTION, cashRegisterMenu, new ShowVerticalSubMenuAction(cashRegisterMenu)));
+        }
 
-	mainMenu.add(new MenuItem(EXIT_OPTION, "Exit", new ExitWithMessageAction()));
+        if (!Application.settings().isMenuLayoutHorizontal()) {
+            mainMenu.add(VerticalSeparator.separator());
+        }
 
-	return mainMenu;
+        mainMenu.add(new MenuItem(EXIT_OPTION, "Exit", new ExitWithMessageAction()));
+
+        return mainMenu;
     }
 }

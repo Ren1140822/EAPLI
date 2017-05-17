@@ -15,7 +15,7 @@ public class JpaCashRegisterRepository extends CafeteriaJpaRepositoryBase<CashRe
 
     @Override
     public CashRegister findByCashRegisterId(CashRegisterId id) {
-         return matchOne("e.cashRegisterId.id='" + id + "'");
+        return matchOne("e.id=:id", "id", id);
     }
 
 }
