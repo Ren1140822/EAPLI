@@ -5,10 +5,8 @@
  */
 package eapli.ecafeteria.persistence.inmemory;
 
-import eapli.ecafeteria.domain.booking.Booking;
 import eapli.ecafeteria.domain.booking.BookingState;
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
-import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
 import eapli.ecafeteria.domain.meals.Meal;
 import eapli.ecafeteria.domain.booking.Booking;
 import eapli.ecafeteria.domain.meals.DishType;
@@ -57,9 +55,8 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
     }
 
     @Override
-    public Iterable<Booking> allNonEvaluatedBy(CafeteriaUser user) {
-        //TODO
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Iterable<Booking> allNonEvaluatedBy(CafeteriaUser user, BookingState state) {
+        return match(e -> e.belongsTo(user) && e.isAtState(state));
     }
 
     /**

@@ -7,8 +7,11 @@ package eapli.ecafeteria.application.meals;
 
 import eapli.ecafeteria.Application;
 import eapli.ecafeteria.application.booking.ListBookingsService;
+import eapli.ecafeteria.application.cafeteria.CafeteriaUserService;
 import eapli.ecafeteria.domain.authz.ActionRight;
+import eapli.ecafeteria.domain.authz.Username;
 import eapli.ecafeteria.domain.booking.Booking;
+import eapli.ecafeteria.domain.booking.BookingState;
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.ecafeteria.domain.meals.Comment;
 import eapli.ecafeteria.domain.meals.MealEvaluation;
@@ -20,49 +23,57 @@ import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.framework.application.Controller;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
+ * The controller to select and evaluate a booked delivered of the cafeteria
+ * user.
  *
- * @author Pedro
+ * @author Sofia Gonçalves [1150657@isep.ipp.pt] Pedro Chilro
+ * [1150019@isep.ipp.pt]
  */
 public class EvaluateMealController implements Controller {
 
-    private final ListBookingsService svc = new ListBookingsService();
+    /**
+     * The Repository of Meal Evaluation.
+     */
     private final MealEvaluationRepository mealEvaluationRepository = PersistenceContext.repositories().mealEvaluations();
-    private final CafeteriaUserRepository userRepository = PersistenceContext.repositories().cafeteriaUsers(null);
+
+    /**
+     * The Repository of Booking.
+     */
     private final BookingRepository bookingRepository = PersistenceContext.repositories().bookings(null);
 
-    /*
+    /**
+     * The Cafeteria User Service.
+     */
+    private final CafeteriaUserService usersService = new CafeteriaUserService();
+
+    /**
+     * It gets an iterable list with all the delivered bookings to be evaluated.
+     *
+     * @return It returns an iterable list with the result.
+     */
     public Iterable<Booking> listDeliveredBookings() {
-        //TODO is the call to cafeteriauser repository really needed?
-        CafeteriaUser user = userRepository.findByUsername(Application.session().session().authenticatedUser().username());
-        return svc.findBookingsStateDeliveredOf(user);
-    }*/
-    
-    public Iterable<Booking> listDeliveredBookings() {
-        //FIX ME
-        CafeteriaUser user = userRepository.findByUsername(Application.session().session().authenticatedUser().username());
-        Iterable<Booking> it1 = bookingRepository.allNonEvaluatedBy(user);
-        Iterable<Booking> it2 = svc.findBookingsStateDoneOf(user);
-        ArrayList<Booking> listBig = new ArrayList();
-        ArrayList<Booking> listSmall = new ArrayList();
-        it1.forEach(System.out::println);
-        it2.forEach(System.out::println);
-        it1.forEach(listBig::add);
-        it2.forEach(listSmall::add);
-        listBig.retainAll(listSmall);
-        return listBig;
+        Username username = Application.session().session().authenticatedUser().username();
+        CafeteriaUser user = usersService.findCafeteriaUserByUsername(username);
+        return bookingRepository.allNonEvaluatedBy(user, BookingState.DELIVERED);
     }
 
-    public void mealEvaluation(Booking booking, int rating, String comment) throws DataConcurrencyException, DataIntegrityViolationException {
+    /**
+     * It creates a meal evaluation and saves it to the meal evaluation
+     * repository.
+     *
+     * @param booking The booking chosed to be evaluated.
+     * @param rating The Rating (1-5) of the evaluation.
+     * @param comment The string commentary of the evaluation, that can be
+     * empty.
+     * @throws DataConcurrencyException
+     * @throws DataIntegrityViolationException
+     */
+    public void mealEvaluation(Booking booking, Rating rating, Comment comment) throws DataConcurrencyException, DataIntegrityViolationException {
         Application.ensurePermissionOfLoggedInUser(ActionRight.SELECT_MEAL);
-
-        final MealEvaluation mealEvaluation = new MealEvaluation(booking, new Rating(rating), new Comment(comment));
-
+        final MealEvaluation mealEvaluation = new MealEvaluation(booking, rating, comment);
         MealEvaluation ret = mealEvaluationRepository.save(mealEvaluation);
     }
+
 }
