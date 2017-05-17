@@ -110,4 +110,9 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     public ShiftRepository shifts() {
         return new InMemoryShiftRepository();
     }
+
+    @Override
+    public ComplaintRepository complaints() {
+        return new InMemoryComplaintRepository();
+    }
 }

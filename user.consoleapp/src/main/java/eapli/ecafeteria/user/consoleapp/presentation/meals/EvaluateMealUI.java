@@ -7,6 +7,8 @@ package eapli.ecafeteria.user.consoleapp.presentation.meals;
 
 import eapli.ecafeteria.application.meals.EvaluateMealController;
 import eapli.ecafeteria.domain.booking.Booking;
+import eapli.ecafeteria.domain.meals.Comment;
+import eapli.ecafeteria.domain.meals.Rating;
 import eapli.ecafeteria.user.consoleapp.presentation.booking.BookingPrinter;
 import eapli.framework.application.Controller;
 import eapli.framework.persistence.DataConcurrencyException;
@@ -18,16 +20,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * It represents the UI of the MealEvaluation.
  *
- * @author Sofia
+ * @author Sofia Gonçalves [1150657@isep.ipp.pt] Pedro Chilro
+ * [1150019@isep.ipp.pt]
  */
 public class EvaluateMealUI extends AbstractUI {
-
-    //FIXME
-    //@author Meireles
-    // Is this not business logic? Should it be here?
-    private static final int MINIMUM_RATING = 1;
-    private static final int MAXIMUM_RATING = 5;
 
     private final EvaluateMealController theController = new EvaluateMealController();
 
@@ -37,34 +35,51 @@ public class EvaluateMealUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
-        final Iterable<Booking> bookings = theController.listDeliveredBookings();
-        if (bookings.iterator().hasNext()) {
-            final SelectWidget<Booking> selector = new SelectWidget<>("Bookings:", bookings, new BookingPrinter());
-
-            do {
+        SelectWidget<Booking> selector;
+        do {
+            Iterable<Booking> bookings = theController.listDeliveredBookings();
+            if (bookings.iterator().hasNext()) {
+                selector = new SelectWidget<>("Bookings:", bookings, new BookingPrinter());
                 selector.show();
-                final Booking chosenBooking = selector.selectedElement();
+                Booking chosenBooking = selector.selectedElement();
                 if (chosenBooking != null) {
-                    //FIXME
-                    //@Meireles
-                    // Check the method "readOption" from Console class (util.io.Console)
-                    int rating = Integer.parseInt(Console.readLine("Rating (1-5): "));
-                    while (rating < MINIMUM_RATING || rating > MAXIMUM_RATING) {
-                        rating = Integer.parseInt(Console.readLine("Rating (1-5): "));
+                    boolean flag = false;
+                    Rating rate = null;
+                    while (!flag) {
+                        try {
+                            int rating = Integer.parseInt(Console.readLine("Rating (1-5): "));
+                            try {
+                                rate = new Rating(rating);
+                                flag = true;
+                            } catch (IllegalStateException e) {
+                                System.out.println(e.getMessage());
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Rating is with numbers.");
+                        }
                     }
-                    final String comment = Console.readLine("Comment: ");
-
+                    flag = false;
+                    Comment commentary = null;
+                    while (!flag) {
+                        try {
+                            String comment = Console.readLine("Comment: ");
+                            commentary = new Comment(comment);
+                            flag = true;
+                        } catch (IllegalStateException e) {
+                            System.out.println(e.getMessage());
+                        }
+                    }
                     try {
-                        theController.mealEvaluation(chosenBooking, rating, comment);
+                        theController.mealEvaluation(chosenBooking, rate, commentary);
                     } catch (DataConcurrencyException | DataIntegrityViolationException ex) {
                         Logger.getLogger(EvaluateMealUI.class.getName()).log(Level.FINEST, null, ex);
                     }
                 }
-            } while (selector.selectedOption() != 0);
-        } else {
-            System.out.println("There are no previous bookings available to rate.");
-        }
-
+            } else {
+                System.out.println("There are no previous bookings available to rate.");
+                break;
+            }
+        } while (selector.selectedOption() != 0);
         return true;
     }
 

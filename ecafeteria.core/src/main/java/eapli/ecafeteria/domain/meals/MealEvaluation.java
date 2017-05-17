@@ -19,7 +19,6 @@ import javax.persistence.Version;
 /**
  * @TODO why is this an aggregate? are the decisions registered in the design of
  * the use case?
- * @FIXME javadoc
  * @author Sofia Gonçalves [1150657@isep.ipp.pt] Pedro Chilro
  * [1150019@isep.ipp.pt]
  */
@@ -33,12 +32,21 @@ public class MealEvaluation implements AggregateRoot<Booking>, Serializable {
     @GeneratedValue
     private Long pk;
 
+    /**
+     * The booking of the MealEvaluation.
+     */
     @ManyToOne(cascade = CascadeType.MERGE)
     private Booking booking;
 
+    /**
+     * The rating of the MealEvaluation.
+     */
     @Embedded
     private Rating rating;
 
+    /**
+     * The comment of the MealEvaluation.
+     */
     @Embedded
     private Comment comment;
 
@@ -46,6 +54,13 @@ public class MealEvaluation implements AggregateRoot<Booking>, Serializable {
         //for ORM
     }
 
+    /**
+     * The constructor of MealEvaluation.
+     *
+     * @param booking the booking to be evaluated that can't be null.
+     * @param rating The rating of the evaluation that can't be null.
+     * @param comment The comment of the evaluation.
+     */
     public MealEvaluation(Booking booking, Rating rating, Comment comment) {
         if (booking == null || rating == null) {
             throw new IllegalStateException();
@@ -55,31 +70,60 @@ public class MealEvaluation implements AggregateRoot<Booking>, Serializable {
         this.comment = comment;
     }
 
-    public MealEvaluation(Booking booking, Rating rating) {
-        if (booking == null || rating == null) {
-            throw new IllegalStateException();
-        }
-        this.booking = booking;
-        this.rating = rating;
-    }
-
+    /**
+     * Checks if current evaluation is an evaluation of desired meal.
+     *
+     * @param meal The Meal.
+     * @return It returns true if the current evaluation is an evaluation of
+     * desired meal or false otherwise.
+     */
     public boolean isOfMeal(Meal meal) {
         return this.booking.isOfMeal(meal);
     }
 
+    /**
+     * Override method that states if objects are the same.
+     *
+     * @param o The object to be compared.
+     * @return It returns true if the objects are the same or false otherwise.
+     */
     @Override
     public boolean sameAs(Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (!(o instanceof MealEvaluation)) {
+            return false;
+        }
+        final MealEvaluation other = (MealEvaluation) o;
+        if (this == other) {
+            return true;
+        }
+        if (!this.booking.equals(other.booking)) {
+            return false;
+        }
+        if (!this.comment.equals(other.comment)) {
+            return false;
+        }
+        return this.rating.equals(other.rating);
     }
 
-    @Override
-    public boolean is(Booking t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    /**
+     * The method that gives the id of the MealEvaluation, that is a booking.
+     *
+     * @return It returns the respective booking.
+     */
     @Override
     public Booking id() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.booking;
+    }
+
+    /**
+     * It states if the booking is the same of the object.
+     *
+     * @param id the id to be compare, that is a booking.
+     * @return It returns true if the id is the same or false otherwise.
+     */
+    @Override
+    public boolean is(Booking id) {
+        return id().equals(id);
     }
 
 }

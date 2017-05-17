@@ -161,11 +161,19 @@ public class JpaBookingRepository extends JpaAutoTxRepository<Booking, Long>
         return repo.match("e.meal.mealType=:mealType and e.meal.date=:date and e.meal.dish.dishType=:dishType", params);
     }
 
+    /**
+     * It provides all the non evaluated bookings by the respective user.
+     *
+     * @param user The user that requires the booking.
+     * @param state The state that the booking has to be.
+     * @return It returns a iterable with the bookings that aren't evaluated.
+     */
     @Override
-    public Iterable<Booking> allNonEvaluatedBy(CafeteriaUser user) {
+    public Iterable<Booking> allNonEvaluatedBy(CafeteriaUser user, BookingState state) {
         Map<String, Object> params = new HashMap<>();
         params.put("user", user);
-        return repo.match("e NOT IN (SELECT m.booking FROM MealEvaluation m WHERE m.booking.user = :user)", params);
+        params.put("state", state);
+        return repo.match("e NOT IN (SELECT m.booking FROM MealEvaluation m) AND e.state = :state AND e.user =:user", params);
     }
 
 }

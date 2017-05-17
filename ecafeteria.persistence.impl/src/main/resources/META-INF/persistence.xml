@@ -28,6 +28,7 @@
         <class>eapli.ecafeteria.domain.kitchen.MaterialUsed</class>
         <class>eapli.ecafeteria.domain.cafeteria.cashregister.CashRegister</class>
         <class>eapli.ecafeteria.domain.cafeteria.cashregister.Shift</class>
+        <class>eapli.ecafeteria.domain.cafeteria.cashregister.Complaint</class>
 
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/db/ecafeteria"/>
