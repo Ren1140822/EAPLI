@@ -12,12 +12,15 @@ import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.ecafeteria.domain.meals.DishType;
 import eapli.ecafeteria.domain.meals.Meal;
 import eapli.ecafeteria.domain.meals.MealType;
+import eapli.ecafeteria.domain.meals.MealType.MealTypes;
 import eapli.ecafeteria.persistence.BookingRepository;
 import eapli.framework.persistence.repositories.TransactionalContext;
 import eapli.framework.persistence.repositories.impl.jpa.JpaAutoTxRepository;
+import eapli.util.DateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -31,6 +34,66 @@ public class JpaBookingRepository extends JpaAutoTxRepository<Booking, Long>
         super(Application.settings().getPersistenceUnitName(), autoTx);
     }
 
+    /**
+     * It finds the next booking from the user which is at any of the given
+     * states.
+     *
+     * @param user The user who owns the booking.
+     * @param states The states in which the booking might be.
+     * @return It returns the next booking or null if none was found.
+     */
+    @Override
+    public Booking findNextBookingOfUserAtState(CafeteriaUser user, Iterable<BookingState> states) {
+        StringBuilder query = new StringBuilder();
+        Map<String, Object> params = new HashMap<>();
+
+        query.append("e.user=:user");
+        params.put("user", user);
+
+        if (states.iterator().hasNext()) {
+            query.append(" and ( ");
+            short i = 0;
+            for (BookingState state : states) {
+                if (i == 0) {
+                    query.append("e.state=:state");
+                    params.put("state", state);
+                } else {
+                    String stateName = "state" + i;
+                    query.append(" or e.state=:");
+                    query.append(stateName);
+                    params.put(stateName, state);
+                }
+                i++;
+            }
+            query.append(" ) ");
+        }
+
+        Calendar date = DateTime.now();
+        params.put("date", new java.sql.Date(date.getTimeInMillis()));
+        query.append(" and e.meal.date>=:date ORDER BY e.meal.date");
+
+        Iterable<Booking> bookings = repo.match(query.toString(), params);
+        Iterator<Booking> list = bookings.iterator();
+        Booking next = null;
+        if (list.hasNext()) {
+            next = list.next();
+            if (!next.meal().mealType().isOf(MealTypes.ALMOCO) && list.hasNext()) {
+                Booking maybeNext = list.next();
+                if (maybeNext.meal().getDate().equals(next.meal().getDate()) && maybeNext.meal().mealType().isOf(MealTypes.ALMOCO)) {
+                    next = maybeNext;
+                }
+            }
+        }
+        return next;
+    }
+
+    /**
+     * It finds the bookings of a given Cafeteria User that are at a given state.
+     * 
+     * @param user The Cafeteria User that owns the booking.
+     * @param state The state of the bookings to search for.
+     * @return 
+     */
     @Override
     public Iterable<Booking> findBookingByUserAndState(CafeteriaUser user, BookingState state) {
         Map<String, Object> params = new HashMap<>();

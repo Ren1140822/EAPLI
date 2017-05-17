@@ -1,6 +1,5 @@
 package eapli.ecafeteria.domain.cafeteria.account;
 
-import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
 import eapli.framework.domain.Money;
 import javax.persistence.Entity;
 
@@ -17,8 +16,11 @@ public class TopUp extends Transaction {
         // for ORM only
     }
 
-    public TopUp(MecanographicNumber destinationMecanographicNumber, Money amount) {
-        super(destinationMecanographicNumber, amount);
+    public TopUp(AccountCard accountCard, Money amount) {
+        super(accountCard, amount);
+        //FIXME
+        //@author Meireles
+        // Should a validation of the amount be made? A TopUp can have a negative amount? Or a zero amount?
     }
 
     @Override

@@ -8,6 +8,8 @@ import eapli.ecafeteria.persistence.CashRegisterRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.ecafeteria.persistence.ShiftRepository;
 import eapli.framework.application.Controller;
+import eapli.framework.persistence.DataConcurrencyException;
+import eapli.framework.persistence.DataIntegrityViolationException;
 import java.util.Calendar;
 
 /**
@@ -19,9 +21,22 @@ public class OpenCashRegisterController implements Controller {
     private final CashRegisterRepository cashRegisterRepository = PersistenceContext.repositories().cashRegisters();
     private final ShiftRepository shiftRepository = PersistenceContext.repositories().shifts();
 
-    public void openCashRegister(CashRegisterId cashRegisterId, MealType mealType, Calendar date) {
+    public void openCashRegister(CashRegisterId cashRegisterId, MealType mealType, Calendar date)
+            throws DataConcurrencyException, DataIntegrityViolationException {
+
         Shift shift = shiftRepository.findByDateAndMealType(date, mealType);
+
+        //FIXME
+        //creates a new shift if it doesn't exist in the DB
+//        if (shift == null) {
+//            shift = new Shift(date, mealType);
+//        }
+        //if shift is closed, the first cash register must open it
+        shift.open();
+        shiftRepository.save(shift);
+
         CashRegister cashRegister = cashRegisterRepository.findByCashRegisterId(cashRegisterId);
         cashRegister.open();
+        cashRegisterRepository.save(cashRegister);
     }
 }

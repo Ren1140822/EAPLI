@@ -1,7 +1,5 @@
 package eapli.ecafeteria.domain.cafeteria.cashregister;
 
-import eapli.ecafeteria.domain.booking.BookingState;
-import eapli.ecafeteria.domain.meals.Meal;
 import eapli.ecafeteria.domain.meals.MealType;
 import java.io.Serializable;
 import java.util.Calendar;
@@ -65,6 +63,12 @@ public class Shift implements Serializable {
 
     public boolean isAtDate(Calendar date) {
         return this.date.equals(date);
+    }
+
+    public void open() {
+        if (this.isAtState(ShiftState.CLOSED)) {
+            this.state = ShiftState.OPENED;
+        }
     }
 
     @Override

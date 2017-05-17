@@ -36,16 +36,22 @@ public class RegisterMenuUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
-        try{
+        try {
             final Calendar today = Calendar.getInstance();
             final Calendar start = Calendar.getInstance();
             final Calendar end = Calendar.getInstance();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
+            //FIXME
+            //@author Meireles
+            // Check method "readDate" from the Console class.
             final String startDateStr = Console.readLine("Period Start (dd/mm/yyyy)");
             start.setTime(sdf.parse(startDateStr));
 
-            if(today.compareTo(start) > 0){
+            //FIXME
+            //@author Meireles
+            // Check method "after" from Calendar class.
+            if (today.compareTo(start) > 0) {
                 System.out.printf("The start date cannot be in the past.\n");
                 throw new IllegalArgumentException();
             }
@@ -53,13 +59,26 @@ public class RegisterMenuUI extends AbstractUI {
             final String endDateStr = Console.readLine("Period End   (dd/mm/yyyy)");
             end.setTime(sdf.parse(endDateStr));
 
-            if(start.compareTo(end) >= 0){
+            //FIXME
+            //@author Meireles
+            // Check method "after" from Calendar class.
+            //TODO
+            //@author Meireles
+            // Should the class TimePeriod2 be the one responsible for checking if end is after start?
+            if (start.compareTo(end) >= 0) {
                 System.out.printf("The end date cannot be in the past or the same date as the start.\n");
                 throw new IllegalArgumentException();
-            }else{
+            } else {
+                //FIXME
+                //@author Meireles
+                // Check method "getTimeInMillis" from Calendar class.
+                //TODO
+                //@author Meireles
+                // Can a method to solve this issue be created within the DateTime class?
+                // Other solutions can be made like day comparison within the Calendar class.
                 long diff = end.getTime().getTime() - start.getTime().getTime();
                 diff = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-                if(diff > 7){
+                if (diff > 7) {
                     System.out.printf("Difference between start and end date cannot be greater than a week.\n");
                     throw new IllegalArgumentException();
                 }
@@ -88,9 +107,9 @@ public class RegisterMenuUI extends AbstractUI {
             } catch (final DataIntegrityViolationException | DataConcurrencyException e) {
                 System.out.println("You tried to enter a dish which already exists in the database.");
             }
-        }catch(ParseException e){
+        } catch (ParseException e) {
             System.out.println("The date you entered was invalid.");
-        }catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             // Do nothing
         }
 

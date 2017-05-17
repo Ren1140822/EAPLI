@@ -44,7 +44,7 @@ public class Menu implements Serializable {
         }
         this.organicUnit = organicUnit;
         this.meals = new HashSet<>();
-        this.published = true;
+        this.published = false;
         this.period = period;
     }
 
@@ -67,8 +67,11 @@ public class Menu implements Serializable {
     public OrganicUnit organicUnit(){
         return organicUnit;
     }
-
-    public boolean toogleState() {
+    public TimePeriod2 period(){
+      return period;   
+    }
+ 
+    public boolean publish() {
         this.published = true;
         return isPublished();
     }

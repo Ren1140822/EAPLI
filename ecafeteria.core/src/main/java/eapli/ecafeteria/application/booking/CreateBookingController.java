@@ -7,10 +7,8 @@ package eapli.ecafeteria.application.booking;
 
 import eapli.ecafeteria.Application;
 import eapli.ecafeteria.domain.booking.Booking;
-import eapli.ecafeteria.domain.booking.BookingState;
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.ecafeteria.domain.meals.Meal;
-import eapli.ecafeteria.domain.meals.MealType;
 import eapli.ecafeteria.domain.meals.Menu;
 import eapli.ecafeteria.persistence.*;
 import eapli.framework.persistence.DataConcurrencyException;
@@ -19,16 +17,15 @@ import eapli.framework.persistence.repositories.TransactionalContext;
 import eapli.util.DateTime;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- *
+ * 
  * @author PC
  */
 public class CreateBookingController {
-    
+
     private final TransactionalContext TxCtx
             = PersistenceContext.repositories().buildTransactionalContext();
 
@@ -39,19 +36,26 @@ public class CreateBookingController {
     public List<Meal> menusOfDay(Calendar day) {
         List<Meal> mealsOfDay = new LinkedList<>();
         CafeteriaUser user = cafuserRepository.findByUsername(Application.session().session().authenticatedUser().id());
-        Iterable<Menu> menus = menuRepository.publishedMenusOfDay(day,user);
+        Iterable<Menu> menus = menuRepository.publishedMenusOfDay(day, user);
         Calendar cal = Calendar.getInstance();
-        for(Menu m: menus){
+        for (Menu m : menus) {
             for (Meal meal : m.getMeals()) {
                 Calendar mealDate = meal.getDate();
-                if(mealDate.get(Calendar.DAY_OF_MONTH)==cal.get(Calendar.DAY_OF_MONTH)
-                   && mealDate.get(Calendar.YEAR)==cal.get(Calendar.YEAR)
-                   && mealDate.get(Calendar.MONTH)==cal.get(Calendar.MONTH)){
-                    if(cal.get(Calendar.HOUR_OF_DAY)<meal.mealType().freeBookingCancellationTimeLimit().get(Calendar.HOUR_OF_DAY)){
+                //FIXME
+                //@author Meireles
+                // Check method "isSameDate" from eapli.util.DateTime class.
+                if (mealDate.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH)
+                        && mealDate.get(Calendar.YEAR) == day.get(Calendar.YEAR)
+                        && mealDate.get(Calendar.MONTH) == day.get(Calendar.MONTH)) {
+                    if (mealDate.get(Calendar.DAY_OF_MONTH) == cal.get(Calendar.DAY_OF_MONTH)
+                            && mealDate.get(Calendar.YEAR) == cal.get(Calendar.YEAR)
+                            && mealDate.get(Calendar.MONTH) == cal.get(Calendar.MONTH)) {
+                        if (cal.get(Calendar.HOUR_OF_DAY) < meal.mealType().freeBookingCancellationTimeLimit().get(Calendar.HOUR_OF_DAY)) {
+                            mealsOfDay.add(meal);
+                        }
+                    } else {
                         mealsOfDay.add(meal);
                     }
-                }else{
-                    mealsOfDay.add(meal);
                 }
             }
         }
@@ -70,8 +74,12 @@ public class CreateBookingController {
         Booking b = new Booking(user, meal);
         return bookingRepository.save(b);
     }
-    
-    public Calendar transformDate(String dayToBook){
+
+    //FIXME
+    //@author Meireles
+    // Check method "parseDate" from eapli.util.DateTime class.
+    // Check method "readDate" from eapli.util.io.Console class.
+    public Calendar transformDate(String dayToBook) {
         int year, month, day;
         String tokens[] = dayToBook.split("-");
         year = Integer.parseInt(tokens[0]);

@@ -13,11 +13,11 @@ public class TopUpTest {
 
     @Test
     public void ensureTopUpWithNullPkIsNotEqualToAnotherTopUpWithNullPk() throws Exception {
-        final MecanographicNumber aMecanographicNumber = new MecanographicNumber("Dummy");
+        final AccountCard aCard = new AccountCard(new MecanographicNumber("Dummy"));
         final Money aMoney = Money.euros(50);
-        TopUp aTopUp = new TopUp(aMecanographicNumber, aMoney);
+        TopUp aTopUp = new TopUp(aCard, aMoney);
 
-        Transaction aTransaction = new Transaction(aMecanographicNumber, aMoney) {
+        Transaction aTransaction = new Transaction(aCard, aMoney) {
         };
 
         assertFalse(aTopUp.equals(aTransaction));

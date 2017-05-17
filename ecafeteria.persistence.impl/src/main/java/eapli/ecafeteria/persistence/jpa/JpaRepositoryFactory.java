@@ -105,4 +105,9 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     public ShiftRepository shifts() {
         return new JpaShiftRepository();
     }
+
+    @Override
+    public ComplaintRepository complaints() {
+        return new JpaComplaintRepository();
+    }
 }

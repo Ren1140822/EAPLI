@@ -30,8 +30,8 @@ public class TransactionTest {
      */
     @Test(expected = IllegalStateException.class)
     public void ensureTransactionHasAmount() {
-        final MecanographicNumber aMecanographicNumber = new MecanographicNumber("Dummy");
-        new Transaction(aMecanographicNumber, null) {
+        final AccountCard aCard = new AccountCard(new MecanographicNumber("Dummy"));
+        new Transaction(aCard, null) {
         };
     }
 
@@ -40,9 +40,9 @@ public class TransactionTest {
      */
     @Test
     public void ensureTransactionIsEqualsToTheSameInstance() {
-        final MecanographicNumber aMecanographicNumber = new MecanographicNumber("Dummy");
+        final AccountCard aCard = new AccountCard(new MecanographicNumber("Dummy"));
         final Money aMoney = Money.euros(50);
-        final Transaction aTransaction = new Transaction(aMecanographicNumber, aMoney) {
+        final Transaction aTransaction = new Transaction(aCard, aMoney) {
         };
         final Transaction theSameTransaction = aTransaction;
 
@@ -54,14 +54,14 @@ public class TransactionTest {
      */
     @Test
     public void ensureTransactionIsNotEqualsToDifferentTransaction() {
-        final MecanographicNumber aMecanographicNumber = new MecanographicNumber("Dummy");
+        final AccountCard aCard = new AccountCard(new MecanographicNumber("Dummy"));
         final Money aMoney = Money.euros(50);
-        final Transaction aTransaction = new Transaction(aMecanographicNumber, aMoney) {
+        final Transaction aTransaction = new Transaction(aCard, aMoney) {
         };
 
-        final MecanographicNumber anotherMecanographicNumber = new MecanographicNumber("Another dummy");
+        final AccountCard anotherCard = new AccountCard(new MecanographicNumber("Another dummy"));
         final Money anotherMoney = Money.euros(100);
-        final Transaction anotherTransaction = new Transaction(anotherMecanographicNumber, anotherMoney) {
+        final Transaction anotherTransaction = new Transaction(anotherCard, anotherMoney) {
         };
 
         assertFalse(aTransaction.equals(anotherTransaction));

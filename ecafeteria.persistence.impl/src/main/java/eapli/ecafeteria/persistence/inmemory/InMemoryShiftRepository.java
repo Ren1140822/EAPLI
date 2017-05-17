@@ -1,6 +1,5 @@
 package eapli.ecafeteria.persistence.inmemory;
 
-import eapli.ecafeteria.domain.cafeteria.cashregister.CashRegister;
 import eapli.ecafeteria.domain.cafeteria.cashregister.Shift;
 import eapli.ecafeteria.domain.cafeteria.cashregister.ShiftState;
 import eapli.ecafeteria.domain.meals.MealType;
@@ -20,18 +19,22 @@ public class InMemoryShiftRepository extends InMemoryRepositoryWithLongPK<Shift>
         return matchOne(e -> (e.isAtDate(date) && e.isOfMealType(mealType)));
     }
 
+    @Override
     public Shift findByDateAndMealTypeAndState(Calendar date, MealType mealType, ShiftState state) {
         return matchOne(e -> (e.isAtDate(date) && e.isOfMealType(mealType) && e.isAtState(state)));
     }
 
+    @Override
     public Iterable<Shift> findByDate(Calendar date) {
         return match(e -> (e.isAtDate(date)));
     }
 
+    @Override
     public Iterable<Shift> findByMealType(MealType mealType) {
         return match(e -> (e.isOfMealType(mealType)));
     }
 
+    @Override
     public Iterable<Shift> findByState(ShiftState state) {
         return match(e -> (e.isAtState(state)));
     }

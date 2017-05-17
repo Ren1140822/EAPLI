@@ -20,6 +20,22 @@ import java.util.Date;
  */
 public interface BookingRepository extends DataRepository<Booking, Long> {
 
+    /**
+     * It finds the next booking from the user which is at any of the given states.
+     * 
+     * @param user The user who owns the booking.
+     * @param states The states in which the booking might be.
+     * @return It returns the next booking or null if none was found.
+     */
+    Booking findNextBookingOfUserAtState(CafeteriaUser user, Iterable<BookingState> states);
+
+    /**
+     * It finds the bookings of a given Cafeteria User that are at a given state.
+     * 
+     * @param user The Cafeteria User that owns the booking.
+     * @param state The state of the bookings to search for.
+     * @return 
+     */
     Iterable<Booking> findBookingByUserAndState(CafeteriaUser user, BookingState state);
 
     /**

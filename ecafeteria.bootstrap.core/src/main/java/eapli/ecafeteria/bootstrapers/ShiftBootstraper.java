@@ -22,6 +22,7 @@ public class ShiftBootstraper implements Action {
         final MealType mealType1 = new MealType(MealType.MealTypes.ALMOCO);
         final MealType mealType2 = new MealType(MealType.MealTypes.JANTAR);
 
+        //Month value in Calendar is 0 based -> January = 00, February = 01 (...)
         final Calendar date1 = new GregorianCalendar(2017, 05, 10);
         final Calendar date2 = new GregorianCalendar(2017, 05, 11);
 

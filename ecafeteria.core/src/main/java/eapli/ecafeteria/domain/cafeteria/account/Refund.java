@@ -5,7 +5,6 @@
  */
 package eapli.ecafeteria.domain.cafeteria.account;
 
-import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
 import eapli.framework.domain.Money;
 import javax.persistence.Entity;
 
@@ -25,12 +24,14 @@ public class Refund extends Transaction {
     /**
      * Refund should be created using the RefundBuilder.
      *
-     * @param mecanographicNumber The mecanographic number of the cafeteria user
-     * to refund.
+     * @param accountCard The account card of the cafeteria user to refund.
      * @param amount The amount to be refunded.
      */
-    protected Refund(MecanographicNumber mecanographicNumber, Money amount) {
-        super(mecanographicNumber, amount);
+    protected Refund(AccountCard accountCard, Money amount) {
+        super(accountCard, amount);
+        if(amount.amount()<0){
+            throw new IllegalStateException("a refund must not have a negative amount");
+        }
     }
 
     /**

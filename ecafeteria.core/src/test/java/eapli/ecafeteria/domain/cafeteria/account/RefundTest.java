@@ -22,8 +22,7 @@ import static org.junit.Assert.*;
  */
 public class RefundTest {
     
-    private MecanographicNumber number;
-    private double quantity;
+    private AccountCard card;
     private Money amount;
     private Calendar mealDate;
     private Calendar cancellationDate;
@@ -43,10 +42,9 @@ public class RefundTest {
     
     @Before
     public void setUp() {
-        number = new MecanographicNumber("900330");
-        quantity = 20;
-        amount = Money.euros(quantity);
+        amount = Money.euros(20);
         mealDate = Calendar.getInstance();
+        card = new AccountCard(new MecanographicNumber("900330"));
         cancellationDate = Calendar.getInstance();
         mealDate.set(Calendar.YEAR, 2017);
         cancellationDate.set(Calendar.YEAR, 2017);
@@ -65,7 +63,7 @@ public class RefundTest {
     @Test
     public void ensureNoPenaltyIsAppliedBeforeCancellationLimitOnLunch(){
         RefundBuilder refund = new RefundBuilder();
-        refund.withMecanographicNumber(number);
+        refund.withAccountCard(card);
         refund.withMoney(amount);
         cancellationDate.set(Calendar.AM_PM, Calendar.AM);
         cancellationDate.set(Calendar.HOUR, 9);
@@ -76,7 +74,7 @@ public class RefundTest {
     @Test
     public void ensurePenaltyIsAppliedAfterCancellationLimitOnLunch(){
         RefundBuilder refund = new RefundBuilder();
-        refund.withMecanographicNumber(number);
+        refund.withAccountCard(card);
         refund.withMoney(amount);
         cancellationDate.set(Calendar.AM_PM, Calendar.AM);
         cancellationDate.set(Calendar.HOUR, 11);
@@ -87,7 +85,7 @@ public class RefundTest {
     @Test
     public void ensureNoPenaltyIsAppliedBeforeCancellationLimitOnDinner(){
         RefundBuilder refund = new RefundBuilder();
-        refund.withMecanographicNumber(number);
+        refund.withAccountCard(card);
         refund.withMoney(amount);
         cancellationDate.set(Calendar.AM_PM, Calendar.PM);
         cancellationDate.set(Calendar.HOUR, 3);
@@ -98,7 +96,7 @@ public class RefundTest {
     @Test
     public void ensurePenaltyIsAppliedAfterCancellationLimitOnDinner(){
         RefundBuilder refund = new RefundBuilder();
-        refund.withMecanographicNumber(number);
+        refund.withAccountCard(card);
         refund.withMoney(amount);
         cancellationDate.set(Calendar.AM_PM, Calendar.PM);
         cancellationDate.set(Calendar.HOUR, 5);
