@@ -47,7 +47,7 @@ public class RegisterComplaintController implements Controller {
         builder.withMecanograficNumber(number);
     }
     public Complaint saveComplaint() throws DataConcurrencyException, DataIntegrityViolationException{
-        Application.ensurePermissionOfLoggedInUser(ActionRight.SALE);
+        //Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_DELIVERY);
         Complaint c = builder.build();
         return complaintRepository.save(c);
     }
