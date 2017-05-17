@@ -44,6 +44,9 @@ public class RegisterPreparedMealsUI extends AbstractUI {
             boolean parseSucess=false;
             while (!parseSucess){
             try {
+                //FIXME
+                //@Meireles
+                // Check method "readInteger" from Console class.
             quantity = Integer.parseInt(Console.readLine("Quantity of Meals Prepared:"));
             parseSucess=true;
             } catch (NumberFormatException e){

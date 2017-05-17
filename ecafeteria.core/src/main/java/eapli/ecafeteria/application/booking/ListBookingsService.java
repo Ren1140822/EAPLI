@@ -64,4 +64,17 @@ public class ListBookingsService {
         return this.repo.findBookingByUserAndStatesAndWithinDays(user, states, days);
     }
 
+    /**
+     * It finds the next booking at state "Done" or "Definitive" from the user.
+     * 
+     * @param user The user who owns the bookings.
+     * @return It returns the next booking or null if none was found.
+     */
+    public Booking findNextActiveBookingOf(CafeteriaUser user) {
+        List<BookingState> states = new ArrayList<>();
+        states.add(BookingState.DONE);
+        states.add(BookingState.DEFINITIVE);
+        return this.repo.findNextBookingOfUserAtState(user, states);
+    }
+
 }

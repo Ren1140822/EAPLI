@@ -45,7 +45,7 @@ public class ViewBookingsForNextDaysUI extends AbstractUI {
         if(!list.iterator().hasNext()){
             System.out.println("There are no upcoming bookings.");
         }
-        Console.readLine("Press Enter to return.");
+        Console.waitForKey("Press Enter to return.");
         return true;
     }
 

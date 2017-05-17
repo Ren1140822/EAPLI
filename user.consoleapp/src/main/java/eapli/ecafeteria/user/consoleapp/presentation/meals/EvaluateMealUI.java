@@ -45,6 +45,9 @@ public class EvaluateMealUI extends AbstractUI {
                 selector.show();
                 final Booking chosenBooking = selector.selectedElement();
                 if (chosenBooking != null) {
+                    //FIXME
+                    //@Meireles
+                    // Check the method "readOption" from Console class (util.io.Console)
                     int rating = Integer.parseInt(Console.readLine("Rating (1-5): "));
                     while (rating < MINIMUM_RATING || rating > MAXIMUM_RATING) {
                         rating = Integer.parseInt(Console.readLine("Rating (1-5): "));

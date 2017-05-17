@@ -16,17 +16,17 @@ import eapli.framework.persistence.DataIntegrityViolationException;
  * @todo is there a typo in the name of the class? should it be PublishMenu?
  * @author Eduangelo Ferreira
  */
-public class PublishedMenuController implements Controller {
+public class PublishMenuController implements Controller {
 
     private ListMenuService listMenu = new ListMenuService();
     private MenuRepository menuRepository = PersistenceContext.repositories().menus();
 
     //TODO is there a typo in the name of the method? should it be publishMenu?
-    public void publishedMenu(Menu menu) throws DataConcurrencyException, DataIntegrityViolationException {
+    public void publishMenu(Menu menu) throws DataConcurrencyException, DataIntegrityViolationException {
         if (menu == null) {
             throw new IllegalStateException();
         }
-        menu.toogleState();
+        menu.publish();
         menuRepository.save(menu);
     }
 

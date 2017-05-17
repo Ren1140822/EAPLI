@@ -34,6 +34,9 @@ public class CreateBookingUI extends AbstractUI {
     protected boolean doShow() {
         String dayToBook;
         do {
+            //FIXEME
+            //@author Meireles
+            // Check method "readDate" from Console class
             dayToBook = Console.readLine("Insert the date (YYYY-MM-DD):");
         } while (!validateInputDate(dayToBook));
         System.out.println("");
@@ -42,11 +45,13 @@ public class CreateBookingUI extends AbstractUI {
         SelectWidget<Meal> selector = new SelectWidget<>("Meals:", meals, new MealPrinter());
         selector.show();
         choosedMeal = selector.selectedElement();
-        if(choosedMeal==null) return true;
+        if (choosedMeal == null) {
+            return true;
+        }
         try {
             controller.book(choosedMeal);
         } catch (DataConcurrencyException ex) {
-             System.out.println("The meal has suffered some changes and it was not possible to book. Please try again.");
+            System.out.println("The meal has suffered some changes and it was not possible to book. Please try again.");
         } catch (DataIntegrityViolationException ex) {
             Logger.getLogger(CreateBookingUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -84,7 +89,20 @@ public class CreateBookingUI extends AbstractUI {
             System.out.println("Invalid Date!");
             return false;
         }
+
+        Calendar currentTime = Calendar.getInstance();
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_MONTH,day );
+        cal.set(Calendar.YEAR,year );
+        cal.set(Calendar.MONTH, month-1);
+        if (cal.before(currentTime)) {
+            System.out.println("");
+            System.out.println("Invalid Date!");
+            System.out.println("");
+            return false;
+        }
         return true;
+
     }
 
 }

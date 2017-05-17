@@ -34,6 +34,10 @@ public class Balance implements ValueObject, Serializable {
         Money anotherMoney = this.amount.add(aMoney);
         return new Balance(anotherMoney);
     }
+    
+    public Money amount(){
+        return this.amount;
+    }
 
     @Override
     public int hashCode() {

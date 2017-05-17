@@ -53,6 +53,7 @@ public class Dish implements AggregateRoot<Designation>, Serializable {
             throw new IllegalStateException();
         }
 
+        this.allergens = new AllergenicInfo(new ArrayList<>());
         this.dishType = dishType;
         this.name = name;
         this.nutricionalInfo = null;

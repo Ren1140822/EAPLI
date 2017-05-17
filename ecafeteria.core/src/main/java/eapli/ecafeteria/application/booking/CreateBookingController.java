@@ -28,7 +28,7 @@ import java.util.List;
  * @author PC
  */
 public class CreateBookingController {
-    
+
     private final TransactionalContext TxCtx
             = PersistenceContext.repositories().buildTransactionalContext();
 
@@ -39,19 +39,23 @@ public class CreateBookingController {
     public List<Meal> menusOfDay(Calendar day) {
         List<Meal> mealsOfDay = new LinkedList<>();
         CafeteriaUser user = cafuserRepository.findByUsername(Application.session().session().authenticatedUser().id());
-        Iterable<Menu> menus = menuRepository.publishedMenusOfDay(day,user);
+        Iterable<Menu> menus = menuRepository.publishedMenusOfDay(day, user);
         Calendar cal = Calendar.getInstance();
-        for(Menu m: menus){
+        for (Menu m : menus) {
             for (Meal meal : m.getMeals()) {
                 Calendar mealDate = meal.getDate();
-                if(mealDate.get(Calendar.DAY_OF_MONTH)==cal.get(Calendar.DAY_OF_MONTH)
-                   && mealDate.get(Calendar.YEAR)==cal.get(Calendar.YEAR)
-                   && mealDate.get(Calendar.MONTH)==cal.get(Calendar.MONTH)){
-                    if(cal.get(Calendar.HOUR_OF_DAY)<meal.mealType().freeBookingCancellationTimeLimit().get(Calendar.HOUR_OF_DAY)){
+                if (mealDate.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH)
+                        && mealDate.get(Calendar.YEAR) == day.get(Calendar.YEAR)
+                        && mealDate.get(Calendar.MONTH) == day.get(Calendar.MONTH)) {
+                    if (mealDate.get(Calendar.DAY_OF_MONTH) == cal.get(Calendar.DAY_OF_MONTH)
+                            && mealDate.get(Calendar.YEAR) == cal.get(Calendar.YEAR)
+                            && mealDate.get(Calendar.MONTH) == cal.get(Calendar.MONTH)) {
+                        if (cal.get(Calendar.HOUR_OF_DAY) < meal.mealType().freeBookingCancellationTimeLimit().get(Calendar.HOUR_OF_DAY)) {
+                            mealsOfDay.add(meal);
+                        }
+                    } else {
                         mealsOfDay.add(meal);
                     }
-                }else{
-                    mealsOfDay.add(meal);
                 }
             }
         }
@@ -70,8 +74,8 @@ public class CreateBookingController {
         Booking b = new Booking(user, meal);
         return bookingRepository.save(b);
     }
-    
-    public Calendar transformDate(String dayToBook){
+
+    public Calendar transformDate(String dayToBook) {
         int year, month, day;
         String tokens[] = dayToBook.split("-");
         year = Integer.parseInt(tokens[0]);
