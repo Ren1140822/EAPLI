@@ -73,6 +73,13 @@ public class AcceptRefuseSignupRequestController implements Controller {
         return theSignupRequest;
     }
 
+    /**
+     * Creates an account card associated to the received mecanographic number.
+     *
+     * @param number the mecanographic number to identify the account card
+     * @throws DataConcurrencyException
+     * @throws DataIntegrityViolationException
+     */
     private void createAccountCard(MecanographicNumber number) throws DataConcurrencyException,
             DataIntegrityViolationException {
 
@@ -92,7 +99,7 @@ public class AcceptRefuseSignupRequestController implements Controller {
 
         CafeteriaUser aCafeteriaUser = cafeteriaUserBuilder.build();
         this.cafeteriaUserRepository.save(aCafeteriaUser);
-
+        // creates the account card
         createAccountCard(aCafeteriaUser.mecanographicNumber());
     }
 
