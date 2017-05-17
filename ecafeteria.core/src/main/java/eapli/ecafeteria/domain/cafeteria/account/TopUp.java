@@ -1,6 +1,5 @@
 package eapli.ecafeteria.domain.cafeteria.account;
 
-import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
 import eapli.framework.domain.Money;
 import javax.persistence.Entity;
 

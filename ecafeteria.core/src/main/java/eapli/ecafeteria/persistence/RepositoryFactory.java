@@ -69,4 +69,6 @@ public interface RepositoryFactory {
     CashRegisterRepository cashRegisters();
 
     ShiftRepository shifts();
+    
+    ComplaintRepository complaints();
 }
