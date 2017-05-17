@@ -7,20 +7,21 @@ package eapli.ecafeteria.domain.cafeteria.account;
 
 import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
 import eapli.ecafeteria.domain.meals.MealType;
+import eapli.ecafeteria.persistence.AccountCardRepository;
+import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.framework.domain.Money;
 import eapli.framework.domain.ddd.Factory;
 import java.util.Calendar;
 
 /**
  * A builder for the Refund. It allows a step-by-step creation. It must first
- * define the mecanographic number, amount and penalty, and then it can be
- * built.
+ * define the account card, amount and penalty, and then it can be built.
  *
  * @author Meireles
  */
 public class RefundBuilder implements Factory<Refund> {
 
-    private MecanographicNumber number;
+    private AccountCard card;
     private Money amount;
     private PenaltyStrategy penalty;
 
@@ -28,20 +29,32 @@ public class RefundBuilder implements Factory<Refund> {
      * Starting refund builder. All components are null.
      */
     public RefundBuilder() {
-        number = null;
+        card = null;
         amount = null;
         penalty = null;
     }
 
     /**
-     * It stores the mecanographic number to be used on the refund.
+     * It stores the account card to be used on the refund.
      *
-     * @param number The mecanographic number of the cafeteria user to be
-     * refunded.
-     * @return It returns this builder with the mecanographic number.
+     * @param card The account card of the cafeteria user to be refunded.
+     * @return It returns this builder with the account card.
      */
-    public RefundBuilder withMecanographicNumber(MecanographicNumber number) {
-        this.number = number;
+    public RefundBuilder withAccountCard(AccountCard card) {
+        this.card = card;
+        return this;
+    }
+
+    /**
+     * It stores the account card to be used on the refund.
+     *
+     * @param number The mecanographic number whose will be used to find the
+     * account card of the cafeteria user to be refunded
+     * @return It returns this builder with the account card.
+     */
+    public RefundBuilder withAccountCard(MecanographicNumber number) {
+        final AccountCardRepository cardsRepository = PersistenceContext.repositories().accountCards(null);
+        this.card = cardsRepository.findByMecanographicNumber(number);
         return this;
     }
 
@@ -126,11 +139,11 @@ public class RefundBuilder implements Factory<Refund> {
      */
     @Override
     public Refund build() {
-        if (number == null || amount == null || penalty == null) {
+        if (card == null || amount == null || penalty == null) {
             throw new IllegalStateException("object is malformed");
         }
         amount = penalty.apply(amount);
-        return new Refund(number, amount);
+        return new Refund(card, amount);
     }
 
 }

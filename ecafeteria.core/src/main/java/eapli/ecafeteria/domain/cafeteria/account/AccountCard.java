@@ -4,6 +4,8 @@ import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
 import eapli.framework.domain.Money;
 import eapli.framework.domain.ddd.AggregateRoot;
 import java.io.Serializable;
+import java.util.Observable;
+import java.util.Observer;
 import javax.persistence.*;
 
 /**
@@ -15,7 +17,7 @@ import javax.persistence.*;
  * @author Daniel Gonçalves 1151452
  */
 @Entity
-public class AccountCard implements AggregateRoot<MecanographicNumber>, Serializable {
+public class AccountCard implements AggregateRoot<MecanographicNumber>, Observer, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -43,15 +45,15 @@ public class AccountCard implements AggregateRoot<MecanographicNumber>, Serializ
     }
 
     /**
-     * Adds money to the account card balance.
+     * Updates the card's balance taking into account the new transaction.
      *
-     * @param aMoney the money to add
+     * @param aTransaction The transaction to be accounted in the balance.
      */
-    public void topUp(Money aMoney) {
-        this.balance = this.balance.add(aMoney);
+    public void aggregate(Transaction aTransaction) {
+        this.balance = this.balance.add(aTransaction.value());
     }
-    
-    public Balance balance(){
+
+    public Balance balance() {
         return this.balance;
     }
 
@@ -97,4 +99,19 @@ public class AccountCard implements AggregateRoot<MecanographicNumber>, Serializ
 
         return mecanographicNumber.equals(otherCard.mecanographicNumber);
     }
+
+    /**
+     * It updates the balance when a transaction notifies.
+     *
+     * @param o The transaction that notified the card.
+     * @param arg It is not used and it has null value.
+     */
+    @Override
+    public void update(Observable o, Object arg) {
+        if (o == null || !(o instanceof Transaction)) {
+            throw new IllegalArgumentException("unrecognized observable");
+        }
+        aggregate((Transaction) o);
+    }
+
 }

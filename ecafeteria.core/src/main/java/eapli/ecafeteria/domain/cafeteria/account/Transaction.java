@@ -9,6 +9,7 @@ import eapli.util.DateTime;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Observable;
 
 /**
  * @author Ivo Ferro 1151159
@@ -18,7 +19,7 @@ import java.util.Calendar;
  *         </p>
  */
 @Entity
-public abstract class Transaction implements AggregateRoot<TransactionId>, Serializable {
+public abstract class Transaction extends Observable implements AggregateRoot<TransactionId>, Serializable {
 
     private static final long serialVersionUID = 1L;
     @Version
@@ -32,9 +33,10 @@ public abstract class Transaction implements AggregateRoot<TransactionId>, Seria
      */
     private TransactionId aTransactionId;
     /**
-     * The mecanographic number of the card account.
+     * The account card of the card account.
      */
-    private MecanographicNumber aMecanographicNumber;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private AccountCard aCard;
     /**
      * The amount of money.
      */
@@ -55,17 +57,19 @@ public abstract class Transaction implements AggregateRoot<TransactionId>, Seria
     /**
      * Creates a transaction receiving the destination mecanographic number and the amount to move.
      *
-     * @param destinationMecanographicNumber the destination mecanographic number
+     * @param AccountCard the destination mecanographic number
      * @param amount                         the amount of the transaction.
      */
-    public Transaction(MecanographicNumber destinationMecanographicNumber, Money amount) {
-        if ((destinationMecanographicNumber == null) || (amount == null)) {
+    public Transaction(AccountCard accountCard, Money amount) {
+        if ((accountCard == null) || (amount == null)) {
             throw new IllegalStateException("Parameters can't be null.");
         }
         this.aTransactionId = new TransactionId();
         this.aMoney = amount;
-        this.aMecanographicNumber = destinationMecanographicNumber;
+        this.aCard = accountCard;
         this.date = DateTime.now();
+        addObserver(aCard);
+        setChanged();
     }
 
     /**
@@ -118,7 +122,7 @@ public abstract class Transaction implements AggregateRoot<TransactionId>, Seria
             return true;
         }
         return (this.aTransactionId.equals(((Transaction) other).aTransactionId))
-                && (this.aMecanographicNumber.equals(that.aMecanographicNumber))
+                && (this.aCard.equals(that.aCard))
                 && (this.aMoney.equals(that.aMoney)) && (this.date.equals(that.aMoney));
     }
 

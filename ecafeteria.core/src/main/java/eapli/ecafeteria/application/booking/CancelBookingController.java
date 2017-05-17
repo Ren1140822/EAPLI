@@ -12,6 +12,7 @@ import eapli.ecafeteria.domain.authz.Username;
 import eapli.ecafeteria.domain.booking.Booking;
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.ecafeteria.domain.cafeteria.account.Refund;
+import eapli.ecafeteria.domain.cafeteria.account.Transaction;
 import eapli.ecafeteria.persistence.BookingRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.ecafeteria.persistence.TransactionRepository;
@@ -54,7 +55,9 @@ public class CancelBookingController implements Controller {
      */
     public void cancel(Booking booking) throws DataConcurrencyException, DataIntegrityViolationException {
         Application.ensurePermissionOfLoggedInUser(ActionRight.SELECT_MEAL);
-        Refund refund = booking.cancel();
+        booking.cancel();
+        Transaction refund = booking.refund();
+        refund.notifyObservers();
         txCtx.beginTransaction();
         bookingsRepository.save(booking);
         transactionsRepository.save(refund);

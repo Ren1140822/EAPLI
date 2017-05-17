@@ -44,27 +44,33 @@ public class Booking implements Serializable {
         if (user == null || meal == null) {
             throw new IllegalStateException();
         }
-        
+
         this.user = user;
         this.meal = meal;
         this.state = BookingState.DONE;
     }
 
     /**
-     * It cancels the booking by changing its state from "Done" to "Canceled"
-     * and provides the refunding. It throws an IllegalStateException if the
-     * booking is in a non-cancellable state.
-     *
-     * @return It returns the corresponding refund.
+     * It cancels the booking by changing its state from "Done" to "Canceled".
+     * It throws an IllegalStateException if the booking is in a non-cancellable
+     * state.
      */
-    public Refund cancel() {
+    public void cancel() {
         if (this.state != BookingState.DONE) {
             throw new IllegalStateException();
         }
         this.state = BookingState.CANCELED;
+    }
+
+    /**
+     * It provides the corresponding refund from this booking.
+     * 
+     * @return It returns the refund from this booking.
+     */
+    public Refund refund() {
         RefundBuilder refund = new RefundBuilder();
         refund.withPenalty(meal.getDate(), meal.mealType(), Calendar.getInstance());
-        refund.withMecanographicNumber(user.mecanographicNumber());
+        refund.withAccountCard(user.mecanographicNumber());
         refund.withMoney(meal.dish().currentPrice());
         return refund.build();
     }

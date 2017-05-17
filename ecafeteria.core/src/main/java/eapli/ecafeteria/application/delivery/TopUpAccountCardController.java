@@ -40,11 +40,10 @@ public class TopUpAccountCardController implements Controller {
         txCtx.beginTransaction();
         /********************************/
         // Save new transaction
-        Transaction aTransaction = new TopUp(aMecanographicNumber, aMoney);
+        Transaction aTransaction = new TopUp(card, aMoney);
         transactionRepo.save(aTransaction);
         // Add to card's balance
-        card.topUp(aMoney);
-        accountCardsRepo.save(card);
+        aTransaction.notifyObservers();
         /********************************/
         //explicitly commit the transaction
         txCtx.commit();
