@@ -6,6 +6,7 @@
 package eapli.ecafeteria.bootstrapers;
 
 import eapli.ecafeteria.application.booking.CreateBookingController;
+import eapli.ecafeteria.application.delivery.TopUpAccountCardController;
 import eapli.ecafeteria.domain.authz.Username;
 import eapli.ecafeteria.domain.booking.Booking;
 import eapli.ecafeteria.domain.booking.BookingState;
@@ -27,6 +28,7 @@ import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
 import java.util.Calendar;
 import java.util.Currency;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -35,6 +37,7 @@ import java.util.logging.Logger;
 public class BookingBootstraper implements Action {
 
     private final CreateBookingController theBookingController = new CreateBookingController();
+    private final TopUpAccountCardController theTopUpController = new TopUpAccountCardController();
 
     @Override
     public boolean execute() {
@@ -68,6 +71,12 @@ public class BookingBootstraper implements Action {
         final CafeteriaUserRepository users = PersistenceContext.repositories().cafeteriaUsers(null);
         final CafeteriaUser user1 = users.findByUsername(new Username("900330"));
         final CafeteriaUser user2 = users.findByUsername(new Username("900331"));
+         try {
+            theTopUpController.topUpCard(user1.mecanographicNumber().toString(), 10000.0);
+            theTopUpController.topUpCard(user2.mecanographicNumber().toString(), 10000.0);
+        } catch (DataConcurrencyException | DataIntegrityViolationException ex) {
+            Logger.getLogger(BookingBootstraper.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         register(user1, mealA, BookingState.DELIVERED);
         register(user1, mealB, BookingState.DELIVERED);

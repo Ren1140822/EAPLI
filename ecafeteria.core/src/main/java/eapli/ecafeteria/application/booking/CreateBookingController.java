@@ -8,9 +8,13 @@ package eapli.ecafeteria.application.booking;
 import eapli.ecafeteria.Application;
 import eapli.ecafeteria.domain.booking.Booking;
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
+import eapli.ecafeteria.domain.cafeteria.account.AccountCard;
+import eapli.ecafeteria.domain.cafeteria.account.Balance;
+import eapli.ecafeteria.domain.cafeteria.account.Transaction;
 import eapli.ecafeteria.domain.meals.Meal;
 import eapli.ecafeteria.domain.meals.Menu;
 import eapli.ecafeteria.persistence.*;
+import eapli.framework.domain.Money;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
 import eapli.framework.persistence.repositories.TransactionalContext;
@@ -32,13 +36,18 @@ public class CreateBookingController {
 
     private final CafeteriaUserRepository cafuserRepository = PersistenceContext.repositories().cafeteriaUsers(TxCtx);
     private final MenuRepository menuRepository = PersistenceContext.repositories().menus();
-    private final BookingRepository bookingRepository = PersistenceContext.repositories().bookings(null);
+    private final BookingRepository bookingRepository = PersistenceContext.repositories().bookings(TxCtx);
+    private final TransactionRepository transactionsRepository = PersistenceContext.repositories().transactions(TxCtx);
+    private final AccountCardRepository accountRepository = PersistenceContext.repositories().accountCards(TxCtx);
+    
+
 
     public List<Meal> menusOfDay(Date dateTime) {
         Calendar day = Calendar.getInstance();
         day.setTime(dateTime);
         List<Meal> mealsOfDay = new LinkedList<>();
         CafeteriaUser user = cafuserRepository.findByUsername(Application.session().session().authenticatedUser().id());
+        
         Iterable<Menu> menus = menuRepository.publishedMenusOfDay(day, user);
         Calendar cal = Calendar.getInstance();
         for (Menu m : menus) {
@@ -57,18 +66,30 @@ public class CreateBookingController {
         }
         return mealsOfDay;
     }
-
-    public void book(Meal meal) throws DataConcurrencyException, DataIntegrityViolationException {
-        //FIXME there is no need for transactions if we are just querying the data
-        TxCtx.beginTransaction();
+    public void save(Meal meal) throws DataConcurrencyException, DataIntegrityViolationException{
         CafeteriaUser user = cafuserRepository.findByUsername(Application.session().session().authenticatedUser().id());
-        TxCtx.commit();
-        registerBooking(user, meal);
+        registerBooking(user,meal);
     }
 
-    public Booking registerBooking(CafeteriaUser user, Meal meal) throws DataConcurrencyException, DataIntegrityViolationException {
-        Booking b = new Booking(user, meal);
-        return bookingRepository.save(b);
+    public Booking registerBooking(CafeteriaUser user,Meal meal) throws DataConcurrencyException, DataIntegrityViolationException {
+        
+        Booking booking = new Booking(user, meal);
+        Transaction purchase = booking.purchase();
+        purchase.notifyObservers();
+        TxCtx.beginTransaction();
+        bookingRepository.save(booking);
+        transactionsRepository.save(purchase);
+        TxCtx.commit();
+        return booking ;
+    }
+    
+    public boolean hasEnoughMoney(Meal meal){
+        CafeteriaUser user = cafuserRepository.findByUsername(Application.session().session().authenticatedUser().id());
+         Money price = meal.dish().currentPrice();
+        AccountCard card = accountRepository.findByMecanographicNumber(user.mecanographicNumber());
+        Balance balance = card.balance();
+        if(balance.amount().lessThan(price)) return false;
+        return true;
     }
 
 
