@@ -2,6 +2,7 @@ package eapli.ecafeteria.application.delivery;
 
 import eapli.ecafeteria.Application;
 import eapli.ecafeteria.domain.authz.ActionRight;
+import eapli.ecafeteria.domain.authz.Username;
 import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
 import eapli.ecafeteria.domain.cafeteria.account.AccountCard;
 import eapli.ecafeteria.domain.cafeteria.account.TopUp;
@@ -36,15 +37,17 @@ public class TopUpAccountCardController implements Controller {
 
         Money aMoney = Money.euros(eurosValue);
 
+        // FIXME: Should we access the current cashier through the user session?
+        Username aCashier = Application.session().session().authenticatedUser().username();
+
         //explicitly begin a transaction
         txCtx.beginTransaction();
         /********************************/
         // Save new transaction
-        Transaction aTransaction = new TopUp(aMecanographicNumber, aMoney);
+        Transaction aTransaction = new TopUp(card, aMoney, aCashier);
         transactionRepo.save(aTransaction);
         // Add to card's balance
-        card.topUp(aMoney);
-        accountCardsRepo.save(card);
+        aTransaction.notifyObservers();
         /********************************/
         //explicitly commit the transaction
         txCtx.commit();

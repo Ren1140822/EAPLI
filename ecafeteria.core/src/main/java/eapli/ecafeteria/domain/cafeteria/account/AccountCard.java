@@ -3,19 +3,22 @@ package eapli.ecafeteria.domain.cafeteria.account;
 import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
 import eapli.framework.domain.Money;
 import eapli.framework.domain.ddd.AggregateRoot;
+
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Version;
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
- * @TODO why is the AccountCard a separate aggregate? is this justified in the
- * design of the use case?
- * @FIXME javadoc
+ * Represents an account card of a cafeteria user. (issue #22 explains the design decisions).
  *
  * @author Ivo Ferro 1151159
  * @author Daniel Gonçalves 1151452
  */
 @Entity
-public class AccountCard implements AggregateRoot<MecanographicNumber>, Serializable {
+public class AccountCard implements AggregateRoot<MecanographicNumber>, Observer, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -43,15 +46,15 @@ public class AccountCard implements AggregateRoot<MecanographicNumber>, Serializ
     }
 
     /**
-     * Adds money to the account card balance.
+     * Updates the card's balance taking into account the new transaction.
      *
-     * @param aMoney the money to add
+     * @param aTransaction The transaction to be accounted in the balance.
      */
-    public void topUp(Money aMoney) {
-        this.balance = this.balance.add(aMoney);
+    public void aggregate(Transaction aTransaction) {
+        this.balance = this.balance.add(aTransaction.value());
     }
-    
-    public Balance balance(){
+
+    public Balance balance() {
         return this.balance;
     }
 
@@ -97,4 +100,20 @@ public class AccountCard implements AggregateRoot<MecanographicNumber>, Serializ
 
         return mecanographicNumber.equals(otherCard.mecanographicNumber);
     }
+
+    /**
+     * It updates the balance when a transaction notifies.
+     *
+     * @param o The transaction that notified the card.
+     * @param arg It is not used and it has null value.
+     */
+    @Override
+    public void update(Observable o, Object arg) {
+        if (o == null || !(o instanceof Transaction)) {
+            throw new IllegalArgumentException("unrecognized observable");
+        }
+
+        aggregate((Transaction) o);
+    }
+
 }

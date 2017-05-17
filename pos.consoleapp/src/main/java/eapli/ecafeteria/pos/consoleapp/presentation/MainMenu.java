@@ -20,6 +20,7 @@ public class MainMenu extends AbstractUI {
     private static final int SALES_OPTION = 2;
     private static final int CASH_REGISTER_OPTION = 3;
 
+
     @Override
     public boolean show() {
         drawFormTitle();

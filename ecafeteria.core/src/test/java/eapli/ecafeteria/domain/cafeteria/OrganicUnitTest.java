@@ -61,4 +61,24 @@ public class OrganicUnitTest {
 	final boolean result = instance.is(id);
 	assertEquals(expResult, result);
     }
+    
+    @Test
+    public void ensureValidNumbersAreAccepted(){
+        final MecanographicNumber mecanographicNumber = new MecanographicNumber("TU0001");
+	final OrganicUnit instance = new OrganicUnit("HSJ", "Hospital São João", "It's an hospital");
+
+	final boolean expResult = true;
+	final boolean result = instance.validateMecanographicNumber(mecanographicNumber);
+	assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void ensureInvalidNumbersAreRejected(){
+        final MecanographicNumber mecanographicNumber = new MecanographicNumber("tu0001");
+	final OrganicUnit instance = new OrganicUnit("HSJ", "Hospital São João", "It's an hospital");
+
+	final boolean expResult = false;
+	final boolean result = instance.validateMecanographicNumber(mecanographicNumber);
+	assertEquals(expResult, result);
+    }
 }

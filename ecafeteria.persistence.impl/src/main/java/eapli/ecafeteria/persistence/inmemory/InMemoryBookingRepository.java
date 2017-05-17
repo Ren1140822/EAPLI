@@ -93,9 +93,8 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
     }
 
     @Override
-    public Iterable<Booking> allNonEvaluatedBy(CafeteriaUser user) {
-        //TODO
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Iterable<Booking> allNonEvaluatedBy(CafeteriaUser user, BookingState state) {
+        return match(e -> e.belongsTo(user) && e.isAtState(state));
     }
 
     /**

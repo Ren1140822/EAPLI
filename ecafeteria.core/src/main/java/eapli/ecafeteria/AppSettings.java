@@ -54,6 +54,7 @@ public class AppSettings {
 		"eapli.ecafeteria.persistence.jpa.JpaRepositoryFactory");
 	this.applicationProperties.setProperty(UI_MENU_LAYOUT_KEY, "horizontal");
 	this.applicationProperties.setProperty(PERSISTENCE_UNIT_KEY, "eapli.eCafeteriaPU");
+        this.applicationProperties.setProperty("domain.mecanographicNumberStrategy.HSJ", "eapli.ecafeteria.domain.cafeteria.MecanographicNumberCapitalizedAlphaNumeric");
     }
 
     public Boolean isMenuLayoutHorizontal() {
@@ -67,4 +68,9 @@ public class AppSettings {
     public String getRepositoryFactory() {
 	return this.applicationProperties.getProperty(REPOSITORY_FACTORY_KEY);
     }
+
+    public String getMecanographicNumberValidation(String organicUnitAcronym){
+        return this.applicationProperties.getProperty(organicUnitAcronym);
+    }
+
 }

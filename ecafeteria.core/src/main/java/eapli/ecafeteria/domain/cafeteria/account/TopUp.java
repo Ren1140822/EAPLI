@@ -1,7 +1,8 @@
 package eapli.ecafeteria.domain.cafeteria.account;
 
-import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
+import eapli.ecafeteria.domain.authz.Username;
 import eapli.framework.domain.Money;
+
 import javax.persistence.Entity;
 
 /**
@@ -13,12 +14,25 @@ import javax.persistence.Entity;
 @Entity
 public class TopUp extends Transaction {
 
+    /**
+     * Identifies the cashier who registered the topUp.
+     */
+    private Username cashier;
+
     protected TopUp() {
         // for ORM only
     }
 
-    public TopUp(MecanographicNumber destinationMecanographicNumber, Money amount) {
-        super(destinationMecanographicNumber, amount);
+    public TopUp(AccountCard accountCard, Money amount, Username aCashier) {
+        super(accountCard, amount);
+
+        if (amount.amount() < 0) {
+            throw new IllegalStateException("a top up must not have a negative amount");
+        }
+        if (aCashier == null) {
+            throw new IllegalStateException("cashier username can't be null.");
+        }
+        cashier = aCashier;
     }
 
     @Override

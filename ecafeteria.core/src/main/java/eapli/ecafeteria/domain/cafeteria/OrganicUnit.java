@@ -5,8 +5,12 @@
  */
 package eapli.ecafeteria.domain.cafeteria;
 
+import eapli.ecafeteria.Application;
 import eapli.framework.domain.ddd.AggregateRoot;
+import eapli.util.Strings;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,6 +26,8 @@ import javax.persistence.Version;
 public class OrganicUnit implements AggregateRoot<String>, Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    private static final String MECANOGRAPHIC_NUMBER_VALIDATION_PROPERTY = "domain.mecanographicNumberStrategy.";
 
     @Id
     @GeneratedValue
@@ -40,11 +46,10 @@ public class OrganicUnit implements AggregateRoot<String>, Serializable {
     }
 
     public OrganicUnit(String acronym, String name, String description) {
-        if (acronym == null || name == null || description == null || acronym.trim().isEmpty()) {
+        if (Strings.isNullOrWhiteSpace(acronym) || Strings.isNullOrWhiteSpace(name) || Strings.isNullOrWhiteSpace(description)) {
             throw new IllegalStateException();
         }
         this.acronym = acronym;
-        // TODO name and description provably should not be empty
         this.name = name;
         this.description = description;
         this.active = true;
@@ -70,6 +75,41 @@ public class OrganicUnit implements AggregateRoot<String>, Serializable {
 
     public String description() {
         return this.description;
+    }
+
+    /**
+     * It builds the right class which implements this organic units validations.
+     * 
+     * @return It returns right Mecanographic Number Validation object.
+     */
+    private MecanographicNumberStrategy buildMecanographicNumberValidator() {
+        final String strategyName = Application.settings().getMecanographicNumberValidation(MECANOGRAPHIC_NUMBER_VALIDATION_PROPERTY + acronym);
+        try {
+            return (MecanographicNumberStrategy) Class.forName(strategyName).newInstance();
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NullPointerException ex) {
+            Logger.getLogger(MecanographicNumber.class.getName()).log(Level.SEVERE, null, ex);
+            throw new IllegalStateException("No mecanographic number validation strategy found.");
+        }
+    }
+
+    /**
+     * It provides the intructions of the organic unit's mecanographic rules.
+     *
+     * @return It returns the Mecanographic Number validation instructions..
+     */
+    public String mecanographicNumberInstructions() {
+        return buildMecanographicNumberValidator().instructions();
+    }
+
+    /**
+     * It checks the mecanographic number compliance with the organic unit
+     * rules.
+     *
+     * @param number The mecanographic number to be validated.
+     * @return It returns "true" if the number is valid or "false" otherwise.
+     */
+    public boolean validateMecanographicNumber(MecanographicNumber number) {
+        return number.compliesWith(buildMecanographicNumberValidator());
     }
 
     @Override

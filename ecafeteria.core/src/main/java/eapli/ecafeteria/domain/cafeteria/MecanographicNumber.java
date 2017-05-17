@@ -20,18 +20,26 @@ public class MecanographicNumber implements ValueObject, Serializable {
     private static final long serialVersionUID = 1L;
 
     private String number;
-
+    
     public MecanographicNumber(String mecanographicNumber) {
         if (Strings.isNullOrEmpty(mecanographicNumber)) {
             throw new IllegalStateException("Mecanographic Number should neither be null nor empty");
         }
-        // FIXME validate invariants, i.e., mechanographic number regular
-        // expression
         this.number = mecanographicNumber;
     }
 
     protected MecanographicNumber() {
         // for ORM
+    }
+
+    /**
+     * It indicates if the Mecanographic Number respects the strategy validations
+     * 
+     * @param strategy The strategy to examine compliance.
+     * @return It returns "true" if the mecanographic number is valid or "false" otherwise.
+     */
+    public boolean compliesWith(MecanographicNumberStrategy strategy) {
+        return strategy.validate(number);
     }
 
     @Override
