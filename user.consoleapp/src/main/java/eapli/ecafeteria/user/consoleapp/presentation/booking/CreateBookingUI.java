@@ -17,6 +17,7 @@ import eapli.framework.presentation.console.SelectWidget;
 import eapli.util.DateTime;
 import eapli.util.io.Console;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,15 +33,17 @@ public class CreateBookingUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
-        String dayToBook;
+        Date dayToBook;
         do {
             //FIXEME
             //@author Meireles
             // Check method "readDate" from Console class
-            dayToBook = Console.readLine("Insert the date (YYYY-MM-DD):");
+            dayToBook = Console.readDate("Insert the date(YYYY/MM/DD):");
+
         } while (!validateInputDate(dayToBook));
+
         System.out.println("");
-        List<Meal> meals = controller.menusOfDay(controller.transformDate(dayToBook));
+        List<Meal> meals = controller.menusOfDay(dayToBook);
         Meal choosedMeal;
         SelectWidget<Meal> selector = new SelectWidget<>("Meals:", meals, new MealPrinter());
         selector.show();
@@ -66,35 +69,19 @@ public class CreateBookingUI extends AbstractUI {
         return "Create Booking";
     }
 
-    public boolean validateInputDate(String dayToBook) {
-        int year, month, day;
-        String tokens[] = dayToBook.split("-");
-        if (tokens.length != 3) {
-            return false;
-        }
-
-        try {
-            year = Integer.parseInt(tokens[0]);
-            month = Integer.parseInt(tokens[1]);
-            day = Integer.parseInt(tokens[2]);
-        } catch (NumberFormatException ex) {
-            return false;
-        }
-
-        try {
-            Calendar cal = DateTime.newCalendar(year, month, day);
-            cal.setLenient(false);
-            cal.getTime();
-        } catch (Exception e) {
-            System.out.println("Invalid Date!");
-            return false;
-        }
-
+    public boolean validateInputDate(Date dayToBook) {
         Calendar currentTime = Calendar.getInstance();
+        currentTime.set(Calendar.HOUR_OF_DAY, 0);
+        currentTime.set(Calendar.MINUTE, 0);
+        currentTime.set(Calendar.SECOND, 0);
+        currentTime.set(Calendar.MILLISECOND, 0);
         Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.DAY_OF_MONTH,day );
-        cal.set(Calendar.YEAR,year );
-        cal.set(Calendar.MONTH, month-1);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.setTime(dayToBook);
         if (cal.before(currentTime)) {
             System.out.println("");
             System.out.println("Invalid Date!");
