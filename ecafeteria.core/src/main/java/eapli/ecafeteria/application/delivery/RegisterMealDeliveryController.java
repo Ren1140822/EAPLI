@@ -13,6 +13,8 @@ import eapli.framework.application.Controller;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,7 +25,7 @@ public class RegisterMealDeliveryController implements Controller {
     private final BookingRepository bookingRepo = PersistenceContext.repositories().bookings(null);
 
     private final CafeteriaUserRepository userRepo = PersistenceContext.repositories().cafeteriaUsers(null);
-    //TODO preferably, controllers should not have state
+
     private final CafeteriaUser user;
 
     public RegisterMealDeliveryController(String mecanographicNumberString) {
@@ -35,33 +37,26 @@ public class RegisterMealDeliveryController implements Controller {
     }
 
     /**
-     * Registers the last meal that this user booked.
+     * Registers the last meal that this user booked. [UC-CO-02]
      *
-     * @FIXME which use case does this method correspond?
      * @return true if meal delivery was registered
      */
     public boolean registerMealDelivery() {
 
-        //FIXME controllers must not have business logic
+        
         ListBookingsService bookingsService = new ListBookingsService();
-        LinkedList<Booking> bookingList = new LinkedList<>();
-        bookingsService.findBookingsStateDefinitiveOf(user).iterator().forEachRemaining(bookingList::add);
-        if (!bookingList.isEmpty()) {
-            Booking tempBooking = bookingList.getLast();
-            try {
-            
-                tempBooking.deliver();
-                bookingRepo.save(tempBooking);
-            } catch (IllegalStateException |DataConcurrencyException | DataIntegrityViolationException ex) {
-                return false;
-            }
+        Booking tempBooking = bookingsService.findNextDefinitiveBookingOf(user);//finds the next (? closest to happening) booking of this user
 
-            return true;
+        tempBooking.deliver();
+        try {
+            bookingRepo.save(tempBooking);
+        } catch (DataConcurrencyException | DataIntegrityViolationException ex) {
+            Logger.getLogger(RegisterMealDeliveryController.class.getName()).log(Level.SEVERE, null, ex);
+
         }
-        return false;
+
+        return true;
     }
-    
-    
 
     /**
      * Registers a specific meal of this user

@@ -129,6 +129,8 @@ public class Booking implements Serializable {
         //TODO
         //@author Meireles
         // is there business logic missing? How should it interact with the meal delivery?
+        //@author Renato
+        //it is called
         if (this.state != BookingState.DEFINITIVE) {
             throw new IllegalStateException();
         }
