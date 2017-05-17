@@ -1,6 +1,8 @@
 package eapli.ecafeteria.domain.cafeteria.account;
 
+import eapli.ecafeteria.domain.authz.Username;
 import eapli.framework.domain.Money;
+
 import javax.persistence.Entity;
 
 /**
@@ -12,15 +14,25 @@ import javax.persistence.Entity;
 @Entity
 public class TopUp extends Transaction {
 
+    /**
+     * Identifies the cashier who registered the topUp.
+     */
+    private Username cashier;
+
     protected TopUp() {
         // for ORM only
     }
 
-    public TopUp(AccountCard accountCard, Money amount) {
+    public TopUp(AccountCard accountCard, Money amount, Username aCashier) {
         super(accountCard, amount);
-        //FIXME
-        //@author Meireles
-        // Should a validation of the amount be made? A TopUp can have a negative amount? Or a zero amount?
+
+        if (amount.amount() < 0) {
+            throw new IllegalStateException("a top up must not have a negative amount");
+        }
+        if (aCashier == null) {
+            throw new IllegalStateException("cashier username can't be null.");
+        }
+        cashier = aCashier;
     }
 
     @Override

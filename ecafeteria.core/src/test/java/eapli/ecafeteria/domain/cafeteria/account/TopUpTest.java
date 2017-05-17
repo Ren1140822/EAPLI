@@ -1,5 +1,6 @@
 package eapli.ecafeteria.domain.cafeteria.account;
 
+import eapli.ecafeteria.domain.authz.Username;
 import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
 import eapli.framework.domain.Money;
 import org.junit.Test;
@@ -15,7 +16,9 @@ public class TopUpTest {
     public void ensureTopUpWithNullPkIsNotEqualToAnotherTopUpWithNullPk() throws Exception {
         final AccountCard aCard = new AccountCard(new MecanographicNumber("Dummy"));
         final Money aMoney = Money.euros(50);
-        TopUp aTopUp = new TopUp(aCard, aMoney);
+        final Username cashier = new Username("Cashier");
+
+        TopUp aTopUp = new TopUp(aCard, aMoney, cashier);
 
         Transaction aTransaction = new Transaction(aCard, aMoney) {
         };

@@ -3,15 +3,16 @@ package eapli.ecafeteria.domain.cafeteria.account;
 import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
 import eapli.framework.domain.Money;
 import eapli.framework.domain.ddd.AggregateRoot;
+
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Version;
 import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
-import javax.persistence.*;
 
 /**
- * @TODO why is the AccountCard a separate aggregate? is this justified in the
- * design of the use case?
- * @FIXME javadoc
+ * Represents an account card of a cafeteria user. (issue #22 explains the design decisions).
  *
  * @author Ivo Ferro 1151159
  * @author Daniel Gonçalves 1151452
@@ -111,6 +112,7 @@ public class AccountCard implements AggregateRoot<MecanographicNumber>, Observer
         if (o == null || !(o instanceof Transaction)) {
             throw new IllegalArgumentException("unrecognized observable");
         }
+
         aggregate((Transaction) o);
     }
 
