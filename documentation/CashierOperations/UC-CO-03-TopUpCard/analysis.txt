@@ -3,25 +3,35 @@ ANALYSIS
 -----------------
 
 Meeting with the client at 06/04/2017
+Meeting with the client at 27/04/2017
 
 Q: How does the cashier operator identifies a client?
 A: It is external to the system, using a QR Code reader that retrieves his mecanographic number.
 
 Q: What is the currency system? Money, points or something else?
-A: [not replied yet]
-Assumption: We've assumed that it is money.
+A: Euro
 
 Q: If it is a money system, what is the used currency (e.g. Euro, US Dollar...)? Or is it multi-currency?
-A: [not replied yet]
-Assumption: We've assumed that it is Euro.
+A: It is not multi-currency, the Euro is the used currency as refered above.
 
-Q: What information is required for a transaction?
-A: [not replied yet]
-Assumption: We've assumed that it has an associated date and an ammount.
+Q: What information is required for a topup?
+A: The cashier who made it, the amount, the date and the cafeteria user who made the topup.
 
 Q: Can the card account balance be negative?
-A: [not replied yet]
-Assumption: No.
+A: No.
+
+Q: What does identify a card account?
+A: Mecanographic number.
+
+-----------------
+CLASSES ANALYSIS
+-----------------
+
+We chose to make the Transaction an aggregate root referring an AccountCard because the AccountCard
+can have many transactions (take as an example a person that lunches everyday on a cafeteria).
+If the Transaction would be contained on the Account Card, it would be a big overhead for the application.
+That way, making the Transaction a separately aggregate, to show the account card balance we don’t
+need to load all the associated transactions.
 
 -----------------
 BUSINESS RULES
@@ -35,13 +45,9 @@ A balance has the current amount (result from the sum of the transactions).
 UNIT TESTS
 -----------------
 
+ensureTransactionHasMecanographicNumber
 ensureTransactionHasAmount
-ensureTransactionIsEqualsToTheSameInstance
+ensureAccountCardHasCafeteriaUser
+ensureAccountCardPassesForTheSameMecanographicNumber
+ensureAccountCardFailsForDifferentMecanographicNumber
 ensureAmountHasAmount
-ensureAmountIsEqualsToTheSameInstance
-ensureAmountIsEqualsToTheSameAmount
-ensureAmountEqualsFailsForDifferentAmount
-ensureAccountCardPassesForTheSameSystemUser
-ensureAccountCardFailsForDifferentSystemUser
-ensureAccountCardIsTheSameAsTheSameSystemUser
-ensureAccountCardIsNotTheSameAsTheSameSystemUser
