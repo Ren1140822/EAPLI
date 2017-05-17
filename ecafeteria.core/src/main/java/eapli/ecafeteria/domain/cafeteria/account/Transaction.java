@@ -1,7 +1,6 @@
 package eapli.ecafeteria.domain.cafeteria.account;
 
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
-import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
 import eapli.framework.domain.Money;
 import eapli.framework.domain.ddd.AggregateRoot;
 import eapli.util.DateTime;
@@ -57,7 +56,7 @@ public abstract class Transaction extends Observable implements AggregateRoot<Tr
     /**
      * Creates a transaction receiving the destination mecanographic number and the amount to move.
      *
-     * @param AccountCard the destination mecanographic number
+     * @param accountCard the destination mecanographic number
      * @param amount                         the amount of the transaction.
      */
     public Transaction(AccountCard accountCard, Money amount) {
