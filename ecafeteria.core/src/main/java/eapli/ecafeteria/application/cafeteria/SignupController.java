@@ -48,4 +48,14 @@ public class SignupController implements Controller {
     public Iterable<OrganicUnit> organicUnits() {
 	return this.organicUnitRepository.findAll();
     }
+
+    /**
+     * It provides the instructions of the mecanographic number validation.
+     * 
+     * @param organicUnit The organic unit to provide the information.
+     * @return It returns a text explaining the requirements of the mecanographic number.
+     */
+    public String getMecanographicNumberInstructions(OrganicUnit organicUnit) {
+        return organicUnit.mecanographicNumberInstructions();
+    }
 }

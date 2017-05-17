@@ -67,4 +67,9 @@ public class AppSettings {
     public String getRepositoryFactory() {
 	return this.applicationProperties.getProperty(REPOSITORY_FACTORY_KEY);
     }
+
+    public String getMecanographicNumberValidation(String organicUnitAcronym){
+        return this.applicationProperties.getProperty(organicUnitAcronym);
+    }
+
 }

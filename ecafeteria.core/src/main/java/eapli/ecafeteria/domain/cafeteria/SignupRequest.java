@@ -75,6 +75,9 @@ public class SignupRequest implements AggregateRoot<Username>, Serializable {
         this.email = EmailAddress.valueOf(email);
         this.organicUnit = organicUnit;
         this.mecanographicNumber = new MecanographicNumber(mecanographicNumber);
+        if(!this.organicUnit.validateMecanographicNumber(this.mecanographicNumber)){
+            throw new IllegalStateException("Mecanographic number does not comply with requirements.");
+        }
         // by default
         this.approvalStatus = ApprovalStatus.PENDING;
         this.createdOn = createdOn;
