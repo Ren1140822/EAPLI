@@ -66,4 +66,5 @@ public interface BookingRepository extends DataRepository<Booking, Long> {
     Iterable<Booking> allNonEvaluatedBy(CafeteriaUser user, BookingState state);
     
     Iterable<Booking> findBookingsByDateAndMealTypeAndState(Calendar date, MealType mealType, BookingState state);
+      Booking findLatestBookingOfUserInDefinitiveState (CafeteriaUser user);
 }

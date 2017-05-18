@@ -6,6 +6,8 @@
 package eapli.ecafeteria.domain.booking;
 
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
+import eapli.ecafeteria.domain.cafeteria.account.Purchase;
+import eapli.ecafeteria.domain.cafeteria.account.PurchaseBuilder;
 import eapli.ecafeteria.domain.cafeteria.account.Refund;
 import eapli.ecafeteria.domain.cafeteria.account.RefundBuilder;
 import eapli.ecafeteria.domain.meals.Meal;
@@ -64,7 +66,7 @@ public class Booking implements Serializable {
 
     /**
      * It provides the corresponding refund from this booking.
-     * 
+     *
      * @return It returns the refund from this booking.
      */
     public Refund refund() {
@@ -73,6 +75,13 @@ public class Booking implements Serializable {
         refund.withAccountCard(user.mecanographicNumber());
         refund.withMoney(meal.dish().currentPrice());
         return refund.build();
+    }
+    
+    public Purchase purchase(){
+        PurchaseBuilder purchase = new PurchaseBuilder();
+        purchase.withAccountCard(user.mecanographicNumber());
+        purchase.withMoney(meal.dish().currentPrice().negate());
+        return purchase.build();
     }
 
     public boolean belongsTo(CafeteriaUser user) {
@@ -126,9 +135,7 @@ public class Booking implements Serializable {
      * delivered on the cash register.
      */
     public void deliver() {
-        //TODO
-        //@author Meireles
-        // is there business logic missing? How should it interact with the meal delivery?
+
         if (this.state != BookingState.DEFINITIVE) {
             throw new IllegalStateException();
         }
@@ -173,4 +180,7 @@ public class Booking implements Serializable {
 //            }
 //        }
 //    }
+    public boolean compareDate(Booking otherBooking) {
+        return this.meal.getDate().after(otherBooking.meal.getDate());
+    }
 }

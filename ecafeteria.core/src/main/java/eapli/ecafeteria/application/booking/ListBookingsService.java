@@ -91,4 +91,14 @@ public class ListBookingsService {
         return this.repo.findNextBookingOfUserAtState(user, states);
     }
 
+    /**
+     * Finds the latest booking of the user that is in definitive state.
+     *
+     * @param user the owner of the booking
+     * @return the booking or null if not found
+     */
+    public Booking findLatestBookingOfUserInDefinitiveState(CafeteriaUser user) {
+        return this.repo.findLatestBookingOfUserInDefinitiveState(user);
+    }
+
 }
