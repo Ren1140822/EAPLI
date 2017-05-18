@@ -150,7 +150,11 @@ public class JpaBookingRepository extends JpaAutoTxRepository<Booking, Long>
 
     @Override
     public Booking findBookingByUserAndMealAndState(CafeteriaUser user, Meal meal, BookingState state) {
-        return repo.matchOne("e.user=:" + user + " and e.meal=:" + meal + " and e.state=:" + state);
+        Map<String,Object> params = new HashMap<>();
+        params.put("user", user);
+        params.put("meal", meal);
+        params.put("state", state);
+        return repo.matchOne("e.user=:user and e.meal=:meal and e.state=:state",params);
     }
 
     @Override
