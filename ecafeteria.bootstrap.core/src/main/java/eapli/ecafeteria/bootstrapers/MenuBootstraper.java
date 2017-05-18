@@ -30,9 +30,6 @@ public class MenuBootstraper implements Action {
     @Override
     public boolean execute() {
 
-        final DishRepository dishRepository = PersistenceContext.repositories().dishes();
-        final Dish dishTofu = dishRepository.findByName(Designation.valueOf("tofu grelhado"));
-        final MealType mealType = new MealType(MealType.MealTypes.JANTAR);
         final Calendar start = Calendar.getInstance();
         final Calendar end = Calendar.getInstance();
         end.add(Calendar.DAY_OF_MONTH, 1);
@@ -45,19 +42,28 @@ public class MenuBootstraper implements Action {
         final OrganicUnitRepository organicUnitRepository = PersistenceContext.repositories().organicUnits();
         final OrganicUnit organicUnit = organicUnitRepository.findByAcronym("ISEP");
         final SystemUser systemUser= new SystemUser("poweruser", "poweruserA1", "joe", "doe", "joe@email.org", roles);
-        register(dishTofu, mealType, timePeriod, end, organicUnit);
+        final Set<Meal> meals = new HashSet<>();
+        final DishRepository dishRepository = PersistenceContext.repositories().dishes();
+        Calendar date = start;
+        while(!date.after(end)){
+            final Dish dish = dishRepository.findByName(Designation.valueOf("tofu grelhado"));
+            final MealType mealType = new MealType(MealType.MealTypes.JANTAR);
+            meals.add(new Meal(dish, mealType, date));
+            date.add(Calendar.DAY_OF_MONTH, 1);
+        }
+        register(meals, timePeriod, organicUnit);
         return false;
     }
 
     /**
      *
      */
-    private void register(Dish dish, MealType mealType, TimePeriod2 timePeriod, Calendar date, OrganicUnit organicUnit) {
+    private void register(Set<Meal> meals, TimePeriod2 timePeriod, OrganicUnit organicUnit) {
 
         final RegisterMenuController controller = new RegisterMenuController();
 
         try {
-            controller.registerMenu(dish, mealType, organicUnit, timePeriod, date);
+            controller.registerMenu(meals, organicUnit, timePeriod);
         } catch (final DataIntegrityViolationException | DataConcurrencyException e) {
 
             // ignoring exception. assuming it is just a primary key violation
