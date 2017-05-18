@@ -10,7 +10,6 @@ import javax.persistence.Entity;
  *
  * @author Ivo Ferro 1151159
  * @author Daniel Gonçalves 1151452
- * @FIXME is this an entity, a value object or an aggregate?
  */
 @Entity
 public class TopUp extends Transaction {

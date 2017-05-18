@@ -13,7 +13,8 @@ import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
 
 /**
- * @todo is there a typo in the name of the class? should it be PublishMenu?
+ * The controller to publish a menu in the system
+ *
  * @author Eduangelo Ferreira
  */
 public class PublishMenuController implements Controller {
@@ -21,7 +22,12 @@ public class PublishMenuController implements Controller {
     private ListMenuService listMenu = new ListMenuService();
     private MenuRepository menuRepository = PersistenceContext.repositories().menus();
 
-    //TODO is there a typo in the name of the method? should it be publishMenu?
+    /**
+     * This method is to receive an unpublished menu, with the purpose of publishing it
+     * @param menu The menu to be publish.
+     * @throws DataConcurrencyException
+     * @throws DataIntegrityViolationException
+     */
     public void publishMenu(Menu menu) throws DataConcurrencyException, DataIntegrityViolationException {
         if (menu == null) {
             throw new IllegalStateException();
@@ -30,6 +36,11 @@ public class PublishMenuController implements Controller {
         menuRepository.save(menu);
     }
 
+    /**
+     * Provides all unpublished menus
+     *
+     * @return Unpublished list of menus
+     */
     public Iterable<Menu> allNotPublishedMenu() {
 
         return this.menuRepository.notPublishedMenu();

@@ -6,7 +6,9 @@
 package eapli.ecafeteria.application.booking;
 
 import eapli.ecafeteria.Application;
+import eapli.ecafeteria.application.cafeteria.CafeteriaUserService;
 import eapli.ecafeteria.domain.booking.Booking;
+import eapli.ecafeteria.domain.booking.BookingState;
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.ecafeteria.domain.cafeteria.account.AccountCard;
 import eapli.ecafeteria.domain.cafeteria.account.Balance;
@@ -24,9 +26,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import javax.persistence.NoResultException;
 
 /**
- * 
+ *
  * @author PC
  */
 public class CreateBookingController {
@@ -34,31 +37,25 @@ public class CreateBookingController {
     private final TransactionalContext TxCtx
             = PersistenceContext.repositories().buildTransactionalContext();
 
-    private final CafeteriaUserRepository cafuserRepository = PersistenceContext.repositories().cafeteriaUsers(TxCtx);
+    private final CafeteriaUserService userService = new CafeteriaUserService();
     private final MenuRepository menuRepository = PersistenceContext.repositories().menus();
     private final BookingRepository bookingRepository = PersistenceContext.repositories().bookings(TxCtx);
     private final TransactionRepository transactionsRepository = PersistenceContext.repositories().transactions(TxCtx);
     private final AccountCardRepository accountRepository = PersistenceContext.repositories().accountCards(TxCtx);
-    
-
 
     public List<Meal> menusOfDay(Date dateTime) {
-        Calendar day = Calendar.getInstance();
-        day.setTime(dateTime);
+
+        Calendar day = DateTime.dateToCalendar(dateTime);
         List<Meal> mealsOfDay = new LinkedList<>();
-        CafeteriaUser user = cafuserRepository.findByUsername(Application.session().session().authenticatedUser().id());
-        
+        CafeteriaUser user = userService.findCafeteriaUserByUsername(Application.session().session().authenticatedUser().id());
         Iterable<Menu> menus = menuRepository.publishedMenusOfDay(day, user);
-        Calendar cal = Calendar.getInstance();
+
+        Calendar cal = DateTime.now();
         for (Menu m : menus) {
             for (Meal meal : m.getMeals()) {
                 Calendar mealDate = meal.getDate();
-                if (DateTime.isSameDate(mealDate, day)) {
-                    if ( DateTime.isSameDate(mealDate, cal)) {
-                        if (cal.get(Calendar.HOUR_OF_DAY) < meal.mealType().freeBookingCancellationTimeLimit().get(Calendar.HOUR_OF_DAY)) {
-                            mealsOfDay.add(meal);
-                        }
-                    } else {
+                if (isMealOfTheDay(mealDate, day)) {
+                    if (isValidMeal(mealDate, meal) && isNotAlreadyBooked(meal)) {
                         mealsOfDay.add(meal);
                     }
                 }
@@ -66,13 +63,44 @@ public class CreateBookingController {
         }
         return mealsOfDay;
     }
-    public void save(Meal meal) throws DataConcurrencyException, DataIntegrityViolationException{
-        CafeteriaUser user = cafuserRepository.findByUsername(Application.session().session().authenticatedUser().id());
-        registerBooking(user,meal);
+
+    private boolean isMealOfTheDay(Calendar mealDate, Calendar day) {
+        return DateTime.isSameDate(mealDate, day);
     }
 
-    public Booking registerBooking(CafeteriaUser user,Meal meal) throws DataConcurrencyException, DataIntegrityViolationException {
-        
+    private boolean isValidMeal(Calendar mealDate, Meal meal) {
+        if (DateTime.isToday(mealDate)) {
+
+            if (DateTime.now().get(Calendar.HOUR_OF_DAY) < meal.mealType().freeBookingCancellationTimeLimit().get(Calendar.HOUR_OF_DAY)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return true;
+        }
+    }
+    
+    private boolean isNotAlreadyBooked(Meal meal){
+        CafeteriaUser user = userService.findCafeteriaUserByUsername(Application.session().session().authenticatedUser().id());
+        try{
+
+        bookingRepository.findBookingByUserAndMealAndState(user, meal, BookingState.DONE);
+       
+        }catch(NoResultException ex){
+            return true;
+        }
+        return false;
+    }
+    
+
+    public void save(Meal meal) throws DataConcurrencyException, DataIntegrityViolationException {
+        CafeteriaUser user = userService.findCafeteriaUserByUsername(Application.session().session().authenticatedUser().id());
+        registerBooking(user, meal);
+    }
+
+    public Booking registerBooking(CafeteriaUser user, Meal meal) throws DataConcurrencyException, DataIntegrityViolationException {
+
         Booking booking = new Booking(user, meal);
         Transaction purchase = booking.purchase();
         purchase.notifyObservers();
@@ -80,18 +108,17 @@ public class CreateBookingController {
         bookingRepository.save(booking);
         transactionsRepository.save(purchase);
         TxCtx.commit();
-        return booking ;
+
+        return booking;
     }
-    
-    public boolean hasEnoughMoney(Meal meal){
-        CafeteriaUser user = cafuserRepository.findByUsername(Application.session().session().authenticatedUser().id());
-         Money price = meal.dish().currentPrice();
+
+    public boolean hasEnoughMoney(Meal meal) {
+        CafeteriaUser user = userService.findCafeteriaUserByUsername(Application.session().session().authenticatedUser().id());
+        Money price = meal.dish().currentPrice();
         AccountCard card = accountRepository.findByMecanographicNumber(user.mecanographicNumber());
         Balance balance = card.balance();
-        if(balance.amount().lessThan(price)) return false;
-        return true;
+        if(balance.hasEnoughBalance(price)) return true;
+        return false;
     }
-
-
 
 }

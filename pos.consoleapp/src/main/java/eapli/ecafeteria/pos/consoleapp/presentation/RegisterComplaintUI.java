@@ -65,6 +65,7 @@ public class RegisterComplaintUI extends AbstractUI {
 
         try {
             this.controller.saveComplaint();
+            System.out.println("Complaint Successful Registered!");
         } catch (DataConcurrencyException | DataIntegrityViolationException ex) {
             Logger.getLogger(RegisterComplaintUI.class.getName()).log(Level.SEVERE, null, ex);
         }

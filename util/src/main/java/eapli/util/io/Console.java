@@ -119,7 +119,7 @@ public final class Console {
 		final String input = readLine(prompt);
 		return Double.parseDouble(input);
 	    } catch (final NumberFormatException ex) {
-		// nothing to do
+		System.out.println("Invalid value given. Must be a number.");
 	    }
 	} while (true);
     }
