@@ -60,6 +60,7 @@ public class CreateBookingUI extends AbstractUI {
             System.out.println("");
             System.out.println("Not enough money to book");
             System.out.println("");
+            return true;
         }
      
         try {

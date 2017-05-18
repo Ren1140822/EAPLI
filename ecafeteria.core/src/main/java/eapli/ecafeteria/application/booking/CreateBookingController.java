@@ -115,17 +115,10 @@ public class CreateBookingController {
     public boolean hasEnoughMoney(Meal meal) {
         CafeteriaUser user = userService.findCafeteriaUserByUsername(Application.session().session().authenticatedUser().id());
         Money price = meal.dish().currentPrice();
-        //AccountCard card = accountRepository.findByMecanographicNumber(user.mecanographicNumber());
-        //Balance balance = card.balance();
-        //FIXME
-        //@author Meireles
-        // Should the balance has the responsability to tell if it can pay a certain amount?
-        // I suggest balance should have a method like "boolean canPurchase(Meal meal)"
-        // The if statement is redundant, return the condition itself.
-//        if (balance.amount().lessThan(price)) {
-//            return false;
-//        }
-        return true;
+        AccountCard card = accountRepository.findByMecanographicNumber(user.mecanographicNumber());
+        Balance balance = card.balance();
+        if(balance.hasEnoughBalance(price)) return true;
+        return false;
     }
 
 }
