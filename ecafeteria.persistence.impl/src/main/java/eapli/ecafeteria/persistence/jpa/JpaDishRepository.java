@@ -18,4 +18,11 @@ class JpaDishRepository extends CafeteriaJpaRepositoryBase<Dish, Designation> im
         params.put("name", name);
         return matchOne("e.name=:name", params);
     }
+
+    @Override
+    public Iterable<Dish> findActiveDishes() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("true", Boolean.TRUE);
+        return match("e.active=:true", params);
+    }
 }

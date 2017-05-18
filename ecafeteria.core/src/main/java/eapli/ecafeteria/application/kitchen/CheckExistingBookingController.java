@@ -14,6 +14,7 @@ import eapli.ecafeteria.domain.meals.MealType;
 import eapli.ecafeteria.persistence.BookingRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.framework.application.Controller;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -26,7 +27,7 @@ public class CheckExistingBookingController implements Controller {
     private final ListBookingsService bookingsService = new ListBookingsService();
 
     //TODO preferably, controllers should not have state
-    private Date date;
+    private Calendar date;
     private MealType mealType;
     private DishType dishType;
 

@@ -44,7 +44,7 @@ public class ListBookingsService {
         return this.repo.findBookingByUserAndState(user, BookingState.DEFINITIVE);
     }
 
-    public Iterable<Booking> listBookingsByDateMealAndDishType(Date date, MealType mealType, DishType dishType) {
+    public Iterable<Booking> listBookingsByDateMealAndDishType(Calendar date, MealType mealType, DishType dishType) {
         return this.repo.checkBookingsByDateMealAndDishType(date, mealType, dishType);
     }
 

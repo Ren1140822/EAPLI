@@ -5,8 +5,6 @@
  */
 package eapli.ecafeteria.application.cashregister;
 
-import eapli.ecafeteria.Application;
-import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
 import eapli.ecafeteria.domain.cafeteria.cashregister.Complaint;
@@ -42,7 +40,7 @@ public class RegisterComplaintController implements Controller {
     }
 
     public Iterable<Dish> listDishes() {
-        return dishRepository.findAll();
+        return dishRepository.findActiveDishes();
     }
 
     public void insertDish(Dish dish) {

@@ -154,7 +154,7 @@ public class JpaBookingRepository extends JpaAutoTxRepository<Booking, Long>
     }
 
     @Override
-    public Iterable<Booking> checkBookingsByDateMealAndDishType(Date date, MealType mealType, DishType dishType) {
+    public Iterable<Booking> checkBookingsByDateMealAndDishType(Calendar date, MealType mealType, DishType dishType) {
         Map<String, Object> params = new HashMap<>();
         params.put("date", date);
         params.put("mealType", mealType);

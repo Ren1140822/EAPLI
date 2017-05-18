@@ -39,23 +39,23 @@ public class PublishMenuUI extends AbstractUI {
             final SelectWidget<Menu> selector = new SelectWidget<>("Menu:", listMenu, new MenuPrinter());
             selector.show();
             final Menu updtMenu = selector.selectedElement();
-
-            try {
-                this.theController.publishMenu(updtMenu);
-            } catch (DataConcurrencyException ex) {
-                System.out.println("It is not possible to publish menu because it was changed by another user");
-            } catch (DataIntegrityViolationException ex) {
-                // should not happen!
-                Logger.getLogger(ActivateDeactivateDishTypeUI.class.getName()).log(Level.SEVERE, null, ex);
+            if (updtMenu != null) {
+                try {
+                    this.theController.publishMenu(updtMenu);
+                } catch (DataConcurrencyException ex) {
+                    System.out.println("It is not possible to publish menu because it was changed by another user");
+                } catch (DataIntegrityViolationException ex) {
+                    // should not happen!
+                    Logger.getLogger(ActivateDeactivateDishTypeUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
-
         return true;
     }
 
     @Override
     public String headline() {
-        
+
         return "Publish Menu";
     }
 
