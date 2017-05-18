@@ -6,7 +6,8 @@ import eapli.ecafeteria.persistence.CashRegisterRepository;
 import eapli.framework.persistence.repositories.impl.inmemory.InMemoryRepositoryWithLongPK;
 
 /**
- *
+ * Represents the in memory cash register repository.
+ * 
  * @author Eric Amaral - 1141570@isep.ipp.pt
  * @author Tiago Correia - 1151031@isep.ipp.pt
  *

@@ -5,7 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Embeddable;
 
 /**
- * @FIXME javadoc
+ * Represents a cash register id.
+ *
  * @author Eric Amaral - 1141570@isep.ipp.pt
  * @author Tiago Correia - 1151031@isep.ipp.pt
  */
@@ -20,6 +21,12 @@ public class CashRegisterId implements ValueObject, Serializable {
         // for ORM only
     }
 
+    /**
+     * Constructs an instance of CashRegisterId with string identifier passed as
+     * parameter.
+     *
+     * @param identifier the identifier
+     */
     public CashRegisterId(String identifier) {
         //TODO is an empty string allowed?
         if (identifier == null || identifier == "") {

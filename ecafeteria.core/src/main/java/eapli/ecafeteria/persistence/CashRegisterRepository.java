@@ -5,7 +5,8 @@ import eapli.ecafeteria.domain.cafeteria.cashregister.CashRegisterId;
 import eapli.framework.persistence.repositories.DataRepository;
 
 /**
- *
+ * Represents a cash register repository interface.
+ * 
  * @author Eric Amaral - 1141570@isep.ipp.pt
  * @author Tiago Correia - 1151031@isep.ipp.pt
  *
