@@ -9,6 +9,7 @@ import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
 import eapli.framework.domain.TimePeriod2;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 import javax.persistence.*;
 
@@ -56,8 +57,8 @@ public class Menu implements Serializable {
         return pk;
     }
 
-    public boolean addMeal(Meal meal) {
-        return meals.add(meal);
+    public boolean addAllMeals(Set<Meal> meals) {
+        return this.meals.addAll(meals);
     }
 
     public Iterable<Meal> getMeals() {
