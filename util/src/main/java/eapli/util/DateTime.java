@@ -77,6 +77,100 @@ public final class DateTime {
     }
 
     /**
+     * checks if the calendar date (Year, Month and Day) is before the other calendar.
+     * 
+     * @param a The one calendar.
+     * @param b The other calendar.
+     * @return It returns "true" if the one calendar is before the other calendar or "false" otherwise.
+     */
+    public static boolean isBefore(final Calendar a, final Calendar b) {
+        return compareDates(a,b) < 0;
+    }
+
+    /**
+     * checks if the calendar date (Year, Month and Day) is before the other calendar or both have the same date.
+     * 
+     * @param a The one calendar.
+     * @param b The other calendar.
+     * @return It returns "true" if the one calendar is before/equal the other calendar or "false" otherwise.
+     */
+    public static boolean isUntil(final Calendar a, final Calendar b) {
+        return compareDates(a,b) <= 0;
+    }
+
+    /**
+     * checks if the calendar date (Year, Month and Day) is before the other calendar.
+     * 
+     * @param a The one calendar.
+     * @param b The other calendar.
+     * @return It returns "true" if the one calendar is before the other calendar or "false" otherwise.
+     */
+    public static boolean isAfter(final Calendar a, final Calendar b) {
+        return compareDates(a,b) > 0;
+    }
+
+    /**
+     * checks if the calendar date (Year, Month and Day) is after the other calendar or both have the same date.
+     * 
+     * @param a The one calendar.
+     * @param b The other calendar.
+     * @return It returns "true" if the one calendar is after/equal the other calendar or "false" otherwise.
+     */
+    public static boolean isOnwards(final Calendar a, final Calendar b) {
+        return compareDates(a,b) >= 0;
+    }
+
+    /**
+     * checks if the calendar date (Year, Month and Day) is before today.
+     * 
+     * @param a The calendar to check.
+     * @return It returns "true" if the calendar is before today or "false" otherwise.
+     */
+    public static boolean isBeforeToday(final Calendar a) {
+        return isBefore(a, now());
+    }
+
+    /**
+     * checks if the calendar date (Year, Month and Day) is today or before.
+     * 
+     * @param a The calendar to check.
+     * @return It returns "true" if the calendar is today or before or "false" otherwise.
+     */
+    public static boolean isUntilToday(final Calendar a) {
+        return isUntil(a, now());
+    }
+
+    /**
+     * checks if the calendar date (Year, Month and Day) is today.
+     * 
+     * @param a The calendar to check.
+     * @return It returns "true" if the calendar is equal to today or "false" otherwise.
+     */
+    public static boolean isToday(final Calendar a) {
+        return isSameDate(a, now());
+    }
+
+    /**
+     * checks if the calendar date (Year, Month and Day) is today or after.
+     * 
+     * @param a The calendar to check.
+     * @return It returns "true" if the calendar is today or after or "false" otherwise.
+     */
+    public static boolean isTodayOnwards(final Calendar a) {
+        return isOnwards(a, now());
+    }
+
+    /**
+     * checks if the calendar date (Year, Month and Day) is after today.
+     * 
+     * @param a The calendar to check.
+     * @return It returns "true" if the calendar is after today or "false" otherwise.
+     */
+    public static boolean isAfterToday(final Calendar a) {
+        return isAfter(a, now());
+    }
+
+    /**
      * returns the current date of the system
      *
      * @return
@@ -235,4 +329,36 @@ public final class DateTime {
         yesterday.add(Calendar.DATE, 1);
         return yesterday;
     }
+
+    /**
+     * compares a Calendar field between the two calendars.
+     * 
+     * @param a The one calendar
+     * @param b The other calendar.
+     * @param dateField The Calendar field to compare (it must be an integer field).
+     * @return It returns "1" if the one calendar field is greater, "-1" if lesser or "0" if equal.
+     */
+    private static int compareDateField(final Calendar a, final Calendar b, int dateField) {
+        int difference = a.get(dateField) - b.get(dateField);
+        return (difference > 0) ? 1 : (difference < 0) ? -1 : 0;
+    }
+
+    /**
+     * it compares the dates (regardless of the time).
+     * 
+     * @param a The one calendar.
+     * @param b The other calendar.
+     * @return It returns "1" if the one calendar's date is greater, "-1" if lesser or "0" if equal.
+     */
+    private static int compareDates(final Calendar a, final Calendar b) {
+        int result = compareDateField(a, b, Calendar.YEAR);
+        if( result==0 ){
+            result = compareDateField(a, b, Calendar.MONTH);
+            if( result==0 ){
+                result = compareDateField(a, b, Calendar.DAY_OF_MONTH);
+            }
+        }
+        return result;
+    }
+
 }
