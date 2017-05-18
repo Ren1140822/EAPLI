@@ -38,8 +38,16 @@ public class CreateBookingUI extends AbstractUI {
             dayToBook = Console.readDate("Insert the date(YYYY/MM/DD):");
 
         } while (!validateInputDate(dayToBook));
-
+        
+        
+        
         List<Meal> meals = controller.menusOfDay(dayToBook);
+        
+        if(meals.isEmpty()){
+            System.out.println("There are no availables meals to book on the given day!");
+            return true;
+        }
+        
         Meal choosedMeal;
         SelectWidget<Meal> selector = new SelectWidget<>("Meals:", meals, new MealPrinter());
         selector.show();
@@ -75,19 +83,9 @@ public class CreateBookingUI extends AbstractUI {
     }
 
     public boolean validateInputDate(Date dayToBook) {
-        Calendar currentTime = Calendar.getInstance();
-        currentTime.set(Calendar.HOUR_OF_DAY, 0);
-        currentTime.set(Calendar.MINUTE, 0);
-        currentTime.set(Calendar.SECOND, 0);
-        currentTime.set(Calendar.MILLISECOND, 0);
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND, 0);
-        cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.setTime(dayToBook);
-        if (cal.before(currentTime)) {
+
+        Calendar cal = DateTime.dateToCalendar(dayToBook);
+        if (DateTime.isBeforeToday(cal)) {
             System.out.println("");
             System.out.println("Invalid Date!");
             System.out.println("");
