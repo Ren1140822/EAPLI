@@ -11,26 +11,28 @@ import eapli.ecafeteria.domain.cafeteria.account.PurchaseBuilder;
 import eapli.ecafeteria.domain.cafeteria.account.Refund;
 import eapli.ecafeteria.domain.cafeteria.account.RefundBuilder;
 import eapli.ecafeteria.domain.meals.Meal;
+import eapli.framework.domain.ddd.AggregateRoot;
 import eapli.util.DateTime;
 import java.io.Serializable;
 import java.util.Calendar;
 import javax.persistence.*;
 
 /**
- * @TODO is this an Entity, a value object, an aggregate?
  * @FIXME javadoc
  * @author Nuno Pinto [1150838@isep.ipp.pt] Henrique Oliveira
  * [1150738@isep.ipp.pt]
  */
 @Entity
-public class Booking implements Serializable {
+public class Booking implements AggregateRoot<BookingID>, Serializable {
 
     @Version
     private Long version;
-
     @Id
     @GeneratedValue
     private Long pk;
+
+    @Column(unique = true)
+    private BookingID id;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     private CafeteriaUser user;
@@ -47,7 +49,7 @@ public class Booking implements Serializable {
         if (user == null || meal == null) {
             throw new IllegalStateException();
         }
-
+        this.id = BookingID.randomBookingID();
         this.user = user;
         this.meal = meal;
         this.state = BookingState.DONE;
@@ -183,5 +185,44 @@ public class Booking implements Serializable {
 //    }
     public boolean compareDate(Booking otherBooking) {
         return this.meal.getDate().after(otherBooking.meal.getDate());
+    }
+
+    @Override
+    public boolean is(BookingID id) {
+        return id.equals(id);
+    }
+
+    @Override
+    public BookingID id() {
+        return id;
+    }
+
+    @Override
+    public boolean sameAs(Object other) {
+        if(other == this){
+            return true;
+        }
+
+        if(other == null || other.getClass() != getClass()){
+            return false;
+        }
+
+        Booking that = (Booking) other;
+        return user.equals(that.user) && meal.equals(that.meal) && state.equals(that.state);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Booking booking = (Booking) o;
+
+        return id.equals(booking.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 }
