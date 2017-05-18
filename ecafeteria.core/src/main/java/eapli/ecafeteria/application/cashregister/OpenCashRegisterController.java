@@ -18,6 +18,8 @@ import java.util.Calendar;
 import javax.persistence.NoResultException;
 
 /**
+ * Controller responsible for opening cash registers.
+ *
  * @author Eric Amaral - 1141570@isep.ipp.pt
  * @author Tiago Correia - 1151031@isep.ipp.pt
  */
@@ -28,6 +30,13 @@ public class OpenCashRegisterController implements Controller {
     private final BookingRepository bookingRepository = PersistenceContext.repositories().bookings(null);
     private final ListBookingsService bookings = new ListBookingsService();
 
+    /**
+     * Opens the cash register with a cash register id passed as parameter.
+     *
+     * @param cashRegisterId the cash register id.
+     * @throws DataConcurrencyException
+     * @throws DataIntegrityViolationException
+     */
     public void openCashRegister(CashRegisterId cashRegisterId)
             throws DataConcurrencyException, DataIntegrityViolationException {
         CashRegister cashRegister = cashRegisterRepository.findByCashRegisterId(cashRegisterId);
@@ -35,9 +44,16 @@ public class OpenCashRegisterController implements Controller {
         cashRegisterRepository.save(cashRegister);
     }
 
+    /**
+     * Opens the shift with a meal type and date passed as parameters.
+     *
+     * @param mealType the meal type.
+     * @param date the date.
+     * @throws DataConcurrencyException
+     * @throws DataIntegrityViolationException
+     */
     public void openShift(MealType mealType, Calendar date)
             throws DataConcurrencyException, DataIntegrityViolationException {
-        //FIXME
         Shift shift;
         try {
             shift = shiftRepository.findByDateAndMealType(date, mealType);

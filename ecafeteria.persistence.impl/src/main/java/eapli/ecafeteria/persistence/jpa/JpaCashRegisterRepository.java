@@ -5,6 +5,7 @@ import eapli.ecafeteria.domain.cafeteria.cashregister.CashRegisterId;
 import eapli.ecafeteria.persistence.CashRegisterRepository;
 
 /**
+ * Represents the JPA cash register repository.
  *
  * @author Eric Amaral - 1141570@isep.ipp.pt
  * @author Tiago Correia - 1151031@isep.ipp.pt

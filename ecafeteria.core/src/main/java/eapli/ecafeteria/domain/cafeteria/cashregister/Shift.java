@@ -12,7 +12,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * @FIXME javadoc
+ * Represents a shift.
+ *
  * @FIXME is this an entity, a value object or an aggregate?
  *
  * @author Eric Amaral - 1141570@isep.ipp.pt
@@ -37,6 +38,13 @@ public class Shift implements Serializable {
         // for ORM only
     }
 
+    /**
+     * Constructs an instance of Shift with the date and meal type passed as
+     * parameters.
+     *
+     * @param date the date
+     * @param mealType the meal type
+     */
     public Shift(Calendar date, MealType mealType) {
         if (date == null || mealType == null) {
             throw new IllegalStateException("A shift must have a date and a meal type!");
@@ -46,6 +54,12 @@ public class Shift implements Serializable {
         this.state = ShiftState.CLOSED;
     }
 
+    /**
+     * Checks if the meal type passed as parameter is the same.
+     *
+     * @param mealType the meal type to be compared to.
+     * @return true if the meal type is the same, false otherwise.
+     */
     public boolean isOfMealType(MealType mealType) {
         return this.mealType.equals(mealType);
     }
@@ -61,10 +75,20 @@ public class Shift implements Serializable {
         return this.state.equals(state);
     }
 
+    /**
+     * Checks if the Shift is currently at a certain date.
+     *
+     * @param date the date to be compared to.
+     * @return returns true if the shift is currently at the received date,
+     * false otherwise.
+     */
     public boolean isAtDate(Calendar date) {
         return this.date.equals(date);
     }
 
+    /**
+     * Changes the shift state to opened if it is in closed state.
+     */
     public void open() {
         if (this.isAtState(ShiftState.CLOSED)) {
             this.state = ShiftState.OPENED;

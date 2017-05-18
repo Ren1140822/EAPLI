@@ -5,6 +5,8 @@ import eapli.framework.presentation.console.Menu;
 import eapli.framework.presentation.console.MenuItem;
 
 /**
+ * Represents the cash register menu.
+ * 
  * @author Eric Amaral - 1141570@isep.ipp.pt
  * @author Tiago Correia - 1151031@isep.ipp.pt
  */
@@ -23,6 +25,9 @@ public class CashRegisterMenu extends Menu {
     //Optional until further discussion with cliente
     private static final int REGISTER_COMPLAINT_OPTION = 2;
     
+    /**
+     * Builds the cash register menu adding menu items.
+     */
     private void buildCashRegisterMenu() {
         add(new MenuItem(OPEN_CASH_REGISTER, "Open Cash Register", new OpenCashRegisterAction()));
         add(new MenuItem(REGISTER_COMPLAINT_OPTION, "Register Complaint", new RegisterComplaintAction()));

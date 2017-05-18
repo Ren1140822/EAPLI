@@ -8,6 +8,8 @@ import eapli.framework.persistence.repositories.impl.inmemory.InMemoryRepository
 import java.util.Calendar;
 
 /**
+ * Represents the in memory shift repository.
+ * 
  * @author Eric Amaral - 1141570@isep.ipp.pt
  * @author Tiago Correia - 1151031@isep.ipp.pt
  */

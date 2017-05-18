@@ -9,7 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- * @FIXME javadoc
+ * Represents a cash register.
+ *
  * @author Eric Amaral - 1141570@isep.ipp.pt
  * @author Tiago Correia - 1151031@isep.ipp.pt
  */
@@ -29,6 +30,12 @@ public class CashRegister implements AggregateRoot<CashRegisterId>, Serializable
         // for ORM only
     }
 
+    /**
+     * Constructs an instance of CashRegister with CashRegisterState closed and
+     * with a CashRegisterId passed as parameter.
+     *
+     * @param id the id
+     */
     public CashRegister(CashRegisterId id) {
         if (id == null) {
             throw new IllegalStateException("A cash register must have an id!");
