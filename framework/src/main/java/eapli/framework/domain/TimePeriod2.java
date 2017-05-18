@@ -31,9 +31,12 @@ public class TimePeriod2 {
      * @param start
      * @param end
      */
-    public TimePeriod2(Calendar start, Calendar end) {
-	this.start = start;
-	this.end = end;
+    public TimePeriod2(Calendar start, Calendar end) throws IllegalStateException {
+        if(start.after(end)){
+            throw new IllegalStateException("End date cannot finish before start date");
+        }
+        this.start = start;
+        this.end = end;
     }
 
     protected TimePeriod2() {
