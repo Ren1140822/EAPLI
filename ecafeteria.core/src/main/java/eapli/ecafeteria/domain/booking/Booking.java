@@ -64,7 +64,7 @@ public class Booking implements Serializable {
 
     /**
      * It provides the corresponding refund from this booking.
-     * 
+     *
      * @return It returns the refund from this booking.
      */
     public Refund refund() {
@@ -126,11 +126,7 @@ public class Booking implements Serializable {
      * delivered on the cash register.
      */
     public void deliver() {
-        //TODO
-        //@author Meireles
-        // is there business logic missing? How should it interact with the meal delivery?
-        //@author Renato
-        //it is called
+
         if (this.state != BookingState.DEFINITIVE) {
             throw new IllegalStateException();
         }
@@ -175,4 +171,7 @@ public class Booking implements Serializable {
 //            }
 //        }
 //    }
+    public boolean compareDate(Booking otherBooking) {
+        return this.meal.getDate().after(otherBooking.meal.getDate());
+    }
 }

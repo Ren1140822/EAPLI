@@ -45,7 +45,7 @@ public class RegisterMealDeliveryController implements Controller {
 
         
         ListBookingsService bookingsService = new ListBookingsService();
-        Booking tempBooking = bookingsService.findNextDefinitiveBookingOf(user);//finds the next (? closest to happening) booking of this user
+        Booking tempBooking = bookingsService.findLatestBookingOfUserInDefinitiveState(user);
 
         tempBooking.deliver();
         try {

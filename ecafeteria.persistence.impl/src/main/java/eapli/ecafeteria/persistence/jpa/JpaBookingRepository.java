@@ -176,4 +176,14 @@ public class JpaBookingRepository extends JpaAutoTxRepository<Booking, Long>
         return repo.match("e NOT IN (SELECT m.booking FROM MealEvaluation m) AND e.state = :state AND e.user =:user", params);
     }
 
+    @Override
+    public Booking findLatestBookingOfUserInDefinitiveState(CafeteriaUser user) {
+        BookingState state = BookingState.DEFINITIVE;
+         Map<String, Object> params = new HashMap<>();
+        params.put("user", user);
+        params.put("state", state);
+         
+       return repo.matchOne("e.user=:user and e.state=:state ORDER BY e.meal.date DESC",params);
+    }
+
 }

@@ -77,17 +77,14 @@ public class ListBookingsService {
         return this.repo.findNextBookingOfUserAtState(user, states);
     }
     
-     /**
-     * It finds the next booking at state "Done" or "Definitive" from the user.
-     * 
-     * @param user The user who owns the bookings.
-     * @return It returns the next booking or null if none was found.
+     
+    /**
+     * Finds the latest booking of the user that is in definitive state.
+     * @param user the owner of the booking
+     * @return the booking or null if not found
      */
-    public Booking findNextDefinitiveBookingOf(CafeteriaUser user) {
-        List<BookingState> states = new ArrayList<>();
-       
-        states.add(BookingState.DEFINITIVE);
-        return this.repo.findNextBookingOfUserAtState(user, states);
+    public Booking findLatestBookingOfUserInDefinitiveState (CafeteriaUser user) {
+        return this.repo.findLatestBookingOfUserInDefinitiveState(user);
     }
      
      

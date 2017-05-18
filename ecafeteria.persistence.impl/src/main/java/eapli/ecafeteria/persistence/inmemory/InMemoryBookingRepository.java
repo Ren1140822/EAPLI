@@ -15,8 +15,11 @@ import eapli.ecafeteria.persistence.BookingRepository;
 import eapli.framework.persistence.repositories.impl.inmemory.InMemoryRepositoryWithLongPK;
 import eapli.util.DateTime;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 /**
  *
@@ -112,6 +115,21 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
             }
         }
         return false;
+    }
+
+    @Override
+    public Booking findLatestBookingOfUserInDefinitiveState(CafeteriaUser user) {
+              Iterable<Booking> bookings =match(e -> e.belongsTo(user) && e.isAtState(BookingState.DEFINITIVE));
+              Comparator<Booking> comp = new Comparator<Booking>() {
+                  @Override
+                  public int compare(Booking t, Booking t1) {
+                      return t.compareDate(t1)?1:-1;
+                  }
+              };
+              LinkedList<Booking> bookingsList = new LinkedList();
+              bookings.forEach(bookingsList::add);
+              Collections.sort(bookingsList, comp);
+              return bookingsList.getLast();
     }
 
 }

@@ -63,4 +63,6 @@ public interface BookingRepository extends DataRepository<Booking, Long> {
      * @return It returns all matching bookings.
      */
     Iterable<Booking> allNonEvaluatedBy(CafeteriaUser user, BookingState state);
+    
+      Booking findLatestBookingOfUserInDefinitiveState (CafeteriaUser user);
 }
