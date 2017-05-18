@@ -77,8 +77,8 @@ public class Booking implements Serializable {
         refund.withMoney(meal.dish().currentPrice());
         return refund.build();
     }
-    
-    public Purchase purchase(){
+
+    public Purchase purchase() {
         PurchaseBuilder purchase = new PurchaseBuilder();
         purchase.withAccountCard(user.mecanographicNumber());
         purchase.withMoney(meal.dish().currentPrice().negate());
@@ -104,15 +104,20 @@ public class Booking implements Serializable {
         return this.state.equals(state);
     }
 
+    public boolean isSameDate(Calendar date) {
+        return DateTime.isSameDate(meal.getDate(), date);
+    }
+
     /**
-     * It checks if the booking's meal occurs until a certain date (Year, Month and Day regardless of the time).
+     * It checks if the booking's meal occurs until a certain date (Year, Month
+     * and Day regardless of the time).
      *
      * @param date The limit date.
      * @return It returns "true" if the meal date occurs before or at the same
      * day as the limit date or "false" otherwise.
      */
     public boolean isUntilDate(Calendar date) {
-         return DateTime.isBefore(meal.getDate(), date) || DateTime.isSameDate(meal.getDate(), date);
+        return DateTime.isBefore(meal.getDate(), date) || DateTime.isSameDate(meal.getDate(), date);
     }
 
     /**
