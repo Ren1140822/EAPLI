@@ -91,7 +91,7 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
 
     @Override
     public Iterable<Booking> checkBookingsByDateMealAndDishType(Calendar date, MealType mealType, DishType dishType) {
-        return match(e -> e.isSameDate(date));
+        return match(e -> e.isSameDate(date) && e.meal().mealType().isOf(MealType.MealTypes.valueOf(mealType.mealType())) && e.meal().dish().dishType().sameAs(dishType));
     }
 
     @Override
