@@ -11,6 +11,7 @@ import eapli.ecafeteria.domain.cafeteria.account.PurchaseBuilder;
 import eapli.ecafeteria.domain.cafeteria.account.Refund;
 import eapli.ecafeteria.domain.cafeteria.account.RefundBuilder;
 import eapli.ecafeteria.domain.meals.Meal;
+import eapli.util.DateTime;
 import java.io.Serializable;
 import java.util.Calendar;
 import javax.persistence.*;
@@ -104,14 +105,14 @@ public class Booking implements Serializable {
     }
 
     /**
-     * It checks if the booking's meal occurs until a certain date.
+     * It checks if the booking's meal occurs until a certain date (Year, Month and Day regardless of the time).
      *
      * @param date The limit date.
      * @return It returns "true" if the meal date occurs before or at the same
      * day as the limit date or "false" otherwise.
      */
     public boolean isUntilDate(Calendar date) {
-        return meal.getDate().before(date) || meal.getDate().equals(date);
+         return DateTime.isBefore(meal.getDate(), date) || DateTime.isSameDate(meal.getDate(), date);
     }
 
     /**

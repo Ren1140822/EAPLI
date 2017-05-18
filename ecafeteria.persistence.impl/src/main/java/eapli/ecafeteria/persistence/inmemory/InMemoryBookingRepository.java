@@ -35,8 +35,7 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
      */
     @Override
     public Booking findNextBookingOfUserAtState(CafeteriaUser user, Iterable<BookingState> states) {
-        Calendar limitDate = DateTime.now();
-        Iterable<Booking> bookings = match(e -> e.belongsTo(user) && isBookingAtOneOfTheStates(states, e) && (e.meal().getDate().after(limitDate) || e.meal().getDate().equals(limitDate)));
+        Iterable<Booking> bookings = match(e -> e.belongsTo(user) && isBookingAtOneOfTheStates(states, e) && (DateTime.isTodayOnwards(e.meal().getDate())));
         Iterator<Booking> list = bookings.iterator();
         Booking next = null;
         if (list.hasNext()) {
