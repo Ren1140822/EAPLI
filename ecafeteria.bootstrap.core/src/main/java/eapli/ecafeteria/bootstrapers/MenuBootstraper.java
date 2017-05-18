@@ -32,9 +32,10 @@ public class MenuBootstraper implements Action {
 
         final DishRepository dishRepository = PersistenceContext.repositories().dishes();
         final Dish dishTofu = dishRepository.findByName(Designation.valueOf("tofu grelhado"));
-        final MealType mealType = new MealType(MealType.MealTypes.ALMOCO);
+        final MealType mealType = new MealType(MealType.MealTypes.JANTAR);
         final Calendar start = Calendar.getInstance();
         final Calendar end = Calendar.getInstance();
+        end.add(Calendar.DAY_OF_MONTH, 1);
         end.add(Calendar.DAY_OF_MONTH, 5);
         final TimePeriod2 timePeriod = new TimePeriod2(start, end);
         final Set<RoleType> roles = new HashSet<RoleType>();
@@ -44,7 +45,7 @@ public class MenuBootstraper implements Action {
         final OrganicUnitRepository organicUnitRepository = PersistenceContext.repositories().organicUnits();
         final OrganicUnit organicUnit = organicUnitRepository.findByAcronym("ISEP");
         final SystemUser systemUser= new SystemUser("poweruser", "poweruserA1", "joe", "doe", "joe@email.org", roles);
-        register(dishTofu, mealType, timePeriod, Calendar.getInstance(), organicUnit);
+        register(dishTofu, mealType, timePeriod, end, organicUnit);
         return false;
     }
 
