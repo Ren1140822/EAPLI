@@ -75,13 +75,13 @@ public class MainMenu extends AbstractUI {
 
     // MENUS
     private static final int REGISTER_MENU_OPTION = 1;
-    private static final int PUBLISH_MENU_OPTION=2;
+    private static final int PUBLISH_MENU_OPTION = 2;
 
     // MATERIALS
     private static final int MATERIAL_REGISTER_OPTION = 1;
     private static final int MATERIAL_LIST_OPTION = 2;
-    private static final int MATERIAL_USED_REGISTER_OPTION=3;
-    
+    private static final int MATERIAL_USED_REGISTER_OPTION = 3;
+
     //MEALS
     private static final int REGISTER_PREPARED_MEALS = 2;
 
@@ -142,8 +142,8 @@ public class MainMenu extends AbstractUI {
         }
         if (Application.session().session().authenticatedUser().isAuthorizedTo(ActionRight.MANAGE_KITCHEN)) {
             final Menu kitchenMealsMenu = buildKitchenMealsMenu();
-            mainMenu.add(new SubMenu(MEALS_OPTION, kitchenMealsMenu, 
-                    new ShowVerticalSubMenuAction(kitchenMealsMenu)));    
+            mainMenu.add(new SubMenu(MEALS_OPTION, kitchenMealsMenu,
+                    new ShowVerticalSubMenuAction(kitchenMealsMenu)));
             final Menu kitchenMaterialsMenu = buildKitchenMaterialsMenu();
             mainMenu.add(new SubMenu(TRACEABILITY_OPTION, kitchenMaterialsMenu, new ShowVerticalSubMenuAction(kitchenMaterialsMenu)));
         }
@@ -186,8 +186,8 @@ public class MainMenu extends AbstractUI {
         }));
         menu.add(new MenuItem(LIST_ORGANIC_UNIT_OPTION, "List Organic Unit", () -> {
             // example of using the generic list ui from the framework
-	    new ListUI<>(new ListOrganicUnitsController().listOrganicUnits(), new OrganicUnitPrinter(), "Organic Unit")
-		    .show();
+            new ListUI<>(new ListOrganicUnitsController().listOrganicUnits(), new OrganicUnitPrinter(), "Organic Unit")
+                    .show();
             return false;
         }));
         // TODO add other options for Organic Unit management
@@ -216,7 +216,7 @@ public class MainMenu extends AbstractUI {
 
         menu.add(new MenuItem(REGISTER_MENU_OPTION, "Register simple menu", new RegisterMenuAction()));
         menu.add(new MenuItem(PUBLISH_MENU_OPTION, "Publish Menu", new PublishMenuAction()));
-        menu.add(new MenuItem(EXIT_OPTION, "Return", new ReturnAction()));
+        menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
 
         return menu;
     }
@@ -235,15 +235,15 @@ public class MainMenu extends AbstractUI {
         menu.add(new MenuItem(DISH_ACTIVATE_DEACTIVATE_OPTION, "Activate/Deactivate Dish",
                 new ActivateDeactivateDishAction()));
         final Menu changeDishMenu = buildChangeDishMenu();
-	menu.add(new MenuItem(DISH_CHANGE_OPTION, "Change Dish Information",
-		new ShowVerticalSubMenuAction(changeDishMenu)));
+        menu.add(new MenuItem(DISH_CHANGE_OPTION, "Change Dish Information",
+                new ShowVerticalSubMenuAction(changeDishMenu)));
 
         menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
 
         return menu;
     }
-    
-     private Menu buildKitchenMealsMenu() {
+
+    private Menu buildKitchenMealsMenu() {
         final Menu menu = new Menu("Meals >");
 
         menu.add(new MenuItem(REGISTER_PREPARED_MEALS, "Register Meals Prepared", new RegisterPreparedMealsAction()));
@@ -270,7 +270,7 @@ public class MainMenu extends AbstractUI {
 
         menu.add(new MenuItem(CHANGE_DISH_NUTRICIONAL_INFO_OPTION, "Change Nutricional Info",
                 new ChangeDishNutricionalInfoAction()));
-	menu.add(new MenuItem(CHANGE_DISH_PRICE_OPTION, "Change Price", new ChangeDishPriceAction()));
+        menu.add(new MenuItem(CHANGE_DISH_PRICE_OPTION, "Change Price", new ChangeDishPriceAction()));
         menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
 
         return menu;

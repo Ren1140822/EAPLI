@@ -19,4 +19,9 @@ public class InMemoryDishRepository extends InMemoryRepository<Dish, Designation
     protected Designation newPK(Dish entity) {
 	return entity.id();
     }
+
+    @Override
+    public Iterable<Dish> findActiveDishes() {
+        return match(e -> e.isActive()==true);
+    }
 }

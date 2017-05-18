@@ -38,8 +38,7 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
      */
     @Override
     public Booking findNextBookingOfUserAtState(CafeteriaUser user, Iterable<BookingState> states) {
-        Calendar limitDate = DateTime.now();
-        Iterable<Booking> bookings = match(e -> e.belongsTo(user) && isBookingAtOneOfTheStates(states, e) && (e.meal().getDate().after(limitDate) || e.meal().getDate().equals(limitDate)));
+        Iterable<Booking> bookings = match(e -> e.belongsTo(user) && isBookingAtOneOfTheStates(states, e) && (DateTime.isTodayOnwards(e.meal().getDate())));
         Iterator<Booking> list = bookings.iterator();
         Booking next = null;
         if (list.hasNext()) {
@@ -91,9 +90,8 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
     }
 
     @Override
-    public Iterable<Booking> checkBookingsByDateMealAndDishType(Date date, MealType mealType, DishType dishType) {
-        //TODO: Implement the method
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Iterable<Booking> checkBookingsByDateMealAndDishType(Calendar date, MealType mealType, DishType dishType) {
+        return match(e -> e.isSameDate(date) && e.meal().mealType().isOf(MealType.MealTypes.valueOf(mealType.mealType())) && e.meal().dish().dishType().sameAs(dishType));
     }
 
     @Override
