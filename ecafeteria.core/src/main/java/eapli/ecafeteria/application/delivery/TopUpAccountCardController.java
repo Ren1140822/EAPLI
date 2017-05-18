@@ -17,6 +17,8 @@ import eapli.framework.persistence.DataIntegrityViolationException;
 import eapli.framework.persistence.repositories.TransactionalContext;
 
 /**
+ * The controller to topUp an account card.
+ *
  * @author Ivo Ferro 1151159
  * @author Daniel Gonçalves 1151452
  */
@@ -26,6 +28,14 @@ public class TopUpAccountCardController implements Controller {
     private final AccountCardRepository accountCardsRepo = PersistenceContext.repositories().accountCards(txCtx);
     private final TransactionRepository transactionRepo = PersistenceContext.repositories().transactions(txCtx);
 
+    /**
+     * TopUp an account card.
+     *
+     * @param mecanographicNumber the mecanographic number to identify the account card
+     * @param eurosValue          the amount to topUp
+     * @throws DataConcurrencyException
+     * @throws DataIntegrityViolationException
+     */
     public void topUpCard(String mecanographicNumber, Double eurosValue)
             throws DataConcurrencyException, DataIntegrityViolationException {
 

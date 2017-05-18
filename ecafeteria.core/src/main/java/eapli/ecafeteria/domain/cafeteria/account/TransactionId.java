@@ -28,6 +28,10 @@ public class TransactionId implements ValueObject, Serializable {
         //FIXME
         //@Meireles
         // Check method "randomString" from Strings class (eapli.util.Strings)
+        // @danieljgoncalves & @ivoferroo
+        // REPLY : We used UUID instead, because "randomString" doesn't guarantee being unique.
+        // @Meireles check: https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html
+
         this.identifier = UUID.randomUUID();
     }
 

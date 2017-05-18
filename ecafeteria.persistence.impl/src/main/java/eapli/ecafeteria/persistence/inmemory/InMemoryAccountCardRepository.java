@@ -6,6 +6,8 @@ import eapli.ecafeteria.persistence.AccountCardRepository;
 import eapli.framework.persistence.repositories.impl.inmemory.InMemoryRepository;
 
 /**
+ * The in memory repository to manage account card.
+ *
  * @author Ivo Ferro 1151159
  * @author Daniel Gonçalves 1151452
  */

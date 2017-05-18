@@ -55,11 +55,12 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
     }
 
     /**
-     * It finds the bookings of a given Cafeteria User that are at a given state.
-     * 
+     * It finds the bookings of a given Cafeteria User that are at a given
+     * state.
+     *
      * @param user The Cafeteria User that owns the booking.
      * @param state The state of the bookings to search for.
-     * @return 
+     * @return
      */
     @Override
     public Iterable<Booking> findBookingByUserAndState(CafeteriaUser user, BookingState state) {
@@ -118,18 +119,22 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
     }
 
     @Override
+    public Iterable<Booking> findBookingsByDateAndMealTypeAndState(Calendar date, MealType mealType, BookingState state) {
+        return match(e -> e.meal().getDate().compareTo(date) == 0 && e.meal().mealType().isOf(MealType.MealTypes.valueOf(mealType.mealType())) && e.isAtState(state));
+    }
+
     public Booking findLatestBookingOfUserInDefinitiveState(CafeteriaUser user) {
-              Iterable<Booking> bookings =match(e -> e.belongsTo(user) && e.isAtState(BookingState.DEFINITIVE));
-              Comparator<Booking> comp = new Comparator<Booking>() {
-                  @Override
-                  public int compare(Booking t, Booking t1) {
-                      return t.compareDate(t1)?1:-1;
-                  }
-              };
-              LinkedList<Booking> bookingsList = new LinkedList();
-              bookings.forEach(bookingsList::add);
-              Collections.sort(bookingsList, comp);
-              return bookingsList.getLast();
+        Iterable<Booking> bookings = match(e -> e.belongsTo(user) && e.isAtState(BookingState.DEFINITIVE));
+        Comparator<Booking> comp = new Comparator<Booking>() {
+            @Override
+            public int compare(Booking t, Booking t1) {
+                return t.compareDate(t1) ? 1 : -1;
+            }
+        };
+        LinkedList<Booking> bookingsList = new LinkedList();
+        bookings.forEach(bookingsList::add);
+        Collections.sort(bookingsList, comp);
+        return bookingsList.getLast();
     }
 
 }

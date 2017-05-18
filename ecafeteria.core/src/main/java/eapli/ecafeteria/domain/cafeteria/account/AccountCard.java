@@ -25,15 +25,29 @@ public class AccountCard implements AggregateRoot<MecanographicNumber>, Observer
     @Version
     private Long version;
 
+    /**
+     * The mecanographic number that identifies the account card.
+     */
     @EmbeddedId
     private MecanographicNumber mecanographicNumber;
 
+    /**
+     * The balance on the account card.
+     */
     private Balance balance;
 
+    /**
+     * Default constructor for object-relational mapping.
+     */
     protected AccountCard() {
         // for ORM only
     }
 
+    /**
+     * Creates an account card associated to a cafeteria user.
+     *
+     * @param mecanographicNumber the mecanographic number to associate the cafeteria user
+     */
     public AccountCard(MecanographicNumber mecanographicNumber) {
         if (mecanographicNumber == null) {
             throw new IllegalStateException("Mecanographic number can't be null");
@@ -54,6 +68,11 @@ public class AccountCard implements AggregateRoot<MecanographicNumber>, Observer
         this.balance = this.balance.add(aTransaction.value());
     }
 
+    /**
+     * Retrieves the account card balance.
+     *
+     * @return the account card balance
+     */
     public Balance balance() {
         return this.balance;
     }

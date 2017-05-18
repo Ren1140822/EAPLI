@@ -6,10 +6,11 @@ import eapli.framework.domain.Money;
 import javax.persistence.Entity;
 
 /**
- * @FIXME javadoc
- * @FIXME is this an entity, a value object or an aggregate?
+ * Represents a topUp transaction.
+ *
  * @author Ivo Ferro 1151159
  * @author Daniel Gonçalves 1151452
+ * @FIXME is this an entity, a value object or an aggregate?
  */
 @Entity
 public class TopUp extends Transaction {
@@ -19,10 +20,20 @@ public class TopUp extends Transaction {
      */
     private Username cashier;
 
+    /**
+     * Default constructor for object-relational mapping.
+     */
     protected TopUp() {
         // for ORM only
     }
 
+    /**
+     * Creates a topUp transaction.
+     *
+     * @param accountCard the account card to topUp
+     * @param amount      the amount of the topUp
+     * @param aCashier    the username of the cashier who registered the topUp
+     */
     public TopUp(AccountCard accountCard, Money amount, Username aCashier) {
         super(accountCard, amount);
 

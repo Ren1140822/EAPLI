@@ -50,7 +50,8 @@ public class OpenCashRegisterUI extends AbstractUI {
 
         boolean success = false;
         try {
-            this.theController.openCashRegister(cashRegisterId, chosenMealType, inputDate);
+            this.theController.openCashRegister(cashRegisterId);
+            this.theController.openShift(chosenMealType, inputDate);
 
             success = !success; // Turn to success to true
 
@@ -60,6 +61,8 @@ public class OpenCashRegisterUI extends AbstractUI {
         } catch (DataIntegrityViolationException ex) {
             System.out.println("That entity ID is already in use");
             Logger.getLogger(OpenCashRegisterUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalStateException ex) {
+            System.out.println("The Cash Register is already opened!");
         }
 
         if (success) {

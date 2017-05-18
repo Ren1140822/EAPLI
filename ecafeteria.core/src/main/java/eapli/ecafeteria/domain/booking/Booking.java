@@ -6,6 +6,8 @@
 package eapli.ecafeteria.domain.booking;
 
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
+import eapli.ecafeteria.domain.cafeteria.account.Purchase;
+import eapli.ecafeteria.domain.cafeteria.account.PurchaseBuilder;
 import eapli.ecafeteria.domain.cafeteria.account.Refund;
 import eapli.ecafeteria.domain.cafeteria.account.RefundBuilder;
 import eapli.ecafeteria.domain.meals.Meal;
@@ -73,6 +75,13 @@ public class Booking implements Serializable {
         refund.withAccountCard(user.mecanographicNumber());
         refund.withMoney(meal.dish().currentPrice());
         return refund.build();
+    }
+    
+    public Purchase purchase(){
+        PurchaseBuilder purchase = new PurchaseBuilder();
+        purchase.withAccountCard(user.mecanographicNumber());
+        purchase.withMoney(meal.dish().currentPrice().negate());
+        return purchase.build();
     }
 
     public boolean belongsTo(CafeteriaUser user) {

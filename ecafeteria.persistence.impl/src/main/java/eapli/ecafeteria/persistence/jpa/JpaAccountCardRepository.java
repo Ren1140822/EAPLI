@@ -11,11 +11,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * The jpa repository to manage account card.
+ *
  * @author Ivo Ferro 1151159
  * @author Daniel Gonçalves 1151452
  */
 public class JpaAccountCardRepository extends JpaAutoTxRepository<AccountCard, MecanographicNumber> implements AccountCardRepository {
 
+    /**
+     * Creates a jpa account card repository.
+     *
+     * @param autoTx the transactional context (if null repository will generate it)
+     */
     public JpaAccountCardRepository(TransactionalContext autoTx) {
         super(Application.settings().getPersistenceUnitName(), autoTx);
     }
