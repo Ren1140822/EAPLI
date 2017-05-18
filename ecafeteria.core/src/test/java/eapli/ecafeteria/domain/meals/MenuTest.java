@@ -65,13 +65,21 @@ public class MenuTest {
         System.out.println("MenuTest: must not have a null meal");
         Menu instance = new Menu(timePeriod, null);
     }
+    
+    @Test
+    public void testPublish(){
+     System.out.println("MenuTest: testing 'publish' method normal behaviour");
+      Menu instance=new Menu(timePeriod,organicUnit);
+      boolean result=instance.publish();
+      Assert.assertEquals(true, result);
+    }
+    
 
     @Test
     public void testIsPublished() {
         System.out.println("MenuTest: testing 'isPublished' method normal behaviour");
         Menu instance = new Menu(timePeriod, organicUnit);
-        instance.publish();
         boolean result = instance.isPublished();
-        Assert.assertEquals(true, result);
+        Assert.assertEquals(false, result);
     }
 }
