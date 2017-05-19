@@ -6,56 +6,56 @@
 package eapli.ecafeteria.pos.consoleapp.presentation;
 
 import eapli.ecafeteria.application.delivery.TopUpAccountCardController;
-import eapli.framework.application.Controller;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.util.io.Console;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.persistence.NoResultException;
 
 /**
+ * Represents the user interface to topUp a card.
+ *
  * @author Ivo Ferro 1151159
  * @author Daniel Gonçalves 1151452
  */
 public class TopUpAccountCardUI extends AbstractUI {
 
+    /**
+     * The controller to TopUp cards.
+     */
     private final TopUpAccountCardController theController = new TopUpAccountCardController();
-
-    protected Controller controller() {
-        return this.theController;
-    }
 
     @Override
     protected boolean doShow() {
 
-        final String mecanographicNumberString = Console
-                .readLine("Enter the Mecanographic Number to TopUp: ");
-
-        final Double eurosValue = Console
-                .readDouble("TopUp Amount (in Euros): ");
-
         boolean success = false;
+
+        final String mecanographicNumberString = Console.readLine("Enter the Mecanographic Number to TopUp: ");
+
         try {
-            this.theController.topUpCard(mecanographicNumberString, eurosValue);
+            theController.insertCard(mecanographicNumberString);
 
-            success = !success; // Turn to success to true
+            final Double eurosValue = Console.readDouble("TopUp Amount (in Euros): ");
+            try {
+                this.theController.topUpCard(eurosValue);
+                success = !success; // Turn to success to true
 
-        } catch (DataConcurrencyException ex) {
-            System.out.println("That entity has already been changed or deleted since you last read it");
-            Logger.getLogger(TopUpAccountCardUI.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (DataIntegrityViolationException ex) {
-            System.out.println("That entity ID is already in use");
-            Logger.getLogger(TopUpAccountCardUI.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalStateException ex) {
+                System.out.println("The amount to topUp must be positive.");
+            } catch (DataConcurrencyException ex) {
+                System.out.println("That entity has already been changed or deleted since you last read it");
+            } catch (DataIntegrityViolationException ex) {
+                System.out.println("That entity ID is already in use");
+            }
+        } catch (NoResultException ex) {
+            System.out.println("The mecanographic number doesn't exists.");
         }
 
         if (success) {
-            // Success message
-            System.out.println("TopUp was successfull.");
+            System.out.println("TopUp was successful.");
         } else {
-            // Unuccess message
-            System.out.println("TopUp was unsuccessfull.");
+            System.out.println("TopUp was unsuccessful.");
         }
 
         return false;

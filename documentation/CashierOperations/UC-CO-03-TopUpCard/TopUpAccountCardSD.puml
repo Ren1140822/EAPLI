@@ -7,18 +7,39 @@ skinparam packageStyle rect
 skinparam defaultFontName FG Virgil
 skinparam shadowing false
 
+actor Cashier
+
 Cashier -> UI: Starts a top up service
 Activate UI
-Cashier <-- UI: Asks for topup amount
-UI->TopUpCntrl: topUpCard(mecNum, amount, cashier)
+
+UI->TopUpCntrl: insertCard(mecNum);
 Activate TopUpCntrl
-TopUpCntrl -> AccountCardRepo: c = findByMecNum(mecNum)
-TopUpCntrl -> UserSession : cashier = authenticatedUser()
-create TopUp
-TopUpCntrl -> TopUp: t = create(card, amount, cashier)
-TopUpCntrl -> TransactionRepo: save(t)
-TopUpCntrl -> TopUp: notifyObservers()
+TopUpCntrl -> AccountCardRepo: card = findByMecNum(mecNum)
+Activate AccountCardRepo
+Deactivate AccountCardRepo
 Deactivate TopUpCntrl
-Deactivate UI
+
+Cashier <-- UI: Asks for topup amount
+
+UI->TopUpCntrl: topUpCard(amount, cashier)
+Activate TopUpCntrl
+TopUpCntrl -> UserSession : cashier = authenticatedUser()
+Activate UserSession
+Deactivate UserSession
+
+create TopUp
+TopUpCntrl -> TopUp: topUp = create(card, amount, cashier)
+
+TopUpCntrl -> TransactionRepo: save(topUp)
+Activate TransactionRepo
+Deactivate TransactionRepo
+
+TopUpCntrl -> TopUp: notifyObservers()
+Activate TopUp
+Deactivate TopUp
+
+Deactivate TopUpCntrl
+
+UI->UI: render()
 
 @enduml
