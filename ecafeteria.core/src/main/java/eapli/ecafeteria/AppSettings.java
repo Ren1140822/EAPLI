@@ -55,6 +55,7 @@ public class AppSettings {
 	this.applicationProperties.setProperty(UI_MENU_LAYOUT_KEY, "horizontal");
 	this.applicationProperties.setProperty(PERSISTENCE_UNIT_KEY, "eapli.eCafeteriaPU");
         this.applicationProperties.setProperty("domain.mecanographicNumberStrategy.HSJ", "eapli.ecafeteria.domain.cafeteria.MecanographicNumberCapitalizedAlphaNumeric");
+        this.applicationProperties.setProperty("userAlertLimits", "1");
     }
 
     public Boolean isMenuLayoutHorizontal() {
@@ -71,6 +72,10 @@ public class AppSettings {
 
     public String getMecanographicNumberValidation(String organicUnitAcronym){
         return this.applicationProperties.getProperty(organicUnitAcronym);
+    }
+    
+    public void changeUserAlertsLimit(int multiplicationFactor){
+        this.applicationProperties.setProperty("userAlertLimits", String.valueOf(multiplicationFactor));
     }
 
 }
