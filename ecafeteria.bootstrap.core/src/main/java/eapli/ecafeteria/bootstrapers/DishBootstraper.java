@@ -40,6 +40,7 @@ public class DishBootstraper implements Action {
         final List<Allergen>allergenSet2 = new ArrayList<>();
         allergenSet1.add(cereals);
         allergenSet2.add(molluscs);
+        allergenSet2.add(cereals);
 
         register(vegie, "tofu grelhado", 10, 1, 2.99, null);
         register(vegie, "lentilhas salteadas", 10, 1, 2.85,allergenSet1);
