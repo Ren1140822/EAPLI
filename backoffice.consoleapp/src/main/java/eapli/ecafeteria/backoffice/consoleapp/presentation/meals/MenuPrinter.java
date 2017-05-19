@@ -7,7 +7,7 @@ package eapli.ecafeteria.backoffice.consoleapp.presentation.meals;
 
 import eapli.ecafeteria.domain.meals.*;
 import eapli.framework.visitor.Visitor;
-
+import eapli.util.DateTime;
 
 /**
  *
@@ -18,11 +18,9 @@ class MenuPrinter implements Visitor<Menu> {
     @Override
     public void visit(Menu visitee) {
 
-        Iterable<Meal> meals = visitee.getMeals();
-        for (Meal me : meals) {
-            System.out.printf("%-30s%-25s%-10s%20s%n", me.dish().name(), me.mealType().mealType(),
-                    String.valueOf(visitee.isPublished()),visitee.organicUnit().description());
-        }
+        System.out.printf("%-30s%-35s%-25s%-10s%n",DateTime.format(visitee.period().start(), "dd/MM/yyyy"),DateTime.format(visitee.period().end(), "dd/MM/yyyy"), String.valueOf(visitee.isPublished()),
+                visitee.organicUnit().description());
+
     }
 
     @Override
