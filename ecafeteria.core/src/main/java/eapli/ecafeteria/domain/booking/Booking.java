@@ -19,6 +19,7 @@ import javax.persistence.*;
 
 /**
  * @FIXME javadoc
+ * @FIXME create unit tests
  * @author Nuno Pinto [1150838@isep.ipp.pt] Henrique Oliveira
  * [1150738@isep.ipp.pt]
  */
@@ -34,9 +35,11 @@ public class Booking implements AggregateRoot<BookingID>, Serializable {
     @Column(unique = true)
     private BookingID id;
 
+    //FIXME cascade should be NONE
     @ManyToOne(cascade = CascadeType.MERGE)
     private CafeteriaUser user;
 
+    //FIXME cascade should be NONE
     @ManyToOne(cascade = CascadeType.MERGE)
     private Meal meal;
     private BookingState state;
@@ -204,11 +207,11 @@ public class Booking implements AggregateRoot<BookingID>, Serializable {
 
     @Override
     public boolean sameAs(Object other) {
-        if(other == this){
+        if (other == this) {
             return true;
         }
 
-        if(other == null || other.getClass() != getClass()){
+        if (other == null || other.getClass() != getClass()) {
             return false;
         }
 
@@ -218,8 +221,12 @@ public class Booking implements AggregateRoot<BookingID>, Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         Booking booking = (Booking) o;
 

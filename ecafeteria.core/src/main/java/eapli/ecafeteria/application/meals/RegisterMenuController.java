@@ -22,6 +22,7 @@ import java.util.Set;
  * Created by pyska on 26-04-2017.
  */
 public class RegisterMenuController implements Controller {
+    
     private final MenuRepository repository = PersistenceContext.repositories().menus();
     private final ListDishService dishService = new ListDishService();
     private final ListMealTypeService mealTypeService = new ListMealTypeService();

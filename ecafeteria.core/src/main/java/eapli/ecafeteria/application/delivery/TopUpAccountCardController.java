@@ -16,6 +16,8 @@ import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
 import eapli.framework.persistence.repositories.TransactionalContext;
 
+import javax.persistence.NoResultException;
+
 /**
  * The controller to topUp an account card.
  *
@@ -29,32 +31,40 @@ public class TopUpAccountCardController implements Controller {
     private final TransactionRepository transactionRepo = PersistenceContext.repositories().transactions(txCtx);
 
     /**
-     * TopUp an account card.
+     * The account card.
+     */
+    private AccountCard anAccountCard;
+
+    /**
+     * Inserts the account card to topUp.
      *
-     * @param mecanographicNumber the mecanographic number to identify the account card
-     * @param eurosValue          the amount to topUp
+     * @param mecanographicNumber the mecanographic number of the account card
+     * @throws NoResultException exception launched when the mecanographic number is invalid
+     */
+    public void insertCard(String mecanographicNumber) throws NoResultException {
+        Application.ensurePermissionOfLoggedInUser(ActionRight.SALE);
+
+        final MecanographicNumber aMecanographicNumber = new MecanographicNumber(mecanographicNumber);
+        anAccountCard = accountCardsRepo.findByMecanographicNumber(aMecanographicNumber);
+    }
+
+    /**
+     * TopUp the account card.
+     *
+     * @param eurosValue the amount to topUp
      * @throws DataConcurrencyException
      * @throws DataIntegrityViolationException
      */
-    public void topUpCard(String mecanographicNumber, Double eurosValue)
-            throws DataConcurrencyException, DataIntegrityViolationException {
-
-        Application.ensurePermissionOfLoggedInUser(ActionRight.SALE);
-
-        MecanographicNumber aMecanographicNumber = new MecanographicNumber(mecanographicNumber);
-
-        AccountCard card = accountCardsRepo.findByMecanographicNumber(aMecanographicNumber);
-
+    public void topUpCard(Double eurosValue) throws DataConcurrencyException, DataIntegrityViolationException {
         Money aMoney = Money.euros(eurosValue);
 
-        // FIXME: Should we access the current cashier through the user session?
         Username aCashier = Application.session().session().authenticatedUser().username();
 
         //explicitly begin a transaction
         txCtx.beginTransaction();
         /********************************/
         // Save new transaction
-        Transaction aTransaction = new TopUp(card, aMoney, aCashier);
+        Transaction aTransaction = new TopUp(anAccountCard, aMoney, aCashier);
         transactionRepo.save(aTransaction);
         // Add to card's balance
         aTransaction.notifyObservers();

@@ -14,6 +14,7 @@ import eapli.ecafeteria.backoffice.consoleapp.presentation.authz.AddUserUI;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.authz.DeactivateUserAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.authz.ListUsersAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.cafeteria.AddOrganicUnitUI;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.cafeteria.ConfigurateUserAlertsLimitAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.cafeteria.OrganicUnitPrinter;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen.CheckExistingBookingAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen.ListMaterialAction;
@@ -178,7 +179,7 @@ public class MainMenu extends AbstractUI {
         menu.add(new MenuItem(SET_KITCHEN_ALERT_LIMIT_OPTION, "Set kitchen alert limit",
                 new ShowMessageAction("Not implemented yet")));
         menu.add(new MenuItem(SET_USER_ALERT_LIMIT_OPTION, "Set users' alert limit",
-                new ShowMessageAction("Not implemented yet")));
+                new ConfigurateUserAlertsLimitAction()));
         menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
 
         return menu;

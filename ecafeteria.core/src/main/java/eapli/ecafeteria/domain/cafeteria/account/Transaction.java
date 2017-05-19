@@ -4,18 +4,17 @@ import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.framework.domain.Money;
 import eapli.framework.domain.ddd.AggregateRoot;
 import eapli.util.DateTime;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Observable;
+import javax.persistence.*;
 
 /**
  * @author Ivo Ferro 1151159
  * @author Daniel Gonçalves 1151452
- *         <p>
- *         Represents a generic transaction.
- *         </p>
+ * <p>
+ * Represents a generic transaction.
+ * </p>
  */
 @Entity
 public abstract class Transaction extends Observable implements AggregateRoot<TransactionId>, Serializable {
@@ -54,10 +53,11 @@ public abstract class Transaction extends Observable implements AggregateRoot<Tr
     }
 
     /**
-     * Creates a transaction receiving the destination mecanographic number and the amount to move.
+     * Creates a transaction receiving the destination mecanographic number and
+     * the amount to move.
      *
      * @param accountCard the destination mecanographic number
-     * @param amount                         the amount of the transaction.
+     * @param amount the amount of the transaction.
      */
     public Transaction(AccountCard accountCard, Money amount) {
         if ((accountCard == null) || (amount == null)) {
