@@ -15,6 +15,7 @@ import eapli.ecafeteria.backoffice.consoleapp.presentation.authz.DeactivateUserA
 import eapli.ecafeteria.backoffice.consoleapp.presentation.authz.ListUsersAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.cafeteria.AddOrganicUnitUI;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.cafeteria.OrganicUnitPrinter;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen.CheckExistingBookingAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen.ListMaterialAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen.RegisterLotsInMealAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen.RegisterMaterialAction;
@@ -271,6 +272,16 @@ public class MainMenu extends AbstractUI {
         menu.add(new MenuItem(CHANGE_DISH_NUTRICIONAL_INFO_OPTION, "Change Nutricional Info",
                 new ChangeDishNutricionalInfoAction()));
         menu.add(new MenuItem(CHANGE_DISH_PRICE_OPTION, "Change Price", new ChangeDishPriceAction()));
+        menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
+
+        return menu;
+    }
+    
+    private Menu buildCheckBookingsByTypeMenu(){
+        
+        final Menu menu = new Menu("Check bookings >");
+        
+        menu.add(new MenuItem(BOOKINGS_OPTION, "Check Bookings by type", new CheckExistingBookingAction()));
         menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
 
         return menu;
