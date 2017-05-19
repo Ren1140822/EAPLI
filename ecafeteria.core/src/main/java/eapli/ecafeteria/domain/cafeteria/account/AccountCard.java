@@ -3,16 +3,19 @@ package eapli.ecafeteria.domain.cafeteria.account;
 import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
 import eapli.framework.domain.Money;
 import eapli.framework.domain.ddd.AggregateRoot;
-
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Version;
 import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Version;
 
 /**
- * Represents an account card of a cafeteria user. (issue #22 explains the design decisions).
+ * Represents an account card of a cafeteria user. (issue #22 explains the
+ * design decisions).
+ *
+ * @FIXME javadoc
+ * @FIXME create unit tests
  *
  * @author Ivo Ferro 1151159
  * @author Daniel Gonçalves 1151452
@@ -46,7 +49,8 @@ public class AccountCard implements AggregateRoot<MecanographicNumber>, Observer
     /**
      * Creates an account card associated to a cafeteria user.
      *
-     * @param mecanographicNumber the mecanographic number to associate the cafeteria user
+     * @param mecanographicNumber the mecanographic number to associate the
+     * cafeteria user
      */
     public AccountCard(MecanographicNumber mecanographicNumber) {
         if (mecanographicNumber == null) {

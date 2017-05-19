@@ -2,13 +2,13 @@ package eapli.ecafeteria.domain.cafeteria.account;
 
 import eapli.framework.domain.Money;
 import eapli.framework.domain.ddd.ValueObject;
-
-import javax.persistence.Embeddable;
 import java.io.Serializable;
+import javax.persistence.Embeddable;
 
 /**
  * Represents a account card balance.
  *
+ * @FIXME create unit tests
  * @author Ivo Ferro 1151159
  * @author Daniel Gonçalves 1151452
  */
@@ -59,7 +59,7 @@ public class Balance implements ValueObject, Serializable {
      *
      * @return the balance amount
      */
-    public Money amount(){
+    public Money amount() {
         return this.amount;
     }
 
