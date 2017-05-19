@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.Version;
 
 /**
+ * @FIXME javadoc
+ * @FIXME create unit tests
  *
  * @author Sofia Silva [1150690@isep.ipp.pt] Diogo Santos [1150451@isep.ipp.pt]
  */

@@ -8,7 +8,6 @@ import javax.persistence.Embeddable;
 /**
  * Represents a account card balance.
  *
- * @FIXME create unit tests
  * @author Ivo Ferro 1151159
  * @author Daniel Gonçalves 1151452
  */
@@ -67,8 +66,8 @@ public class Balance implements ValueObject, Serializable {
     public int hashCode() {
         return amount.hashCode();
     }
-    
-    public boolean hasEnoughBalance(Money price){
+
+    public boolean hasEnoughBalance(Money price) {
         return this.amount().lessThan(price);
     }
 

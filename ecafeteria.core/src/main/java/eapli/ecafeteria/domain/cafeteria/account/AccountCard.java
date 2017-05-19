@@ -14,8 +14,8 @@ import javax.persistence.Version;
  * Represents an account card of a cafeteria user. (issue #22 explains the
  * design decisions).
  *
- * @FIXME javadoc
- * @FIXME create unit tests
+ * @TODO why is this a separate aggregate from CafeteriaUser? what is the
+ * justification?
  *
  * @author Ivo Ferro 1151159
  * @author Daniel Gonçalves 1151452
@@ -69,6 +69,7 @@ public class AccountCard implements AggregateRoot<MecanographicNumber>, Observer
      * @param aTransaction The transaction to be accounted in the balance.
      */
     public void aggregate(Transaction aTransaction) {
+        //FIXME validations
         this.balance = this.balance.add(aTransaction.value());
     }
 

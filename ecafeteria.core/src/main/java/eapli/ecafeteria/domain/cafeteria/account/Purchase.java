@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 
 /**
  *
+ * @FIXME javadoc
+ * @FIXME create unit tests
  * @author PC
  */
 @Entity
@@ -30,8 +32,8 @@ public class Purchase extends Transaction {
             throw new IllegalStateException("a refund musthave a negative amount");
         }
     }
-    
-        /**
+
+    /**
      * It checks if the object is equal to this purchase.
      *
      * @param o The object to be examined.

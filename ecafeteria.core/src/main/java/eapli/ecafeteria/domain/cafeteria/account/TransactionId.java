@@ -1,13 +1,13 @@
 package eapli.ecafeteria.domain.cafeteria.account;
 
 import eapli.framework.domain.ddd.ValueObject;
-
-import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.UUID;
+import javax.persistence.Embeddable;
 
 /**
  * Represents a unique identifier to identify a transaction.
+ *
  *
  * @author Ivo Ferro
  */

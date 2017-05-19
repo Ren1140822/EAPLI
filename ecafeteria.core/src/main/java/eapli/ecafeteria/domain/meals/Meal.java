@@ -1,10 +1,11 @@
 package eapli.ecafeteria.domain.meals;
 
-import javax.persistence.*;
 import java.util.Calendar;
+import javax.persistence.*;
 
 /**
  * @FIXME javadoc
+ * @FIXME unit test
  * @FIXME is this an entity, a value object or an aggregate? Created by pyska on
  * 26-04-2017.
  */

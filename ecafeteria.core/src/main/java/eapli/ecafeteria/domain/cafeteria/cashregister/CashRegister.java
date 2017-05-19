@@ -11,6 +11,8 @@ import javax.persistence.Id;
 /**
  * Represents a cash register.
  *
+ * @FIXME create unit tests
+ *
  * @author Eric Amaral - 1141570@isep.ipp.pt
  * @author Tiago Correia - 1151031@isep.ipp.pt
  */
