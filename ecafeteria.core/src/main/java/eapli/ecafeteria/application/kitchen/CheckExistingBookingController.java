@@ -17,6 +17,7 @@ import eapli.ecafeteria.domain.meals.MealType.MealTypes;
 import eapli.ecafeteria.persistence.BookingRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.framework.application.Controller;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -27,7 +28,6 @@ import java.util.Date;
 public class CheckExistingBookingController implements Controller {
 
     private final BookingRepository repository = PersistenceContext.repositories().bookings(null);
-    private final ListBookingsService bookingsService = new ListBookingsService();
 
     //TODO preferably, controllers should not have state
     private Date date;
@@ -36,17 +36,22 @@ public class CheckExistingBookingController implements Controller {
 
     public Iterable<Booking> checkBookingsByDateMealAndDishType(Calendar date, String mealType, DishType dishType) {
         Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
-        
+        ArrayList<MealType> mealTypes = new ArrayList<>();
         final MealTypes mealTypee=null;
-        if(mealType=="Almoco"){
+        if(mealType.equalsIgnoreCase("Almoco")){
+            mealTypes.add(new MealType(mealTypee.ALMOCO));
             
-            return this.repository.checkBookingsByDateMealAndDishType(date, new MealType(mealTypee.ALMOCO), dishType);
+            return this.repository.checkBookingsByDateMealAndDishType(date, mealTypes , dishType);
         } 
         else if (mealType.equalsIgnoreCase("Jantar")){
+            mealTypes.add(new MealType(mealTypee.JANTAR));
             
-            return this.repository.checkBookingsByDateMealAndDishType(date, new MealType(mealTypee.JANTAR), dishType);
+            return this.repository.checkBookingsByDateMealAndDishType(date, mealTypes, dishType);
         }
-        return this.repository.checkBookingsByDateMealAndDishType(date, new MealType(mealTypee), dishType);
+        mealTypes.add(new MealType(mealTypee.ALMOCO));
+        mealTypes.add(new MealType(mealTypee.JANTAR));
+        
+        return this.repository.checkBookingsByDateMealAndDishType(date, mealTypes, dishType);
         }
     
     /**
