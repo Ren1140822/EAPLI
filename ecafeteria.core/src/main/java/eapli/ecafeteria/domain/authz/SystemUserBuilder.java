@@ -40,7 +40,11 @@ public class SystemUserBuilder implements Factory<SystemUser> {
     }
 
     public SystemUserBuilder withPassword(String password) {
-        this.password = new Password(password);
+        try {
+            this.password = new Password(password);
+        } catch(IllegalStateException e){
+            System.err.println("Invalid Password, it must contain at least 6 characters, 1 capital letter and 1 digit\n");
+        }
         return this;
     }
 
@@ -71,7 +75,11 @@ public class SystemUserBuilder implements Factory<SystemUser> {
     }
 
     public SystemUserBuilder withEmail(String email) {
-        this.email = EmailAddress.valueOf(email);
+        try {
+            this.email = EmailAddress.valueOf(email);
+        }catch(IllegalStateException e){
+            System.err.println(e.getMessage());
+        }
         return this;
     }
 
