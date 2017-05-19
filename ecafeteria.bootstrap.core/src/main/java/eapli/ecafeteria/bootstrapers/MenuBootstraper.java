@@ -17,6 +17,7 @@ import eapli.framework.domain.TimePeriod2;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -39,7 +40,8 @@ public class MenuBootstraper implements Action {
         final OrganicUnit organicUnit = organicUnitRepository.findByAcronym("ISEP");
         final Set<Meal> meals = new HashSet<>();
         final DishRepository dishRepository = PersistenceContext.repositories().dishes();
-        Calendar date = start;
+        //Calendar date = start; ISTO NAO É COPIA
+        Calendar date = (Calendar)start.clone();
         while(!date.after(end)){
             final Dish dish = dishRepository.findByName(Designation.valueOf("tofu grelhado"));
             final MealType mealType = new MealType(MealType.MealTypes.JANTAR);
