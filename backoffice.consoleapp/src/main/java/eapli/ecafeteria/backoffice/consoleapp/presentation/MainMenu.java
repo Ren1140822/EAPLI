@@ -154,6 +154,11 @@ public class MainMenu extends AbstractUI {
             final Menu myMenuMenu = buildMenuMenu();
             mainMenu.add(new SubMenu(MEALS_OPTION, myMenuMenu, new ShowVerticalSubMenuAction(myMenuMenu)));
         }
+        if(Application.session().session().authenticatedUser().isAuthorizedTo(ActionRight.MANAGE_KITCHEN))
+        {
+            final Menu checkBookingsMenu = buildCheckBookingsByTypeMenu();
+            mainMenu.add(new SubMenu(BOOKINGS_OPTION, checkBookingsMenu, new ShowVerticalSubMenuAction(checkBookingsMenu)));
+        }
         if (Application.session().session().authenticatedUser().isAuthorizedTo(ActionRight.SALE)) {
             // TODO
         }
@@ -281,7 +286,7 @@ public class MainMenu extends AbstractUI {
         
         final Menu menu = new Menu("Check bookings >");
         
-        menu.add(new MenuItem(BOOKINGS_OPTION, "Check Bookings by type", new CheckExistingBookingAction()));
+        menu.add(new MenuItem(BOOKINGS_OPTION, "Check Bookings by date and type(Meal/Dish)", new CheckExistingBookingAction()));
         menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
 
         return menu;
