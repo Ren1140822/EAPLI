@@ -95,13 +95,7 @@ public class RegisterDishUI extends AbstractUI {
                 } else if (index > numAllergens || index<0){
                     System.err.println("Invalid index\n");
                 } else {
-                    int i = 0;
-                    Allergen elem = null;
-                    while (i < index) {
-                        elem = allergens.iterator().next();
-                        i++;
-                    }
-                    allergensToAdd.add(elem);
+                    allergensToAdd.add(allergens.get(index));
                 }
                 System.out.println("Insert another index to add or type -1 to finish\n");
             } while (!stop);
