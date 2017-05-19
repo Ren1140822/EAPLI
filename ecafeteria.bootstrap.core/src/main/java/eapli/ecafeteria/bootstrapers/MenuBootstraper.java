@@ -35,13 +35,8 @@ public class MenuBootstraper implements Action {
         end.add(Calendar.DAY_OF_MONTH, 1);
         end.add(Calendar.DAY_OF_MONTH, 5);
         final TimePeriod2 timePeriod = new TimePeriod2(start, end);
-        final Set<RoleType> roles = new HashSet<RoleType>();
-        roles.add(RoleType.ADMIN);
-        roles.add(RoleType.MENU_MANAGER);
-        roles.add(RoleType.KITCHEN_MANAGER);
         final OrganicUnitRepository organicUnitRepository = PersistenceContext.repositories().organicUnits();
         final OrganicUnit organicUnit = organicUnitRepository.findByAcronym("ISEP");
-        final SystemUser systemUser= new SystemUser("poweruser", "poweruserA1", "joe", "doe", "joe@email.org", roles);
         final Set<Meal> meals = new HashSet<>();
         final DishRepository dishRepository = PersistenceContext.repositories().dishes();
         Calendar date = start;
