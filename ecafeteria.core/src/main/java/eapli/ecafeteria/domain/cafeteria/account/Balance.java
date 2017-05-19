@@ -67,6 +67,10 @@ public class Balance implements ValueObject, Serializable {
     public int hashCode() {
         return amount.hashCode();
     }
+    
+    public boolean hasEnoughBalance(Money price){
+        return this.amount().lessThan(price);
+    }
 
     @Override
     public boolean equals(Object o) {

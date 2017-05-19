@@ -15,23 +15,25 @@ import eapli.ecafeteria.domain.authz.*;
 
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by pyska on 26-04-2017.
  */
 public class RegisterMenuController implements Controller {
+    
     private final MenuRepository repository = PersistenceContext.repositories().menus();
     private final ListDishService dishService = new ListDishService();
     private final ListMealTypeService mealTypeService = new ListMealTypeService();
     private final ListOrganicUnitsService organicUnitsService = new ListOrganicUnitsService();
 
-    public Menu registerMenu(Dish dish, MealType mealType, OrganicUnit organicUnit, TimePeriod2 period, Calendar date)
+    public Menu registerMenu(Set<Meal> meals, OrganicUnit organicUnit, TimePeriod2 period)
             throws DataIntegrityViolationException, DataConcurrencyException {
         Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_MENUS);
 
-        final Meal meal = new Meal(dish, mealType, date);
         final Menu newMenu = new Menu(period, organicUnit);
-        newMenu.addMeal(meal);
+        newMenu.addAllMeals(meals);
 
         Menu menu = repository.save(newMenu);
         return menu;

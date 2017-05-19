@@ -8,6 +8,7 @@ import eapli.ecafeteria.domain.authz.SystemUser;
 import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
 import eapli.ecafeteria.domain.meals.Dish;
 import eapli.ecafeteria.domain.meals.DishType;
+import eapli.ecafeteria.domain.meals.Meal;
 import eapli.ecafeteria.domain.meals.MealType;
 import eapli.framework.application.Controller;
 import eapli.framework.domain.TimePeriod2;
@@ -15,11 +16,15 @@ import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
+import eapli.util.DateTime;
 import eapli.util.io.Console;
+import org.eclipse.persistence.internal.helper.Helper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -40,77 +45,97 @@ public class RegisterMenuUI extends AbstractUI {
             final Calendar today = Calendar.getInstance();
             final Calendar start = Calendar.getInstance();
             final Calendar end = Calendar.getInstance();
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-            //FIXME
-            //@author Meireles
-            // Check method "readDate" from the Console class.
-            final String startDateStr = Console.readLine("Period Start (dd/mm/yyyy)");
-            start.setTime(sdf.parse(startDateStr));
+            start.setTime(Console.readDate("Period Start (dd/mm/yyyy)", "dd/MM/yyyy"));
 
-            //FIXME
-            //@author Meireles
-            // Check method "after" from Calendar class.
-            if (today.compareTo(start) > 0) {
+            if (today.after(start)) {
                 System.out.printf("The start date cannot be in the past.\n");
-                throw new IllegalArgumentException();
+                return false;
             }
 
-            final String endDateStr = Console.readLine("Period End   (dd/mm/yyyy)");
-            end.setTime(sdf.parse(endDateStr));
+            end.setTime(Console.readDate("Period End (dd/mm/yyyy)", "dd/MM/yyyy"));
 
-            //FIXME
-            //@author Meireles
-            // Check method "after" from Calendar class.
-            //TODO
-            //@author Meireles
-            // Should the class TimePeriod2 be the one responsible for checking if end is after start?
-            if (start.compareTo(end) >= 0) {
+            if (start.after(end)) {
                 System.out.printf("The end date cannot be in the past or the same date as the start.\n");
-                throw new IllegalArgumentException();
-            } else {
-                //FIXME
-                //@author Meireles
-                // Check method "getTimeInMillis" from Calendar class.
-                //TODO
-                //@author Meireles
-                // Can a method to solve this issue be created within the DateTime class?
-                // Other solutions can be made like day comparison within the Calendar class.
-                long diff = end.getTime().getTime() - start.getTime().getTime();
-                diff = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-                if (diff > 7) {
-                    System.out.printf("Difference between start and end date cannot be greater than a week.\n");
-                    throw new IllegalArgumentException();
-                }
+                return false;
             }
 
             final TimePeriod2 theTimePeriod2 = new TimePeriod2(start, end);
-
-            final Iterable<MealType.MealTypes> mealTypes = this.theController.allMealTypes();
-            final SelectWidget<MealType.MealTypes> selector = new SelectWidget<>("Meal types:", mealTypes, new MealTypePrinter());
-            selector.show();
-            final MealType theMealType = new MealType(selector.selectedElement());
-
-            final Iterable<Dish> dishes = this.theController.allDishes();
-            final SelectWidget<Dish> selector2 = new SelectWidget<>("Dishes:", dishes, new DishPrinter());
-            selector2.show();
-            final Dish theDish = selector2.selectedElement();
+            OrganicUnit organicUnit;
 
             final Iterable<OrganicUnit> organicUnits = this.theController.allOrganicUnits();
             final SelectWidget<OrganicUnit> selector3 = new SelectWidget<OrganicUnit>("Organic Units:", organicUnits, new OrganicUnitPrinter());
-            selector3.show();
-            final OrganicUnit organicUnit = selector3.selectedElement();
+            do {
+                selector3.show();
+                if (selector3.selectedOption() == 0) {
+                    throw new InterruptedException();
+                }
+                organicUnit = selector3.selectedElement();
+                if (organicUnit == null) {
+                    System.out.printf("That is not a valid option.\n");
+                }
+            } while (organicUnit == null);
+
+            Set<Meal> meals = new HashSet<>();
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            final Iterable<MealType.MealTypes> mealTypes = this.theController.allMealTypes();
+            final SelectWidget<MealType.MealTypes> selector = new SelectWidget<>("Meal types:", mealTypes, new MealTypePrinter());
+            Calendar date = Calendar.getInstance();
+            date.setTime(start.getTime());
+            
+            main_loop:
+            do {
+
+                Dish theDish = null;
+                MealType theMealType = null;
+
+                do {
+                    System.out.printf("Registering meals for day %s.\nSelect EXIT to proceed to next day.", sdf.format(date.getTime()));
+                    selector.show();
+                    if (selector.selectedOption() == 0) {
+                        date.add(Calendar.DAY_OF_MONTH, 1);
+                        if (date.after(end)) {
+                            break main_loop;
+                        }
+                        continue;
+                    }
+                    theMealType = new MealType(selector.selectedElement());
+                    if (theMealType == null) {
+                        System.out.printf("That is not a valid option.\n");
+                    }
+                } while (theMealType == null);
+
+                do {
+                    final Iterable<Dish> dishes = this.theController.allDishes();
+                    final SelectWidget<Dish> selector2 = new SelectWidget<>("Dishes:", dishes, new DishPrinter());
+                    selector2.show();
+                    if (selector2.selectedOption() == 0) {
+                        throw new InterruptedException();
+                    }
+                    theDish = selector2.selectedElement();
+                    if (theDish == null) {
+                        System.out.printf("That is not a valid option.\n");
+                    }
+                } while (theDish == null);
+
+                meals.add(new Meal(theDish, theMealType, date));
+            } while (true);
+
+            if (meals.isEmpty()) {
+                System.out.printf("You have made an empty Menu. It will be ignored...\n");
+                return false;
+            }
 
             try {
-                this.theController.registerMenu(theDish, theMealType, organicUnit, theTimePeriod2, Calendar.getInstance());
+                this.theController.registerMenu(meals, organicUnit, theTimePeriod2);
                 System.out.printf("Menu registered successfully.\n");
+                return true;
             } catch (final DataIntegrityViolationException | DataConcurrencyException e) {
                 System.out.println("You tried to enter a dish which already exists in the database.");
             }
-        } catch (ParseException e) {
-            System.out.println("The date you entered was invalid.");
-        } catch (IllegalArgumentException e) {
-            // Do nothing
+        } catch (InterruptedException e) {
+            System.out.printf("Going back to menu.\n");
         }
 
         return false;

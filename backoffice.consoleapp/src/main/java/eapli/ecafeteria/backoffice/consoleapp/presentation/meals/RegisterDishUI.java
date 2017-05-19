@@ -20,7 +20,6 @@ import java.util.*;
 public class RegisterDishUI extends AbstractUI {
 
     private final RegisterDishController theController = new RegisterDishController();
-    
 
     protected Controller controller() {
         return this.theController;
@@ -48,11 +47,30 @@ public class RegisterDishUI extends AbstractUI {
                     price);
         } catch (final DataIntegrityViolationException | DataConcurrencyException e) {
             System.out.println("You tried to enter a dish which already exists in the database.");
+        } catch (IllegalStateException i) {
+            boolean invalid = true;
+            System.out.println("You tried to enter invalid information for the dish."
+                    + "\nReenter info?"
+                    + "\n1.Yes"
+                    + "\n2.Leave\n");
+            while (invalid) {
+                final double opt = Console.readDouble("Option: ");
+                switch ((int) opt) {
+                    case 1:
+                        show(); //rerun method
+                        break;
+                    case 2:
+                        return false; //leaves UI
+                    default:
+                        System.out.println("The only options are:\n1.Yes\n2.Leave\n(Choose '1' or '2')\n");
+                        break;
+                }
+            }
         }
 
         boolean hasAllergens = askForAllergens();
 
-        if(hasAllergens){
+        if (hasAllergens) {
             boolean stop = false;
             List<Allergen> allergens = (List<Allergen>) theController.getAllergens();
             List<Allergen> allergensToAdd = new ArrayList<>();
@@ -61,21 +79,23 @@ public class RegisterDishUI extends AbstractUI {
             listAllergens.show();
             System.out.println("Type the index of the first allergen to add (-1 to cancel)\n");
             int numAllergens = allergens.size();
-            Scanner in = new Scanner(System.in);
             do {
-                int index;
+                Scanner in = new Scanner(System.in);
+                int index=-1;
                 try {
-                   index  = in.nextInt();
-                }catch(InputMismatchException e){
+                    index = in.nextInt();
+                } catch (InputMismatchException e) {
                     System.err.println("Invalid input\n");
-                    break;
+                    System.out.println("Insert valid index, or -1 to cancel\n");
+                    continue;
                 }
                 if (index == -1) {
-                    break;
-                } else if (index > numAllergens){
+                    stop=true;
+
+                } else if (index > numAllergens || index<0){
                     System.err.println("Invalid index\n");
-                }else{
-                    int i=0;
+                } else {
+                    int i = 0;
                     Allergen elem = null;
                     while (i < index) {
                         elem = allergens.iterator().next();
@@ -84,27 +104,28 @@ public class RegisterDishUI extends AbstractUI {
                     allergensToAdd.add(elem);
                 }
                 System.out.println("Insert another index to add or type -1 to finish\n");
-            }while(!stop);
-            if(!allergensToAdd.isEmpty()) {
+            } while (!stop);
+            if (!allergensToAdd.isEmpty()) {
                 try {
                     theController.addAllergensToDish(allergensToAdd, createdDish);
-                    System.out.println("Allergens added to dish\n");
+                    System.out.printf("Dish was saved successfully with %d allergens.\n", allergensToAdd.size());
                 } catch (final DataIntegrityViolationException | DataConcurrencyException e) {
                         System.out.println("You tried to enter a dish which already exists in the database.");
                     }
+            }else{
+                System.out.println("Dish was saved successfully without any allergen\n");
             }
         }
+
         return false;
     }
 
-
-
-    private boolean askForAllergens(){
+    private boolean askForAllergens() {
         Scanner in = new Scanner(System.in);
         System.out.println("Does this dish have allergens? (Y/N)\n");
         do {
             String op = in.next();
-            switch(op){
+            switch (op) {
                 case "y":
                 case "Y":
                     return true;
@@ -116,7 +137,7 @@ public class RegisterDishUI extends AbstractUI {
                     break;
             }
 
-        }while(true);
+        } while (true);
     }
 
     @Override

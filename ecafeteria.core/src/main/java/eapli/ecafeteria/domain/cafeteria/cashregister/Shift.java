@@ -51,7 +51,7 @@ public class Shift implements Serializable {
         }
         this.date = date;
         this.mealType = mealType;
-        this.state = ShiftState.CLOSED;
+        this.state = ShiftState.OPENED;
     }
 
     /**
@@ -87,12 +87,13 @@ public class Shift implements Serializable {
     }
 
     /**
-     * Changes the shift state to opened if it is in closed state.
+     * Modifies a shift state to closed.
      */
-    public void open() {
-        if (this.isAtState(ShiftState.CLOSED)) {
-            this.state = ShiftState.OPENED;
+    public void close() {
+        if (this.state != ShiftState.OPENED) {
+            throw new IllegalStateException("Shift must be open before closing!");
         }
+        this.state = ShiftState.CLOSED;
     }
 
     @Override

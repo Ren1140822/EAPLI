@@ -26,11 +26,10 @@ public class ShiftBootstraper implements Action {
         final Calendar date1 = new GregorianCalendar(2017, 05, 10);
         final Calendar date2 = new GregorianCalendar(2017, 05, 11);
 
-        register(date1, mealType1);
-        register(date1, mealType2);
+        registerClosedShift(date1, mealType1);
+        registerClosedShift(date1, mealType2);
         register(date2, mealType1);
-        register(date2, mealType2);
-        
+
         return false;
     }
 
@@ -38,6 +37,20 @@ public class ShiftBootstraper implements Action {
         final ShiftRepository shifts = PersistenceContext.repositories().shifts();
         try {
             shifts.save(new Shift(date, mealType));
+        } catch (final DataIntegrityViolationException | DataConcurrencyException e) {
+            // ignoring exception. assuming it is just a primary key violation
+            // due to the tentative of inserting a duplicated user
+            Logger.getLogger(ECafeteriaBootstraper.class.getSimpleName())
+                    .info("EAPLI-BO001: bootstrapping existing record");
+        }
+    }
+
+    private void registerClosedShift(Calendar date, MealType mealType) {
+        final ShiftRepository shifts = PersistenceContext.repositories().shifts();
+        try {
+            Shift shift = new Shift(date, mealType);
+            shift.close();
+            shifts.save(shift);
         } catch (final DataIntegrityViolationException | DataConcurrencyException e) {
             // ignoring exception. assuming it is just a primary key violation
             // due to the tentative of inserting a duplicated user

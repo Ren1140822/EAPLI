@@ -3,8 +3,10 @@
  */
 package eapli.framework.domain;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,7 +19,7 @@ import javax.persistence.TemporalType;
  *
  */
 @Embeddable
-public class TimePeriod2 {
+public class TimePeriod2 implements Serializable{
 
     @Temporal(TemporalType.DATE)
     Calendar start;
@@ -31,9 +33,12 @@ public class TimePeriod2 {
      * @param start
      * @param end
      */
-    public TimePeriod2(Calendar start, Calendar end) {
-	this.start = start;
-	this.end = end;
+    public TimePeriod2(Calendar start, Calendar end) throws IllegalStateException {
+        if(start.after(end)){
+            throw new IllegalStateException("End date cannot finish before start date");
+        }
+        this.start = start;
+        this.end = end;
     }
 
     protected TimePeriod2() {

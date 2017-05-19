@@ -150,16 +150,49 @@ public class JpaBookingRepository extends JpaAutoTxRepository<Booking, Long>
 
     @Override
     public Booking findBookingByUserAndMealAndState(CafeteriaUser user, Meal meal, BookingState state) {
-        return repo.matchOne("e.user=:" + user + " and e.meal=:" + meal + " and e.state=:" + state);
+        Map<String,Object> params = new HashMap<>();
+        params.put("user", user);
+        params.put("meal", meal);
+        params.put("state", state);
+        return repo.matchOne("e.user=:user and e.meal=:meal and e.state=:state",params);
     }
 
     @Override
-    public Iterable<Booking> checkBookingsByDateMealAndDishType(Calendar date, MealType mealType, DishType dishType) {
+    public Iterable<Booking> checkBookingsByDateMealAndDishType(Calendar date, Iterable<MealType> mealTypes, DishType dishType) {
         Map<String, Object> params = new HashMap<>();
+        
+         StringBuilder query = new StringBuilder();
+
+        query.append("e.date=:date");
         params.put("date", date);
-        params.put("mealType", mealType);
-        params.put("dishType", dishType);
-        return repo.match("e.meal.mealType=:mealType and e.meal.date=:date and e.meal.dish.dishType=:dishType", params);
+
+        if (mealTypes.iterator().hasNext()) {
+            query.append(" and ( ");
+            short i = 0;
+            for (MealType mealType : mealTypes) {
+                if (i == 0) {
+                    query.append("e.MealType=:mealType");
+                    params.put("mealType", mealType);
+                } else {
+                    String mealTypeName = "mealType" + i;
+                    query.append(" or e.mealType=:");
+                    query.append(mealTypeName);
+                    params.put(mealTypeName, mealType);
+                }
+                i++;
+            }
+            query.append(" ) ");
+        }
+        
+        query.append("and e.dishType = :dishType");
+        params.put("DishType", dishType);
+
+        return repo.match(query.toString(), params);
+        
+//        params.put("date", date);
+//        params.put("mealType", mealType);
+//        params.put("dishType", dishType);
+//        return repo.match("e.meal.mealType=:mealType and e.meal.date=:date and e.meal.dish.dishType=:dishType", params);
     }
 
     /**
