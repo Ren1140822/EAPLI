@@ -163,7 +163,7 @@ public class JpaBookingRepository extends JpaAutoTxRepository<Booking, Long>
         
          StringBuilder query = new StringBuilder();
 
-        query.append("e.date=:date");
+        query.append("e.meal.date=:date");
         params.put("date", date);
 
         if (mealTypes.iterator().hasNext()) {
@@ -171,11 +171,11 @@ public class JpaBookingRepository extends JpaAutoTxRepository<Booking, Long>
             short i = 0;
             for (MealType mealType : mealTypes) {
                 if (i == 0) {
-                    query.append("e.MealType=:mealType");
-                    params.put("mealType", mealType);
+                    query.append("e.meal.mealType=:mealType");
+                    params.put("MealType", mealType);
                 } else {
                     String mealTypeName = "mealType" + i;
-                    query.append(" or e.mealType=:");
+                    query.append(" or e.meal.mealType=:");
                     query.append(mealTypeName);
                     params.put(mealTypeName, mealType);
                 }
@@ -184,7 +184,7 @@ public class JpaBookingRepository extends JpaAutoTxRepository<Booking, Long>
             query.append(" ) ");
         }
         
-        query.append("and e.dishType = :dishType");
+        query.append("and e.meal.dish.dishType =:dishType");
         params.put("DishType", dishType);
 
         return repo.match(query.toString(), params);

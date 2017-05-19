@@ -35,7 +35,7 @@ public class CheckExistingBookingController implements Controller {
     private DishType dishType;
 
     public Iterable<Booking> checkBookingsByDateMealAndDishType(Calendar date, String mealType, DishType dishType) {
-        Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
+        //Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
         ArrayList<MealType> mealTypes = new ArrayList<>();
         final MealTypes mealTypee=null;
         if(mealType.equalsIgnoreCase("Almoco")){
@@ -60,10 +60,12 @@ public class CheckExistingBookingController implements Controller {
      * @return
      */
     public Iterable<DishType> listDishTypes() {
-	return new ListDishTypeController().listDishTypes();
+        
+	return new ListDishTypeController().listDishTypesMANAGER();
     }
     
     public Iterable<MealType.MealTypes> listMealTypes(){
+        //Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
         return new ListMealTypeService().allMealTypes();
     }
 }

@@ -38,7 +38,9 @@ public class CheckExistingBookingUI extends AbstractUI {
     
     protected boolean doShow(){
                 
-        Calendar date = Console.readCalendar("dd-MM-yyyy");
+       
+            Calendar date = Console.readCalendar("dd-MM-yyyy");
+        
 
         
         //mealType=Console.readLine("Insert meal Type:");
@@ -55,14 +57,14 @@ public class CheckExistingBookingUI extends AbstractUI {
 //	selector.show();
 //	final MealType.MealTypes mealType = selectorMeal.selectedElement();
         String mealType;
-        do
-        {
+//        do
+//        {
             mealType = Console.readLine("Insert meal type (Lunch/Dinner/Both):");   
             
-        } while (!mealType.equalsIgnoreCase("Jantar") || 
-                !mealType.equalsIgnoreCase("Almoco") || 
-                !mealType.equalsIgnoreCase("Both")
-                );
+//        } while (!mealType.equalsIgnoreCase("Jantar") || 
+//                !mealType.equalsIgnoreCase("Almoco") || 
+//                !mealType.equalsIgnoreCase("Both")
+//                );
         
         Iterable<Booking> list = theController.checkBookingsByDateMealAndDishType(date, mealType, dishType);
         
