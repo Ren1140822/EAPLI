@@ -87,7 +87,7 @@ public class CreateBookingController {
 
         bookingRepository.findBookingByUserAndMealAndState(user, meal, BookingState.DONE);
        
-        }catch(NoResultException ex){
+        }catch(Exception ex){
             return true;
         }
         return false;

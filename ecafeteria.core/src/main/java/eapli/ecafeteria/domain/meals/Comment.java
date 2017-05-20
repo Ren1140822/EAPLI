@@ -16,7 +16,7 @@ import javax.persistence.Embeddable;
  * [1150019@isep.ipp.pt]
  */
 @Embeddable
-public class Comment implements ValueObject{
+public class Comment implements ValueObject {
 
     /**
      * The limit of characters that the comment could reach.

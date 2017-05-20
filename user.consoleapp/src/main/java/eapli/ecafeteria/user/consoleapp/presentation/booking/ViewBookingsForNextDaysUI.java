@@ -29,24 +29,17 @@ public class ViewBookingsForNextDaysUI extends AbstractUI {
     protected boolean doShow() {
         int days = Integer.MIN_VALUE;
         do{
-            String answer = Console.readLine("How many upcoming days? ");
-            try{
-                days = Integer.parseInt(answer);
-                if(days<0){
-                    System.out.println("The number of days must be positive.");
-                }
-            } catch(NumberFormatException e){
-                System.out.println("Please insert a valid number.");
-            }
+            days = Console.readInteger("How many upcoming days?");
         } while(days<0);
         Iterable<Booking> list = theController.listBookingsOfNext(days);
-        ListWidget<Booking> lister = new ListWidget<>("Bookings", list, new BookingPrinter());
-        lister.show();
-        if(!list.iterator().hasNext()){
+        if(list.iterator().hasNext()){
+            ListWidget<Booking> lister = new ListWidget<>("Bookings", list, new BookingPrinter());
+            lister.show();
+        } else {
             System.out.println("There are no upcoming bookings.");
         }
         Console.waitForKey("Press Enter to return.");
-        return true;
+        return false;
     }
 
     @Override

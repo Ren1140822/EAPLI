@@ -6,6 +6,7 @@ import eapli.ecafeteria.domain.booking.BookingState;
 import eapli.ecafeteria.domain.cafeteria.cashregister.CashRegister;
 import eapli.ecafeteria.domain.cafeteria.cashregister.CashRegisterId;
 import eapli.ecafeteria.domain.cafeteria.cashregister.Shift;
+import eapli.ecafeteria.domain.cafeteria.cashregister.ShiftState;
 import eapli.ecafeteria.domain.meals.MealType;
 import eapli.ecafeteria.persistence.BookingRepository;
 import eapli.ecafeteria.persistence.CashRegisterRepository;
@@ -37,10 +38,11 @@ public class OpenCashRegisterController implements Controller {
      * @throws DataConcurrencyException
      * @throws DataIntegrityViolationException
      */
-    public void openCashRegister(CashRegisterId cashRegisterId)
+    public void openCashRegister(CashRegisterId cashRegisterId, MealType mealType, Calendar date)
             throws DataConcurrencyException, DataIntegrityViolationException {
         CashRegister cashRegister = cashRegisterRepository.findByCashRegisterId(cashRegisterId);
         cashRegister.open();
+        openShift(mealType, date);
         cashRegisterRepository.save(cashRegister);
     }
 
@@ -59,17 +61,18 @@ public class OpenCashRegisterController implements Controller {
             shift = shiftRepository.findByDateAndMealType(date, mealType);
         } catch (NoResultException ex) {
             shift = new Shift(date, mealType);
+
+            Iterable<Booking> bookingsDoneState = bookings.findBookingsByDateAndMealTypeAndState(date, mealType, BookingState.DONE);
+
+            for (Booking booking : bookingsDoneState) {
+                booking.makeDefinitive();
+                bookingRepository.save(booking);
+            }
+            shiftRepository.save(shift);
         }
 
-        //if shift is closed, the first cash register must open it
-        shift.open();
-        shiftRepository.save(shift);
-
-        Iterable<Booking> bookingsDoneState = bookings.findBookingsByDateAndMealTypeAndState(date, mealType, BookingState.DONE);
-
-        for (Booking booking : bookingsDoneState) {
-            booking.makeDefinitive();
-            bookingRepository.save(booking);
+        if(shift.isAtState(ShiftState.CLOSED)){
+            throw new IllegalStateException("The shift is already closed and cannot be open!");
         }
 
     }

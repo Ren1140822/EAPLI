@@ -14,7 +14,9 @@ import eapli.ecafeteria.backoffice.consoleapp.presentation.authz.AddUserUI;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.authz.DeactivateUserAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.authz.ListUsersAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.cafeteria.AddOrganicUnitUI;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.cafeteria.ConfigurateUserAlertsLimitAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.cafeteria.OrganicUnitPrinter;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen.CheckExistingBookingAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen.ListMaterialAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen.RegisterLotsInMealAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen.RegisterMaterialAction;
@@ -153,6 +155,11 @@ public class MainMenu extends AbstractUI {
             final Menu myMenuMenu = buildMenuMenu();
             mainMenu.add(new SubMenu(MEALS_OPTION, myMenuMenu, new ShowVerticalSubMenuAction(myMenuMenu)));
         }
+        if(Application.session().session().authenticatedUser().isAuthorizedTo(ActionRight.MANAGE_KITCHEN))
+        {
+            final Menu checkBookingsMenu = buildCheckBookingsByTypeMenu();
+            mainMenu.add(new SubMenu(BOOKINGS_OPTION, checkBookingsMenu, new ShowVerticalSubMenuAction(checkBookingsMenu)));
+        }
         if (Application.session().session().authenticatedUser().isAuthorizedTo(ActionRight.SALE)) {
             // TODO
         }
@@ -172,7 +179,7 @@ public class MainMenu extends AbstractUI {
         menu.add(new MenuItem(SET_KITCHEN_ALERT_LIMIT_OPTION, "Set kitchen alert limit",
                 new ShowMessageAction("Not implemented yet")));
         menu.add(new MenuItem(SET_USER_ALERT_LIMIT_OPTION, "Set users' alert limit",
-                new ShowMessageAction("Not implemented yet")));
+                new ConfigurateUserAlertsLimitAction()));
         menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
 
         return menu;
@@ -271,6 +278,16 @@ public class MainMenu extends AbstractUI {
         menu.add(new MenuItem(CHANGE_DISH_NUTRICIONAL_INFO_OPTION, "Change Nutricional Info",
                 new ChangeDishNutricionalInfoAction()));
         menu.add(new MenuItem(CHANGE_DISH_PRICE_OPTION, "Change Price", new ChangeDishPriceAction()));
+        menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
+
+        return menu;
+    }
+    
+    private Menu buildCheckBookingsByTypeMenu(){
+        
+        final Menu menu = new Menu("Check bookings >");
+        
+        menu.add(new MenuItem(BOOKINGS_OPTION, "Check Bookings by date and type(Meal/Dish)", new CheckExistingBookingAction()));
         menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
 
         return menu;

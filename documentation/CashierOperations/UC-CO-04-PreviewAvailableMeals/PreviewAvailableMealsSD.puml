@@ -7,7 +7,8 @@ skinparam packageStyle rect
 skinparam defaultFontName FG Virgil
 skinparam shadowing false
 
-Activate Cashier
+actor Cashier
+
 Cashier -> UI : Login
 Activate UI
 UI -> Controller : showAvailableMeals()

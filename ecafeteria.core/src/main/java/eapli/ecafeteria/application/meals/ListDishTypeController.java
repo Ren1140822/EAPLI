@@ -15,4 +15,10 @@ public class ListDishTypeController implements Controller {
 	// ones
 	return this.svc.allDishTypes();
     }
+    
+    public Iterable<DishType> listDishTypesMANAGER(){
+        
+        return this.svc.allDishTypesMANAGER();
+    }
+            
 }

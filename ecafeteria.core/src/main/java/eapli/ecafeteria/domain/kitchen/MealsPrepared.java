@@ -8,8 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.Version;
 
 /**
- * 
+ *
  * The quantity of meals prepared from a Meal.
+ *
+ * @TODO consider having a MealID instead of using the complete Meal object as
+ * the business id for this aggregate
  *
  * @author Diogo Santos [1150451@isep.ipp.pt] Sofia Silva [1150690@isep.ipp.pt]
  */

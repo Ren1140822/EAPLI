@@ -72,8 +72,10 @@ public class BookingBootstraper implements Action {
         final CafeteriaUser user1 = users.findByUsername(new Username("900330"));
         final CafeteriaUser user2 = users.findByUsername(new Username("900331"));
          try {
-            theTopUpController.topUpCard(user1.mecanographicNumber().toString(), 10000.0);
-            theTopUpController.topUpCard(user2.mecanographicNumber().toString(), 10000.0);
+            theTopUpController.insertCard(user1.mecanographicNumber().toString());
+            theTopUpController.topUpCard(10000.0);
+            theTopUpController.insertCard(user2.mecanographicNumber().toString());
+            theTopUpController.topUpCard(10000.0);
         } catch (DataConcurrencyException | DataIntegrityViolationException ex) {
             Logger.getLogger(BookingBootstraper.class.getName()).log(Level.SEVERE, null, ex);
         }

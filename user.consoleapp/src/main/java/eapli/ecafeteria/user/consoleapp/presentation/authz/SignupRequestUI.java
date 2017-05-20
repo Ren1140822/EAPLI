@@ -36,6 +36,10 @@ public class SignupRequestUI extends AbstractUI {
 
         final OrganicUnit organicUnit = selector.selectedElement();
 
+        if(organicUnit==null){
+            return true;
+        }
+
         System.out.println(theController.getMecanographicNumberInstructions(organicUnit));
 
         final String mecanographicNumber = Console.readLine("Mecanographic Number");

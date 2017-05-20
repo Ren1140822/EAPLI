@@ -90,8 +90,8 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
     }
 
     @Override
-    public Iterable<Booking> checkBookingsByDateMealAndDishType(Calendar date, MealType mealType, DishType dishType) {
-        return match(e -> e.isSameDate(date) && e.meal().mealType().isOf(MealType.MealTypes.valueOf(mealType.mealType())) && e.meal().dish().dishType().sameAs(dishType));
+    public Iterable<Booking> checkBookingsByDateMealAndDishType(Calendar date, Iterable<MealType> mealType, DishType dishType) {
+        return match(e -> e.isSameDate(date) && bookingMealTypes(mealType, e) && e.meal().dish().dishType().sameAs(dishType));
     }
 
     @Override
@@ -115,7 +115,16 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
         }
         return false;
     }
-
+    
+    private boolean bookingMealTypes(Iterable<MealType> mealTypes, Booking booking) {
+        for (MealType mealT : mealTypes) {
+            if (booking.meal().mealType().isOf(MealType.MealTypes.valueOf(mealT.mealType()))) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     @Override
     public Iterable<Booking> findBookingsByDateAndMealTypeAndState(Calendar date, MealType mealType, BookingState state) {
         return match(e -> e.meal().getDate().compareTo(date) == 0 && e.meal().mealType().isOf(MealType.MealTypes.valueOf(mealType.mealType())) && e.isAtState(state));

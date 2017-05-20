@@ -29,6 +29,15 @@ public class CafeteriaUserBaseController implements Controller {
     private final AccountCardRepository accountCardRepository = PersistenceContext.repositories().accountCards(null);
 
     /**
+     * It provides the current user's id.
+     * 
+     * @return It returns the username of the current user.
+     */
+    public Username id(){
+        return Application.session().session().authenticatedUser().username();
+    }
+
+    /**
      * It provides the current balance of the current system user.
      *
      * @return It returns the amount that the current system user has available

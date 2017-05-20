@@ -44,6 +44,7 @@ public class AddUserController implements Controller {
 
     public SystemUser addUser(String username, String password, String firstName, String lastName, String email,
 	    Set<RoleType> roles) throws DataIntegrityViolationException, DataConcurrencyException {
-	return addUser(username, password, firstName, lastName, email, roles, DateTime.now());
-    }
+		return addUser(username, password, firstName, lastName, email, roles, DateTime.now());
+
+	}
 }

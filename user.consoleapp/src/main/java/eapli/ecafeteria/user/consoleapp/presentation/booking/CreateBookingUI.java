@@ -75,7 +75,7 @@ public class CreateBookingUI extends AbstractUI {
         System.out.println("");
         System.out.println("Meal booked!");
         System.out.println("");
-        return true;
+        return false;
     }
 
     @Override

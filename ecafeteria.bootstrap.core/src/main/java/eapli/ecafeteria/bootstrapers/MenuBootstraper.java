@@ -17,6 +17,7 @@ import eapli.framework.domain.TimePeriod2;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -35,16 +36,12 @@ public class MenuBootstraper implements Action {
         end.add(Calendar.DAY_OF_MONTH, 1);
         end.add(Calendar.DAY_OF_MONTH, 5);
         final TimePeriod2 timePeriod = new TimePeriod2(start, end);
-        final Set<RoleType> roles = new HashSet<RoleType>();
-        roles.add(RoleType.ADMIN);
-        roles.add(RoleType.MENU_MANAGER);
-        roles.add(RoleType.KITCHEN_MANAGER);
         final OrganicUnitRepository organicUnitRepository = PersistenceContext.repositories().organicUnits();
         final OrganicUnit organicUnit = organicUnitRepository.findByAcronym("ISEP");
-        final SystemUser systemUser= new SystemUser("poweruser", "poweruserA1", "joe", "doe", "joe@email.org", roles);
         final Set<Meal> meals = new HashSet<>();
         final DishRepository dishRepository = PersistenceContext.repositories().dishes();
-        Calendar date = start;
+        //Calendar date = start; ISTO NAO É COPIA
+        Calendar date = (Calendar)start.clone();
         while(!date.after(end)){
             final Dish dish = dishRepository.findByName(Designation.valueOf("tofu grelhado"));
             final MealType mealType = new MealType(MealType.MealTypes.JANTAR);

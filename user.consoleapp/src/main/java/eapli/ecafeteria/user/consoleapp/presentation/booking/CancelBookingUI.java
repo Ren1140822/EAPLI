@@ -46,7 +46,7 @@ public class CancelBookingUI extends AbstractUI {
                 }
             }
         } while (updtBooking != null);
-        return true;
+        return false;
     }
 
     @Override

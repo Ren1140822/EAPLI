@@ -8,19 +8,13 @@ package eapli.ecafeteria.user.consoleapp.presentation;
 import eapli.cafeteria.consoleapp.presentation.ExitWithMessageAction;
 import eapli.cafeteria.consoleapp.presentation.MyUserMenu;
 import eapli.ecafeteria.application.CafeteriaUserBaseController;
-import eapli.ecafeteria.user.consoleapp.presentation.meals.EvaluateMealAction;
-import eapli.ecafeteria.user.consoleapp.presentation.booking.CancelBookingAction;
-import eapli.ecafeteria.user.consoleapp.presentation.booking.CreateBookingAction;
-import eapli.ecafeteria.user.consoleapp.presentation.booking.ViewBookingsForNextDaysAction;
-import eapli.framework.actions.ReturnAction;
+import eapli.framework.actions.Action;
 import eapli.framework.presentation.console.Menu;
 import eapli.framework.presentation.console.MenuItem;
 import eapli.framework.presentation.console.MenuRenderer;
-import eapli.framework.presentation.console.ShowMessageAction;
-import eapli.framework.presentation.console.ShowVerticalSubMenuAction;
+import eapli.framework.presentation.console.ShowSubMenuAction;
+import eapli.framework.presentation.console.ShowUiAction;
 import eapli.framework.presentation.console.SubMenu;
-import eapli.framework.presentation.console.VerticalMenuRenderer;
-import eapli.framework.presentation.console.VerticalSeparator;
 
 /**
  * @author Paulo Gandra Sousa
@@ -32,24 +26,16 @@ class MainMenu extends CafeteriaUserBaseUI {
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
     private static final int BOOKINGS_OPTION = 2;
-    private static final int EVALUATE_MEAL = 3;
+    private static final int EVALUATE_MEAL_OPTION = 3;
     private static final int ACCOUNT_OPTION = 4;
 
-    // BOOKINGS MENU
-    private static final int LIST_MENUS_OPTION = 1;
-    private static final int BOOK_A_MEAL_OPTION = 2;
-    private static final int CANCEL_BOOKINGS_OPTION = 3;
-    private static final int VIEW_UPCOMING_BOOKINGS_WITHIN_DAYS_OPTION = 4;
-
-    //EVALUATE MEAL
-    private static final int CHOOSE_BOOKING_TO_EVALUATE = 1;
-
-    // ACCOUNT MENU
-    private static final int LIST_MOVEMENTS_OPTION = 1;
+    private static final String BOOKINGS_TITLE = "Bookings";
+    private static final String EVALUATE_MEAL_TITLE = "Evaluate Meals";
+    private static final String ACCOUNT_TITLE = "Account";
+    private static final String EXIT_TITLE = "Rxit";
 
     @Override
     public boolean show() {
-        drawFormTitle();
         return doShow();
     }
 
@@ -60,8 +46,9 @@ class MainMenu extends CafeteriaUserBaseUI {
     public boolean doShow() {
         boolean wantsToExit = false;
         do {
+            drawFormTitle();
             final Menu menu = buildMainMenu();
-            final MenuRenderer renderer = new VerticalMenuRenderer(menu);
+            final MenuRenderer renderer = chooseRendererFor(menu);
             wantsToExit = renderer.show();
         } while (!wantsToExit);
         return wantsToExit;
@@ -71,53 +58,37 @@ class MainMenu extends CafeteriaUserBaseUI {
         final Menu mainMenu = new Menu();
 
         final Menu myUserMenu = new MyUserMenu();
-        mainMenu.add(new SubMenu(MY_USER_OPTION, myUserMenu, new ShowVerticalSubMenuAction(myUserMenu)));
+        mainMenu.add(new SubMenu(MY_USER_OPTION, myUserMenu, showActionFor(myUserMenu)));
 
-        mainMenu.add(VerticalSeparator.separator());
+        separatorFor(mainMenu);
 
-        final Menu bookingsMenu = buildBookingsMenu();
-        mainMenu.add(new SubMenu(BOOKINGS_OPTION, bookingsMenu, new ShowVerticalSubMenuAction(bookingsMenu)));
+        mainMenu.add(new MenuItem(BOOKINGS_OPTION, BOOKINGS_TITLE, new ShowUiAction(new BookingMenu())));
 
-        mainMenu.add(VerticalSeparator.separator());
+        separatorFor(mainMenu);
 
-        final Menu evaluateMealMenu = buildEvaluateMealMenu();
-        mainMenu.add(new SubMenu(EVALUATE_MEAL, evaluateMealMenu, new ShowVerticalSubMenuAction(evaluateMealMenu)));
+        mainMenu.add(new MenuItem(EVALUATE_MEAL_OPTION, EVALUATE_MEAL_TITLE, new ShowUiAction(new EvaluateMealMenu())));
 
-        mainMenu.add(VerticalSeparator.separator());
+        separatorFor(mainMenu);
 
-        final Menu accountMenu = buildAccountMenu();
-        mainMenu.add(new SubMenu(ACCOUNT_OPTION, accountMenu, new ShowVerticalSubMenuAction(accountMenu)));
+        mainMenu.add(new MenuItem(ACCOUNT_OPTION, ACCOUNT_TITLE, new ShowUiAction(new AccountMenu())));
+        
         // TODO add menu options
 
-        mainMenu.add(VerticalSeparator.separator());
+        separatorFor(mainMenu);
 
-        mainMenu.add(new MenuItem(EXIT_OPTION, "Exit", new ExitWithMessageAction()));
+        mainMenu.add(new MenuItem(EXIT_OPTION, EXIT_TITLE, new ExitWithMessageAction()));
 
         return mainMenu;
     }
 
-    private Menu buildAccountMenu() {
-        final Menu menu = new Menu("Account");
-        menu.add(new MenuItem(LIST_MOVEMENTS_OPTION, "List movements", new ShowMessageAction("Not implemented yet")));
-        menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
-        return menu;
-    }
-
-    private Menu buildBookingsMenu() {
-        final Menu menu = new Menu("Bookings");
-        menu.add(new MenuItem(LIST_MENUS_OPTION, "List menus", new ShowMessageAction("Not implemented yet")));
-        menu.add(new MenuItem(BOOK_A_MEAL_OPTION, "Book a meal", new CreateBookingAction()));
-        menu.add(new MenuItem(CANCEL_BOOKINGS_OPTION, "Cancel a booking", new CancelBookingAction()));
-        menu.add(new MenuItem(VIEW_UPCOMING_BOOKINGS_WITHIN_DAYS_OPTION, "View upcoming bookings within N days", new ViewBookingsForNextDaysAction()));
-        menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
-        return menu;
-    }
-
-    private Menu buildEvaluateMealMenu() {
-        final Menu menu = new Menu("Evaluate Meal");
-        menu.add(new MenuItem(CHOOSE_BOOKING_TO_EVALUATE, "Choose meal to evaluate", new EvaluateMealAction()));
-        menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
-        return menu;
+    /**
+     * It provides the action to show the menu.
+     * 
+     * @param menu The menu to be shown.
+     * @return It returns the action to show the menu.
+     */
+    private Action showActionFor(Menu menu){
+        return new ShowSubMenuAction(menu,chooseRendererFor(menu));
     }
 
     @Override

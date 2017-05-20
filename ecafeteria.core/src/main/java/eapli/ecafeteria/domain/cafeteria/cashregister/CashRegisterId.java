@@ -7,6 +7,7 @@ import javax.persistence.Embeddable;
 /**
  * Represents a cash register id.
  *
+ *
  * @author Eric Amaral - 1141570@isep.ipp.pt
  * @author Tiago Correia - 1151031@isep.ipp.pt
  */

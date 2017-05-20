@@ -16,6 +16,7 @@ import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
+import eapli.util.DateTime;
 import eapli.util.io.Console;
 import org.eclipse.persistence.internal.helper.Helper;
 
@@ -66,22 +67,26 @@ public class RegisterMenuUI extends AbstractUI {
             final SelectWidget<OrganicUnit> selector3 = new SelectWidget<OrganicUnit>("Organic Units:", organicUnits, new OrganicUnitPrinter());
             do {
                 selector3.show();
-                if (selector3.selectedOption() == 0) throw new InterruptedException();
+                if (selector3.selectedOption() == 0) {
+                    throw new InterruptedException();
+                }
                 organicUnit = selector3.selectedElement();
-                if(organicUnit == null){
+                if (organicUnit == null) {
                     System.out.printf("That is not a valid option.\n");
                 }
-            }while(organicUnit == null);
+            } while (organicUnit == null);
 
             Set<Meal> meals = new HashSet<>();
 
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
             final Iterable<MealType.MealTypes> mealTypes = this.theController.allMealTypes();
             final SelectWidget<MealType.MealTypes> selector = new SelectWidget<>("Meal types:", mealTypes, new MealTypePrinter());
-
+            Calendar date = Calendar.getInstance();
+            date.setTime(start.getTime());
+            
             main_loop:
             do {
-                Calendar date = start;
+
                 Dish theDish = null;
                 MealType theMealType = null;
 
@@ -96,26 +101,28 @@ public class RegisterMenuUI extends AbstractUI {
                         continue;
                     }
                     theMealType = new MealType(selector.selectedElement());
-                    if(theMealType == null){
+                    if (theMealType == null) {
                         System.out.printf("That is not a valid option.\n");
                     }
-                }while(theMealType == null);
+                } while (theMealType == null);
 
                 do {
                     final Iterable<Dish> dishes = this.theController.allDishes();
                     final SelectWidget<Dish> selector2 = new SelectWidget<>("Dishes:", dishes, new DishPrinter());
                     selector2.show();
-                    if (selector2.selectedOption() == 0) throw new InterruptedException();
+                    if (selector2.selectedOption() == 0) {
+                        throw new InterruptedException();
+                    }
                     theDish = selector2.selectedElement();
-                    if(theDish == null){
+                    if (theDish == null) {
                         System.out.printf("That is not a valid option.\n");
                     }
-                }while(theDish == null);
+                } while (theDish == null);
 
                 meals.add(new Meal(theDish, theMealType, date));
-            }while(true);
+            } while (true);
 
-            if(meals.isEmpty()){
+            if (meals.isEmpty()) {
                 System.out.printf("You have made an empty Menu. It will be ignored...\n");
                 return false;
             }
@@ -127,7 +134,7 @@ public class RegisterMenuUI extends AbstractUI {
             } catch (final DataIntegrityViolationException | DataConcurrencyException e) {
                 System.out.println("You tried to enter a dish which already exists in the database.");
             }
-        }catch(InterruptedException e){
+        } catch (InterruptedException e) {
             System.out.printf("Going back to menu.\n");
         }
 
