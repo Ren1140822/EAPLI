@@ -32,9 +32,6 @@ public class MealType implements ValueObject, Serializable {
     private static final int JANTAR_FREE_CANCEL_TIME_LIMIT_SECONDS = 0;
 
     public enum MealTypes {
-        //FIXME
-        //@author Meireles
-        // Should these variables be refactored to English?
         LUNCH, DINNER
     };
 

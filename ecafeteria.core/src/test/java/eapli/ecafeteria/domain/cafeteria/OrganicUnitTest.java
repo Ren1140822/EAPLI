@@ -64,7 +64,7 @@ public class OrganicUnitTest {
     
     @Test
     public void ensureValidNumbersAreAccepted(){
-        final MecanographicNumber mecanographicNumber = new MecanographicNumber("TU0001");
+        final MecanographicNumber mecanographicNumber = new MecanographicNumber("FU0001");
 	final OrganicUnit instance = new OrganicUnit("HSJ", "Hospital São João", "It's an hospital");
 
 	final boolean expResult = true;
@@ -74,7 +74,7 @@ public class OrganicUnitTest {
     
     @Test
     public void ensureInvalidNumbersAreRejected(){
-        final MecanographicNumber mecanographicNumber = new MecanographicNumber("tu0001");
+        final MecanographicNumber mecanographicNumber = new MecanographicNumber("fU0001");
 	final OrganicUnit instance = new OrganicUnit("HSJ", "Hospital São João", "It's an hospital");
 
 	final boolean expResult = false;
