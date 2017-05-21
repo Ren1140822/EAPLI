@@ -30,26 +30,25 @@ public class CheckExistingBookingController implements Controller {
     private final BookingRepository repository = PersistenceContext.repositories().bookings(null);
 
     //TODO preferably, controllers should not have state
-    private Date date;
-    private MealType mealTypeStr;
-    private DishType dishType;
 
     public Iterable<Booking> checkBookingsByDateMealAndDishType(Calendar date, String mealType, DishType dishType) {
         //Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
         ArrayList<MealType> mealTypes = new ArrayList<>();
+        
         final MealTypes mealTypee=null;
-        if(mealType.equalsIgnoreCase("Almoco")){
+        if(mealType.equalsIgnoreCase("Lunch")){
             mealTypes.add(new MealType(mealTypee.ALMOCO));
             
             return this.repository.checkBookingsByDateMealAndDishType(date, mealTypes , dishType);
         } 
-        else if (mealType.equalsIgnoreCase("Jantar")){
+        else if (mealType.equalsIgnoreCase("Dinner")){
             mealTypes.add(new MealType(mealTypee.JANTAR));
             
             return this.repository.checkBookingsByDateMealAndDishType(date, mealTypes, dishType);
         }
         mealTypes.add(new MealType(mealTypee.ALMOCO));
         mealTypes.add(new MealType(mealTypee.JANTAR));
+        
         
         return this.repository.checkBookingsByDateMealAndDishType(date, mealTypes, dishType);
         }

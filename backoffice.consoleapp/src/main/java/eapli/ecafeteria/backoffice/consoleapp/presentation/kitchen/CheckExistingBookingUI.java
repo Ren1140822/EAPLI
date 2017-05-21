@@ -39,11 +39,9 @@ public class CheckExistingBookingUI extends AbstractUI {
     protected boolean doShow(){
                 
        
-            Calendar date = Console.readCalendar("dd-MM-yyyy");
+        Calendar date = Console.readCalendar("dd-MM-yyyy");
         
 
-        
-        //mealType=Console.readLine("Insert meal Type:");
         
         System.out.println("Select dish Type:");
         final Iterable<DishType> dishTypes = this.theController.listDishTypes();
@@ -51,11 +49,6 @@ public class CheckExistingBookingUI extends AbstractUI {
 	selector.show();
 	final DishType dishType = selector.selectedElement();
         
-//        System.out.println("Select dish Type:");
-//        final Iterable<MealType.MealTypes> mealTypes = this.theController.listMealTypes();
-//	final SelectWidget<MealType.MealTypes> selectorMeal = new SelectWidget<>("Meal types:", mealTypes, new MealTypePrinter());
-//	selector.show();
-//	final MealType.MealTypes mealType = selectorMeal.selectedElement();
         String mealType;
 //        do
 //        {
