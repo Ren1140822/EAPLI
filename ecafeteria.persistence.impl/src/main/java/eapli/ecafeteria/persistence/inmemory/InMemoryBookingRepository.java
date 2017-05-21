@@ -43,9 +43,9 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
         Booking next = null;
         if (list.hasNext()) {
             next = list.next();
-            if (!next.meal().mealType().isOf(MealType.MealTypes.ALMOCO) && list.hasNext()) {
+            if (!next.meal().mealType().isOf(MealType.MealTypes.LUNCH) && list.hasNext()) {
                 Booking maybeNext = list.next();
-                if (maybeNext.meal().getDate().equals(next.meal().getDate()) && maybeNext.meal().mealType().isOf(MealType.MealTypes.ALMOCO)) {
+                if (maybeNext.meal().getDate().equals(next.meal().getDate()) && maybeNext.meal().mealType().isOf(MealType.MealTypes.LUNCH)) {
                     next = maybeNext;
                 }
             }

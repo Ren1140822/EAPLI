@@ -45,7 +45,7 @@ public class MealsPreparedTest {
         Designation name = Designation.valueOf("qwerty");
         Money price = new Money(10, Currency.getInstance("EUR"));
         Dish dish = new Dish(dishType, name, price);
-        MealType mealType = new MealType(MealType.MealTypes.ALMOCO);
+        MealType mealType = new MealType(MealType.MealTypes.LUNCH);
         Calendar start = Calendar.getInstance();
         Calendar end = Calendar.getInstance();
         end.add(Calendar.DAY_OF_MONTH, 5);

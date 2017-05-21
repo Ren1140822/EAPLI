@@ -42,13 +42,13 @@ public class DishBootstraper implements Action {
         allergenSet2.add(molluscs);
         allergenSet2.add(cereals);
 
-        register(vegie, "tofu grelhado", 10, 1, 2.99, null);
-        register(vegie, "lentilhas salteadas", 10, 1, 2.85,allergenSet1);
-        register(fish, "bacalhau à braz", 50, 2, 3.99,allergenSet1);
-        register(fish, "lagosta suada", 50, 2, 24.99,null);
-        register(meat, "picanha", 75, 2, 4.99,null);
-        register(meat, "costeleta à salsicheiro", 75, 2, 3.99,null);
-        register(fish, "camarões grelhados", 50, 10, 10.00, allergenSet2);
+        register(vegie, "Grilled Tofu", 10, 1, 2.99, null);
+        register(vegie, "Sautéed Lentils", 10, 1, 2.85,allergenSet1);
+        register(fish, "Cod to the Brás", 50, 2, 3.99,allergenSet1);
+        register(fish, "Sweaty Lobstera", 50, 2, 24.99,null);
+        register(meat, "Filet Steak", 75, 2, 4.99,null);
+        register(meat, "Chop Sausage", 75, 2, 3.99,null);
+        register(fish, "Grilled Shrimps", 50, 10, 10.00, allergenSet2);
         return false;
     }
 

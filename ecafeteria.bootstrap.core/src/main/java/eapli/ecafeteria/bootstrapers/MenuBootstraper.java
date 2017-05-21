@@ -43,8 +43,8 @@ public class MenuBootstraper implements Action {
         //Calendar date = start; ISTO NAO É COPIA
         Calendar date = (Calendar)start.clone();
         while(!date.after(end)){
-            final Dish dish = dishRepository.findByName(Designation.valueOf("tofu grelhado"));
-            final MealType mealType = new MealType(MealType.MealTypes.JANTAR);
+            final Dish dish = dishRepository.findByName(Designation.valueOf("Grilled Tofu"));
+            final MealType mealType = new MealType(MealType.MealTypes.DINNER);
             meals.add(new Meal(dish, mealType, date));
             date.add(Calendar.DAY_OF_MONTH, 1);
         }

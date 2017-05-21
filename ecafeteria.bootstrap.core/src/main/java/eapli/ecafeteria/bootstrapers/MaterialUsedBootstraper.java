@@ -35,12 +35,12 @@ public class MaterialUsedBootstraper implements Action{
         final DishTypeRepository dishTypeRepo = PersistenceContext.repositories().dishTypes();
         final DishType fish = dishTypeRepo.findByAcronym("fish");
         final DishType meat = dishTypeRepo.findByAcronym("meat");
-        final Dish dish1 = new Dish(fish, Designation.valueOf("Rodizio Peixe"), Money.euros(75.0));
-        final Dish dish2 = new Dish(meat, Designation.valueOf("Francesinha Especial"), Money.euros(18.0));
-        final Meal meal1 = new Meal(dish1, new MealType(MealType.MealTypes.ALMOCO), Calendar.getInstance());
-        final Meal meal2 = new Meal(dish2, new MealType(MealType.MealTypes.JANTAR), Calendar.getInstance());
-        final Material material = new Material("ovos", "ovos aviario");
-        final Material materia2 = new Material("pao", "pao forma");
+        final Dish dish1 = new Dish(fish, Designation.valueOf("Caster Of Fish"), Money.euros(75.0));
+        final Dish dish2 = new Dish(meat, Designation.valueOf("Special Francesinha"), Money.euros(18.0));
+        final Meal meal1 = new Meal(dish1, new MealType(MealType.MealTypes.LUNCH), Calendar.getInstance());
+        final Meal meal2 = new Meal(dish2, new MealType(MealType.MealTypes.DINNER), Calendar.getInstance());
+        final Material material = new Material("eggs", "eggs of the aviary");
+        final Material materia2 = new Material("bread", "form bread");
         final String batchNumber1 = "kdsgf345";
         final String batchNumber2 = "ad34";
         

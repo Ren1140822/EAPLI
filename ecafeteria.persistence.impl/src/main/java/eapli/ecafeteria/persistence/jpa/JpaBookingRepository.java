@@ -77,9 +77,9 @@ public class JpaBookingRepository extends JpaAutoTxRepository<Booking, Long>
         Booking next = null;
         if (list.hasNext()) {
             next = list.next();
-            if (!next.meal().mealType().isOf(MealTypes.ALMOCO) && list.hasNext()) {
+            if (!next.meal().mealType().isOf(MealTypes.LUNCH) && list.hasNext()) {
                 Booking maybeNext = list.next();
-                if (maybeNext.meal().getDate().equals(next.meal().getDate()) && maybeNext.meal().mealType().isOf(MealTypes.ALMOCO)) {
+                if (maybeNext.meal().getDate().equals(next.meal().getDate()) && maybeNext.meal().mealType().isOf(MealTypes.LUNCH)) {
                     next = maybeNext;
                 }
             }

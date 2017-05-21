@@ -37,17 +37,17 @@ public class CheckExistingBookingController implements Controller {
         
         final MealTypes mealTypee=null;
         if(mealType.equalsIgnoreCase("Lunch")){
-            mealTypes.add(new MealType(mealTypee.ALMOCO));
+            mealTypes.add(new MealType(mealTypee.LUNCH));
             
             return this.repository.checkBookingsByDateMealAndDishType(date, mealTypes , dishType);
         } 
         else if (mealType.equalsIgnoreCase("Dinner")){
-            mealTypes.add(new MealType(mealTypee.JANTAR));
+            mealTypes.add(new MealType(mealTypee.DINNER));
             
             return this.repository.checkBookingsByDateMealAndDishType(date, mealTypes, dishType);
         }
-        mealTypes.add(new MealType(mealTypee.ALMOCO));
-        mealTypes.add(new MealType(mealTypee.JANTAR));
+        mealTypes.add(new MealType(mealTypee.LUNCH));
+        mealTypes.add(new MealType(mealTypee.DINNER));
         
         
         return this.repository.checkBookingsByDateMealAndDishType(date, mealTypes, dishType);

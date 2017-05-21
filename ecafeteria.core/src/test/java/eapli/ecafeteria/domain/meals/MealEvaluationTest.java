@@ -64,7 +64,7 @@ public class MealEvaluationTest {
         start = Calendar.getInstance();
         end = Calendar.getInstance();
         end.add(Calendar.DAY_OF_MONTH, 5);
-        mealType = new MealType(MealType.MealTypes.ALMOCO);
+        mealType = new MealType(MealType.MealTypes.LUNCH);
         timePeriod = new TimePeriod2(start, end);
         rate = 2;
     }

@@ -39,9 +39,9 @@ public class MealsPreparedBootstraper implements Action {
         final Dish dish2 = new Dish(fish, Designation.valueOf("Cod Fish with Mashes Potatoes"), Money.euros(25.0));
         final Dish dish3 = new Dish(meat, Designation.valueOf("Francesinha"), Money.euros(16.0));
         final Dish dish4 = new Dish(fish, Designation.valueOf("Fish and Chips"), Money.euros(16.0));
-        final Meal meal1 = new Meal(dish1, new MealType(MealType.MealTypes.ALMOCO), Calendar.getInstance());
-        final Meal meal2 = new Meal(dish3, new MealType(MealType.MealTypes.JANTAR), Calendar.getInstance());
-        final Meal meal3 = new Meal(dish4, new MealType(MealType.MealTypes.JANTAR), Calendar.getInstance());
+        final Meal meal1 = new Meal(dish1, new MealType(MealType.MealTypes.LUNCH), Calendar.getInstance());
+        final Meal meal2 = new Meal(dish3, new MealType(MealType.MealTypes.DINNER), Calendar.getInstance());
+        final Meal meal3 = new Meal(dish4, new MealType(MealType.MealTypes.DINNER), Calendar.getInstance());
         register(meal1, 100);
         register(meal2, 150);
         register(meal3, 99);

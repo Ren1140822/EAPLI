@@ -59,7 +59,7 @@ public class BookingTest {
         name = Designation.valueOf("qwer");
         price = new Money(20, Currency.getInstance("EUR"));
         dish = new Dish(dishType, name, price);
-        mealType = new MealType(MealType.MealTypes.ALMOCO);
+        mealType = new MealType(MealType.MealTypes.LUNCH);
         start = Calendar.getInstance();
     }
 

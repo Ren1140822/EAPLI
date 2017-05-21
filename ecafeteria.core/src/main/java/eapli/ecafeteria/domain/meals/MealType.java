@@ -35,7 +35,7 @@ public class MealType implements ValueObject, Serializable {
         //FIXME
         //@author Meireles
         // Should these variables be refactored to English?
-        ALMOCO, JANTAR
+        LUNCH, DINNER
     };
 
     private MealTypes mealType;
@@ -65,12 +65,12 @@ public class MealType implements ValueObject, Serializable {
         Calendar limit = Calendar.getInstance();
         limit.clear();
         switch (mealType) {
-            case ALMOCO:
+            case LUNCH:
                 limit.set(Calendar.HOUR, ALMOCO_FREE_CANCEL_TIME_LIMIT_HOUR);
                 limit.set(Calendar.MINUTE, ALMOCO_FREE_CANCEL_TIME_LIMIT_MINUTES);
                 limit.set(Calendar.SECOND, ALMOCO_FREE_CANCEL_TIME_LIMIT_SECONDS);
                 break;
-            case JANTAR:
+            case DINNER:
                 limit.set(Calendar.HOUR, JANTAR_FREE_CANCEL_TIME_LIMIT_HOUR);
                 limit.set(Calendar.MINUTE, JANTAR_FREE_CANCEL_TIME_LIMIT_MINUTES);
                 limit.set(Calendar.SECOND, JANTAR_FREE_CANCEL_TIME_LIMIT_SECONDS);

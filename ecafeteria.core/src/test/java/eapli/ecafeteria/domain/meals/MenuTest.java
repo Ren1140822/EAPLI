@@ -40,7 +40,7 @@ public class MenuTest {
         name = Designation.valueOf("qwerty");
         price = new Money(10, Currency.getInstance("EUR"));
         dish = new Dish(dishType, name, price);
-        mealType = new MealType(MealType.MealTypes.ALMOCO);
+        mealType = new MealType(MealType.MealTypes.LUNCH);
         Calendar start = Calendar.getInstance();
         Calendar end = Calendar.getInstance();
         end.add(Calendar.DAY_OF_MONTH, 5);
