@@ -18,6 +18,7 @@ public class AppSettings {
     private final static String REPOSITORY_FACTORY_KEY = "persistence.repositoryFactory";
     private final static String UI_MENU_LAYOUT_KEY = "ui.menu.layout";
     private final static String PERSISTENCE_UNIT_KEY = "persistence.persistenceUnit";
+    private final static String DOMAIN_MECANOGRAPHIC_NUMBER_KEY = "domain.mecanographicNumberStrategy.HSJ";
     private final Properties applicationProperties = new Properties();
 
     public AppSettings() {
@@ -54,7 +55,7 @@ public class AppSettings {
 		"eapli.ecafeteria.persistence.jpa.JpaRepositoryFactory");
 	this.applicationProperties.setProperty(UI_MENU_LAYOUT_KEY, "horizontal");
 	this.applicationProperties.setProperty(PERSISTENCE_UNIT_KEY, "eapli.eCafeteriaPU");
-        this.applicationProperties.setProperty("domain.mecanographicNumberStrategy.HSJ", "eapli.ecafeteria.domain.cafeteria.MecanographicNumberCapitalizedAlphaNumeric");
+        this.applicationProperties.setProperty(DOMAIN_MECANOGRAPHIC_NUMBER_KEY, "eapli.ecafeteria.domain.cafeteria.MecanographicNumberCapitalizedAlphaNumeric");
         this.applicationProperties.setProperty("userAlertLimits", "1");
     }
 

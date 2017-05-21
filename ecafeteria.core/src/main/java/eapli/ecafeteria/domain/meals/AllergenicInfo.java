@@ -31,13 +31,11 @@ public class AllergenicInfo implements Serializable {
         if (allergens == null) {
             throw new IllegalStateException();
         }
-        //TODO should copy the values from the input parameter
-        this.allergens = allergens;
+        this.allergens = new ArrayList<>(allergens);
     }
 
-    //FIXME return a copy or a read-only list but not the private member
     public List<Allergen> allergens() {
-        return allergens;
+        return new ArrayList<>(allergens);
     }
 
     protected AllergenicInfo() {
