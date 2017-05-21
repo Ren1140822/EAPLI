@@ -15,7 +15,7 @@ import eapli.framework.presentation.console.SelectWidget;
 import eapli.util.io.Console;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.DishPrinter;
+import eapli.ecafeteria.pos.consoleapp.presentation.DishPrinter;
 
 /**
  *
