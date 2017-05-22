@@ -39,7 +39,8 @@ public class JpaMenuRepository extends CafeteriaJpaRepositoryBase<Menu, Long> im
         Map<String, Object> params = new HashMap<>();
         params.put("day",day);
         params.put("organicUnit", user.organicUnit());
-       return match("e.period.start<=:day and e.period.end>=:day and e.organicUnit=:organicUnit",params );
+        params.put("validator", true);
+       return match("e.period.start<=:day and e.period.end>=:day and e.organicUnit=:organicUnit and e.published=:validator",params );
     }
 
 }
