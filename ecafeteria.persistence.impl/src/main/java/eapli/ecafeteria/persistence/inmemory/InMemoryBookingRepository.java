@@ -5,24 +5,20 @@
  */
 package eapli.ecafeteria.persistence.inmemory;
 
+import eapli.ecafeteria.domain.booking.Booking;
 import eapli.ecafeteria.domain.booking.BookingState;
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
-import eapli.ecafeteria.domain.meals.Meal;
-import eapli.ecafeteria.domain.booking.Booking;
+import eapli.ecafeteria.domain.cafeteria.cashregister.Shift;
 import eapli.ecafeteria.domain.meals.DishType;
+import eapli.ecafeteria.domain.meals.Meal;
 import eapli.ecafeteria.domain.meals.MealType;
 import eapli.ecafeteria.persistence.BookingRepository;
 import eapli.framework.persistence.repositories.impl.inmemory.InMemoryRepositoryWithLongPK;
 import eapli.util.DateTime;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.LinkedList;
+
+import java.util.*;
 
 /**
- *
  * @author Miguel Silva - 1150901
  */
 public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Booking>
@@ -32,7 +28,7 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
      * It finds the next booking from the user which is at any of the given
      * states.
      *
-     * @param user The user who owns the booking.
+     * @param user   The user who owns the booking.
      * @param states The states in which the booking might be.
      * @return It returns the next booking or null if none was found.
      */
@@ -57,7 +53,7 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
      * It finds the bookings of a given Cafeteria User that are at a given
      * state.
      *
-     * @param user The Cafeteria User that owns the booking.
+     * @param user  The Cafeteria User that owns the booking.
      * @param state The state of the bookings to search for.
      * @return
      */
@@ -71,10 +67,10 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
      * days, that are at one of the specified states and belongs to the
      * specified user.
      *
-     * @param user The user to whom the Bookings belong.
+     * @param user   The user to whom the Bookings belong.
      * @param states The states at which the bookings should be.
-     * @param days The number of days (starting from the current day) in which
-     * the booking's meal should occur.
+     * @param days   The number of days (starting from the current day) in which
+     *               the booking's meal should occur.
      * @return It returns all matching bookings.
      */
     @Override
@@ -102,7 +98,7 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
     /**
      * It checks if the booking is at one of the states of the list.
      *
-     * @param states The list with the states.
+     * @param states  The list with the states.
      * @param booking THe booking to be examined.
      * @return It returns "true" if the booking is at one of the states within
      * the list or "false" otherwise.
@@ -115,7 +111,7 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
         }
         return false;
     }
-    
+
     private boolean bookingMealTypes(Iterable<MealType> mealTypes, Booking booking) {
         for (MealType mealT : mealTypes) {
             if (booking.meal().mealType().isOf(MealType.MealTypes.valueOf(mealT.mealType()))) {
@@ -124,7 +120,7 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
         }
         return false;
     }
-    
+
     @Override
     public Iterable<Booking> findBookingsByDateAndMealTypeAndState(Calendar date, MealType mealType, BookingState state) {
         return match(e -> e.meal().getDate().compareTo(date) == 0 && e.meal().mealType().isOf(MealType.MealTypes.valueOf(mealType.mealType())) && e.isAtState(state));
@@ -142,6 +138,16 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
         bookings.forEach(bookingsList::add);
         Collections.sort(bookingsList, comp);
         return bookingsList.getLast();
+    }
+
+    @Override
+    public Long countDeliveredMeals(Shift shift, DishType dishType) {
+        Iterable<Booking> deliveredMeals = match(e ->
+                e.isSameDate(shift.date()) &&
+                        e.isAtState(BookingState.DELIVERED) &&
+                        e.isOfMealType(shift.mealType()));
+
+        return deliveredMeals.spliterator().getExactSizeIfKnown();
     }
 
 }

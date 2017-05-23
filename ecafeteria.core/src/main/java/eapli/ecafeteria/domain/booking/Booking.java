@@ -11,11 +11,13 @@ import eapli.ecafeteria.domain.cafeteria.account.PurchaseBuilder;
 import eapli.ecafeteria.domain.cafeteria.account.Refund;
 import eapli.ecafeteria.domain.cafeteria.account.RefundBuilder;
 import eapli.ecafeteria.domain.meals.Meal;
+import eapli.ecafeteria.domain.meals.MealType;
 import eapli.framework.domain.ddd.AggregateRoot;
 import eapli.util.DateTime;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Calendar;
-import javax.persistence.*;
 
 /**
  * @FIXME javadoc
@@ -96,6 +98,10 @@ public class Booking implements AggregateRoot<BookingID>, Serializable {
 
     public boolean isOfMeal(Meal meal) {
         return this.meal.equals(meal);
+    }
+
+    public boolean isOfMealType(MealType type) {
+        return this.meal.isOfMealType(type);
     }
 
     /**

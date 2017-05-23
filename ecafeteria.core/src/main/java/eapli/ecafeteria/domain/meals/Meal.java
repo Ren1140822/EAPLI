@@ -1,7 +1,7 @@
 package eapli.ecafeteria.domain.meals;
 
-import java.util.Calendar;
 import javax.persistence.*;
+import java.util.Calendar;
 
 /**
  * @FIXME javadoc
@@ -55,6 +55,10 @@ public class Meal {
 
     public MealType mealType() {
         return this.mealType;
+    }
+
+    public boolean isOfMealType(MealType type) {
+        return this.mealType.equals(type);
     }
 
     @Override

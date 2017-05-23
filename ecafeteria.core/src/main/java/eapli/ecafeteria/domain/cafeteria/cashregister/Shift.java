@@ -1,15 +1,10 @@
 package eapli.ecafeteria.domain.cafeteria.cashregister;
 
 import eapli.ecafeteria.domain.meals.MealType;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Calendar;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * Represents a shift.
@@ -52,6 +47,24 @@ public class Shift implements Serializable {
         this.date = date;
         this.mealType = mealType;
         this.state = ShiftState.OPENED;
+    }
+
+    /**
+     * Obtain shift's date.
+     *
+     * @return shift's date
+     */
+    public Calendar date() {
+        return date;
+    }
+
+    /**
+     * Obtain shift's meal type.
+     *
+     * @return shift's meal type
+     */
+    public MealType mealType() {
+        return mealType;
     }
 
     /**
