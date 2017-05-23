@@ -81,5 +81,17 @@ public class AppSettings {
     public void changeUserAlertsLimit(int multiplicationFactor) {
         this.applicationProperties.setProperty(USER_ALERT_LIMITS, String.valueOf(multiplicationFactor));
     }
+    
+    public int getMultiplicationFactorForBalanceAlert() {
+        int factor = 0;
+        
+        try {
+            factor = Integer.parseInt(this.applicationProperties.getProperty(USER_ALERT_LIMITS));
+        } catch(Exception ex) {
+            Logger.getLogger(AppSettings.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return factor;
+    }
 
 }
