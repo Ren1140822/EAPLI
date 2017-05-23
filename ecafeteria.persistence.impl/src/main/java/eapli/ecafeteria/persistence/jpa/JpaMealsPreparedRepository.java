@@ -23,8 +23,9 @@ public class JpaMealsPreparedRepository extends CafeteriaJpaRepositoryBase<Meals
     @Override
     public Iterable<MealsPrepared> findByShift(Shift shift) {
         Map<String, Object> params = new HashMap<>();
-        params.put("shift", shift);
-        return match("e.meal.date=:shift.date and e.meal.mealType=:shift.mealType", params);
+        params.put("date", shift.date());
+        params.put("mealType", shift.mealType());
+        return match("e.meal.date=:date and e.meal.mealType=:mealType", params);
     }
 
 

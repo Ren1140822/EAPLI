@@ -234,9 +234,9 @@ public class JpaBookingRepository extends JpaAutoTxRepository<Booking, Long>
         params.put("mealType", shift.mealType());
         params.put("dishType", dishType);
 
-        String whereClause = "e.state=:state and" +
-                "e.meal.date=:date and" +
-                "e.meal.mealType=:mealType and" +
+        String whereClause = "e.state=:state and " +
+                "e.meal.date=:date and " +
+                "e.meal.mealType=:mealType and " +
                 "e.meal.dish.dishType=:dishType";
 
         return repo.count(whereClause);

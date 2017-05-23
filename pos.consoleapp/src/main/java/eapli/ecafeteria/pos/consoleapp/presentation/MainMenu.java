@@ -3,8 +3,12 @@ package eapli.ecafeteria.pos.consoleapp.presentation;
 import eapli.cafeteria.consoleapp.presentation.ExitWithMessageAction;
 import eapli.cafeteria.consoleapp.presentation.MyUserMenu;
 import eapli.ecafeteria.Application;
+import eapli.ecafeteria.application.delivery.PreviewAvailableMealsController;
 import eapli.ecafeteria.domain.authz.ActionRight;
+import eapli.ecafeteria.domain.meals.DishType;
 import eapli.framework.presentation.console.*;
+
+import java.util.Map;
 
 /**
  * TODO split this class in more specialized classes for each menu
@@ -12,6 +16,8 @@ import eapli.framework.presentation.console.*;
  * @author Paulo Gandra Sousa
  */
 public class MainMenu extends AbstractUI {
+
+    PreviewAvailableMealsController previewAvailableMealsController = new PreviewAvailableMealsController();
 
     private static final int EXIT_OPTION = 0;
 
@@ -24,6 +30,7 @@ public class MainMenu extends AbstractUI {
     @Override
     public boolean show() {
         drawFormTitle();
+        //displayAvailableMeals();
         return doShow();
     }
 
@@ -43,8 +50,24 @@ public class MainMenu extends AbstractUI {
     }
 
     @Override
+    protected void drawFormTitle() {
+        super.drawFormTitle();
+
+    }
+
+    @Override
     public String headline() {
-        return "eCafeteria POS [@" + Application.session().session().authenticatedUser().id() + "]";
+        return  "eCafeteria POS [@" + Application.session().session().authenticatedUser().id() + "]";
+    }
+
+    private void displayAvailableMeals() {
+        System.out.println();
+        System.out.println("Available meals per dish type:");
+        Map<DishType, Integer> availableDishTypes = previewAvailableMealsController.availableDishTypes();
+        for (Map.Entry<DishType, Integer> entry : availableDishTypes.entrySet()) {
+            System.out.printf("%10s -> %d available\n", entry.getKey().acronym(), entry.getValue());
+        }
+        System.out.println();
     }
 
     private Menu buildMainMenu() {
