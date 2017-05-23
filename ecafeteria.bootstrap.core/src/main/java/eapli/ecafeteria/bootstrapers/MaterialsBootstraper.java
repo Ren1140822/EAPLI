@@ -22,6 +22,7 @@ public class MaterialsBootstraper implements Action {
 	register("eggs", "Chicken or Duck Eggs");
 	register("oil", "Olive oil");
 	register("so", "sunflower oil");
+		register("bread", "integral bread");
 	return false;
     }
 
