@@ -19,6 +19,14 @@ public interface MenuRepository extends DataRepository<Menu, Long> {
 
     public Menu findByPk(Long pk);
     public Iterable<Menu> publishedMenu();
+    public Iterable<Menu> publishedMenu(CafeteriaUser user);
     public Iterable<Menu> notPublishedMenu();
+    
+    /**
+     * It gives an iterable of published menus from one user.
+     *
+     * @param user The Cafeteria user.
+     * @return It returns an iterable of menus.
+     */
     public Iterable<Menu> publishedMenusOfDay(Calendar day,CafeteriaUser user);
 }

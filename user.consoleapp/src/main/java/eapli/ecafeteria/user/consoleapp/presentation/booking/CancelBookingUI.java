@@ -7,11 +7,14 @@ package eapli.ecafeteria.user.consoleapp.presentation.booking;
 
 import eapli.ecafeteria.application.booking.CancelBookingController;
 import eapli.ecafeteria.domain.booking.Booking;
+import eapli.ecafeteria.domain.cafeteria.account.AlertWatchDog;
 import eapli.framework.application.Controller;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,14 +33,18 @@ public class CancelBookingUI extends AbstractUI {
     @Override
     protected boolean doShow() {
         Booking updtBooking;
+        BalanceAlertUI balanceAlertUI = new BalanceAlertUI();
         do {
             Iterable<Booking> bookingsDone = this.theController.listBookings();
             SelectWidget<Booking> selector = new SelectWidget<>("Bookings:", bookingsDone, new BookingPrinter());
             selector.show();
+
             updtBooking = selector.selectedElement();
             if (updtBooking != null) {
                 try {
                     this.theController.cancel(updtBooking);
+                    //The alert
+                    balanceAlertUI.doShow();
                 } catch (DataConcurrencyException ex) {
                     System.out.println("The booking has suffered some changes and it was not possible to cancel. Please try again.");
                 } catch (DataIntegrityViolationException ex) {
@@ -45,6 +52,7 @@ public class CancelBookingUI extends AbstractUI {
                     Logger.getLogger(CancelBookingUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+
         } while (updtBooking != null);
         return false;
     }
