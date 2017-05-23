@@ -9,7 +9,6 @@ import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
 import eapli.framework.domain.TimePeriod2;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 import javax.persistence.*;
 
@@ -40,7 +39,7 @@ public class Menu implements Serializable {
     } //for ORM
 
     public Menu(TimePeriod2 period, OrganicUnit organicUnit) {
-        if(period == null || organicUnit == null){
+        if (period == null || organicUnit == null) {
             throw new IllegalStateException();
         }
         this.organicUnit = organicUnit;
@@ -53,6 +52,7 @@ public class Menu implements Serializable {
         return this.published;
     }
 
+    //FIXME never, ever, do a getter! specialy of the DB PK!
     public Long pk() {
         return pk;
     }
@@ -61,17 +61,19 @@ public class Menu implements Serializable {
         return this.meals.addAll(meals);
     }
 
+    //FIXME return a copy or a read-only collection
     public Iterable<Meal> getMeals() {
         return meals;
     }
 
-    public OrganicUnit organicUnit(){
+    public OrganicUnit organicUnit() {
         return organicUnit;
     }
-    public TimePeriod2 period(){
-      return period;   
+
+    public TimePeriod2 period() {
+        return period;
     }
- 
+
     public boolean publish() {
         this.published = true;
         return isPublished();

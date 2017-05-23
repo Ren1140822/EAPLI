@@ -14,7 +14,7 @@ public class OrganicUnitBootstraper implements Action {
 
     @Override
     public boolean execute() {
-	register("ISEP", "Instituto Superior de Engenharia do PORTO", "Good school :)");
+	register("ISEP", "Instituto Superior de Engenharia do Porto", "Good school :)");
 	register("HSJ", "Hospital São João", "An hospital...");
 
 	return false;

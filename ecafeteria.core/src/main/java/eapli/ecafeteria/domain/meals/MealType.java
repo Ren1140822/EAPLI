@@ -6,9 +6,10 @@
 package eapli.ecafeteria.domain.meals;
 
 import eapli.framework.domain.ddd.ValueObject;
+
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Calendar;
-import javax.persistence.*;
 
 /**
  *
@@ -30,15 +31,8 @@ public class MealType implements ValueObject, Serializable {
     private static final int JANTAR_FREE_CANCEL_TIME_LIMIT_HOUR = 16;
     private static final int JANTAR_FREE_CANCEL_TIME_LIMIT_MINUTES = 0;
     private static final int JANTAR_FREE_CANCEL_TIME_LIMIT_SECONDS = 0;
-
-    public enum MealTypes {
-        //FIXME
-        //@author Meireles
-        // Should these variables be refactored to English?
-        ALMOCO, JANTAR
-    };
-
     private MealTypes mealType;
+    ;
 
     protected MealType() {
     } // For ORM
@@ -54,6 +48,16 @@ public class MealType implements ValueObject, Serializable {
         return this.mealType.name();
     }
 
+    public int mealTypeID() {
+        switch (mealType) {
+            case LUNCH:
+                return 0;
+            case DINNER:
+                return 1;
+        }
+        return -1; // should not happen
+    }
+    
     /**
      * It provides the time until the bookings can be canceled.
      *
@@ -65,12 +69,12 @@ public class MealType implements ValueObject, Serializable {
         Calendar limit = Calendar.getInstance();
         limit.clear();
         switch (mealType) {
-            case ALMOCO:
+            case LUNCH:
                 limit.set(Calendar.HOUR, ALMOCO_FREE_CANCEL_TIME_LIMIT_HOUR);
                 limit.set(Calendar.MINUTE, ALMOCO_FREE_CANCEL_TIME_LIMIT_MINUTES);
                 limit.set(Calendar.SECOND, ALMOCO_FREE_CANCEL_TIME_LIMIT_SECONDS);
                 break;
-            case JANTAR:
+            case DINNER:
                 limit.set(Calendar.HOUR, JANTAR_FREE_CANCEL_TIME_LIMIT_HOUR);
                 limit.set(Calendar.MINUTE, JANTAR_FREE_CANCEL_TIME_LIMIT_MINUTES);
                 limit.set(Calendar.SECOND, JANTAR_FREE_CANCEL_TIME_LIMIT_SECONDS);
@@ -84,7 +88,7 @@ public class MealType implements ValueObject, Serializable {
 
     /**
      * It checks if the meal type (enum) is the same as this meal type.
-     * 
+     *
      * @param type The meal type (enum) to check.
      * @return It returns "true" if this meal type has the same meal type (enum) or "false" otherwise.
      */
@@ -92,4 +96,21 @@ public class MealType implements ValueObject, Serializable {
         return type!=null && mealType.equals(type);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        MealType meal = (MealType) o;
+
+        return mealType.equals(meal.mealType);
+    }
+
+    public enum MealTypes {
+        LUNCH, DINNER
+    }
 }

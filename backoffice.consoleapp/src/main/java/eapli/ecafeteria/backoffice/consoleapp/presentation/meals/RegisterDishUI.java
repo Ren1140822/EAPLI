@@ -79,37 +79,35 @@ public class RegisterDishUI extends AbstractUI {
             listAllergens.show();
             System.out.println("Type the index of the first allergen to add (-1 to cancel)\n");
             int numAllergens = allergens.size();
-            Scanner in = new Scanner(System.in);
             do {
-                int index;
+                Scanner in = new Scanner(System.in);
+                int index=-1;
                 try {
                     index = in.nextInt();
                 } catch (InputMismatchException e) {
                     System.err.println("Invalid input\n");
-                    break;
+                    System.out.println("Insert valid index, or -1 to cancel\n");
+                    continue;
                 }
                 if (index == -1) {
-                    break;
-                } else if (index > numAllergens) {
+                    stop=true;
+
+                } else if (index > numAllergens || index<0){
                     System.err.println("Invalid index\n");
                 } else {
-                    int i = 0;
-                    Allergen elem = null;
-                    while (i < index) {
-                        elem = allergens.iterator().next();
-                        i++;
-                    }
-                    allergensToAdd.add(elem);
+                    allergensToAdd.add(allergens.get(index));
                 }
                 System.out.println("Insert another index to add or type -1 to finish\n");
             } while (!stop);
             if (!allergensToAdd.isEmpty()) {
                 try {
                     theController.addAllergensToDish(allergensToAdd, createdDish);
-                    System.out.println("Allergens added to dish\n");
+                    System.out.printf("Dish was saved successfully with %d allergens.\n", allergensToAdd.size());
                 } catch (final DataIntegrityViolationException | DataConcurrencyException e) {
-                    System.out.println("You tried to enter a dish which already exists in the database.");
-                }
+                        System.out.println("You tried to enter a dish which already exists in the database.");
+                    }
+            }else{
+                System.out.println("Dish was saved successfully without any allergen\n");
             }
         }
 

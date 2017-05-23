@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import eapli.util.io.Console;
+import java.util.concurrent.TimeUnit;
 
 /**
  * utility class for Calendar manipulation and several date and time related
@@ -184,8 +185,8 @@ public final class DateTime {
     }
 
     /**
-     * checks if the calendar time (Hour, Minute, Second and Millisecond) is before the other
-     * calendar.
+     * checks if the calendar time (Hour, Minute, Second and Millisecond) is
+     * before the other calendar.
      *
      * @param a The one calendar.
      * @param b The other calendar.
@@ -197,21 +198,21 @@ public final class DateTime {
     }
 
     /**
-     * checks if the calendar time (Hour, Minute, Second and Millisecond) is before or equal the other
-     * calendar.
+     * checks if the calendar time (Hour, Minute, Second and Millisecond) is
+     * before or equal the other calendar.
      *
      * @param a The one calendar.
      * @param b The other calendar.
-     * @return It returns "true" if the one calendar is before or equal the other
-     * calendar or "false" otherwise.
+     * @return It returns "true" if the one calendar is before or equal the
+     * other calendar or "false" otherwise.
      */
     public static boolean isUntilTime(final Calendar a, final Calendar b) {
         return compareTimes(a, b) <= 0;
     }
 
     /**
-     * checks if the calendar time (Hour, Minute, Second and Millisecond) is equal the other
-     * calendar.
+     * checks if the calendar time (Hour, Minute, Second and Millisecond) is
+     * equal the other calendar.
      *
      * @param a The one calendar.
      * @param b The other calendar.
@@ -223,8 +224,8 @@ public final class DateTime {
     }
 
     /**
-     * checks if the calendar time (Hour, Minute, Second and Millisecond) is after the other
-     * calendar.
+     * checks if the calendar time (Hour, Minute, Second and Millisecond) is
+     * after the other calendar.
      *
      * @param a The one calendar.
      * @param b The other calendar.
@@ -236,8 +237,8 @@ public final class DateTime {
     }
 
     /**
-     * checks if the calendar time (Hour, Minute, Second and Millisecond) is after or equal the other
-     * calendar.
+     * checks if the calendar time (Hour, Minute, Second and Millisecond) is
+     * after or equal the other calendar.
      *
      * @param a The one calendar.
      * @param b The other calendar.
@@ -249,50 +250,60 @@ public final class DateTime {
     }
 
     /**
-     * checks if the calendar time (Hour, Minute, Second and Millisecond) is before the current time.
+     * checks if the calendar time (Hour, Minute, Second and Millisecond) is
+     * before the current time.
      *
      * @param a The one calendar.
-     * @return It returns "true" if the one calendar is before the current time or "false" otherwise.
+     * @return It returns "true" if the one calendar is before the current time
+     * or "false" otherwise.
      */
     public static boolean isBeforeNow(final Calendar a) {
         return isBeforeTime(a, now());
     }
 
     /**
-     * checks if the calendar time (Hour, Minute, Second and Millisecond) is the current time or before.
+     * checks if the calendar time (Hour, Minute, Second and Millisecond) is the
+     * current time or before.
      *
      * @param a The one calendar.
-     * @return It returns "true" if the one calendar is the current time or before or "false" otherwise.
+     * @return It returns "true" if the one calendar is the current time or
+     * before or "false" otherwise.
      */
     public static boolean isUntilNow(final Calendar a) {
         return isUntilTime(a, now());
     }
 
     /**
-     * checks if the calendar time (Hour, Minute, Second and Millisecond) is the current time or before.
+     * checks if the calendar time (Hour, Minute, Second and Millisecond) is the
+     * current time or before.
      *
      * @param a The one calendar.
-     * @return It returns "true" if the one calendar is the current time or before or "false" otherwise.
+     * @return It returns "true" if the one calendar is the current time or
+     * before or "false" otherwise.
      */
     public static boolean isNow(final Calendar a) {
         return isSameTime(a, now());
     }
 
     /**
-     * checks if the calendar time (Hour, Minute, Second and Millisecond) is the current time or after.
+     * checks if the calendar time (Hour, Minute, Second and Millisecond) is the
+     * current time or after.
      *
      * @param a The one calendar.
-     * @return It returns "true" if the one calendar is the current time or after or "false" otherwise.
+     * @return It returns "true" if the one calendar is the current time or
+     * after or "false" otherwise.
      */
     public static boolean isNowOnwards(final Calendar a) {
         return isTimeOnwards(a, now());
     }
 
     /**
-     * checks if the calendar time (Hour, Minute, Second and Millisecond) is after the current time.
+     * checks if the calendar time (Hour, Minute, Second and Millisecond) is
+     * after the current time.
      *
      * @param a The one calendar.
-     * @return It returns "true" if the one calendar is after the current time or "false" otherwise.
+     * @return It returns "true" if the one calendar is after the current time
+     * or "false" otherwise.
      */
     public static boolean isAfterNow(final Calendar a) {
         return isAfterTime(a, now());
@@ -504,5 +515,6 @@ public final class DateTime {
         }
         return result;
     }
+
 
 }

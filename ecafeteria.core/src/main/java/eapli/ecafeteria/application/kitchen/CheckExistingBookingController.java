@@ -17,6 +17,7 @@ import eapli.ecafeteria.domain.meals.MealType.MealTypes;
 import eapli.ecafeteria.persistence.BookingRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.framework.application.Controller;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -27,26 +28,29 @@ import java.util.Date;
 public class CheckExistingBookingController implements Controller {
 
     private final BookingRepository repository = PersistenceContext.repositories().bookings(null);
-    private final ListBookingsService bookingsService = new ListBookingsService();
 
     //TODO preferably, controllers should not have state
-    private Date date;
-    private MealType mealTypeStr;
-    private DishType dishType;
 
     public Iterable<Booking> checkBookingsByDateMealAndDishType(Calendar date, String mealType, DishType dishType) {
-        Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
+        //Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
+        ArrayList<MealType> mealTypes = new ArrayList<>();
         
         final MealTypes mealTypee=null;
-        if(mealType=="Almoco"){
+        if(mealType.equalsIgnoreCase("Lunch")){
+            mealTypes.add(new MealType(mealTypee.LUNCH));
             
-            return this.repository.checkBookingsByDateMealAndDishType(date, new MealType(mealTypee.ALMOCO), dishType);
+            return this.repository.checkBookingsByDateMealAndDishType(date, mealTypes , dishType);
         } 
-        else if (mealType.equalsIgnoreCase("Jantar")){
+        else if (mealType.equalsIgnoreCase("Dinner")){
+            mealTypes.add(new MealType(mealTypee.DINNER));
             
-            return this.repository.checkBookingsByDateMealAndDishType(date, new MealType(mealTypee.JANTAR), dishType);
+            return this.repository.checkBookingsByDateMealAndDishType(date, mealTypes, dishType);
         }
-        return this.repository.checkBookingsByDateMealAndDishType(date, new MealType(mealTypee), dishType);
+        mealTypes.add(new MealType(mealTypee.LUNCH));
+        mealTypes.add(new MealType(mealTypee.DINNER));
+        
+        
+        return this.repository.checkBookingsByDateMealAndDishType(date, mealTypes, dishType);
         }
     
     /**
@@ -55,10 +59,12 @@ public class CheckExistingBookingController implements Controller {
      * @return
      */
     public Iterable<DishType> listDishTypes() {
-	return new ListDishTypeController().listDishTypes();
+        
+	return new ListDishTypeController().listDishTypesMANAGER();
     }
     
     public Iterable<MealType.MealTypes> listMealTypes(){
+        //Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
         return new ListMealTypeService().allMealTypes();
     }
 }

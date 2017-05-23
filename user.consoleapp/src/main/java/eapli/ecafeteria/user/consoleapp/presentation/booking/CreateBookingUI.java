@@ -7,8 +7,6 @@ package eapli.ecafeteria.user.consoleapp.presentation.booking;
 
 import eapli.ecafeteria.application.booking.CreateBookingController;
 import eapli.ecafeteria.domain.meals.Meal;
-import eapli.ecafeteria.persistence.MenuRepository;
-import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.ecafeteria.user.consoleapp.presentation.meals.MealPrinter;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
@@ -16,6 +14,8 @@ import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
 import eapli.util.DateTime;
 import eapli.util.io.Console;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -33,15 +33,15 @@ public class CreateBookingUI extends AbstractUI {
     @Override
     protected boolean doShow() {
         Date dayToBook;
+        BalanceAlertUI balanceAlertUI = new BalanceAlertUI();
         do {
 
             dayToBook = Console.readDate("Insert the date(YYYY/MM/DD):");
 
         } while (!validateInputDate(dayToBook));
-        
-        
-        
-        List<Meal> meals = controller.menusOfDay(dayToBook);
+
+
+        List<Meal> meals = sortByMealType(controller.menusOfDay(dayToBook));
         
         if(meals.isEmpty()){
             System.out.println("There are no availables meals to book on the given day!");
@@ -65,6 +65,8 @@ public class CreateBookingUI extends AbstractUI {
      
         try {
             controller.save(choosedMeal);
+            //The alert
+            balanceAlertUI.doShow();
         } catch (DataConcurrencyException ex) {
             System.out.println("The meal has suffered some changes and it was not possible to book. Please try again.");
         } catch (DataIntegrityViolationException ex) {
@@ -75,7 +77,7 @@ public class CreateBookingUI extends AbstractUI {
         System.out.println("");
         System.out.println("Meal booked!");
         System.out.println("");
-        return true;
+        return false;
     }
 
     @Override
@@ -94,6 +96,22 @@ public class CreateBookingUI extends AbstractUI {
         }
         return true;
 
+    }
+
+    public List<Meal> sortByMealType(List<Meal> meals) {
+        List<Meal> typeLunch = new ArrayList();
+        List<Meal> typeDinner = new ArrayList();
+        List<Meal> orderedMeals = new ArrayList();
+        for (Meal meal : meals) {
+            if (meal.mealType().mealTypeID() == 0) {
+                typeLunch.add(meal);
+            } else if (meal.mealType().mealTypeID() == 1) {
+                typeDinner.add(meal);
+            }
+        }
+        orderedMeals.addAll(typeLunch);
+        orderedMeals.addAll(typeDinner);
+        return orderedMeals;
     }
 
 }

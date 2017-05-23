@@ -54,7 +54,7 @@ public class MaterialUsedTest {
         peixe = new DishType("Peixe", "Peixe");
         aNutricionalInfo = new NutricionalInfo(10, 11);
         d = new Dish( peixe, prego, aNutricionalInfo, Money.euros(8));
-        mealType = new MealType(MealType.MealTypes.ALMOCO);
+        mealType = new MealType(MealType.MealTypes.LUNCH);
         start = DateTime.now();
         end = DateTime.tomorrow();
         timePeriod2 = new TimePeriod2(start, end);

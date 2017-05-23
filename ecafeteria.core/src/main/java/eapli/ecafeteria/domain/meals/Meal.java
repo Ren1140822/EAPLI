@@ -5,6 +5,7 @@ import java.util.Calendar;
 
 /**
  * @FIXME javadoc
+ * @FIXME unit test
  * @FIXME is this an entity, a value object or an aggregate? Created by pyska on
  * 26-04-2017.
  */
@@ -54,6 +55,10 @@ public class Meal {
 
     public MealType mealType() {
         return this.mealType;
+    }
+
+    public boolean isOfMealType(MealType type) {
+        return this.mealType.equals(type);
     }
 
     @Override

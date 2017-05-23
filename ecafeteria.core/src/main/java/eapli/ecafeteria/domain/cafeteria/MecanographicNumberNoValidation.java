@@ -23,7 +23,7 @@ public class MecanographicNumberNoValidation implements MecanographicNumberStrat
      * It validates the number.
      *
      * @param number The number to validate.
-     * @return It returns "true" if the number is valid or "false" otherwise.
+     * @return It always returns "true".
      */
     @Override
     public boolean validate(String number) {

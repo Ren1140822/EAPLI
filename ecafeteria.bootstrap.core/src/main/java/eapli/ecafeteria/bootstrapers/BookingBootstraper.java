@@ -12,22 +12,19 @@ import eapli.ecafeteria.domain.booking.Booking;
 import eapli.ecafeteria.domain.booking.BookingState;
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.ecafeteria.domain.meals.Dish;
-import eapli.ecafeteria.domain.meals.DishType;
 import eapli.ecafeteria.domain.meals.Meal;
 import eapli.ecafeteria.domain.meals.MealType;
 import eapli.ecafeteria.domain.meals.MealType.MealTypes;
 import eapli.ecafeteria.persistence.BookingRepository;
 import eapli.ecafeteria.persistence.CafeteriaUserRepository;
 import eapli.ecafeteria.persistence.DishRepository;
-import eapli.ecafeteria.persistence.DishTypeRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.framework.actions.Action;
 import eapli.framework.domain.Designation;
-import eapli.framework.domain.Money;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
+
 import java.util.Calendar;
-import java.util.Currency;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -45,10 +42,10 @@ public class BookingBootstraper implements Action {
         //@author Meireles
         // Use meals from bootstrap.
         final DishRepository dishes = PersistenceContext.repositories().dishes();
-        final Dish dish1 = dishes.findByName(Designation.valueOf("costeleta à salsicheiro"));
-        final Dish dish2 = dishes.findByName(Designation.valueOf("picanha"));
-        final MealType lunch = new MealType(MealTypes.ALMOCO);
-        final MealType dinner = new MealType(MealTypes.JANTAR);
+        final Dish dish1 = dishes.findByName(Designation.valueOf("Chop Sausage"));
+        final Dish dish2 = dishes.findByName(Designation.valueOf("Filet Steak"));
+        final MealType lunch = new MealType(MealTypes.LUNCH);
+        final MealType dinner = new MealType(MealTypes.DINNER);
         final Calendar t1 = Calendar.getInstance();
         final Calendar t2 = Calendar.getInstance();
         final Calendar t3 = Calendar.getInstance();
@@ -72,8 +69,10 @@ public class BookingBootstraper implements Action {
         final CafeteriaUser user1 = users.findByUsername(new Username("900330"));
         final CafeteriaUser user2 = users.findByUsername(new Username("900331"));
          try {
-            theTopUpController.topUpCard(user1.mecanographicNumber().toString(), 10000.0);
-            theTopUpController.topUpCard(user2.mecanographicNumber().toString(), 10000.0);
+            theTopUpController.insertCard(user1.mecanographicNumber().toString());
+            theTopUpController.topUpCard(10000.0);
+            theTopUpController.insertCard(user2.mecanographicNumber().toString());
+             theTopUpController.topUpCard(35.0);
         } catch (DataConcurrencyException | DataIntegrityViolationException ex) {
             Logger.getLogger(BookingBootstraper.class.getName()).log(Level.SEVERE, null, ex);
         }

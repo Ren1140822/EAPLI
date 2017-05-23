@@ -3,11 +3,12 @@
  */
 package eapli.framework.domain;
 
-import java.util.Calendar;
-import java.util.Objects;
 import javax.persistence.Embeddable;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Objects;
 
 /**
  * A simple time period class that does not use Range. does not possess any
@@ -17,7 +18,7 @@ import javax.persistence.TemporalType;
  *
  */
 @Embeddable
-public class TimePeriod2 {
+public class TimePeriod2 implements Serializable{
 
     @Temporal(TemporalType.DATE)
     Calendar start;
@@ -47,7 +48,7 @@ public class TimePeriod2 {
     }
 
     public Calendar end() {
-	return this.start;
+        return this.end;
     }
 
     @Override

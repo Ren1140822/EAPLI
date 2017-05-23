@@ -1,11 +1,13 @@
 @startuml
 
+
 'http://plantuml.com/skinparam.html
 skinparam handwritten true
 skinparam monochrome true
 skinparam packageStyle rect
 skinparam defaultFontName FG Virgil
 skinparam shadowing false
+
 
 class TopUpUI
 class TopUpCntrl
@@ -14,6 +16,13 @@ class TransactionRepo
 class AccountCard
 class TopUp
 abstract class Transaction
+
+
+TopUpCntrl : insertCard(mecNum)
+TopUpCntrl : topUpCard(amount, cashier)
+AccountCardRepo : findByMecNum(mecNum)
+TransactionRepo : save(topUp)
+Transaction : notifyObservers()
 
 Transaction <|-- TopUp : is a
 TopUpUI .> TopUpCntrl
@@ -24,9 +33,4 @@ Transaction "*" o-> "1" AccountCard : references
 AccountCardRepo "1" -- "*" AccountCard : retrieves
 
 
-
 @enduml
-
-TopUpCntrl -> TopUp: t = create(card, amount, cashier)
-TopUpCntrl -> TransactionRepo: save(t)
-TopUpCntrl -> TopUp: notifyObservers()

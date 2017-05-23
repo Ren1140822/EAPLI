@@ -48,6 +48,8 @@ public class AddUserUI extends AbstractUI {
 	    this.theController.addUser(username, password, firstName, lastName, email, roleTypes);
 	} catch (final DataIntegrityViolationException | DataConcurrencyException e) {
 	    System.out.println("That username is already in use.");
+	} catch(IllegalStateException | IllegalArgumentException e){
+		System.err.println("Some of the inserted data is invalid\n");
 	}
 
 	return false;

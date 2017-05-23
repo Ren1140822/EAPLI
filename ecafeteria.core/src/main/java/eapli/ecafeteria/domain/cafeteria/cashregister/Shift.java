@@ -1,24 +1,17 @@
 package eapli.ecafeteria.domain.cafeteria.cashregister;
 
 import eapli.ecafeteria.domain.meals.MealType;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Calendar;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * Represents a shift.
  *
- * @FIXME is this an entity, a value object or an aggregate?
- *
  * @author Eric Amaral - 1141570@isep.ipp.pt
  * @author Tiago Correia - 1151031@isep.ipp.pt
- *
+ * @FIXME is this an entity, a value object or an aggregate?
  */
 @Entity
 public class Shift implements Serializable {
@@ -42,7 +35,7 @@ public class Shift implements Serializable {
      * Constructs an instance of Shift with the date and meal type passed as
      * parameters.
      *
-     * @param date the date
+     * @param date     the date
      * @param mealType the meal type
      */
     public Shift(Calendar date, MealType mealType) {
@@ -94,6 +87,24 @@ public class Shift implements Serializable {
             throw new IllegalStateException("Shift must be open before closing!");
         }
         this.state = ShiftState.CLOSED;
+    }
+
+    /**
+     * Retrieves the date.
+     *
+     * @return date
+     */
+    public Calendar date() {
+        return date;
+    }
+
+    /**
+     * Retrieves the meal type.
+     *
+     * @return meal type
+     */
+    public MealType mealType() {
+        return mealType;
     }
 
     @Override

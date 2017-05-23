@@ -8,18 +8,14 @@ import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
 import eapli.framework.persistence.repositories.IterableRepository;
 import eapli.util.Strings;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.OptimisticLockException;
-import javax.persistence.PersistenceException;
-import javax.persistence.PersistenceUnit;
-import javax.persistence.TypedQuery;
 
 /**
  * An utility class for implementing JPA repositories. This class' methods don't
@@ -177,6 +173,17 @@ public abstract class JpaBaseRepository<T, K extends Serializable> implements It
     public long count() {
         final TypedQuery<Long> q = entityManager()
                 .createQuery("SELECT COUNT(*) FROM " + this.entityClass.getSimpleName(), Long.class);
+        return q.getSingleResult();
+    }
+
+    /**
+     * returns the number of entities in the persistence store, filtered by a where clause
+     *
+     * @return the number of entities in the persistence store, filtered by a where clause
+     */
+    public long count(String where) {
+        final TypedQuery<Long> q = entityManager()
+                .createQuery("SELECT COUNT(*) FROM " + this.entityClass.getSimpleName() + " e WHERE " + where, Long.class);
         return q.getSingleResult();
     }
 

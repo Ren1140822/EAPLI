@@ -36,8 +36,8 @@ public class TopUp extends Transaction {
     public TopUp(AccountCard accountCard, Money amount, Username aCashier) {
         super(accountCard, amount);
 
-        if (amount.amount() < 0) {
-            throw new IllegalStateException("a top up must not have a negative amount");
+        if (amount.amount() <= 0) {
+            throw new IllegalStateException("a top up must have a positive amount");
         }
         if (aCashier == null) {
             throw new IllegalStateException("cashier username can't be null.");

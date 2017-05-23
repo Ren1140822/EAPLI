@@ -31,8 +31,7 @@ public class RegisterLotsInMealUI extends AbstractUI {
         
         if(!meals.iterator().hasNext()){
             System.out.println("There are no registered meals for the current day!");
-        }
-        if(!materials.iterator().hasNext()){
+        } else if (!materials.iterator().hasNext()) {
             System.out.println("There are no registered raw materials!");
 
         }else{
@@ -45,23 +44,29 @@ public class RegisterLotsInMealUI extends AbstractUI {
             if(selectedMeal==null){
                 return false;
             }
-            
-            //SELECTION OF MATERIAL
-            final SelectWidget<Material> selectorMaterial=new SelectWidget<>("Materials: ", materials, new MaterialPrinter());
-            selectorMaterial.show();
-            Material selectedMaterial=selectorMaterial.selectedElement();
-            
-            if(selectedMaterial==null){
-                return false;
-            }
 
-            final String lot_code= Console.readLine(("Lot code: "));
-           
-            try {
-                this.theController.registerMaterialUsed(selectedMeal, selectedMaterial, lot_code);
-            } catch (DataConcurrencyException | DataIntegrityViolationException ex) {
-                System.out.println("It wasn´t possible to register lot in meal.");
-             
+            boolean cont = true;
+            while (cont == true) {
+                //SELECTION OF MATERIAL
+                final SelectWidget<Material> selectorMaterial = new SelectWidget<>("Materials: ", materials, new MaterialPrinter());
+                selectorMaterial.show();
+                Material selectedMaterial = selectorMaterial.selectedElement();
+
+                if (selectedMaterial == null) {
+                    return false;
+                }
+
+                //SELECTION OF LOT
+                final String lot_code = Console.readLine(("Lot code: "));
+
+                try {
+                    this.theController.registerMaterialUsed(selectedMeal, selectedMaterial, lot_code);
+                } catch (DataConcurrencyException | DataIntegrityViolationException ex) {
+                    System.out.println("It wasn´t possible to register lot in meal.");
+
+                }
+
+                cont = Console.readBoolean("Do you want to insert another material? (y/n)");
             }
         }
         System.out.println("Lot code registered in meal successfully");

@@ -52,8 +52,8 @@ public class RefundTest {
         cancellationDate.set(Calendar.MONTH, 5);
         mealDate.set(Calendar.DAY_OF_MONTH, 5);
         cancellationDate.set(Calendar.DAY_OF_MONTH, 5);
-        lunch = new MealType(MealType.MealTypes.ALMOCO);
-        dinner = new MealType(MealType.MealTypes.JANTAR);
+        lunch = new MealType(MealType.MealTypes.LUNCH);
+        dinner = new MealType(MealType.MealTypes.DINNER);
     }
     
     @After

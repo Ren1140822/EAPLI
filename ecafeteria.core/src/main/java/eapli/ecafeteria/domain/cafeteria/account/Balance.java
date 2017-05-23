@@ -59,7 +59,7 @@ public class Balance implements ValueObject, Serializable {
      *
      * @return the balance amount
      */
-    public Money amount(){
+    public Money amount() {
         return this.amount;
     }
 
@@ -67,9 +67,9 @@ public class Balance implements ValueObject, Serializable {
     public int hashCode() {
         return amount.hashCode();
     }
-    
-    public boolean hasEnoughBalance(Money price){
-        return this.amount().lessThan(price);
+
+    public boolean hasEnoughBalance(Money price) {
+        return this.amount().greaterThanOrEqual(price);
     }
 
     @Override

@@ -14,14 +14,20 @@ class ListDishTypeService {
     private final DishTypeRepository dishTypeRepository = PersistenceContext.repositories().dishTypes();
 
     public Iterable<DishType> allDishTypes() {
-	Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_MENUS);
+        Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_MENUS);
 
-	return this.dishTypeRepository.findAll();
+        return this.dishTypeRepository.findAll();
+    }
+
+    public Iterable<DishType> allDishTypesMANAGER() {
+        Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
+
+        return this.dishTypeRepository.findAll();
     }
 
     public Iterable<DishType> activeDishTypes() {
-	Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_MENUS);
+        Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_MENUS);
 
-	return this.dishTypeRepository.activeDishTypes();
+        return this.dishTypeRepository.activeDishTypes();
     }
 }

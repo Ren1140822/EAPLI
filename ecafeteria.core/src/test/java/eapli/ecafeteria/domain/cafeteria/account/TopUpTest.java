@@ -8,12 +8,32 @@ import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 
 /**
- * Created by IvoFerro on 27/04/2017.
+ * Unit tests for the TopUp class.
+ *
+ * @author Ivo Ferro 1151159
+ * @author Daniel Gonçalves 1151452
  */
 public class TopUpTest {
 
+    @Test(expected = IllegalStateException.class)
+    public void ensureTopUpHasCashier() {
+        final AccountCard aCard = new AccountCard(new MecanographicNumber("Dummy"));
+        final Money aMoney = Money.euros(50);
+
+        new TopUp(aCard, aMoney, null);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void ensureTopUpHasPositiveAmount() {
+        final AccountCard aCard = new AccountCard(new MecanographicNumber("Dummy"));
+        final Money aMoney = Money.euros(20).negate();
+        final Username cashier = new Username("Cashier");
+
+        new TopUp(aCard, aMoney, cashier);
+    }
+
     @Test
-    public void ensureTopUpWithNullPkIsNotEqualToAnotherTopUpWithNullPk() throws Exception {
+    public void ensureTopUpWithNullPkIsNotEqualToAnotherTopUpWithNullPk() {
         final AccountCard aCard = new AccountCard(new MecanographicNumber("Dummy"));
         final Money aMoney = Money.euros(50);
         final Username cashier = new Username("Cashier");
@@ -25,5 +45,4 @@ public class TopUpTest {
 
         assertFalse(aTopUp.equals(aTransaction));
     }
-
 }

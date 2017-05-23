@@ -16,7 +16,7 @@ public class ShiftTest {
 
     @Test(expected = IllegalStateException.class)
     public void ensureDateCannotBeNull() {
-        MealTypes mealTypes = MealTypes.ALMOCO;
+        MealTypes mealTypes = MealTypes.LUNCH;
         MealType mealType = new MealType(mealTypes);
         new Shift(null, mealType);
     }

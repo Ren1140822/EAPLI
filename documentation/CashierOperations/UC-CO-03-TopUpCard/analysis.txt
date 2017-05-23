@@ -47,6 +47,8 @@ UNIT TESTS
 
 ensureTransactionHasMecanographicNumber
 ensureTransactionHasAmount
+ensureTopUpHasCashier
+ensureTopUpHasPositiveAmount
 ensureAccountCardHasCafeteriaUser
 ensureAccountCardPassesForTheSameMecanographicNumber
 ensureAccountCardFailsForDifferentMecanographicNumber

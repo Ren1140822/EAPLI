@@ -45,9 +45,9 @@ public class OpenCashRegisterUI extends AbstractUI {
         final Integer mealType = Console.readInteger("Select the Meal Type:\n1 - Lunch\n2 - Dinner\n");
         MealType chosenMealType;
         if (mealType == LUNCH) {
-            chosenMealType = new MealType(MealType.MealTypes.ALMOCO);
+            chosenMealType = new MealType(MealType.MealTypes.LUNCH);
         } else {
-            chosenMealType = new MealType(MealType.MealTypes.JANTAR);
+            chosenMealType = new MealType(MealType.MealTypes.DINNER);
         }
 
         boolean success = false;

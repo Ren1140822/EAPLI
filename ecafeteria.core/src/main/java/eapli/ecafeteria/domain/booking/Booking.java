@@ -11,14 +11,17 @@ import eapli.ecafeteria.domain.cafeteria.account.PurchaseBuilder;
 import eapli.ecafeteria.domain.cafeteria.account.Refund;
 import eapli.ecafeteria.domain.cafeteria.account.RefundBuilder;
 import eapli.ecafeteria.domain.meals.Meal;
+import eapli.ecafeteria.domain.meals.MealType;
 import eapli.framework.domain.ddd.AggregateRoot;
 import eapli.util.DateTime;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Calendar;
-import javax.persistence.*;
 
 /**
  * @FIXME javadoc
+ * @FIXME create unit tests
  * @author Nuno Pinto [1150838@isep.ipp.pt] Henrique Oliveira
  * [1150738@isep.ipp.pt]
  */
@@ -34,9 +37,11 @@ public class Booking implements AggregateRoot<BookingID>, Serializable {
     @Column(unique = true)
     private BookingID id;
 
+    //FIXME cascade should be NONE
     @ManyToOne(cascade = CascadeType.MERGE)
     private CafeteriaUser user;
 
+    //FIXME cascade should be NONE
     @ManyToOne(cascade = CascadeType.MERGE)
     private Meal meal;
     private BookingState state;
@@ -93,6 +98,10 @@ public class Booking implements AggregateRoot<BookingID>, Serializable {
 
     public boolean isOfMeal(Meal meal) {
         return this.meal.equals(meal);
+    }
+
+    public boolean isOfMealType(MealType type) {
+        return this.meal.isOfMealType(type);
     }
 
     /**
@@ -204,11 +213,11 @@ public class Booking implements AggregateRoot<BookingID>, Serializable {
 
     @Override
     public boolean sameAs(Object other) {
-        if(other == this){
+        if (other == this) {
             return true;
         }
 
-        if(other == null || other.getClass() != getClass()){
+        if (other == null || other.getClass() != getClass()) {
             return false;
         }
 
@@ -218,8 +227,12 @@ public class Booking implements AggregateRoot<BookingID>, Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         Booking booking = (Booking) o;
 
