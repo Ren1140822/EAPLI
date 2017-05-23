@@ -28,7 +28,7 @@ public class ShiftTest {
 
     @Test
     public void ensureInitialStateIsOpen() {
-        MealTypes mealTypes = MealTypes.ALMOCO;
+        MealTypes mealTypes = MealTypes.LUNCH;
         MealType mealType = new MealType(mealTypes);
         Calendar date = new GregorianCalendar(2017, 07, 10);
         Shift shift = new Shift(date, mealType);
