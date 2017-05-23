@@ -1,20 +1,20 @@
 package eapli.ecafeteria.domain.kitchen;
 
+import eapli.ecafeteria.domain.meals.DishType;
 import eapli.ecafeteria.domain.meals.Meal;
 import eapli.framework.domain.ddd.AggregateRoot;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Version;
 
 /**
- *
  * The quantity of meals prepared from a Meal.
  *
+ * @author Diogo Santos [1150451@isep.ipp.pt] Sofia Silva [1150690@isep.ipp.pt]
  * @TODO consider having a MealID instead of using the complete Meal object as
  * the business id for this aggregate
- *
- * @author Diogo Santos [1150451@isep.ipp.pt] Sofia Silva [1150690@isep.ipp.pt]
  */
 @Entity
 public class MealsPrepared implements AggregateRoot<Meal> {
@@ -39,7 +39,7 @@ public class MealsPrepared implements AggregateRoot<Meal> {
     /**
      * Prepared Meals Constructor.
      *
-     * @param meal the meal associated
+     * @param meal     the meal associated
      * @param quantity the quantity of prepared meals
      */
     public MealsPrepared(Meal meal, int quantity) {
@@ -88,4 +88,21 @@ public class MealsPrepared implements AggregateRoot<Meal> {
         return this.meal;
     }
 
+    /**
+     * Retrieves the dish type.
+     *
+     * @return dish type
+     */
+    public DishType dishType() {
+        return id().dish().dishType();
+    }
+
+    /**
+     * Retrieves the quantity.
+     *
+     * @return quantity
+     */
+    public Integer quantity() {
+        return quantity;
+    }
 }
