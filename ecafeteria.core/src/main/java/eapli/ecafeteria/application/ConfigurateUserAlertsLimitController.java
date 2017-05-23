@@ -3,6 +3,7 @@ package eapli.ecafeteria.application;
 import eapli.ecafeteria.AppSettings;
 import eapli.ecafeteria.Application;
 import eapli.util.io.Files;
+import java.io.IOException;
 
 /**
  *
@@ -12,10 +13,11 @@ public class ConfigurateUserAlertsLimitController {
 
     private AppSettings settings;
 
-    public void changeUserAlertsLimit(int multiplicationFactor) {
+    public void changeUserAlertsLimit(int multiplicationFactor) throws IOException {
         settings = Application.settings();
         settings.changeUserAlertsLimit(multiplicationFactor);
-        Files.updateProperty(AppSettings.USER_ALERT_LIMITS, String.valueOf(multiplicationFactor), "C:\\Users\\Diogo Santos\\Documents\\eapliProj\\user.consoleapp\\src\\main\\resources\\ecafeteria.properties");
+        Files.updateProperty(AppSettings.USER_ALERT_LIMITS, String.valueOf(multiplicationFactor), "../user.consoleapp/src/main/resources/ecafeteria.properties");
+        Files.updateProperty(AppSettings.USER_ALERT_LIMITS, String.valueOf(multiplicationFactor), "../backoffice.consoleapp/src/main/resources/ecafeteria.properties");
     }
 
 }

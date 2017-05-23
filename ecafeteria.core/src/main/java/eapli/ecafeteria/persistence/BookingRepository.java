@@ -56,7 +56,6 @@ public interface BookingRepository extends DataRepository<Booking, Long> {
 
     Iterable<Booking> findBookingsByUserAndMealAndState(CafeteriaUser user, Meal meal, BookingState state);
 
-    
     Iterable<Booking> checkBookingsByDateMealAndDishType(Calendar date, Iterable<MealType> mealType, DishType dishType);
 
     /**
@@ -70,8 +69,6 @@ public interface BookingRepository extends DataRepository<Booking, Long> {
 
     Iterable<Booking> findBookingsByDateAndMealTypeAndState(Calendar date, MealType mealType, BookingState state);
 
-    Booking findLatestBookingOfUserInDefinitiveState(CafeteriaUser user);
-
     /**
      * Counts how many meals where delivered for a specific dish type and shift.
      *
@@ -81,4 +78,7 @@ public interface BookingRepository extends DataRepository<Booking, Long> {
      */
     Long countDeliveredMeals(Shift shift, DishType dishType);
 
+    Booking findLatestBookingOfUserInDefinitiveState(CafeteriaUser user);
+
+    Iterable<Booking> findBookingByDateAndStateAndUser(Calendar startDate, Calendar endDate, CafeteriaUser user, BookingState state);
 }

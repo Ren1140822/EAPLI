@@ -250,4 +250,15 @@ public class JpaBookingRepository extends JpaAutoTxRepository<Booking, Long>
         return repo.match("e.user=:user and e.meal.date=:meal and e.state=:state", params);
     }
 
+    @Override
+    public Iterable<Booking> findBookingByDateAndStateAndUser(Calendar startDate, Calendar endDate, CafeteriaUser user, BookingState state) {
+       Map<String,Object> params = new HashMap<>();
+       params.put("user", user);
+       params.put("startDate", startDate);
+       params.put("endDate", endDate);
+       params.put("state", state);
+       return repo.match("e.user=:user and e.meal.date>=:startDate and e.meal.date<=:endDate and e.state=:state",params);
+    }
+    
+    
 }

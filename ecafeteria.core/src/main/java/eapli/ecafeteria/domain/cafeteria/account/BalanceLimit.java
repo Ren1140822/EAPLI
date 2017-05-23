@@ -5,6 +5,7 @@
  */
 package eapli.ecafeteria.domain.cafeteria.account;
 
+import eapli.ecafeteria.Application;
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.ecafeteria.domain.meals.Meal;
 import eapli.ecafeteria.domain.meals.Menu;
@@ -24,11 +25,16 @@ import java.util.Calendar;
 @Embeddable
 public class BalanceLimit implements ValueObject {
 
+    /**
+     * Multiplication factor to be used in the balance validation
+     */
     private int factor;
 
+    /**
+     * Constructs an instance of BalanceLimit
+     */
     public BalanceLimit() {
-        //TODO
-        factor = 5;
+        factor = Application.settings().getMultiplicationFactorForBalanceAlert();
     }
 
     /**
