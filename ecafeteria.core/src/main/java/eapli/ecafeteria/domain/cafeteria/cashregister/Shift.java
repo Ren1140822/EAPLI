@@ -9,11 +9,9 @@ import java.util.Calendar;
 /**
  * Represents a shift.
  *
- * @FIXME is this an entity, a value object or an aggregate?
- *
  * @author Eric Amaral - 1141570@isep.ipp.pt
  * @author Tiago Correia - 1151031@isep.ipp.pt
- *
+ * @FIXME is this an entity, a value object or an aggregate?
  */
 @Entity
 public class Shift implements Serializable {
@@ -37,7 +35,7 @@ public class Shift implements Serializable {
      * Constructs an instance of Shift with the date and meal type passed as
      * parameters.
      *
-     * @param date the date
+     * @param date     the date
      * @param mealType the meal type
      */
     public Shift(Calendar date, MealType mealType) {
@@ -47,24 +45,6 @@ public class Shift implements Serializable {
         this.date = date;
         this.mealType = mealType;
         this.state = ShiftState.OPENED;
-    }
-
-    /**
-     * Obtain shift's date.
-     *
-     * @return shift's date
-     */
-    public Calendar date() {
-        return date;
-    }
-
-    /**
-     * Obtain shift's meal type.
-     *
-     * @return shift's meal type
-     */
-    public MealType mealType() {
-        return mealType;
     }
 
     /**
@@ -107,6 +87,24 @@ public class Shift implements Serializable {
             throw new IllegalStateException("Shift must be open before closing!");
         }
         this.state = ShiftState.CLOSED;
+    }
+
+    /**
+     * Retrieves the date.
+     *
+     * @return date
+     */
+    public Calendar date() {
+        return date;
+    }
+
+    /**
+     * Retrieves the meal type.
+     *
+     * @return meal type
+     */
+    public MealType mealType() {
+        return mealType;
     }
 
     @Override

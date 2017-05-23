@@ -5,23 +5,27 @@
  */
 package eapli.ecafeteria.persistence.jpa;
 
+import eapli.ecafeteria.domain.cafeteria.cashregister.Shift;
 import eapli.ecafeteria.domain.kitchen.MealsPrepared;
 import eapli.ecafeteria.persistence.MealsPreparedRepository;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
+ * JPA repository to manage prepared meals.
  *
  * @author Sofia Silva [1150690@isep.ipp.pt] Diogo Santos [1150451@isep.ipp.pt]
  */
-public class JpaMealsPreparedRepository extends CafeteriaJpaRepositoryBase<MealsPrepared, Long> implements MealsPreparedRepository{
+public class JpaMealsPreparedRepository extends CafeteriaJpaRepositoryBase<MealsPrepared, Long> implements MealsPreparedRepository {
 
     @Override
-    public MealsPrepared findByName(String acronym) {
-        
-        // TO DO
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Iterable<MealsPrepared> findByShift(Shift shift) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("shift", shift);
+        return match("e.meal.date=:shift.date and e.meal.mealType=:shift.mealType", params);
     }
 
-    
-    
+
 }

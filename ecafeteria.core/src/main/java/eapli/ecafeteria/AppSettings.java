@@ -20,6 +20,7 @@ public class AppSettings {
     private final static String PERSISTENCE_UNIT_KEY = "persistence.persistenceUnit";
     private final static String DOMAIN_MECANOGRAPHIC_NUMBER_KEY_ISEP = "domain.mecanographicNumberStrategy.ISEP";
     private final static String DOMAIN_MECANOGRAPHIC_NUMBER_KEY_HSJ = "domain.mecanographicNumberStrategy.HSJ";
+    public final static String USER_ALERT_LIMITS = "userAlertLimits";
     private final Properties applicationProperties = new Properties();
 
     public AppSettings() {
@@ -58,7 +59,7 @@ public class AppSettings {
         this.applicationProperties.setProperty(PERSISTENCE_UNIT_KEY, "eapli.eCafeteriaPU");
         this.applicationProperties.setProperty(DOMAIN_MECANOGRAPHIC_NUMBER_KEY_ISEP, "eapli.ecafeteria.domain.cafeteria.MecanographicNumberInvernessSchoolCenter");
         this.applicationProperties.setProperty(DOMAIN_MECANOGRAPHIC_NUMBER_KEY_HSJ, "eapli.ecafeteria.domain.cafeteria.MecanographicNumberSpringfieldHospitalCenter");
-        this.applicationProperties.setProperty("userAlertLimits", "1");
+        this.applicationProperties.setProperty(USER_ALERT_LIMITS, "5");
     }
 
     public Boolean isMenuLayoutHorizontal() {
@@ -78,7 +79,7 @@ public class AppSettings {
     }
 
     public void changeUserAlertsLimit(int multiplicationFactor) {
-        this.applicationProperties.setProperty("userAlertLimits", String.valueOf(multiplicationFactor));
+        this.applicationProperties.setProperty(USER_ALERT_LIMITS, String.valueOf(multiplicationFactor));
     }
 
 }

@@ -92,8 +92,8 @@ public final class Console {
 		final SimpleDateFormat df = new SimpleDateFormat(dateFormat);
 		return df.parse(strDate);
 	    } catch (final ParseException ex) {
-		// nothing to do
-	    }
+			System.err.println("Invalid date!\n");
+		}
 	} while (true);
     }
 
