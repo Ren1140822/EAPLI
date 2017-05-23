@@ -50,7 +50,15 @@ public class MealType implements ValueObject, Serializable {
     public String mealType() {
         return this.mealType.name();
     }
-
+    
+    public int mealTypeID(){
+        switch(mealType){
+            case LUNCH: return 0 ;
+            case DINNER: return 1;
+        }
+                return -1; // should not happen
+    }
+    
     /**
      * It provides the time until the bookings can be canceled.
      *
@@ -88,5 +96,18 @@ public class MealType implements ValueObject, Serializable {
     public boolean isOf(MealTypes type) {
         return type!=null && mealType.equals(type);
     }
+    
+     @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
+        MealType  meal = (MealType) o;
+
+        return mealType.equals(meal.mealType);
+    }
 }

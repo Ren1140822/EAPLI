@@ -85,12 +85,16 @@ public class CreateBookingController {
         CafeteriaUser user = userService.findCafeteriaUserByUsername(Application.session().session().authenticatedUser().id());
         try{
 
-        bookingRepository.findBookingByUserAndMealAndState(user, meal, BookingState.DONE);
-       
+           Iterable<Booking> b =  bookingRepository.findBookingsByUserAndMealAndState(user, meal, BookingState.DONE);
+           
+            for (Booking booking : b) {
+                if(booking.meal().mealType().equals(meal.mealType()))
+                return false;
+            }
         }catch(Exception ex){
             return true;
         }
-        return false;
+        return true;
     }
     
 
