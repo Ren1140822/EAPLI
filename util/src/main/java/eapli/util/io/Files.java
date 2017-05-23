@@ -4,13 +4,13 @@
  */
 package eapli.util.io;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Formatter;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * utility class for file manipulation.
@@ -42,34 +42,34 @@ public class Files {
      * @param value
      * @return
      */
-    public static boolean updateProperty(String property, String value, String path) {
+    public static boolean updateProperty(String property, String value, String path) throws IOException {
+        File propertiesFile = null;
+        BufferedReader buffer = null;
         try {
-            File propertiesFile = new File(path);
-            Scanner sc = new Scanner(propertiesFile);
-
-            List<String> lines = new ArrayList<String>();
-            while (sc.hasNextLine()) {
-                lines.add(sc.nextLine());
-            }
-            
-            sc.close();
-            PrintWriter writer = new PrintWriter(propertiesFile);
-            writer.print("");
-            for (String line : lines) {
-                System.out.println("Linha: " + line);
-                if (line.contains(property)) {
-                    String[] splittedLine = line.split("=");
-                    String newLine = splittedLine[0].trim() + "=" + value;
-                    line = newLine;
-                }
-                writer.println(line.toString());
-                
-            }
-            writer.close();
-        } catch (FileNotFoundException e) {
-            //FIX ME
-            return false;
+            propertiesFile = new File(path);
+            buffer = new BufferedReader(new FileReader(propertiesFile));
+        } catch (IOException ex) {
+            throw new IOException("The file is unreachable!");
         }
+
+        List<String> lines = new ArrayList<String>();
+        String readLine = "";
+        while ((readLine = buffer.readLine()) != null) {
+            lines.add(readLine);
+        }
+
+        PrintWriter writer = new PrintWriter(propertiesFile);
+        writer.print("");
+        for (String line : lines) {
+            if (line.contains(property)) {
+                String[] splittedLine = line.split("=");
+                String newLine = splittedLine[0].trim() + "=" + value;
+                line = newLine;
+            }
+            writer.println(line);
+        }
+        writer.close();
+        buffer.close();
         return true;
     }
 }
