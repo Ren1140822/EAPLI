@@ -81,8 +81,7 @@ public class RegisterMenuUI extends AbstractUI {
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
             final Iterable<MealType.MealTypes> mealTypes = this.theController.allMealTypes();
             final SelectWidget<MealType.MealTypes> selector = new SelectWidget<>("Meal types:", mealTypes, new MealTypePrinter());
-            Calendar date = Calendar.getInstance();
-            date.setTime(start.getTime());
+            Calendar date = (Calendar)start.clone();
             
             main_loop:
             do {
@@ -118,8 +117,8 @@ public class RegisterMenuUI extends AbstractUI {
                         System.out.printf("That is not a valid option.\n");
                     }
                 } while (theDish == null);
-
-                meals.add(new Meal(theDish, theMealType, date));
+                 
+                meals.add(new Meal(theDish, theMealType, (Calendar)date.clone()));
             } while (true);
 
             if (meals.isEmpty()) {

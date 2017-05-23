@@ -144,4 +144,9 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
         return bookingsList.getLast();
     }
 
+    @Override
+    public Iterable<Booking> findBookingsByUserAndMealAndState(CafeteriaUser user, Meal meal, BookingState state) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
