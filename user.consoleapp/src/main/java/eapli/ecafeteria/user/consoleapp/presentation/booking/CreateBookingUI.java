@@ -14,6 +14,7 @@ import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
 import eapli.util.DateTime;
 import eapli.util.io.Console;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -40,7 +41,7 @@ public class CreateBookingUI extends AbstractUI {
         
         
         
-        List<Meal> meals = controller.menusOfDay(dayToBook);
+        List<Meal> meals = sortByMealType(controller.menusOfDay(dayToBook));
         
         if(meals.isEmpty()){
             System.out.println("There are no availables meals to book on the given day!");
@@ -95,6 +96,22 @@ public class CreateBookingUI extends AbstractUI {
         }
         return true;
 
+    }
+    
+    public  List<Meal> sortByMealType( List<Meal> meals){
+        List<Meal> typeLunch  = new ArrayList();
+        List<Meal> typeDinner = new ArrayList();
+        List<Meal> orderedMeals  = new ArrayList();
+        for (Meal meal : meals) {
+            if(meal.mealType().mealTypeID()==0){
+                typeLunch.add(meal);
+            }else if(meal.mealType().mealTypeID()==1){
+                typeDinner.add(meal);
+            }
+        }
+        orderedMeals.addAll(typeLunch);
+        orderedMeals.addAll(typeDinner);
+        return orderedMeals;
     }
 
 }
