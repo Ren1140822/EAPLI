@@ -32,8 +32,6 @@ public class MaterialUsed implements AggregateRoot<Long>, Serializable {
     //@OneToMany(fetch=FetchType.LAZY, mappedBy="XXXX")
     private Meal meal;
     private BatchNumber batchNumber;
-//FIXME since material is a different aggregate the cascade should be NONE
-    @ManyToOne(cascade = CascadeType.MERGE)
     private Material material;
 
     public MaterialUsed(Meal meal, Material material, String lotCode) {

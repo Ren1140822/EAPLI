@@ -7,8 +7,6 @@ package eapli.ecafeteria.user.consoleapp.presentation.booking;
 
 import eapli.ecafeteria.application.booking.CreateBookingController;
 import eapli.ecafeteria.domain.meals.Meal;
-import eapli.ecafeteria.persistence.MenuRepository;
-import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.ecafeteria.user.consoleapp.presentation.meals.MealPrinter;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
@@ -33,6 +31,7 @@ public class CreateBookingUI extends AbstractUI {
     @Override
     protected boolean doShow() {
         Date dayToBook;
+        BalanceAlertUI balanceAlertUI = new BalanceAlertUI();
         do {
 
             dayToBook = Console.readDate("Insert the date(YYYY/MM/DD):");
@@ -65,6 +64,8 @@ public class CreateBookingUI extends AbstractUI {
      
         try {
             controller.save(choosedMeal);
+            //The alert
+            balanceAlertUI.doShow();
         } catch (DataConcurrencyException ex) {
             System.out.println("The meal has suffered some changes and it was not possible to book. Please try again.");
         } catch (DataIntegrityViolationException ex) {

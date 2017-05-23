@@ -152,12 +152,11 @@ public class JpaBookingRepository extends JpaAutoTxRepository<Booking, Long>
     public Booking findBookingByUserAndMealAndState(CafeteriaUser user, Meal meal, BookingState state) {
         Map<String,Object> params = new HashMap<>();
         params.put("user", user);
-        params.put("mealType", meal.mealType());
-        params.put("date", meal.getDate());
+        params.put("meal", meal);
         params.put("state", state);
-        return repo.matchOne("e.user=:user and e.meal.mealType=:mealType and e.meal.date=:date e.state=:state",params);
+        return repo.matchOne("e.user=:user and e.meal.date=:meal and e.state=:state",params);
     }
-
+    
     @Override
     public Iterable<Booking> checkBookingsByDateMealAndDishType(Calendar date, Iterable<MealType> mealTypes, DishType dishType) {
         Map<String, Object> params = new HashMap<>();
@@ -224,5 +223,13 @@ public class JpaBookingRepository extends JpaAutoTxRepository<Booking, Long>
 
         return repo.matchOne("e.user=:user and e.state=:state ORDER BY e.meal.date DESC", params);
     }
+
+    @Override
+    public Iterable<Booking> findBookingsByUserAndMealAndState(CafeteriaUser user, Meal meal, BookingState state) {
+  Map<String,Object> params = new HashMap<>();
+        params.put("user", user);
+        params.put("meal", meal.getDate());
+        params.put("state", state);
+        return repo.match("e.user=:user and e.meal.date=:meal and e.state=:state",params);    }
 
 }

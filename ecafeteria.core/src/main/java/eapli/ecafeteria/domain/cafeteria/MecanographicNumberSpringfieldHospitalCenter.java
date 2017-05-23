@@ -20,8 +20,10 @@ public class MecanographicNumberSpringfieldHospitalCenter implements Mecanograph
      */
     @Override
     public String instructions() {
-        return "It needs to have two capitalized letters. The first one describes the user type (F - Funcionário or A - Aluno)\n"
-                + "and the second the organic unit type (U - Urgência, E - Consultas Externas, F - Faculdade).\n"
+        return "It needs to have two capitalized letters. The first one describes the user type ('F' = Employee | 'A' = Student)"
+                + System.lineSeparator() 
+                + "and the second the organic unit type ('U' = Urgency | 'E' = Extern consult | 'F' = College)."
+                + System.lineSeparator() 
                 + "It must also have four digits.";
     }
 

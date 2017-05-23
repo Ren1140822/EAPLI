@@ -71,7 +71,7 @@ public class BookingBootstraper implements Action {
             theTopUpController.insertCard(user1.mecanographicNumber().toString());
             theTopUpController.topUpCard(10000.0);
             theTopUpController.insertCard(user2.mecanographicNumber().toString());
-            theTopUpController.topUpCard(10000.0);
+            theTopUpController.topUpCard(35.0);
         } catch (DataConcurrencyException | DataIntegrityViolationException ex) {
             Logger.getLogger(BookingBootstraper.class.getName()).log(Level.SEVERE, null, ex);
         }

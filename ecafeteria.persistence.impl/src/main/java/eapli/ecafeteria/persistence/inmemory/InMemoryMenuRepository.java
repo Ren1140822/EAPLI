@@ -37,4 +37,9 @@ public class InMemoryMenuRepository extends InMemoryRepositoryWithLongPK<Menu> i
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public Iterable<Menu> publishedMenu(CafeteriaUser user) {
+        return match(e -> e.isPublished() && e.organicUnit().equals(user.organicUnit()));
+    }
+
 }

@@ -32,7 +32,7 @@ class MainMenu extends CafeteriaUserBaseUI {
     private static final String BOOKINGS_TITLE = "Bookings";
     private static final String EVALUATE_MEAL_TITLE = "Evaluate Meals";
     private static final String ACCOUNT_TITLE = "Account";
-    private static final String EXIT_TITLE = "Rxit";
+    private static final String EXIT_TITLE = "Exit";
 
     @Override
     public boolean show() {

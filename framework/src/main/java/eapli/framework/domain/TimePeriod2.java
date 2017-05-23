@@ -49,7 +49,7 @@ public class TimePeriod2 implements Serializable{
     }
 
     public Calendar end() {
-	return this.start;
+	return this.end;
     }
 
     @Override

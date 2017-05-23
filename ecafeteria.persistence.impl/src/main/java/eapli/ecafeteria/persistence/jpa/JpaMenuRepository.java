@@ -31,16 +31,29 @@ public class JpaMenuRepository extends CafeteriaJpaRepositoryBase<Menu, Long> im
 
     @Override
     public Iterable<Menu> notPublishedMenu() {
-       return match("e.published=false");
+        return match("e.published=false");
     }
 
     @Override
-    public Iterable<Menu> publishedMenusOfDay(Calendar day,CafeteriaUser user) {
+    public Iterable<Menu> publishedMenusOfDay(Calendar day, CafeteriaUser user) {
         Map<String, Object> params = new HashMap<>();
-        params.put("day",day);
+        params.put("day", day);
         params.put("organicUnit", user.organicUnit());
         params.put("validator", true);
-       return match("e.period.start<=:day and e.period.end>=:day and e.organicUnit=:organicUnit and e.published=:validator",params );
+        return match("e.period.start<=:day and e.period.end>=:day and e.organicUnit=:organicUnit and e.published=:validator", params);
+    }
+
+    /**
+     * It gives an iterable of published menus from one user.
+     *
+     * @param user The Cafeteria user.
+     * @return It returns an iterable of menus.
+     */
+    @Override
+    public Iterable<Menu> publishedMenu(CafeteriaUser user) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("organicUnit", user.organicUnit());
+        return match("e.published=true and e.organicUnit=:organicUnit", params);
     }
 
 }
