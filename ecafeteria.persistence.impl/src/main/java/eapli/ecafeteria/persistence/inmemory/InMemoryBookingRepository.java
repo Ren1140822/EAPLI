@@ -149,4 +149,9 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public Iterable<Booking> findBookingByDateAndStateAndUser(Calendar startDate, Calendar endDate, CafeteriaUser user, BookingState state) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
