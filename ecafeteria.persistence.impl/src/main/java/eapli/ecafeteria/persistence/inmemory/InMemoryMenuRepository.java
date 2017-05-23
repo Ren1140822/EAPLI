@@ -6,9 +6,10 @@
 package eapli.ecafeteria.persistence.inmemory;
 
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
-import eapli.ecafeteria.domain.meals.*;
+import eapli.ecafeteria.domain.meals.Menu;
 import eapli.ecafeteria.persistence.MenuRepository;
 import eapli.framework.persistence.repositories.impl.inmemory.InMemoryRepositoryWithLongPK;
+
 import java.util.Calendar;
 
 /**

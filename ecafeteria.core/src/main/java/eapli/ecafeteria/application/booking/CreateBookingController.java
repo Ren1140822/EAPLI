@@ -26,7 +26,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import javax.persistence.NoResultException;
 
 /**
  *
@@ -85,11 +84,11 @@ public class CreateBookingController {
         CafeteriaUser user = userService.findCafeteriaUserByUsername(Application.session().session().authenticatedUser().id());
         try{
 
-           Iterable<Booking> b =  bookingRepository.findBookingsByUserAndMealAndState(user, meal, BookingState.DONE);
-           
+            Iterable<Booking> b = bookingRepository.findBookingsByUserAndMealAndState(user, meal, BookingState.DONE);
+
             for (Booking booking : b) {
-                if(booking.meal().mealType().equals(meal.mealType()))
-                return false;
+                if (booking.meal().mealType().equals(meal.mealType()))
+                    return false;
             }
         }catch(Exception ex){
             return true;

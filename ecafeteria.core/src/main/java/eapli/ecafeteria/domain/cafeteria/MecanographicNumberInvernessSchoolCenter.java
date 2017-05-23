@@ -40,7 +40,7 @@ public class MecanographicNumberInvernessSchoolCenter implements MecanographicNu
      */
     @Override
     public boolean validate(String number) {
-        if(Strings.isNullOrWhiteSpace(number)){
+        if (Strings.isNullOrWhiteSpace(number)) {
             return false;
         }
         return isEmployee(number) || isStudent(number);
@@ -48,7 +48,7 @@ public class MecanographicNumberInvernessSchoolCenter implements MecanographicNu
 
     /**
      * It checks if the number matches an employee mecanographic number.
-     * 
+     *
      * @param number The mecanographic number to validate. It must have four capital letters.
      * @return It returns "true" if it matches an employee mecanographic number or "false" otherwise.
      */
@@ -58,14 +58,14 @@ public class MecanographicNumberInvernessSchoolCenter implements MecanographicNu
 
     /**
      * It checks if the number matches a student mecanographic number.
-     * 
+     *
      * @param number The mecanographic number to validate. It must have six digits whose the first two represent the admission year.
      * @return It returns "true" if it matches a student mecanographic number or "false" otherwise.
      */
     private boolean isStudent(String number) {
-        if(number.matches("^[0-9]{6}$")){
+        if (number.matches("^[0-9]{6}$")) {
             int admissionYear = Integer.parseInt(number.substring(0, 2));
-            if(DateTime.currentYear()-STARTING_YEAR>=admissionYear){
+            if (DateTime.currentYear() - STARTING_YEAR >= admissionYear) {
                 return true;
             }
         }

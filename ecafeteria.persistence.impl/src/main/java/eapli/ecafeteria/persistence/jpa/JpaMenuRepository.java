@@ -6,9 +6,9 @@
 package eapli.ecafeteria.persistence.jpa;
 
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
-import eapli.ecafeteria.domain.meals.*;
-import eapli.ecafeteria.persistence.*;
-import java.io.Serializable;
+import eapli.ecafeteria.domain.meals.Menu;
+import eapli.ecafeteria.persistence.MenuRepository;
+
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;

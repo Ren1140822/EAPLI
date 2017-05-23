@@ -3,13 +3,12 @@
  */
 package eapli.framework.domain;
 
-import java.io.Serializable;
-import java.util.Calendar;
-import java.util.Objects;
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Objects;
 
 /**
  * A simple time period class that does not use Range. does not possess any
@@ -49,7 +48,7 @@ public class TimePeriod2 implements Serializable{
     }
 
     public Calendar end() {
-	return this.end;
+        return this.end;
     }
 
     @Override

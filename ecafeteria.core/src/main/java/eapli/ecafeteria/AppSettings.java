@@ -14,13 +14,13 @@ import java.util.logging.Logger;
  */
 public class AppSettings {
 
+    public final static String USER_ALERT_LIMITS = "userAlertLimits";
     private final static String PROPERTIES_RESOURCE = "ecafeteria.properties";
     private final static String REPOSITORY_FACTORY_KEY = "persistence.repositoryFactory";
     private final static String UI_MENU_LAYOUT_KEY = "ui.menu.layout";
     private final static String PERSISTENCE_UNIT_KEY = "persistence.persistenceUnit";
     private final static String DOMAIN_MECANOGRAPHIC_NUMBER_KEY_ISEP = "domain.mecanographicNumberStrategy.ISEP";
     private final static String DOMAIN_MECANOGRAPHIC_NUMBER_KEY_HSJ = "domain.mecanographicNumberStrategy.HSJ";
-    public final static String USER_ALERT_LIMITS = "userAlertLimits";
     private final Properties applicationProperties = new Properties();
 
     public AppSettings() {

@@ -14,6 +14,7 @@ import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
 import eapli.util.DateTime;
 import eapli.util.io.Console;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -38,9 +39,8 @@ public class CreateBookingUI extends AbstractUI {
             dayToBook = Console.readDate("Insert the date(YYYY/MM/DD):");
 
         } while (!validateInputDate(dayToBook));
-        
-        
-        
+
+
         List<Meal> meals = sortByMealType(controller.menusOfDay(dayToBook));
         
         if(meals.isEmpty()){
@@ -97,15 +97,15 @@ public class CreateBookingUI extends AbstractUI {
         return true;
 
     }
-    
-    public  List<Meal> sortByMealType( List<Meal> meals){
-        List<Meal> typeLunch  = new ArrayList();
+
+    public List<Meal> sortByMealType(List<Meal> meals) {
+        List<Meal> typeLunch = new ArrayList();
         List<Meal> typeDinner = new ArrayList();
-        List<Meal> orderedMeals  = new ArrayList();
+        List<Meal> orderedMeals = new ArrayList();
         for (Meal meal : meals) {
-            if(meal.mealType().mealTypeID()==0){
+            if (meal.mealType().mealTypeID() == 0) {
                 typeLunch.add(meal);
-            }else if(meal.mealType().mealTypeID()==1){
+            } else if (meal.mealType().mealTypeID() == 1) {
                 typeDinner.add(meal);
             }
         }

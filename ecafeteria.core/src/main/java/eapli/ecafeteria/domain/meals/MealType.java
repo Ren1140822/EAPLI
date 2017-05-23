@@ -6,9 +6,10 @@
 package eapli.ecafeteria.domain.meals;
 
 import eapli.framework.domain.ddd.ValueObject;
+
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Calendar;
-import javax.persistence.*;
 
 /**
  *
@@ -30,12 +31,8 @@ public class MealType implements ValueObject, Serializable {
     private static final int JANTAR_FREE_CANCEL_TIME_LIMIT_HOUR = 16;
     private static final int JANTAR_FREE_CANCEL_TIME_LIMIT_MINUTES = 0;
     private static final int JANTAR_FREE_CANCEL_TIME_LIMIT_SECONDS = 0;
-
-    public enum MealTypes {
-        LUNCH, DINNER
-    };
-
     private MealTypes mealType;
+    ;
 
     protected MealType() {
     } // For ORM
@@ -50,13 +47,15 @@ public class MealType implements ValueObject, Serializable {
     public String mealType() {
         return this.mealType.name();
     }
-    
-    public int mealTypeID(){
-        switch(mealType){
-            case LUNCH: return 0 ;
-            case DINNER: return 1;
+
+    public int mealTypeID() {
+        switch (mealType) {
+            case LUNCH:
+                return 0;
+            case DINNER:
+                return 1;
         }
-                return -1; // should not happen
+        return -1; // should not happen
     }
     
     /**
@@ -89,15 +88,15 @@ public class MealType implements ValueObject, Serializable {
 
     /**
      * It checks if the meal type (enum) is the same as this meal type.
-     * 
+     *
      * @param type The meal type (enum) to check.
      * @return It returns "true" if this meal type has the same meal type (enum) or "false" otherwise.
      */
     public boolean isOf(MealTypes type) {
         return type!=null && mealType.equals(type);
     }
-    
-     @Override
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -106,8 +105,12 @@ public class MealType implements ValueObject, Serializable {
             return false;
         }
 
-        MealType  meal = (MealType) o;
+        MealType meal = (MealType) o;
 
         return mealType.equals(meal.mealType);
+    }
+
+    public enum MealTypes {
+        LUNCH, DINNER
     }
 }

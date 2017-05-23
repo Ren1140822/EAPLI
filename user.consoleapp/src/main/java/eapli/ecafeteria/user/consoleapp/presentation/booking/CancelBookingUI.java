@@ -7,14 +7,12 @@ package eapli.ecafeteria.user.consoleapp.presentation.booking;
 
 import eapli.ecafeteria.application.booking.CancelBookingController;
 import eapli.ecafeteria.domain.booking.Booking;
-import eapli.ecafeteria.domain.cafeteria.account.AlertWatchDog;
 import eapli.framework.application.Controller;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
-import java.util.Observable;
-import java.util.Observer;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

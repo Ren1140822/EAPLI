@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Formatter;
 import java.util.List;
 import java.util.Scanner;
 
@@ -51,7 +50,7 @@ public class Files {
             while (sc.hasNextLine()) {
                 lines.add(sc.nextLine());
             }
-            
+
             sc.close();
             PrintWriter writer = new PrintWriter(propertiesFile);
             writer.print("");
@@ -63,7 +62,7 @@ public class Files {
                     line = newLine;
                 }
                 writer.println(line.toString());
-                
+
             }
             writer.close();
         } catch (FileNotFoundException e) {

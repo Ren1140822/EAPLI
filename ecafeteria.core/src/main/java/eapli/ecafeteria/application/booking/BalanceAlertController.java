@@ -27,10 +27,10 @@ public class BalanceAlertController implements Controller, Alert {
 
     private final CafeteriaUserService usersService = new CafeteriaUserService();
     private final AccountCardRepository accountRep = PersistenceContext.repositories().accountCards(null);
+    private final MenuRepository menuRep = PersistenceContext.repositories().menus();
     private Username username = Application.session().session().authenticatedUser().username();
     private CafeteriaUser client = usersService.findCafeteriaUserByUsername(username);
     private BalanceLimit balanceLimit = new BalanceLimit();
-    private final MenuRepository menuRep = PersistenceContext.repositories().menus();
 
     /**
      * Method of alert that is going to say the property alert message is going

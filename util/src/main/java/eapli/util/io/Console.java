@@ -4,6 +4,8 @@
  */
 package eapli.util.io;
 
+import eapli.util.DateTime;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,8 +15,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import eapli.util.DateTime;
 
 /**
  * Utility class for reading different data types from the Console.
@@ -92,9 +92,9 @@ public final class Console {
 		final SimpleDateFormat df = new SimpleDateFormat(dateFormat);
 		return df.parse(strDate);
 	    } catch (final ParseException ex) {
-			System.err.println("Invalid date!\n");
-		}
-	} while (true);
+            System.err.println("Invalid date!\n");
+        }
+    } while (true);
     }
 
     public static Calendar readCalendar(String prompt) {

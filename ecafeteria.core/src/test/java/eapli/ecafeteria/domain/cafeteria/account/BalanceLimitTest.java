@@ -6,15 +6,12 @@
 package eapli.ecafeteria.domain.cafeteria.account;
 
 import eapli.framework.domain.Money;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.*;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
- *
  * @author Sofia
  */
 public class BalanceLimitTest {
@@ -32,7 +29,7 @@ public class BalanceLimitTest {
         balance50 = new Balance(Money.euros(50));
         money60 = Money.euros(60);
         money4 = Money.euros(4);
-    
+
     }
 
     @AfterClass
@@ -58,10 +55,10 @@ public class BalanceLimitTest {
         BalanceLimit instance = new BalanceLimit();
         boolean result = instance.isViolated(b, average);
         assertFalse(result);
-        
+
         average = money60;
         result = instance.isViolated(b, average);
-        System.out.println(money60.amount()+" "+result);
+        System.out.println(money60.amount() + " " + result);
         assertTrue(result);
     }
 }

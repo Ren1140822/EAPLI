@@ -12,8 +12,9 @@ import eapli.ecafeteria.persistence.MenuRepository;
 import eapli.framework.domain.Money;
 import eapli.framework.domain.ddd.ValueObject;
 import eapli.util.DateTime;
-import java.util.Calendar;
+
 import javax.persistence.Embeddable;
+import java.util.Calendar;
 
 /**
  * It represents the balance limit of the account card.
@@ -34,7 +35,7 @@ public class BalanceLimit implements ValueObject {
      * It checks if the balance limit is violated, seeing if it has enough
      * balance.
      *
-     * @param b The balance to be ocmpared.
+     * @param b       The balance to be ocmpared.
      * @param average The balance average calculated.
      * @return It returns boolean if the average greater than the balance or
      * false otherwise.

@@ -17,7 +17,7 @@ public class MealPrinter implements Visitor<Meal>{
 
     @Override
     public void visit(Meal visitee) {
-       System.out.println(visitee.mealType().mealType()+" - "+visitee.dish().name()+" - "+visitee.dish().currentPrice());
+        System.out.println(visitee.mealType().mealType() + " - " + visitee.dish().name() + " - " + visitee.dish().currentPrice());
        if(visitee.dish().allergens()!=null){
            for (Allergen allergen : visitee.dish().allergens().allergens()) {
             System.out.println(allergen.name());

@@ -3,13 +3,12 @@ package eapli.ecafeteria.domain.kitchen;
 import eapli.ecafeteria.domain.meals.Meal;
 import eapli.framework.domain.ddd.AggregateRoot;
 import eapli.util.Strings;
-import java.io.Serializable;
-import javax.persistence.CascadeType;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Version;
+import java.io.Serializable;
 
 /**
  * A Material Used

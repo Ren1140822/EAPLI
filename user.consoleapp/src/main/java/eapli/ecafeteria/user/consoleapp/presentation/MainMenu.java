@@ -9,12 +9,7 @@ import eapli.cafeteria.consoleapp.presentation.ExitWithMessageAction;
 import eapli.cafeteria.consoleapp.presentation.MyUserMenu;
 import eapli.ecafeteria.application.CafeteriaUserBaseController;
 import eapli.framework.actions.Action;
-import eapli.framework.presentation.console.Menu;
-import eapli.framework.presentation.console.MenuItem;
-import eapli.framework.presentation.console.MenuRenderer;
-import eapli.framework.presentation.console.ShowSubMenuAction;
-import eapli.framework.presentation.console.ShowUiAction;
-import eapli.framework.presentation.console.SubMenu;
+import eapli.framework.presentation.console.*;
 
 /**
  * @author Paulo Gandra Sousa
