@@ -67,7 +67,12 @@ public class RegisterMealDeliveryController implements Controller {
     public boolean registerMealDelivery(Meal meal) {
         Booking tempBooking = bookingRepo.findBookingByUserAndMealAndState(user, meal, BookingState.DEFINITIVE);
         tempBooking.deliver();
-        //TODO is a call to persistence missing here?
+         try {
+            bookingRepo.save(tempBooking);
+        } catch (DataConcurrencyException | DataIntegrityViolationException ex) {
+            Logger.getLogger(RegisterMealDeliveryController.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
         return true;
     }
 

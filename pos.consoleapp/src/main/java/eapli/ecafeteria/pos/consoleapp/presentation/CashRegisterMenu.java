@@ -23,13 +23,16 @@ public class CashRegisterMenu extends Menu {
     private static final int OPEN_CASH_REGISTER = 1;
     //FIXME
     //Optional until further discussion with cliente
-    private static final int REGISTER_COMPLAINT_OPTION = 2;
+    private static final int REGISTER_COMPLAINT_OPTION = 3;
+    
+    private static final int CLOSE_CASH_REGISTER = 2;
     
     /**
      * Builds the cash register menu adding menu items.
      */
     private void buildCashRegisterMenu() {
         add(new MenuItem(OPEN_CASH_REGISTER, "Open Cash Register", new OpenCashRegisterAction()));
+         add(new MenuItem(CLOSE_CASH_REGISTER, "Close Cash Register", new CloseCashRegisterAction()));
         add(new MenuItem(REGISTER_COMPLAINT_OPTION, "Register Complaint", new RegisterComplaintAction()));
         add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
     }

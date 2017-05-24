@@ -110,4 +110,9 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     public ComplaintRepository complaints() {
         return new JpaComplaintRepository();
     }
+
+    @Override
+    public CashRegisterLogRepository cashRegisterLogs() {
+         return new JpaCashRegisterLogRepository();
+    }
 }

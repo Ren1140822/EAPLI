@@ -52,10 +52,8 @@ public class OpenCashRegisterUI extends AbstractUI {
 
         boolean success = false;
         try {
-            this.theController.openCashRegister(cashRegisterId, chosenMealType, inputDate);
-
-            success = !success; // Turn to success to true
-         
+            success = this.theController.openCashRegister(cashRegisterId, chosenMealType, inputDate);
+            
         } catch (IllegalStateException ex) {
             System.out.println(ex.getMessage());
         } catch (DataConcurrencyException ex) {
@@ -70,7 +68,7 @@ public class OpenCashRegisterUI extends AbstractUI {
             // Success message
             System.out.println("The Cash Register with ID " + stringCashRegisterId + " was successfully opened.");
         } else {
-            // Unuccess message
+            // Unsuccess message
             System.out.println("The opening of Cash Register with ID " + stringCashRegisterId + " was unsuccessfull.");
         }
 
