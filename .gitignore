@@ -170,3 +170,4 @@ fabric.properties
 *.xml
 
 *.db
+/ecafeteria.persistence.impl/nbproject/
