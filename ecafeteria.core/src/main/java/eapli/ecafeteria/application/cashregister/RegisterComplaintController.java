@@ -47,6 +47,9 @@ public class RegisterComplaintController implements Controller {
         builder.withDish(dish);
     }
 
+    //FIXME
+    //@author Meireles
+    // The mecanographic number might contain letters. The name misleads. The number should be a String.
     public boolean insertMecanograficNumber(int number) {
         try {
             CafeteriaUser user = userRepository.findByMecanographicNumber(new MecanographicNumber(String.valueOf(number)));

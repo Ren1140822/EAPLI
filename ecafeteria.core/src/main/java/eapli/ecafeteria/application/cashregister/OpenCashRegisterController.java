@@ -56,6 +56,11 @@ public class OpenCashRegisterController implements Controller {
      */
     public void openShift(MealType mealType, Calendar date)
             throws DataConcurrencyException, DataIntegrityViolationException {
+        
+    //FIXME
+    //@author Meireles
+    // Should this method be public? Is it used by the UI or only within the controller?
+    
         Shift shift;
         try {
             shift = shiftRepository.findByDateAndMealType(date, mealType);
