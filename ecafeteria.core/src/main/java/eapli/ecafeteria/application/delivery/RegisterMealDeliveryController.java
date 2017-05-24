@@ -1,20 +1,26 @@
 package eapli.ecafeteria.application.delivery;
 
+import eapli.ecafeteria.Application;
 import eapli.ecafeteria.application.booking.ListBookingsService;
 import eapli.ecafeteria.domain.booking.Booking;
 import eapli.ecafeteria.domain.booking.BookingState;
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
+import eapli.ecafeteria.domain.cafeteria.cashregister.CashRegisterLog;
+import eapli.ecafeteria.domain.cafeteria.cashregister.Shift;
+import eapli.ecafeteria.domain.cafeteria.cashregister.ShiftState;
 import eapli.ecafeteria.domain.meals.Meal;
 import eapli.ecafeteria.persistence.BookingRepository;
 import eapli.ecafeteria.persistence.CafeteriaUserRepository;
+import eapli.ecafeteria.persistence.CashRegisterLogRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
+import eapli.ecafeteria.persistence.ShiftRepository;
 import eapli.framework.application.Controller;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
-import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -43,37 +49,32 @@ public class RegisterMealDeliveryController implements Controller {
      */
     public boolean registerMealDelivery() {
 
-        
-        ListBookingsService bookingsService = new ListBookingsService();
-        Booking tempBooking = bookingsService.findLatestBookingOfUserInDefinitiveState(user);
+        ShiftRepository shiftRepo = PersistenceContext.repositories().shifts();
+        CashRegisterLogRepository cashRegisterLogRepository = PersistenceContext.repositories().cashRegisterLogs();
+        Iterable<Shift> shiftIterable = shiftRepo.findByState(ShiftState.OPENED);//only one shift should be opened, else the use case may give wrong results.
+        Shift currentShift = shiftIterable.iterator().hasNext() ? shiftIterable.iterator().next() : null;
+        if (currentShift != null) {
 
-        tempBooking.deliver();
-        try {
-            bookingRepo.save(tempBooking);
-        } catch (DataConcurrencyException | DataIntegrityViolationException ex) {
-            Logger.getLogger(RegisterMealDeliveryController.class.getName()).log(Level.SEVERE, null, ex);
+            try {
 
+                CashRegisterLog oldLog = cashRegisterLogRepository.getClosedCashRegisterLogByCashierInCurrentShift(Application.session().session().authenticatedUser(), currentShift);//if cashier did not close a shift, this should be null
+            } catch (NoResultException ex) {
+                try {
+                    ListBookingsService bookingsService = new ListBookingsService();
+                    Booking tempBooking = bookingsService.findLatestBookingOfUserInDefinitiveState(user);
+
+                    tempBooking.deliver();
+
+                    bookingRepo.save(tempBooking);
+                    return true;
+                } catch (DataConcurrencyException | DataIntegrityViolationException | NoResultException ex2) {
+                    Logger.getLogger(RegisterMealDeliveryController.class.getName()).log(Level.SEVERE, null, ex);
+
+                }
+
+            }
         }
-
-        return true;
-    }
-
-    /**
-     * Registers a specific meal of this user
-     *
-     * @param meal the meal to deliver
-     * @return true if the meal delivery was registered
-     */
-    public boolean registerMealDelivery(Meal meal) {
-        Booking tempBooking = bookingRepo.findBookingByUserAndMealAndState(user, meal, BookingState.DEFINITIVE);
-        tempBooking.deliver();
-         try {
-            bookingRepo.save(tempBooking);
-        } catch (DataConcurrencyException | DataIntegrityViolationException ex) {
-            Logger.getLogger(RegisterMealDeliveryController.class.getName()).log(Level.SEVERE, null, ex);
-
-        }
-        return true;
+        return false;
     }
 
 }

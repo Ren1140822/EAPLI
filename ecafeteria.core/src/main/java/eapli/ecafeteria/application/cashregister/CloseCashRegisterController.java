@@ -11,13 +11,13 @@ import eapli.ecafeteria.domain.cafeteria.cashregister.CashRegisterLog;
 import eapli.ecafeteria.domain.cafeteria.cashregister.CashRegisterState;
 import eapli.ecafeteria.domain.cafeteria.cashregister.Shift;
 import eapli.ecafeteria.domain.cafeteria.cashregister.ShiftState;
+import eapli.ecafeteria.persistence.BookingRepository;
 import eapli.ecafeteria.persistence.CashRegisterLogRepository;
 import eapli.ecafeteria.persistence.CashRegisterRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.ecafeteria.persistence.ShiftRepository;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
-import javax.persistence.NoResultException;
 
 /**
  *
@@ -56,4 +56,8 @@ public class CloseCashRegisterController {
         }
     }
 
+    public void listDeliveredMeals()
+    {
+        
+    }
 }
