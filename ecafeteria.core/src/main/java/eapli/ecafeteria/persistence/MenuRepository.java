@@ -18,7 +18,7 @@ import java.util.Calendar;
  */
 public interface MenuRepository extends DataRepository<Menu, Long> {
 
-    public Menu findById(TimePeriod2 id);
+    public Menu findByPeriod(TimePeriod2 id);
     public Iterable<Menu> publishedMenu();
 
     public Iterable<Menu> publishedMenu(CafeteriaUser user);

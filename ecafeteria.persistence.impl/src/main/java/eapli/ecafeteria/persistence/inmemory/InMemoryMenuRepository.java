@@ -20,8 +20,8 @@ import java.util.Calendar;
 public class InMemoryMenuRepository extends InMemoryRepositoryWithLongPK<Menu> implements MenuRepository {
 
     @Override
-    public Menu findById(TimePeriod2 id) {
-        return matchOne(e->e.id().equals(id));
+    public Menu findByPeriod(TimePeriod2 period) {
+        return matchOne(e->e.period().equals(period));
     }
 
     @Override
