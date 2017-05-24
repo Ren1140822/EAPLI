@@ -125,6 +125,11 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
     public Iterable<Booking> findBookingsByDateAndMealTypeAndState(Calendar date, MealType mealType, BookingState state) {
         return match(e -> e.meal().getDate().compareTo(date) == 0 && e.meal().mealType().isOf(MealType.MealTypes.valueOf(mealType.mealType())) && e.isAtState(state));
     }
+    
+      public Iterable<Booking> findBookingsByUserAndMealAndState(CafeteriaUser user, Meal meal, BookingState state) {
+        return match(e-> e.belongsTo(user) && e.meal().getDate().compareTo(meal.getDate())==0 && e.isAtState(state));
+    }
+
 
     public Booking findLatestBookingOfUserInDefinitiveState(CafeteriaUser user) {
         Iterable<Booking> bookings = match(e -> e.belongsTo(user) && e.isAtState(BookingState.DEFINITIVE));
@@ -150,13 +155,11 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
         return deliveredMeals.spliterator().getExactSizeIfKnown();
     }
 
-    public Iterable<Booking> findBookingsByUserAndMealAndState(CafeteriaUser user, Meal meal, BookingState state) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+  
     @Override
     public Iterable<Booking> findBookingByDateAndStateAndUser(Calendar startDate, Calendar endDate, CafeteriaUser user, BookingState state) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return match(e-> e.belongsTo(user) && DateTime.isUntil(e.meal().getDate(), endDate) && DateTime.isOnwards(e.meal().getDate(), startDate)
+        && e.isAtState(state));
     }
 
 }
