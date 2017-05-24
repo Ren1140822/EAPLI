@@ -5,6 +5,8 @@
  */
 package eapli.ecafeteria.persistence;
 
+import eapli.ecafeteria.domain.booking.Booking;
+import eapli.ecafeteria.domain.booking.BookingState;
 import eapli.ecafeteria.domain.cafeteria.cashregister.Shift;
 import eapli.ecafeteria.domain.kitchen.MealsPrepared;
 import eapli.framework.persistence.repositories.DataRepository;
@@ -23,4 +25,12 @@ public interface MealsPreparedRepository extends DataRepository<MealsPrepared, L
      * @return meals prepared for the shift
      */
     Iterable<MealsPrepared> findByShift(Shift shift);
+    
+    /**
+     * Count the meals prepared with a given booked state.
+     * @param booking booking
+     * @param state booling state
+     * @return meals prepared with state received
+     */
+     public Long countWithBookedState(Booking booking, BookingState state);
 }

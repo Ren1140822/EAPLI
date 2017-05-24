@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package eapli.ecafeteria.application.kitchen;
 
 import eapli.ecafeteria.Application;
@@ -31,20 +26,20 @@ public class RegisterLotsInMealController implements Controller {
     private final MaterialUsedRepository materialUsedRepository= PersistenceContext.repositories().materialUsed();
         
     /**
-     * list of meals of day
-     * @return 
+     * list meals of atual day
+     * @return meals of today
      */
     public Iterable<Meal> showMealsOfDay(){
         Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
 
-        Calendar date = DateTime.now();
+       Calendar date = DateTime.now();
        return this.mealRepository.findByDate(DateTime.now());
  
     }
     
     /**
-     * list of raw materials 
-     * @return 
+     * list raw materials 
+     * @return raw materials
      */
     public Iterable<Material> showMaterials(){
          Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
@@ -54,9 +49,9 @@ public class RegisterLotsInMealController implements Controller {
     
     /**
      * bootstrap uses
-     * @param meal meal 
-     * @param material
-     * @param batchNumber 
+     * @param meal meal selected to introduce material used
+     * @param material material used in the meal
+     * @param batchNumber batch number (lot) which material came from
      * @throws eapli.framework.persistence.DataConcurrencyException 
      * @throws eapli.framework.persistence.DataIntegrityViolationException 
      */
