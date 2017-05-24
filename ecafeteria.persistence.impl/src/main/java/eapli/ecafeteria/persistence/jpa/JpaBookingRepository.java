@@ -38,7 +38,7 @@ public class JpaBookingRepository extends JpaAutoTxRepository<Booking, Long>
      * It finds the next booking from the user which is at any of the given
      * states.
      *
-     * @param user   The user who owns the booking.
+     * @param user The user who owns the booking.
      * @param states The states in which the booking might be.
      * @return It returns the next booking or null if none was found.
      */
@@ -91,7 +91,7 @@ public class JpaBookingRepository extends JpaAutoTxRepository<Booking, Long>
      * It finds the bookings of a given Cafeteria User that are at a given
      * state.
      *
-     * @param user  The Cafeteria User that owns the booking.
+     * @param user The Cafeteria User that owns the booking.
      * @param state The state of the bookings to search for.
      * @return
      */
@@ -108,10 +108,10 @@ public class JpaBookingRepository extends JpaAutoTxRepository<Booking, Long>
      * days, that are at one of the specified states and belongs to the
      * specified user.
      *
-     * @param user   The user to whom the Bookings belong.
+     * @param user The user to whom the Bookings belong.
      * @param states The states at which the bookings should be.
-     * @param days   The number of days (starting from the current day) in which
-     *               the booking's meal should occur.
+     * @param days The number of days (starting from the current day) in which
+     * the booking's meal should occur.
      * @return It returns all matching bookings.
      */
     @Override
@@ -167,7 +167,6 @@ public class JpaBookingRepository extends JpaAutoTxRepository<Booking, Long>
         query.append("e.meal.date=:date ");
         params.put("date", new java.sql.Date(date.getTimeInMillis()));
 
-
         if (mealTypes.iterator().hasNext()) {
             query.append(" and ( ");
             short i = 0;
@@ -195,7 +194,7 @@ public class JpaBookingRepository extends JpaAutoTxRepository<Booking, Long>
     /**
      * It provides all the non evaluated bookings by the respective user.
      *
-     * @param user  The user that requires the booking.
+     * @param user The user that requires the booking.
      * @param state The state that the booking has to be.
      * @return It returns a iterable with the bookings that aren't evaluated.
      */
@@ -234,10 +233,10 @@ public class JpaBookingRepository extends JpaAutoTxRepository<Booking, Long>
         params.put("mealType", shift.mealType());
         params.put("dishType", dishType);
 
-        String whereClause = "e.state=:state and " +
-                "e.meal.date=:date and " +
-                "e.meal.mealType=:mealType and " +
-                "e.meal.dish.dishType=:dishType";
+        String whereClause = "e.state=:state and "
+                + "e.meal.date=:date and "
+                + "e.meal.mealType=:mealType and "
+                + "e.meal.dish.dishType=:dishType";
 
         return repo.count(whereClause, params);
     }
@@ -252,13 +251,32 @@ public class JpaBookingRepository extends JpaAutoTxRepository<Booking, Long>
 
     @Override
     public Iterable<Booking> findBookingByDateAndStateAndUser(Calendar startDate, Calendar endDate, CafeteriaUser user, BookingState state) {
-       Map<String,Object> params = new HashMap<>();
-       params.put("user", user);
-       params.put("startDate", startDate);
-       params.put("endDate", endDate);
-       params.put("state", state);
-       return repo.match("e.user=:user and e.meal.date>=:startDate and e.meal.date<=:endDate and e.state=:state",params);
+        Map<String, Object> params = new HashMap<>();
+        params.put("user", user);
+        params.put("startDate", startDate);
+        params.put("endDate", endDate);
+        params.put("state", state);
+        return repo.match("e.user=:user and e.meal.date>=:startDate and e.meal.date<=:endDate and e.state=:state", params);
     }
-    
-    
+
+    @Override
+    public Long countAllDeliveredMeals(Shift shift) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("state", BookingState.DELIVERED);
+        params.put("date", shift.date());
+        params.put("mealType", shift.mealType());
+        String whereClause = "e.state=:state and "
+                + "e.meal.date=:date and "
+                + "e.meal.mealType=:mealType";
+        return repo.count(whereClause, params);
+    }
+
+    @Override
+    public Iterable<Booking> findBookingsDeliveredInShift(Shift shift) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("date", shift.date());
+        params.put("mealType", shift.mealType());
+        params.put("state", BookingState.DELIVERED);
+        return repo.match("e.meal.date=:date and e.meal.mealType=:mealType and e.state=:state", params);
+    }
 }

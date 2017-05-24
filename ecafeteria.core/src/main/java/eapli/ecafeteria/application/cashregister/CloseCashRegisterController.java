@@ -6,6 +6,7 @@
 package eapli.ecafeteria.application.cashregister;
 
 import eapli.ecafeteria.domain.authz.SystemUser;
+import eapli.ecafeteria.domain.booking.Booking;
 import eapli.ecafeteria.domain.cafeteria.cashregister.CashRegister;
 import eapli.ecafeteria.domain.cafeteria.cashregister.CashRegisterLog;
 import eapli.ecafeteria.domain.cafeteria.cashregister.CashRegisterState;
@@ -46,18 +47,30 @@ public class CloseCashRegisterController {
         if (currentShift != null) {
 
             log = cashRegisterLogRepository.getOpenedCashRegisterLogByCashierInCurrentShift(cashier, currentShift);
-           
-                cashRegister = cashRegisterRepository.findByCashRegisterId(log.cashRegisterID());
-                cashRegister.close();
-                cashRegisterRepository.save(cashRegister);
-                CashRegisterLog newLog = new CashRegisterLog(cashRegister, currentShift, cashier, CashRegisterState.CLOSED);
-                cashRegisterLogRepository.save(newLog);
-            
+
+            cashRegister = cashRegisterRepository.findByCashRegisterId(log.cashRegisterID());
+            cashRegister.close();
+            cashRegisterRepository.save(cashRegister);
+            CashRegisterLog newLog = new CashRegisterLog(cashRegister, currentShift, cashier, CashRegisterState.CLOSED);
+            cashRegisterLogRepository.save(newLog);
+
         }
     }
 
-    public void listDeliveredMeals()
-    {
-        
+    /**
+     * Counts delivered meals for this shift
+     *
+     * @return the number of delivered meals in this shift
+     */
+    public Long countDeliveredMeals() {
+        BookingRepository bookingRepo = PersistenceContext.repositories().bookings(null);
+        return bookingRepo.countAllDeliveredMeals(currentShift);
+    }
+
+    public Iterable<Booking> deliveredBookings() {
+
+        BookingRepository bookingRepo = PersistenceContext.repositories().bookings(null);
+        return bookingRepo.findBookingsDeliveredInShift(currentShift);
+
     }
 }
