@@ -21,6 +21,7 @@ import eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen.ListMaterialA
 import eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen.RegisterLotsInMealAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen.RegisterMaterialAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen.RegisterPreparedMealsAction;
+import eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen.SearchByLotAction;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.*;
 import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.framework.actions.ReturnAction;
@@ -96,6 +97,7 @@ public class MainMenu extends AbstractUI {
     private static final int MEALS_OPTION = 6;
     private static final int TRACEABILITY_OPTION = 7;
     private static final int BOOKINGS_OPTION = 8;
+    private static final int SEARCH_BY_LOT_OPTION = 9;
 
     @Override
     public boolean show() {
@@ -159,6 +161,12 @@ public class MainMenu extends AbstractUI {
         {
             final Menu checkBookingsMenu = buildCheckBookingsByTypeMenu();
             mainMenu.add(new SubMenu(BOOKINGS_OPTION, checkBookingsMenu, new ShowVerticalSubMenuAction(checkBookingsMenu)));
+        }
+        if(Application.session().session().authenticatedUser().isAuthorizedTo(ActionRight.MANAGE_KITCHEN)){
+            
+            final Menu SearchByLotMenu = buildSearchByLotMenu();
+            mainMenu.add(new SubMenu(SEARCH_BY_LOT_OPTION, SearchByLotMenu, new ShowVerticalSubMenuAction(SearchByLotMenu)));
+            
         }
         if (Application.session().session().authenticatedUser().isAuthorizedTo(ActionRight.SALE)) {
             // TODO
@@ -290,6 +298,14 @@ public class MainMenu extends AbstractUI {
         menu.add(new MenuItem(BOOKINGS_OPTION, "Check Bookings by date and type(Meal/Dish)", new CheckExistingBookingAction()));
         menu.add(new MenuItem(EXIT_OPTION, "Return ", new ReturnAction()));
 
+        return menu;
+    }
+    
+    private Menu buildSearchByLotMenu(){
+        final Menu menu = new Menu("Search By Lot>");
+        
+        menu.add(new MenuItem(SEARCH_BY_LOT_OPTION, "Search Meals By lot Code:", new SearchByLotAction()));
+        
         return menu;
     }
 }

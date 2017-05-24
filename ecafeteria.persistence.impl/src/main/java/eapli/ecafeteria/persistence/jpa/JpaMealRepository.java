@@ -44,7 +44,4 @@ public class JpaMealRepository extends CafeteriaJpaRepositoryBase<Meal, Long> im
         params.put("type", type);
         return match("e.date=:date and e.mealType=:type", params);
     }
-
-
-
 }

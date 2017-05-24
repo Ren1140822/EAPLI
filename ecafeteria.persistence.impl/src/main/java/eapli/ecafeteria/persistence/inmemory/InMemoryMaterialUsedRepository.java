@@ -14,5 +14,10 @@ import eapli.framework.persistence.repositories.impl.inmemory.InMemoryRepository
  * @author Pedro Fernandes
  */
 public class InMemoryMaterialUsedRepository extends InMemoryRepositoryWithLongPK<MaterialUsed> implements MaterialUsedRepository{
+
+    @Override
+    public Iterable<MaterialUsed> searchByLot(String lotCode) {
+        return match(e -> (e.batchNumber().lotCode()== lotCode));
+    }
     
 }

@@ -36,6 +36,7 @@ public class CheckExistingBookingController implements Controller {
         ArrayList<MealType> mealTypes = new ArrayList<>();
         
         final MealTypes mealTypee=null;
+        
         if(mealType.equalsIgnoreCase("Lunch")){
             mealTypes.add(new MealType(mealTypee.LUNCH));
             
@@ -46,11 +47,13 @@ public class CheckExistingBookingController implements Controller {
             
             return this.repository.checkBookingsByDateMealAndDishType(date, mealTypes, dishType);
         }
+        
         mealTypes.add(new MealType(mealTypee.LUNCH));
         mealTypes.add(new MealType(mealTypee.DINNER));
         
-        
         return this.repository.checkBookingsByDateMealAndDishType(date, mealTypes, dishType);
+        
+      
         }
     
     /**

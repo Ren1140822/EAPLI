@@ -46,7 +46,15 @@ public class MaterialUsed implements AggregateRoot<Long>, Serializable {
     protected MaterialUsed() {
         // for ORM
     }
-
+    
+    public BatchNumber batchNumber(){
+        return this.batchNumber;
+    }
+    
+    public Meal meal(){
+        return this.meal;
+    }
+    
     @Override
     public boolean sameAs(Object other) {
         if (!(other instanceof MaterialUsed)) {

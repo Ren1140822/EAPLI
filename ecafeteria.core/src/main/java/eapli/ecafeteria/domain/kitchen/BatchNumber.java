@@ -33,6 +33,10 @@ public class BatchNumber implements ValueObject, Serializable {
         // for ORM
     }
 
+    public String lotCode() {
+        return this.lotCode;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
