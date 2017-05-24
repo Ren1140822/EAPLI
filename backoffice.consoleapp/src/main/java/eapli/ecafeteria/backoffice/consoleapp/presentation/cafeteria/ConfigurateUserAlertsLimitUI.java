@@ -22,9 +22,19 @@ public class ConfigurateUserAlertsLimitUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
-        int limit = Console.readInteger("Alert's limit: ");
+        boolean flag = false;
+        int limit = 0;
+        while (!flag) {
+            try {
+                limit = Console.readInteger("Alert's limit: ");
+                flag = true;
+            } catch (NumberFormatException e) {
+                System.out.println("You must insert a valid number.");
+            }
+        }
         try {
             theController.changeUserAlertsLimit(limit);
+            System.out.println("User alert limit change sucessfully.");
         } catch (IOException ex) {
             Logger.getLogger(ConfigurateUserAlertsLimitUI.class.getName()).log(Level.SEVERE, null, ex);
         }
