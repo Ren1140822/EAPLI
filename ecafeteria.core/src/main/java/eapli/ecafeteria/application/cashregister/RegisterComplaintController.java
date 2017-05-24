@@ -47,9 +47,9 @@ public class RegisterComplaintController implements Controller {
         builder.withDish(dish);
     }
 
-    public boolean insertMecanograficNumber(int number) {
+    public boolean insertMecanograficNumber(String number) {
         try {
-            CafeteriaUser user = userRepository.findByMecanographicNumber(new MecanographicNumber(String.valueOf(number)));
+            CafeteriaUser user = userRepository.findByMecanographicNumber(new MecanographicNumber((number)));
             builder.withMecanograficNumber(number);
         } catch (Exception e) {
             return false;

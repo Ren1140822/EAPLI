@@ -29,11 +29,11 @@ public class ComplaintBootstrapper implements Action {
         final DishTypeRepository dishTypeRepo = PersistenceContext.repositories().dishTypes();
         final DishType vegie = dishTypeRepo.findByAcronym("vegie");
         final Dish dish = new Dish(vegie, Designation.valueOf("Summer Salad"), Money.euros(55.0));
-        register("I did not like the dish!", dish, 11111);
+        register("I did not like the dish!", dish, "11111");
         return false;
     }
 
-    private void register(String complaint, Dish dish, int number) {
+    private void register(String complaint, Dish dish, String number) {
         final RegisterComplaintController controller = new RegisterComplaintController();
         try {
             controller.insertComplaint(complaint);
