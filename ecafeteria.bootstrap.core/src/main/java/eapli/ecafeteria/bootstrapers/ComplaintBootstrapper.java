@@ -1,19 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package eapli.ecafeteria.bootstrapers;
 
 import eapli.ecafeteria.application.cashregister.RegisterComplaintController;
-import eapli.ecafeteria.domain.cafeteria.MecanographicNumber;
 import eapli.ecafeteria.domain.meals.Dish;
-import eapli.ecafeteria.domain.meals.DishType;
-import eapli.ecafeteria.persistence.DishTypeRepository;
+import eapli.ecafeteria.persistence.DishRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.framework.actions.Action;
 import eapli.framework.domain.Designation;
-import eapli.framework.domain.Money;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
 import java.util.logging.Logger;
@@ -26,10 +18,11 @@ public class ComplaintBootstrapper implements Action {
 
     @Override
     public boolean execute() {
-        final DishTypeRepository dishTypeRepo = PersistenceContext.repositories().dishTypes();
-        final DishType vegie = dishTypeRepo.findByAcronym("vegie");
-        final Dish dish = new Dish(vegie, Designation.valueOf("Summer Salad"), Money.euros(55.0));
-        register("I did not like the dish!", dish, 11111);
+        final DishRepository dishes = PersistenceContext.repositories().dishes();
+        final Dish dish = dishes.findByName(Designation.valueOf("Chop Sausage"));
+
+        register("I did not like the dish!", dish, 150330);
+
         return false;
     }
 

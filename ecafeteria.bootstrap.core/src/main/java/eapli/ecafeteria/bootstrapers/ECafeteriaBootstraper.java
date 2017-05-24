@@ -17,21 +17,23 @@ public class ECafeteriaBootstraper implements Action {
     @Override
     public boolean execute() {
         // declare bootstrap actions
-        final Action[] actions = {new UsersBootstraper(),
+        final Action[] actions = {
+            new UsersBootstraper(),
             new AllergenBootstraper(),
             new DishTypesBootstraper(),
             new OrganicUnitBootstraper(),
+            new CashRegisterBootstraper(),
             new CafeteriaUserBootstraper(),
+            new TransactionBootstraper(),
             new DishBootstraper(),
             new MaterialsBootstraper(),
-            new MealsPreparedBootstraper(),
             new MenuBootstraper(),
             new BookingBootstraper(),
             new MaterialUsedBootstraper(),
-            new CashRegisterBootstraper(),
+            new MealsPreparedBootstraper(),
             new ShiftBootstraper(),
-            new ComplaintBootstrapper()};
-        
+            new ComplaintBootstrapper()
+        };
 
         // authenticate a super user to be able to register new users, ...
         // in this case we will inject the session but we shouldn't do this
