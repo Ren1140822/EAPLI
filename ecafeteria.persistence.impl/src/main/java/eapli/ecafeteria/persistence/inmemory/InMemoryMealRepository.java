@@ -34,7 +34,7 @@ public class InMemoryMealRepository extends InMemoryRepositoryWithLongPK<Meal> i
     }
 
     @Override
-    public Iterable<Meal> findByDateAndMealType(Calendar date, MealType.MealTypes type) {
+    public Iterable<Meal> findByDateAndMealType(Calendar date, MealType type) {
         return match(e -> (e.getDate().compareTo(date) > 0 && e.mealType().equals(type)));
     }
 

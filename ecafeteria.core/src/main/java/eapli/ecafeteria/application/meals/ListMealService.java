@@ -33,7 +33,7 @@ public class ListMealService {
         return this.mealRepository.findByUntilDateAndWithoutAmountOfMealsPrepared(date);
     }
 
-    public Iterable<Meal> listMealsByDateAndMealType(Calendar date, MealType.MealTypes type) {
+    public Iterable<Meal> listMealsByDateAndMealType(Calendar date, MealType type) {
         Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
 
         return this.mealRepository.findByDateAndMealType(date, type);

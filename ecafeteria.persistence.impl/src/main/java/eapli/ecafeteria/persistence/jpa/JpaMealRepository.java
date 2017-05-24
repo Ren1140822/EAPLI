@@ -38,7 +38,7 @@ public class JpaMealRepository extends CafeteriaJpaRepositoryBase<Meal, Long> im
     }
 
     @Override
-    public Iterable<Meal> findByDateAndMealType(Calendar date, MealType.MealTypes type) {
+    public Iterable<Meal> findByDateAndMealType(Calendar date, MealType type) {
         Map<String, Object> params = new HashMap<>();
         params.put("date", date);
         params.put("type", type);

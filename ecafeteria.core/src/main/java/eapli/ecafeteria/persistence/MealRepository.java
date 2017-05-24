@@ -13,6 +13,6 @@ public interface MealRepository extends DataRepository<Meal, Long> {
     
     public Iterable<Meal> findByUntilDateAndWithoutAmountOfMealsPrepared(Calendar date);
     public Iterable<Meal> findByDate(Calendar date);
-    public Iterable<Meal> findByDateAndMealType(Calendar date, MealType.MealTypes type);
+    public Iterable<Meal> findByDateAndMealType(Calendar date, MealType type);
     public Meal findByPk(Long pk);
 }
