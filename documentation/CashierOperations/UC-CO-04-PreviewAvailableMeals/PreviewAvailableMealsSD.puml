@@ -11,16 +11,28 @@ actor Cashier
 
 Cashier -> UI : Login
 Activate UI
-UI -> Controller : showAvailableMeals()
+UI -> Controller : availableMealsPerDishType() : Map<DishType, Integer>
 Activate Controller
 Controller -> ShiftRepository : s = findOpenShift()
 Activate ShiftRepository
 Deactivate ShiftRepository
-Controller -> AvailableMealsService : getAvailableMeals(s)
-Activate AvailableMealsService
-Deactivate AvailableMealsService
+Controller -> DishTypeRepo : dts = getAllDishTypes()
+Activate DishTypeRepo
+Deactivate DishTypeRepo
+Controller -> MealsPreparedRepo : mps = FindByShift(s)
+Activate MealsPreparedRepo
+Deactivate MealsPreparedRepo
+loop forEach DishType
+Controller -> BookingRepository : dm = countDeliveredMeals(dt, s)
+Activate BookingRepository
+Deactivate BookingRepository
+end
 Controller --> UI :retrieve available meals
 Deactivate Controller
 UI -> UI : render()
 
 @enduml
+
+loop 1000 times
+            Alice -> Bob: DNS Attack
+        end

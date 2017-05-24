@@ -10,15 +10,22 @@ skinparam shadowing false
 class UI
 class PreviewAvailableMealsCntrl
 class ShiftRepository
-class AvailableMealsService
+class DishTypeRepo
+class MealsPreparedRepo
+class BookingRepository
+
 
 UI .> PreviewAvailableMealsCntrl
 PreviewAvailableMealsCntrl .> ShiftRepository
-PreviewAvailableMealsCntrl .> AvailableMealsService
+PreviewAvailableMealsCntrl .> DishTypeRepo
+PreviewAvailableMealsCntrl .> MealsPreparedRepo
+PreviewAvailableMealsCntrl .> BookingRepository
 
 UI : Render()
 PreviewAvailableMealsCntrl : showAvailableMeals()
 ShiftRepository : findOpenShift()
-AvailableMealsService : getAvailableMeals(s)
+DishTypeRepo : getAllDishTypes()
+MealsPreparedRepo : findByShift(s)
+BookingRepository : countDeliveredMeals(dt, s)
 
 @enduml
