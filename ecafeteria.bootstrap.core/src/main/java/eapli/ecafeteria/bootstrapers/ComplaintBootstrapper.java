@@ -21,12 +21,12 @@ public class ComplaintBootstrapper implements Action {
         final DishRepository dishes = PersistenceContext.repositories().dishes();
         final Dish dish = dishes.findByName(Designation.valueOf("Chop Sausage"));
 
-        register("I did not like the dish!", dish, 150330);
+        register("I did not like the dish!", dish, "150330");
 
         return false;
     }
 
-    private void register(String complaint, Dish dish, int number) {
+    private void register(String complaint, Dish dish, String number) {
         final RegisterComplaintController controller = new RegisterComplaintController();
         try {
             controller.insertComplaint(complaint);

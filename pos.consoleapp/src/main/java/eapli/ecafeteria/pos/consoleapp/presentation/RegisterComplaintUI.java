@@ -57,7 +57,7 @@ public class RegisterComplaintUI extends AbstractUI {
         if (optNumber == 1) {
             boolean res = false;
             do {
-                int number = Console.readInteger("Insert your number:");
+                String number = Console.readLine("Insert your number:");
 
                 res = this.controller.insertMecanograficNumber(number);
             } while (!res);
