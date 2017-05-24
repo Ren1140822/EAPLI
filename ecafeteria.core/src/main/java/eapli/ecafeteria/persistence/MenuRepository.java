@@ -7,6 +7,7 @@ package eapli.ecafeteria.persistence;
 
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.ecafeteria.domain.meals.Menu;
+import eapli.framework.domain.TimePeriod2;
 import eapli.framework.persistence.repositories.DataRepository;
 
 import java.util.Calendar;
@@ -17,7 +18,7 @@ import java.util.Calendar;
  */
 public interface MenuRepository extends DataRepository<Menu, Long> {
 
-    public Menu findByPk(Long pk);
+    public Menu findById(TimePeriod2 id);
     public Iterable<Menu> publishedMenu();
 
     public Iterable<Menu> publishedMenu(CafeteriaUser user);

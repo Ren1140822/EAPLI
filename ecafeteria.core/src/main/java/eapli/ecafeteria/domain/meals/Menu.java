@@ -7,17 +7,18 @@ package eapli.ecafeteria.domain.meals;
 
 import eapli.ecafeteria.domain.cafeteria.OrganicUnit;
 import eapli.framework.domain.TimePeriod2;
+import eapli.framework.domain.ddd.AggregateRoot;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
 
 /**
- * @FIXME javadoc
- * @FIXME is this an entity, a value object or an aggregate?
+ * Represents a menu through the period, organic unit, meal Eduangelo Ferreira
  */
 @Entity
-public class Menu implements Serializable {
+public class Menu implements AggregateRoot<TimePeriod2>, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +39,14 @@ public class Menu implements Serializable {
     protected Menu() {
     } //for ORM
 
+    /**
+     * Build an instance of a menu receiving the period and organic unit
+     *
+     * @param period period of menu
+     * @param organicUnit organic unit of menu
+     * @param period
+     * @param organicUnit
+     */
     public Menu(TimePeriod2 period, OrganicUnit organicUnit) {
         if (period == null || organicUnit == null) {
             throw new IllegalStateException();
@@ -48,37 +57,64 @@ public class Menu implements Serializable {
         this.period = period;
     }
 
+    /**
+     * Allows you to see whether a menu is published or not
+     *
+     * @return
+     */
     public boolean isPublished() {
         return this.published;
     }
 
-    //FIXME never, ever, do a getter! specialy of the DB PK!
-    public Long pk() {
-        return pk;
-    }
-
+    /**
+     * Lets you add meal to the menu meal list
+     *
+     * @param meals meal of menu
+     * @return list of meals
+     */
     public boolean addAllMeals(Set<Meal> meals) {
         return this.meals.addAll(meals);
     }
 
-    //FIXME return a copy or a read-only collection
+    /**
+     * Returns the list of meals from a menu
+     *
+     * @return list of meals
+     */
     public Iterable<Meal> getMeals() {
-        return meals;
+        return new ArrayList<>(meals);
     }
 
+    /**
+     * @return Organic Unit of menu
+     */
     public OrganicUnit organicUnit() {
         return organicUnit;
     }
 
+    /**
+     *
+     * @return period of menu
+     */
     public TimePeriod2 period() {
         return period;
     }
 
+    /**
+     * This method allows you to publish a menu. 
+     * From the moment you publish a menu you can not change.
+     * @return isPublished()
+     */
     public boolean publish() {
         this.published = true;
         return isPublished();
     }
 
+    /**
+     * 
+     * @param o object
+     * @return 
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -111,4 +147,31 @@ public class Menu implements Serializable {
         result = 31 * result + (published ? 1 : 0);
         return result;
     }
+
+    @Override
+    public boolean sameAs(Object other) {
+        if (!(other instanceof Dish)) {
+            return false;
+        }
+
+        final Menu that = (Menu) other;
+        if (this == that) {
+            return true;
+        }
+
+        return id().equals(that.id())
+                && period.equals(that.period())
+                && meals.equals(that.getMeals());
+    }
+
+    @Override
+    public boolean is(TimePeriod2 id) {
+        return id.equals(this.period);
+    }
+
+    @Override
+    public TimePeriod2 id() {
+        return this.period;
+    }
+
 }
