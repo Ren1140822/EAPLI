@@ -8,20 +8,23 @@ skinparam defaultFontName FG Virgil
 skinparam shadowing false
 
 package MealsPrepared-Aggregate <<Cloud>> {
-
-    package Meal-Aggregate <<Cloud>> {
-      class Meal <<AggregateRoot>>
-      class Dish <<AggregateRoot>>
-      class MealType <<ValueObject>>
-      class Calendar <<ValueObject>>
-    }
     class MealsPrepared <<AggregateRoot>>
     class Quantity <<ValueObject>>
 }
 
+package Meal-Aggregate <<Cloud>> {
+      class Meal <<AggregateRoot>>
+      class MealType <<ValueObject>>
+      class Calendar <<ValueObject>>
+    }
+
+package Dish-Aggregate <<Cloud>> {
+      class Dish <<AggregateRoot>>
+    }
+
 MealsPrepared "1" --> "1" Meal : references
 MealsPrepared "1" --> "1" Quantity : has
-Meal "*" --> "1" Dish : has
+Meal "*" --> "1" Dish : references
 Meal "*" --> "1" MealType : has
 Meal "*" --> "1" Calendar : has
 
