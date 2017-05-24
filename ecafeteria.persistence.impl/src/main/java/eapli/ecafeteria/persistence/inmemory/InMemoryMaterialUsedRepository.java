@@ -17,7 +17,7 @@ public class InMemoryMaterialUsedRepository extends InMemoryRepositoryWithLongPK
 
     @Override
     public Iterable<MaterialUsed> searchByLot(String lotCode) {
-        return match(e -> (e.batchNumber().lotCode()== lotCode));
+        return match(e -> (e.batchNumber().lotCode().equals(lotCode)));
     }
     
 }

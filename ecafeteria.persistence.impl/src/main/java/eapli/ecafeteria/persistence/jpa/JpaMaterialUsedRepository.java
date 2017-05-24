@@ -23,7 +23,7 @@ public class JpaMaterialUsedRepository extends CafeteriaJpaRepositoryBase<Materi
     public Iterable<MaterialUsed> searchByLot(String lotCode) {
         Map<String, Object> params = new HashMap<>();
         params.put("lotCode", lotCode);
-        return match("e.BatchNumber.lotCode=:lotCode");
+        return match("e.batchNumber.lotCode=:lotCode",params);
     }
 
 }

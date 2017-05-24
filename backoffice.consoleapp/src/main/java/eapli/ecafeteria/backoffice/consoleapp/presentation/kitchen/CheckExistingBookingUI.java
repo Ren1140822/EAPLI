@@ -11,6 +11,7 @@ import eapli.ecafeteria.domain.booking.Booking;
 import eapli.ecafeteria.domain.meals.DishType;
 import eapli.framework.application.Controller;
 import eapli.framework.presentation.console.AbstractUI;
+import eapli.framework.presentation.console.ListWidget;
 import eapli.framework.presentation.console.SelectWidget;
 import eapli.util.io.Console;
 import java.util.Calendar;
@@ -49,13 +50,9 @@ public class CheckExistingBookingUI extends AbstractUI {
 
         Iterable<Booking> list = theController.checkBookingsByDateMealAndDishType(date, mealType, dishType);
 
-        //    ListWidget<Booking> lister = new ListWidget<>("Bookings", list, new BookingPrinter());
-        //   lister.show();
-        for (Booking booking : list) {
-            System.out.println(booking.meal().mealType().mealType());
-            System.out.println(booking.meal().dish().dishType().acronym());
-            System.out.println(booking.meal().getDate());
-        }
+        ListWidget<Booking> lister = new ListWidget<>("Bookings", list, new BookingPrinter());
+        lister.show();
+       
 
         Console.waitForKey("Press Enter to return.");
         return true;
