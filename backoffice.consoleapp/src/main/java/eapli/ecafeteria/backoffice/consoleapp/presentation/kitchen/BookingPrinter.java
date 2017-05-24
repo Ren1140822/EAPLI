@@ -16,7 +16,7 @@ import eapli.framework.visitor.Visitor;
 
     @Override
     public void visit(Booking visitee) {
-	System.out.printf("%-10s%-30s%-10s%-10s\n", visitee.meal().dish().name(), visitee.meal().getDate().getTimeInMillis(), visitee.state(), visitee.meal().mealType().mealType());
+	System.out.printf("%-10s%-30s%-10s%-10s\n", visitee.meal().dish().name(), visitee.meal().getDate().getTime(), visitee.state(), visitee.meal().mealType().mealType());
     }
 
     @Override

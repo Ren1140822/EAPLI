@@ -31,8 +31,8 @@ public class ComplaintBuilder implements Factory<Complaint> {
         return this;
     }
 
-    public ComplaintBuilder withMecanograficNumber(String number) {
-        this.number = new MecanographicNumber(number);
+    public ComplaintBuilder withMecanograficNumber(MecanographicNumber number) {
+        this.number = number;
         return this;
     }
 

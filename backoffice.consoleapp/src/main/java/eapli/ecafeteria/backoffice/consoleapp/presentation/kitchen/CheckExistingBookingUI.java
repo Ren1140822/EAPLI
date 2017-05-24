@@ -9,17 +9,11 @@ import eapli.ecafeteria.application.kitchen.CheckExistingBookingController;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.*;
 import eapli.ecafeteria.domain.booking.Booking;
 import eapli.ecafeteria.domain.meals.DishType;
-import eapli.ecafeteria.domain.meals.MealType;
-import eapli.ecafeteria.domain.meals.MealType.MealTypes;
 import eapli.framework.application.Controller;
-import eapli.framework.presentation.console.AbstractListUI;
 import eapli.framework.presentation.console.AbstractUI;
-import eapli.framework.presentation.console.ListWidget;
 import eapli.framework.presentation.console.SelectWidget;
-import eapli.framework.visitor.Visitor;
 import eapli.util.io.Console;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  *
@@ -49,8 +43,8 @@ public class CheckExistingBookingUI extends AbstractUI {
         do {
             mealType = Console.readLine("Insert meal type (Lunch/Dinner/Both):");
 
-        } while (!mealType.equalsIgnoreCase("Jantar")
-                && !mealType.equalsIgnoreCase("Almoco")
+        } while (!mealType.equalsIgnoreCase("Dinner")
+                && !mealType.equalsIgnoreCase("Lunch")
                 && !mealType.equalsIgnoreCase("Both"));
 
         Iterable<Booking> list = theController.checkBookingsByDateMealAndDishType(date, mealType, dishType);

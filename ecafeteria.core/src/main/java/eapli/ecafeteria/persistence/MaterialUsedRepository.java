@@ -6,6 +6,7 @@
 package eapli.ecafeteria.persistence;
 
 import eapli.ecafeteria.domain.kitchen.MaterialUsed;
+import eapli.ecafeteria.domain.meals.Meal;
 import eapli.framework.persistence.repositories.DataRepository;
 
 /**
@@ -13,5 +14,7 @@ import eapli.framework.persistence.repositories.DataRepository;
  * @author Pedro Fernandes
  */
 public interface MaterialUsedRepository extends DataRepository<MaterialUsed, Long>{
+    
+    public Iterable<MaterialUsed> searchByLot(String lotCode);
     
 }
