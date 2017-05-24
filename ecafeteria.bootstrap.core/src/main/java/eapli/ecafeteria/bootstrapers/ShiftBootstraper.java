@@ -7,6 +7,7 @@ import eapli.ecafeteria.persistence.ShiftRepository;
 import eapli.framework.actions.Action;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.logging.Logger;
@@ -24,7 +25,8 @@ public class ShiftBootstraper implements Action {
 
         //Month value in Calendar is 0 based -> January = 00, February = 01 (...)
         final Calendar date1 = new GregorianCalendar(2017, 05, 10);
-        final Calendar date2 = new GregorianCalendar(2017, 05, 11);
+        final Calendar date2 = Calendar.getInstance();
+        date2.add(Calendar.DATE, -1);
 
         registerClosedShift(date1, mealType1);
         registerClosedShift(date1, mealType2);

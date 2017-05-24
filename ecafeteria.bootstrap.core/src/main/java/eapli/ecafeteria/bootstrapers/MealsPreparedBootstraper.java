@@ -5,21 +5,17 @@
  */
 package eapli.ecafeteria.bootstrapers;
 
-import eapli.ecafeteria.application.kitchen.RegisterMaterialController;
 import eapli.ecafeteria.application.kitchen.RegisterPreparedMealsController;
-import eapli.ecafeteria.domain.meals.Dish;
-import eapli.ecafeteria.domain.meals.DishType;
-import eapli.ecafeteria.domain.meals.Meal;
-import eapli.ecafeteria.domain.meals.MealType;
-import eapli.ecafeteria.domain.meals.NutricionalInfo;
+import eapli.ecafeteria.domain.meals.*;
+import eapli.ecafeteria.persistence.DishRepository;
 import eapli.ecafeteria.persistence.DishTypeRepository;
 import eapli.ecafeteria.persistence.PersistenceContext;
 import eapli.framework.actions.Action;
 import eapli.framework.domain.Designation;
 import eapli.framework.domain.Money;
-import eapli.framework.domain.TimePeriod2;
 import eapli.framework.persistence.DataConcurrencyException;
 import eapli.framework.persistence.DataIntegrityViolationException;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.logging.Logger;
@@ -46,6 +42,25 @@ public class MealsPreparedBootstraper implements Action {
         register(meal1, 100);
         register(meal2, 150);
         register(meal3, 99);
+
+        // For UC Preview Available Meals
+        final Calendar date1 = Calendar.getInstance();
+        date1.add(Calendar.DATE, -1);
+        final DishRepository dishes = PersistenceContext.repositories().dishes();
+        final Dish dish5 = dishes.findByName(Designation.valueOf("Chop Sausage"));
+        final Meal meal4 = new Meal(dish5, new MealType(MealType.MealTypes.LUNCH), date1);
+        final Dish dish6 = dishes.findByName(Designation.valueOf("Filet Steak"));
+        final Meal meal5 = new Meal(dish6, new MealType(MealType.MealTypes.LUNCH), date1);
+        final Dish dish7 = dishes.findByName(Designation.valueOf("Cod to the Brás"));
+        final Meal meal6 = new Meal(dish7, new MealType(MealType.MealTypes.LUNCH), date1);
+        final Dish dish8 = dishes.findByName(Designation.valueOf("Grilled Tofu"));
+        final Meal meal7 = new Meal(dish8, new MealType(MealType.MealTypes.LUNCH), date1);
+
+        register(meal4, 10);
+        register(meal5, 10);
+        register(meal6, 20);
+        register(meal7, 5);
+
         return false;
     }
 

@@ -32,8 +32,15 @@ public class CafeteriaUserBootstraper implements Action {
         signupAndApprove("900330", "Password1", "John", "Smith", "john@smith.com", unit, mecanographicNumber1);
         String mecanographicNumber2 = "900331";
         signupAndApprove("900331", "Password1", "Mary", "Smith", "mary@smith.com", unit, mecanographicNumber2);
-
-	return false;
+        signupAndApprove("900332", "Password1", "Albert", "Smith", "albert@smith.com", unit, "900332");
+        signupAndApprove("900333", "Password1", "John", "Doe", "john@doe.com", unit, "900333");
+        signupAndApprove("900334", "Password1", "Donald", "Trump", "donald@trump.com", unit, "900334");
+        signupAndApprove("900335", "Password1", "Barack", "Obama", "barack@obama.com", unit, "900335");
+        signupAndApprove("900336", "Password1", "Michel", "Platini", "michel@platini.com", unit, "900336");
+        signupAndApprove("900337", "Password1", "Salvador", "Sobral", "salvador@sobral.com", unit, "900337");
+        signupAndApprove("900338", "Password1", "Angelina", "Jolie", "angelina@jolie.com", unit, "900338");
+        signupAndApprove("900339", "Password1", "Rosa", "Matos", "rosa@matos.com", unit, "900339");
+        return false;
     }
 
     /**
