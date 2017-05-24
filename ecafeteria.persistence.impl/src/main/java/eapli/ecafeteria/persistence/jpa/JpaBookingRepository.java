@@ -239,7 +239,7 @@ public class JpaBookingRepository extends JpaAutoTxRepository<Booking, Long>
                 "e.meal.mealType=:mealType and " +
                 "e.meal.dish.dishType=:dishType";
 
-        return repo.count(whereClause);
+        return repo.count(whereClause, params);
     }
 
     public Iterable<Booking> findBookingsByUserAndMealAndState(CafeteriaUser user, Meal meal, BookingState state) {

@@ -30,7 +30,7 @@ public class MainMenu extends AbstractUI {
     @Override
     public boolean show() {
         drawFormTitle();
-        //displayAvailableMeals();
+        displayAvailableMeals();
         return doShow();
     }
 

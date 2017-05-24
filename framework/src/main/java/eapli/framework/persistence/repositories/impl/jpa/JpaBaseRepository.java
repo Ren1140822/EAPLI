@@ -22,7 +22,7 @@ import java.util.Optional;
  * initiate an explicit transaction relying on an outside Transaction-enabled
  * container. check JpaNocontainerRepositoryBase if you want to have transaction
  * control inside the base class.
- *
+ * <p>
  * <p>
  * based on <a href=
  * "http://stackoverflow.com/questions/3888575/single-dao-generic-crud-methods-jpa-hibernate-spring"
@@ -33,9 +33,9 @@ import java.util.Optional;
  * <a href="http://blog.xebia.com/tag/jpa-implementation-patterns/">JPA
  * implementation patterns</a>
  *
- * @author Paulo Gandra Sousa
  * @param <T> the entity type that we want to build a repository for
  * @param <K> the key type of the entity
+ * @author Paulo Gandra Sousa
  */
 public abstract class JpaBaseRepository<T, K extends Serializable> implements IterableRepository<T, K> {
 
@@ -148,8 +148,8 @@ public abstract class JpaBaseRepository<T, K extends Serializable> implements It
      *
      * @param entityId
      * @throws DataIntegrityViolationException
-     * @throws UnsuportedOperationException if the delete operation makes no
-     * sense for this repository
+     * @throws //UnsuportedOperationException  if the delete operation makes no
+     *                                         sense for this repository
      */
     @Override
     public void delete(K entityId) throws DataIntegrityViolationException {
@@ -172,7 +172,7 @@ public abstract class JpaBaseRepository<T, K extends Serializable> implements It
     @Override
     public long count() {
         final TypedQuery<Long> q = entityManager()
-                .createQuery("SELECT COUNT(*) FROM " + this.entityClass.getSimpleName(), Long.class);
+                .createQuery("SELECT COUNT(e) FROM " + this.entityClass.getSimpleName() + " e", Long.class);
         return q.getSingleResult();
     }
 
@@ -181,9 +181,15 @@ public abstract class JpaBaseRepository<T, K extends Serializable> implements It
      *
      * @return the number of entities in the persistence store, filtered by a where clause
      */
-    public long count(String where) {
+    public long count(String where, Map<String, Object> params) {
+        assert !Strings.isNullOrEmpty(where) : QUERY_MUST_NOT_BE_NULL_OR_EMPTY;
+        assert params != null && params.size() > 0 : "Params must not be null or empty";
+
         final TypedQuery<Long> q = entityManager()
-                .createQuery("SELECT COUNT(*) FROM " + this.entityClass.getSimpleName() + " e WHERE " + where, Long.class);
+                .createQuery("SELECT COUNT(e) FROM " + this.entityClass.getSimpleName() + " e WHERE " + where, Long.class);
+
+        params.forEach(q::setParameter);
+
         return q.getSingleResult();
     }
 
@@ -203,11 +209,11 @@ public abstract class JpaBaseRepository<T, K extends Serializable> implements It
 
     /**
      * Inserts or updates an entity <b>and commits</b>.
-     *
+     * <p>
      * note that you should reference the return value to use the persisted
      * entity, as the original object passed as argument might be copied to a
      * new object
-     *
+     * <p>
      * check <a href=
      * "http://blog.xebia.com/2009/03/23/jpa-implementation-patterns-saving-detached-entities/"
      * > JPA implementation patterns</a> for a discussion on saveOrUpdate()
@@ -333,7 +339,6 @@ public abstract class JpaBaseRepository<T, K extends Serializable> implements It
      * searches for objects that match the given criteria
      *
      * @param where the where clause should use "e" as the query object
-     *
      * @return
      */
     @SuppressWarnings("squid:S3346")
@@ -355,8 +360,6 @@ public abstract class JpaBaseRepository<T, K extends Serializable> implements It
 
     /**
      * searches for one object that matches the given criteria
-     *
-     *
      *
      * @param where the where clause should use "e" as the query object
      * @return
@@ -396,7 +399,6 @@ public abstract class JpaBaseRepository<T, K extends Serializable> implements It
      * an iterator over JPA
      *
      * @author Paulo Gandra Sousa
-     *
      */
     private class JpaPagedIterator implements Iterator<T> {
 
