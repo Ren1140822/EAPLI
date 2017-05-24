@@ -22,18 +22,20 @@ import java.util.Calendar;
 public interface BookingRepository extends DataRepository<Booking, Long> {
 
     /**
-     * It finds the next booking from the user which is at any of the given states.
+     * It finds the next booking from the user which is at any of the given
+     * states.
      *
-     * @param user   The user who owns the booking.
+     * @param user The user who owns the booking.
      * @param states The states in which the booking might be.
      * @return It returns the next booking or null if none was found.
      */
     Booking findNextBookingOfUserAtState(CafeteriaUser user, Iterable<BookingState> states);
 
     /**
-     * It finds the bookings of a given Cafeteria User that are at a given state.
+     * It finds the bookings of a given Cafeteria User that are at a given
+     * state.
      *
-     * @param user  The Cafeteria User that owns the booking.
+     * @param user The Cafeteria User that owns the booking.
      * @param state The state of the bookings to search for.
      * @return
      */
@@ -44,10 +46,10 @@ public interface BookingRepository extends DataRepository<Booking, Long> {
      * days, that are at one of the specified states and belongs to the
      * specified user.
      *
-     * @param user   The user to whom the Bookings belong.
+     * @param user The user to whom the Bookings belong.
      * @param states The states at which the bookings should be.
-     * @param days   The number of days (starting from the current day) in which
-     *               the booking's meal should occur.
+     * @param days The number of days (starting from the current day) in which
+     * the booking's meal should occur.
      * @return It returns all matching bookings.
      */
     Iterable<Booking> findBookingByUserAndStatesAndWithinDays(CafeteriaUser user, Iterable<BookingState> states, int days);
@@ -61,7 +63,7 @@ public interface BookingRepository extends DataRepository<Booking, Long> {
     /**
      * It gets all the non evaluated bookings from the user.
      *
-     * @param user  The user to whom the Bookings belong.
+     * @param user The user to whom the Bookings belong.
      * @param state The state at which the bookings should be.
      * @return It returns all matching bookings.
      */
@@ -72,13 +74,17 @@ public interface BookingRepository extends DataRepository<Booking, Long> {
     /**
      * Counts how many meals where delivered for a specific dish type and shift.
      *
-     * @param shift    The shift (date & meal type) to count
+     * @param shift The shift (date & meal type) to count
      * @param dishType the filtered dish type
      * @return the number of delvered meals or -1 if unavailable
      */
     Long countDeliveredMeals(Shift shift, DishType dishType);
 
+    Long countAllDeliveredMeals(Shift shift);
+
     Booking findLatestBookingOfUserInDefinitiveState(CafeteriaUser user);
 
     Iterable<Booking> findBookingByDateAndStateAndUser(Calendar startDate, Calendar endDate, CafeteriaUser user, BookingState state);
+    
+     Iterable<Booking> findBookingsDeliveredInShift(Shift shift);
 }
