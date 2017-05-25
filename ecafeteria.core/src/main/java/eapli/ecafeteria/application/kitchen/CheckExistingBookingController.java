@@ -27,12 +27,11 @@ import java.util.Date;
  */
 public class CheckExistingBookingController implements Controller {
 
-    private final BookingRepository repository = PersistenceContext.repositories().bookings(null);
+    private final ListBookingsService bookingsService = new ListBookingsService();
 
     //TODO preferably, controllers should not have state
 
     public Iterable<Booking> checkBookingsByDateMealAndDishType(Calendar date, String mealType, DishType dishType) {
-        //Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
         ArrayList<MealType> mealTypes = new ArrayList<>();
         
         final MealTypes mealTypee=null;
@@ -40,20 +39,18 @@ public class CheckExistingBookingController implements Controller {
         if(mealType.equalsIgnoreCase("Lunch")){
             mealTypes.add(new MealType(mealTypee.LUNCH));
             
-            return this.repository.checkBookingsByDateMealAndDishType(date, mealTypes , dishType);
+            return this.bookingsService.listBookingsByDateMealAndDishType(date, mealTypes , dishType);
         } 
         else if (mealType.equalsIgnoreCase("Dinner")){
             mealTypes.add(new MealType(mealTypee.DINNER));
             
-            return this.repository.checkBookingsByDateMealAndDishType(date, mealTypes, dishType);
+            return this.bookingsService.listBookingsByDateMealAndDishType(date, mealTypes, dishType);
         }
         
         mealTypes.add(new MealType(mealTypee.LUNCH));
         mealTypes.add(new MealType(mealTypee.DINNER));
         
-        return this.repository.checkBookingsByDateMealAndDishType(date, mealTypes, dishType);
-        
-      
+        return this.bookingsService.listBookingsByDateMealAndDishType(date, mealTypes, dishType);
         }
     
     /**
@@ -67,7 +64,6 @@ public class CheckExistingBookingController implements Controller {
     }
     
     public Iterable<MealType.MealTypes> listMealTypes(){
-        //Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
         return new ListMealTypeService().allMealTypes();
     }
 }
