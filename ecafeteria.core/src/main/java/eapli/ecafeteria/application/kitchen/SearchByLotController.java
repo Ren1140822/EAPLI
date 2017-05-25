@@ -5,6 +5,8 @@
  */
 package eapli.ecafeteria.application.kitchen;
 
+import eapli.ecafeteria.Application;
+import eapli.ecafeteria.domain.authz.ActionRight;
 import eapli.ecafeteria.domain.kitchen.MaterialUsed;
 import eapli.ecafeteria.domain.meals.Meal;
 import eapli.ecafeteria.persistence.MaterialUsedRepository;
@@ -19,24 +21,12 @@ import java.util.ArrayList;
  */
 public class SearchByLotController implements Controller {
     
-    private final MaterialUsedRepository repository = PersistenceContext.repositories().materialUsed();
+    private final ListMaterialService svc = new ListMaterialService();
    
-    
-    
-    public Iterable<MaterialUsed> searchMaterialsUsedByLot(String lotCode) {
-        
-       return repository.searchByLot(lotCode);
-        
-    }
    
     public Iterable<Meal> showMealInMaterialsUsedByLot(String lotCode){
-        Iterable<MaterialUsed> materialsUsedList = searchMaterialsUsedByLot(lotCode);
-        ArrayList<Meal> meals = new ArrayList<>();
-        for (MaterialUsed materialUsed : materialsUsedList) {
-            meals.add(materialUsed.meal());
-        }
-        
-        return meals;
+        Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
+        return svc.showMealInMaterialsUsedByLot(lotCode);
     }
     
 }
