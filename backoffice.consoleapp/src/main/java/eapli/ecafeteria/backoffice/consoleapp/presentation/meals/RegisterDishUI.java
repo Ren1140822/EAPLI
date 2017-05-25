@@ -92,10 +92,10 @@ public class RegisterDishUI extends AbstractUI {
                 if (index == -1) {
                     stop=true;
 
-                } else if (index > numAllergens || index<0){
+                } else if (index > numAllergens || index<1){
                     System.err.println("Invalid index\n");
                 } else {
-                    allergensToAdd.add(allergens.get(index));
+                    allergensToAdd.add(allergens.get(index-1));
                 }
                 System.out.println("Insert another index to add or type -1 to finish\n");
             } while (!stop);
