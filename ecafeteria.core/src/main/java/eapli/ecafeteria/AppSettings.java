@@ -90,6 +90,14 @@ public class AppSettings {
     public String getMecanographicNumberValidation(String organicUnitAcronym) {
         return this.applicationProperties.getProperty(organicUnitAcronym);
     }
+    
+    public String getKitchenRedLimit(){
+        return this.applicationProperties.getProperty(KITCHEN_RED_ALERT);
+    }
+    
+    public String getKitchenYellowLimit(){
+        return this.applicationProperties.getProperty(KITCHEN_YELLOW_ALERT);
+    }
 
     public void changeUserAlertsLimit(int multiplicationFactor) {
         this.applicationProperties.setProperty(USER_ALERT_LIMITS, String.valueOf(multiplicationFactor));
