@@ -23,19 +23,16 @@ public class ListMaterialService {
     
     
       public Iterable<MaterialUsed> searchMaterialsUsedByLot(String lotCode) {
-        
        return repo.searchByLot(lotCode);
         
     }
-        public Iterable<Meal> showMealInMaterialsUsedByLot(String lotCode){
-        Iterable<MaterialUsed> materialsUsedList = searchMaterialsUsedByLot(lotCode);
-        ArrayList<Meal> meals = new ArrayList<>();
-        for (MaterialUsed materialUsed : materialsUsedList) {
-            meals.add(materialUsed.meal());
-        }
-        
-        return meals;
-    }
+//        public Iterable<Meal> showMealInMaterialsUsedByLot(String lotCode){
+//        Iterable<MaterialUsed> materialsUsedList = searchMaterialsUsedByLot(lotCode);
+//        ArrayList<Meal> meals = new ArrayList<>();
+//        for (MaterialUsed materialUsed : materialsUsedList) {
+//            meals.add(materialUsed.meal());
+//        }
+//        
+//        return meals;
+    }       
     
-        
-}

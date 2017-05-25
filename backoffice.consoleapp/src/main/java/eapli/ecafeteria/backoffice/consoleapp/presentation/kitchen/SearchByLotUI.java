@@ -7,6 +7,7 @@ package eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen;
 
 import eapli.ecafeteria.application.kitchen.SearchByLotController;
 import eapli.ecafeteria.backoffice.consoleapp.presentation.meals.MealPrinter;
+import eapli.ecafeteria.domain.kitchen.MaterialUsed;
 import eapli.ecafeteria.domain.meals.Meal;
 import eapli.framework.application.Controller;
 import eapli.framework.presentation.console.AbstractUI;
@@ -30,13 +31,13 @@ public class SearchByLotUI extends AbstractUI {
     @Override
     protected boolean doShow() {
         String lotCode;
-        Iterable<Meal> list = new ArrayList<>();
+        Iterable<MaterialUsed> list = new ArrayList<>();
        
         lotCode = Console.readLine("Insert a lot code:");
         
         list = theController.showMealInMaterialsUsedByLot(lotCode);
         
-        ListWidget<Meal> lister = new ListWidget<>("Meal", list, new MealPrinter());
+        ListWidget<MaterialUsed> lister = new ListWidget<>("Meal", list, new MaterialUsedPrinter());
         
         lister.show();
         

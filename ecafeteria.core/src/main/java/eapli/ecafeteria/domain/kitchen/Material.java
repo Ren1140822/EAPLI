@@ -49,6 +49,10 @@ public class Material implements AggregateRoot<String>, Serializable {
         this.acronym = name;
         this.description = description;
     }
+    
+    public String acronym(){
+        return this.acronym;
+    }
 
     public String description() {
         return this.description;

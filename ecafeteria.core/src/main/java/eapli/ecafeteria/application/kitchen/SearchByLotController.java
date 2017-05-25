@@ -24,9 +24,9 @@ public class SearchByLotController implements Controller {
     private final ListMaterialService svc = new ListMaterialService();
    
    
-    public Iterable<Meal> showMealInMaterialsUsedByLot(String lotCode){
+    public Iterable<MaterialUsed> showMealInMaterialsUsedByLot(String lotCode){
         Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
-        return svc.showMealInMaterialsUsedByLot(lotCode);
+        return svc.searchMaterialsUsedByLot(lotCode);
     }
     
 }

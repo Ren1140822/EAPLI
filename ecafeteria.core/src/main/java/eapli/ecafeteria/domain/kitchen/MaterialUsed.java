@@ -55,6 +55,10 @@ public class MaterialUsed implements AggregateRoot<Long>, Serializable {
         return this.meal;
     }
     
+    public Material material(){
+        return this.material;
+    }
+    
     @Override
     public boolean sameAs(Object other) {
         if (!(other instanceof MaterialUsed)) {
