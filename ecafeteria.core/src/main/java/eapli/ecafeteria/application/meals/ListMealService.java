@@ -38,5 +38,6 @@ public class ListMealService {
 
         return this.mealRepository.findByDateAndMealType(date, type);
     }
+    
 
 }

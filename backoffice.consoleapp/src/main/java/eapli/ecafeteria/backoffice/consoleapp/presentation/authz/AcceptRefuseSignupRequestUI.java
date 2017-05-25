@@ -54,7 +54,8 @@ public class AcceptRefuseSignupRequestUI extends AbstractUI {
 		    break;
 		}
 	    } catch (DataIntegrityViolationException | DataConcurrencyException ex) {
-		Logger.getLogger(AcceptRefuseSignupRequestUI.class.getName()).log(Level.SEVERE, null, ex);
+		Logger.getLogger(AcceptRefuseSignupRequestUI.class.getName()).log(Level.FINE, null, ex);
+                System.out.println("There is already an user with the same data.");
 	    }
 	}
 	return false;

@@ -7,6 +7,7 @@ package eapli.ecafeteria.backoffice.consoleapp.presentation.kitchen;
 
 import eapli.ecafeteria.domain.booking.Booking;
 import eapli.framework.visitor.Visitor;
+import eapli.util.DateTime;
 
 /**
  *
@@ -16,7 +17,7 @@ import eapli.framework.visitor.Visitor;
 
     @Override
     public void visit(Booking visitee) {
-	System.out.printf("%-10s%-30s%-10s%-10s\n", visitee.meal().dish().name(), visitee.meal().getDate().getTime(), visitee.state(), visitee.meal().mealType().mealType());
+	System.out.printf("%-15s%-15s%-10s%-4s\n", visitee.meal().dish().name(), DateTime.format(visitee.meal().getDate()), visitee.state(), visitee.meal().mealType().mealType());
     }
 
     @Override

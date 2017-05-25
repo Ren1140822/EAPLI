@@ -27,33 +27,19 @@ import java.util.Date;
  */
 public class CheckExistingBookingController implements Controller {
 
-    private final BookingRepository repository = PersistenceContext.repositories().bookings(null);
+    private final ListBookingsService bookingsService = new ListBookingsService();
 
     //TODO preferably, controllers should not have state
 
+     /**
+     * gets the bookings searching by given Date Meal Type and Dish Type
+     * 
+     * @return bookings
+     */
+    
     public Iterable<Booking> checkBookingsByDateMealAndDishType(Calendar date, String mealType, DishType dishType) {
-        //Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
-        ArrayList<MealType> mealTypes = new ArrayList<>();
-        
-        final MealTypes mealTypee=null;
-        
-        if(mealType.equalsIgnoreCase("Lunch")){
-            mealTypes.add(new MealType(mealTypee.LUNCH));
-            
-            return this.repository.checkBookingsByDateMealAndDishType(date, mealTypes , dishType);
-        } 
-        else if (mealType.equalsIgnoreCase("Dinner")){
-            mealTypes.add(new MealType(mealTypee.DINNER));
-            
-            return this.repository.checkBookingsByDateMealAndDishType(date, mealTypes, dishType);
-        }
-        
-        mealTypes.add(new MealType(mealTypee.LUNCH));
-        mealTypes.add(new MealType(mealTypee.DINNER));
-        
-        return this.repository.checkBookingsByDateMealAndDishType(date, mealTypes, dishType);
-        
-      
+        Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
+        return this.bookingsService.listBookingsByDateMealAndDishType(date, mealType, dishType);
         }
     
     /**
@@ -62,12 +48,12 @@ public class CheckExistingBookingController implements Controller {
      * @return
      */
     public Iterable<DishType> listDishTypes() {
-        
+        Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
 	return new ListDishTypeController().listDishTypesMANAGER();
     }
     
     public Iterable<MealType.MealTypes> listMealTypes(){
-        //Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
+        Application.ensurePermissionOfLoggedInUser(ActionRight.MANAGE_KITCHEN);
         return new ListMealTypeService().allMealTypes();
     }
 }

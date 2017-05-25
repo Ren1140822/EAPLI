@@ -28,7 +28,7 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
      * It finds the next booking from the user which is at any of the given
      * states.
      *
-     * @param user   The user who owns the booking.
+     * @param user The user who owns the booking.
      * @param states The states in which the booking might be.
      * @return It returns the next booking or null if none was found.
      */
@@ -53,7 +53,7 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
      * It finds the bookings of a given Cafeteria User that are at a given
      * state.
      *
-     * @param user  The Cafeteria User that owns the booking.
+     * @param user The Cafeteria User that owns the booking.
      * @param state The state of the bookings to search for.
      * @return
      */
@@ -67,10 +67,10 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
      * days, that are at one of the specified states and belongs to the
      * specified user.
      *
-     * @param user   The user to whom the Bookings belong.
+     * @param user The user to whom the Bookings belong.
      * @param states The states at which the bookings should be.
-     * @param days   The number of days (starting from the current day) in which
-     *               the booking's meal should occur.
+     * @param days The number of days (starting from the current day) in which
+     * the booking's meal should occur.
      * @return It returns all matching bookings.
      */
     @Override
@@ -98,7 +98,7 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
     /**
      * It checks if the booking is at one of the states of the list.
      *
-     * @param states  The list with the states.
+     * @param states The list with the states.
      * @param booking THe booking to be examined.
      * @return It returns "true" if the booking is at one of the states within
      * the list or "false" otherwise.
@@ -126,6 +126,10 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
         return match(e -> e.meal().getDate().compareTo(date) == 0 && e.meal().mealType().isOf(MealType.MealTypes.valueOf(mealType.mealType())) && e.isAtState(state));
     }
 
+    public Iterable<Booking> findBookingsByUserAndMealAndState(CafeteriaUser user, Meal meal, BookingState state) {
+        return match(e -> e.belongsTo(user) && e.meal().getDate().compareTo(meal.getDate()) == 0 && e.isAtState(state));
+    }
+
     public Booking findLatestBookingOfUserInDefinitiveState(CafeteriaUser user) {
         Iterable<Booking> bookings = match(e -> e.belongsTo(user) && e.isAtState(BookingState.DEFINITIVE));
         Comparator<Booking> comp = new Comparator<Booking>() {
@@ -142,21 +146,35 @@ public class InMemoryBookingRepository extends InMemoryRepositoryWithLongPK<Book
 
     @Override
     public Long countDeliveredMeals(Shift shift, DishType dishType) {
-        Iterable<Booking> deliveredMeals = match(e ->
-                e.isSameDate(shift.date()) &&
-                        e.isAtState(BookingState.DELIVERED) &&
-                        e.isOfMealType(shift.mealType()));
+        Iterable<Booking> deliveredMeals = match(e
+                -> e.isSameDate(shift.date())
+                && e.isAtState(BookingState.DELIVERED)
+                && e.isOfMealType(shift.mealType()));
 
         return deliveredMeals.spliterator().getExactSizeIfKnown();
     }
 
-    public Iterable<Booking> findBookingsByUserAndMealAndState(CafeteriaUser user, Meal meal, BookingState state) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    @Override
+    public Iterable<Booking> findBookingByDateAndStateAndUser(Calendar startDate, Calendar endDate, CafeteriaUser user, BookingState state) {
+        return match(e -> e.belongsTo(user) && DateTime.isUntil(e.meal().getDate(), endDate) && DateTime.isOnwards(e.meal().getDate(), startDate)
+                && e.isAtState(state));
     }
 
     @Override
-    public Iterable<Booking> findBookingByDateAndStateAndUser(Calendar startDate, Calendar endDate, CafeteriaUser user, BookingState state) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Long countAllDeliveredMeals(Shift shift) {
+        Iterable<Booking> deliveredMeals = match(e
+                -> e.isSameDate(shift.date())
+                && e.isAtState(BookingState.DELIVERED)
+                && e.isOfMealType(shift.mealType()));
+
+        return deliveredMeals.spliterator().getExactSizeIfKnown();
     }
 
+    @Override
+    public Iterable<Booking> findBookingsDeliveredInShift(Shift shift) {
+      return match(e -> e.meal().getDate().compareTo(shift.date()) == 0 && e.meal().mealType().isOf(MealType.MealTypes.valueOf(shift.mealType().mealType())) && e.isAtState(BookingState.DELIVERED));
+    }
+
+    
+    
 }

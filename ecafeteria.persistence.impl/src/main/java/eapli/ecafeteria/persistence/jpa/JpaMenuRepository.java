@@ -8,6 +8,7 @@ package eapli.ecafeteria.persistence.jpa;
 import eapli.ecafeteria.domain.cafeteria.CafeteriaUser;
 import eapli.ecafeteria.domain.meals.Menu;
 import eapli.ecafeteria.persistence.MenuRepository;
+import eapli.framework.domain.TimePeriod2;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -20,8 +21,8 @@ import java.util.Map;
 public class JpaMenuRepository extends CafeteriaJpaRepositoryBase<Menu, Long> implements MenuRepository {
 
     @Override
-    public Menu findByPk(Long pk) {
-        return matchOne("e.pk=pk", "pk", pk);
+    public Menu findByPeriod(TimePeriod2 period) {
+        return matchOne("e.period=period", "period", period);
     }
 
     @Override

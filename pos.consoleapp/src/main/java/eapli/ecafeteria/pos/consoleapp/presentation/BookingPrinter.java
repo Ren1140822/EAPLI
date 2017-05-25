@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eapli.ecafeteria.user.consoleapp.presentation.booking;
+package eapli.ecafeteria.pos.consoleapp.presentation;
 
 import eapli.ecafeteria.domain.booking.Booking;
 import eapli.framework.visitor.Visitor;

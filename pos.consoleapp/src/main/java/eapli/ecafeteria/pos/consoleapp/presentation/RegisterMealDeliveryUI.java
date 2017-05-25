@@ -23,7 +23,7 @@ public class RegisterMealDeliveryUI extends AbstractUI {
         final String mecanographicNumberString = Console
                 .readLine("Enter the Mecanographic Number to register meal delivery: ");
         controller = new RegisterMealDeliveryController(mecanographicNumberString);
-        System.out.println(this.controller.registerMealDelivery() ? "Meal delivery registered sucessfully." : "No bookings in the right state of this user were found for this user. Operation failed.");
+        System.out.println(this.controller.registerMealDelivery() ? "Meal delivery registered sucessfully." : "No bookings in the right state of this user were found for this user OR cash register is closed. Operation failed.");
         return false;
     }
 

@@ -29,6 +29,7 @@
     <class>eapli.ecafeteria.domain.cafeteria.cashregister.Shift</class>
     <class>eapli.ecafeteria.domain.cafeteria.cashregister.Complaint</class>
     <class>eapli.ecafeteria.domain.cafeteria.account.Purchase</class>
+    <class>eapli.ecafeteria.domain.cafeteria.cashregister.CashRegisterLog</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/db/ecafeteria"/>
       <property name="javax.persistence.jdbc.user" value="sa"/>

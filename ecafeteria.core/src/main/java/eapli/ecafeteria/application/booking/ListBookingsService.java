@@ -43,9 +43,36 @@ public class ListBookingsService {
     public Iterable<Booking> findBookingsStateDefinitiveOf(CafeteriaUser user) {
         return this.repo.findBookingByUserAndState(user, BookingState.DEFINITIVE);
     }
-
-    public Iterable<Booking> listBookingsByDateMealAndDishType(Calendar date, Iterable <MealType> mealType, DishType dishType) {
-        return this.repo.checkBookingsByDateMealAndDishType(date, mealType, dishType);
+    
+     /**
+     * Lists all existing bookings at a given date, with a certain meal type and dish type
+     
+     * @param date date for search
+     * @param mealType meal type for search
+     * @param dishType dish type for search
+     * 
+     * @return Returns an iterable with all the bookings fitting the parameters
+     */
+    public Iterable<Booking> listBookingsByDateMealAndDishType(Calendar date, String mealType, DishType dishType) {
+                ArrayList<MealType> mealTypes = new ArrayList<>();
+        
+        final MealType.MealTypes mealTypee=null;
+        
+        if(mealType.equalsIgnoreCase("Lunch")){
+            mealTypes.add(new MealType(mealTypee.LUNCH));
+            
+            return this.repo.checkBookingsByDateMealAndDishType(date, mealTypes , dishType);
+        } 
+        else if (mealType.equalsIgnoreCase("Dinner")){
+            mealTypes.add(new MealType(mealTypee.DINNER));
+            
+            return this.repo.checkBookingsByDateMealAndDishType(date, mealTypes, dishType);
+        }
+        
+        mealTypes.add(new MealType(mealTypee.LUNCH));
+        mealTypes.add(new MealType(mealTypee.DINNER));
+        
+        return this.repo.checkBookingsByDateMealAndDishType(date, mealTypes, dishType);
     }
 
     /**

@@ -115,4 +115,9 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     public ComplaintRepository complaints() {
         return new InMemoryComplaintRepository();
     }
+
+    @Override
+    public CashRegisterLogRepository cashRegisterLogs() {
+       return new InMemoryCashRegisterLogRepository();
+    }
 }

@@ -71,4 +71,6 @@ public interface RepositoryFactory {
     ShiftRepository shifts();
     
     ComplaintRepository complaints();
+    
+    CashRegisterLogRepository cashRegisterLogs();
 }

@@ -5,6 +5,8 @@
  */
 package eapli.ecafeteria.persistence.jpa;
 
+import eapli.ecafeteria.domain.booking.Booking;
+import eapli.ecafeteria.domain.booking.BookingState;
 import eapli.ecafeteria.domain.cafeteria.cashregister.Shift;
 import eapli.ecafeteria.domain.kitchen.MealsPrepared;
 import eapli.ecafeteria.persistence.MealsPreparedRepository;
@@ -28,5 +30,14 @@ public class JpaMealsPreparedRepository extends CafeteriaJpaRepositoryBase<Meals
         return match("e.meal.date=:date and e.meal.mealType=:mealType", params);
     }
 
+    @Override
+     public Long countWithBookedState(Booking booking, BookingState state){  
+         Map<String,Object> params = new HashMap<>();
+         params.put("state", state);
+         params.put("meal", booking.meal());
+         
+         String whereClause= "e.state=:state and e.meal=:meal";
 
+        return count(whereClause, params);
+     }     
 }
